@@ -7,45 +7,40 @@
 
 /* Styling for the apps grid */
 .apps-container {
-    display: grid;
-    gap: 5px; /* Reduced gap between cards */
+    display: flex; /* Use flexbox for dynamic horizontal alignment */
+    flex-wrap: wrap; /* Allow wrapping to the next row if necessary */
+    gap: 20px; /* Adjust spacing between cards */
+    justify-content: center; /* Center the cards horizontally */
+    align-items: flex-start; /* Align items to the top */
     padding: 20px;
-    justify-content: center; /* Center the grid content horizontally */
     margin: 0 auto; /* Center the container */
-    width: 90%; /* Set the container to take up 90% of the screen width */
-    max-width: 1200px; /* Optional: Max width for larger screens */
-    min-width: 300px; /* Optional: Set a minimum width for smaller screens */
-    height: auto; /* Allow container height to adjust based on the content */
-    overflow: hidden; /* Hide any overflow */
-    justify-items: center; /* Align cards to the center of each grid cell */
-    grid-template-columns: repeat(auto-fill, minmax(125px, 1fr)); /* Adjust the columns dynamically */
-    grid-auto-rows: 125px; /* Ensure consistent card height */
+    width: 90%; /* Adjust width */
+    max-width: 1200px; /* Prevent excessive stretching */
+    min-height: 500px; /* Ensure container doesn't collapse */
+    box-sizing: border-box; /* Ensure padding is included in the width calculation */
+    align-content: flex-start; /* Ensure rows are aligned to the top */
 }
 
 /* Styling for each individual app card */
 .app-card {
-    position: relative;
-    width: 100%; /* Allow the card to fill its container */
-    height: 100%; /* Ensure the card height matches the container's height */
-    max-width: 125px; /* Set a max width for consistency */
-    max-height: 125px; /* Set a max height to ensure consistency */
+    position: relative; /* Ensure absolute children (like ::before) are positioned correctly */
+    flex: 0 1 125px; /* Allow cards to resize dynamically but limit them to a minimum width */
+    max-width: 125px; /* Set max width to maintain uniform size */
+    min-width: 125px; /* Ensure cards are not smaller than this width */
+    height: 125px; /* Maintain consistent height */
     border-radius: 15px;
     overflow: hidden;
     cursor: pointer;
     transition: all 0.3s ease;
-    margin: 0; /* Remove any additional margin */
-    padding: 0; /* Ensure no padding */
-    box-sizing: border-box; /* Ensure the box model is correct */
-    border: 2px solid transparent; /* Default border state */
     background-color: #181825; /* Base background color */
 }
 
-/* Ensure the image fits within the card and doesn't affect its size */
+/* Ensure images fit properly */
 .app-card img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Ensures image covers the area without distortion */
-    border-radius: 15px; /* Match the border radius of the card */
+    object-fit: cover;
+    border-radius: 15px;
 }
 
 /* Add a dark overlay on the entire card */
@@ -59,7 +54,7 @@
     background-color: rgba(0, 0, 0, 0.5); /* Darker overlay */
     border-radius: 15px; /* Match border radius of the card */
     opacity: 0; /* Hide the overlay by default */
-    transition: opacity 0.3s ease; /* Transition for the overlay */
+    transition: opacity 0.3s ease-in-out; /* Ensure a smooth transition */
 }
 
 /* Hover effect for the app card */
@@ -83,14 +78,12 @@
     color: #cdd6f4;
     font-size: 12px; /* Adjust font size */
     font-weight: bold;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    
+    opacity: 0; /* Initially hidden */
+    transition: opacity 0.3s ease-in-out;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
-    
     width: 90%; /* Adjust width so text stays within the card */
     height: 100%; /* Make it fill the card */
     padding: 5px; /* Add padding to prevent overflow */
@@ -98,7 +91,41 @@
     word-wrap: break-word; /* Break long words */
 }
 
-/* Hover effect for the app card */
+/* Show the app name text on hover */
 .app-card:hover .app-name {
     opacity: 1; /* Make the text visible on hover */
+}
+
+/* Ensure hidden cards don't affect layout */
+.app-card.hide {
+    visibility: hidden; /* Hide cards but maintain layout */
+}
+
+/* Ensure no unwanted gaps between rows */
+.apps-container::after {
+    content: "";
+    flex-basis: 100%; /* Force the last row to use the full width */
+    height: 0;
+}
+
+#search-input {
+    background: #181825;
+    color: #cdd6f4;
+    font-size: inherit;
+    font-family: inherit;
+    border: none;
+    outline: none;
+    padding: 1rem;
+    border-radius: 5px;
+    width: 21rem;
+    transition: background 0.3s;
+}
+
+#search-input:hover,
+#search-input:focus {
+    background: #1e1e2e;
+}
+
+#search-input::placeholder {
+    color: #45475a;
 }

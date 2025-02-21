@@ -115,6 +115,12 @@ body {
     border-radius: 16px;
     width: 42rem;
     max-width: calc(100% - 2rem);
+    transition: background 0.3s;
+}
+
+#search:hover,
+#search:focus {
+    background: #1e1e2e;
 }
 
 #search::placeholder {

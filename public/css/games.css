@@ -9,18 +9,23 @@
     display: flex; /* Use flexbox for dynamic horizontal alignment */
     flex-wrap: wrap; /* Allow wrapping to the next row if necessary */
     gap: 20px; /* Adjust spacing between cards */
-    justify-content: center; /* Center the cards */
-    align-items: center; /* Align vertically */
+    justify-content: center; /* Center the cards horizontally */
+    align-items: flex-start; /* Align items to the top */
     padding: 20px;
     margin: 0 auto; /* Center the container */
     width: 90%; /* Adjust width */
     max-width: 1200px; /* Prevent excessive stretching */
+    min-height: 500px; /* Ensure container doesn't collapse */
+    box-sizing: border-box; /* Ensure padding is included in the width calculation */
+    align-content: flex-start; /* Ensure rows are aligned to the top */
 }
 
-/* Updated card styles to maintain consistent sizing */
+/* Ensure game cards are properly positioned */
 .game-card {
-    flex: 1 1 125px; /* Allow cards to resize dynamically */
+    position: relative; /* Ensure absolute children (like ::before) are positioned correctly */
+    flex: 0 1 125px; /* Allow cards to resize dynamically but limit them to a minimum width */
     max-width: 125px; /* Set max width to maintain uniform size */
+    min-width: 125px; /* Ensure cards are not smaller than this width */
     height: 125px; /* Maintain consistent height */
     border-radius: 15px;
     overflow: hidden;
@@ -37,7 +42,6 @@
     border-radius: 15px;
 }
 
-
 /* Add a dark overlay on the entire card */
 .game-card::before {
     content: "";
@@ -49,7 +53,7 @@
     background-color: rgba(0, 0, 0, 0.5); /* Darker overlay */
     border-radius: 15px; /* Match border radius of the card */
     opacity: 0; /* Hide the overlay by default */
-    transition: opacity 0.3s ease; /* Transition for the overlay */
+    transition: opacity 0.3s ease-in-out; /* Ensure a smooth transition */
 }
 
 /* Hover effect for the game card */
@@ -73,14 +77,14 @@
     color: #cdd6f4;
     font-size: 12px; /* Adjust font size */
     font-weight: bold;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    
+    opacity: 0; /* Initially hidden */
+    transition: opacity 0.3s ease-in-out;
+
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
-    
+
     width: 90%; /* Adjust width so text stays within the card */
     height: 100%; /* Make it fill the card */
     padding: 5px; /* Add padding to prevent overflow */
@@ -88,7 +92,41 @@
     word-wrap: break-word; /* Break long words */
 }
 
-/* Hover effect for the game card */
+/* Show the game name text on hover */
 .game-card:hover .game-name {
     opacity: 1; /* Make the text visible on hover */
+}
+
+/* Ensure hidden cards don't affect layout */
+.game-card.hide {
+    visibility: hidden; /* Hide cards but maintain layout */
+}
+
+/* Remove gaps between rows while keeping space between cards */
+.games-container::after {
+    content: "";
+    flex-basis: 100%; /* Force the last row to use the full width */
+    height: 0;
+}
+
+#search-input {
+    background: #181825;
+    color: #cdd6f4;
+    font-size: inherit;
+    font-family: inherit;
+    border: none;
+    outline: none;
+    padding: 1rem;
+    border-radius: 5px;
+    width: 21rem;
+    transition: background 0.3s;
+}
+
+#search-input:hover,
+#search-input:focus {
+    background: #1e1e2e;
+}
+
+#search-input::placeholder {
+    color: #45475a;
 }

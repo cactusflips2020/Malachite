@@ -109,6 +109,12 @@ html, body {
     outline: 2px solid #1e1e2e;
     border-radius: 5px; /* 50px border radius */
     font-family: 'montserrat';
+    transition: filter 0.3s;
+}
+
+#proxySearch:hover,
+#proxySearch:focus {
+    filter: brightness(1.1);
 }
 
 #proxySearch::placeholder {
