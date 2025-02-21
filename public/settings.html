@@ -1,0 +1,94 @@
+<!--
+add proxy switcher n panic key
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title is="chemical-title" data-title-store>Mewing Academy</title>
+		<link rel="icon" is="chemical-icon" data-icon-store href="img/favicon.ico">
+		<link rel="stylesheet" href="css/index.css">
+        <link rel="stylesheet" href="css/settings.css">
+		<script src="/chemical.js"></script>
+		<script src="/chemical.components.js"></script>
+        <script src="/chemical.cloaking.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+	</head>
+	<body>
+		<div class="navbar">
+			<div class="logo-container">
+				<a href="index.html">
+					<img src="/img/logo.png" alt="Logo">
+				</a>
+				<a href="index.html">Mewing Academy</a>
+			</div>
+			<div class="nav-links">
+				<a href="games.html">
+					<i class="fa-solid fa-gamepad"></i> Games
+				</a>
+				<a href="apps.html">
+					<i class="fa-solid fa-cubes"></i> Apps
+				</a>
+				<a href="settings.html">
+					<i class="fa-solid fa-gear"></i> Settings
+				</a>
+			</div>
+		</div>	
+        <h1>Settings</h1>
+        <div class="settings-container">
+            <div class="setting-card">
+                <div class="setting-title">Select Transport</div>
+                <div class="setting-description">Select the transport you want the proxy to use.</div>
+                <select class="transport-select" onchange="changeTransport()">
+                    <option value="libcurl">Libcurl</option>
+                    <option value="epoxy">Epoxy</option>
+                </select>
+            </div>
+        
+            <div class="setting-card">
+                <div class="setting-title">About:Blank Cloak</div>
+                <div class="setting-description">Simple about:blank cloak to hide the site from your search history.</div>
+                <button class="setting-button" onclick="launchab()">Launch in About:Blank</button>
+                <button class="setting-button" id="autoabbutton" onclick="autoab()">Automatically launch in About:Blank</button>
+            </div>
+        
+            <div class="setting-card">
+                <div class="setting-title">Tab Cloaking</div>
+                <div class="setting-description">Disguise the tab with some of the presets.</div>
+                <select class="cloak-select" onchange="changeCloak()">
+                    <option value="Default">Default</option>
+                    <option value="Google">Google</option>
+                    <option value="Gmail">Gmail</option>
+                    <option value="Google Drive">Google Drive</option>
+                </select>
+            </div>
+            <div class="setting-card">
+                <div class="setting-title">Select Search Engine</div>
+                <div class="setting-description">Choose which search engine to use.</div>
+                <select class="searchengine-select" onchange="changeSearchEngine()">
+                    <option value="google">Google</option>
+                    <option value="duckduckgo">DuckDuckGo</option>
+                    <option value="yahoo">Yahoo</option>
+                </select>
+            </div>
+            <div class="setting-card">
+                <div class="setting-title">Leave Confirmation</div> 
+                <div class="setting-description">Shows a popup when you or another software attempt to close the page.</div> 
+                <button class="setting-button"  id="leaveconfirmbutton" onclick="leaveconfirmation()">Toggle Leave Confirmation</button>  
+            </div>
+            <div class="setting-card">
+                <div class="setting-title">Log Out</div>
+                <div class="setting-description">Signs you out of Mewing Academy.</div>
+                <button class="setting-button" onclick="signOut()" style="background-color: #d20f39;">Log out of Mewing Academy</button>
+            </div>
+        </div>
+        </div>
+		<footer id="footer">
+			Version: 1.0.0
+		</footer>
+        <script src="js/settings.js" defer></script>	
+        <script src="js/main.js" defer></script>	
+	</body>
+</html>

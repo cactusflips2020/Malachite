@@ -1,0 +1,82 @@
+/* Importing the Montserrat font */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* Apply Montserrat font globally */
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Grid layout for settings container */
+.settings-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 cards per row */
+    gap: 20px;
+    padding: 20px;
+    justify-content: center; /* Ensures grid is centered */
+}
+
+/* Style for each setting card */
+.setting-card {
+    background: #181825; /* Dark background */
+    color: #cdd6f4;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Added box-shadow transition */
+    font-family: 'montserrat';
+}
+
+.setting-card:hover {
+    transform: translateY(-5px); /* Slight lift effect */
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3); /* Enhanced shadow effect on hover */
+}
+
+/* Title and description styling for settings */
+.setting-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.setting-description {
+    font-size: 14px;
+    opacity: 0.8;
+    margin-bottom: 15px;
+}
+
+/* Styling for the dropdowns and buttons */
+.transport-select, .cloak-select, .searchengine-select, .setting-button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: transform 0.2s ease, filter 0.3s ease; /* Transition filter for darkness effect */
+}
+
+/* Dropdowns styling */
+.transport-select, .searchengine-select, .cloak-select {
+    background: #1e1e2e;
+    color: #cdd6f4;
+}
+
+/* Button styling */
+.setting-button {
+    background: #1e1e2e;
+    color: #cdd6f4;
+    font-weight: bold;
+    margin-bottom: 10px; /* Gap between buttons */
+}
+
+/* Darken effect on hover instead of changing color */
+.setting-button:hover {
+    filter: brightness(1.2);
+    transform: scale(1.05); /* Slight scaling effect on hover */
+}
+
+/* Ensure proper gap between the two buttons */
+.setting-card button + button {
+    margin-top: 10px; /* Add a gap between the buttons */
+}

@@ -1,0 +1,159 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* Make sure the navbar stays at the top */
+.navbar {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;  /* Center items vertically */
+    padding: 10px 20px !important;
+    background-color: #181825 !important;
+    width: 100% !important;
+    position: fixed !important; /* Fix position at the top */
+    top: 0 !important;
+    z-index: 1000 !important; /* Ensure it's above other content */
+    left: 0 !important; /* Ensure it's aligned with the left edge */
+    right: 0 !important; /* Ensure it's aligned with the right edge */
+    height: 60px !important; /* Fixed height for navbar */
+}
+
+.logo-container {
+    display: flex !important;
+    align-items: center !important;  /* Vertically align the logo */
+    justify-content: center !important;  /* Center logo horizontally */
+    gap: 10px !important;
+    height: 100% !important; /* Ensure logo container fills navbar height */
+}
+
+.logo-container img {
+    height: 40px !important; /* Adjusted to maintain proportions */
+    max-height: 100% !important; /* Prevent the image from overflowing */
+}
+
+.logo-container a {
+    color: #cdd6f4 !important;
+    font-size: 20px !important;
+    text-decoration: none !important;
+    transition: color 0.3s ease !important;
+    display: flex;
+    align-items: center;  /* Vertically align the text with the logo */
+    justify-content: center; /* Ensure the text is perfectly centered with respect to the container */
+}
+
+.logo-container a:hover {
+    color: #bac2de !important; /* Darker on hover */
+}
+
+.nav-links {
+    display: flex !important;
+    gap: 20px !important;
+    align-items: center !important; /* Vertically align nav links */
+}
+
+.nav-links a {
+    color: #cdd6f4 !important;
+    text-decoration: none !important;
+    font-size: 18px !important;
+    transition: color 0.3s ease !important;
+    display: flex;
+    align-items: center;  /* Vertically align text with the icon */
+    justify-content: center; /* Center the text properly within the nav link */
+    gap: 10px;  /* Increased spacing between the text and the icon */
+}
+
+
+.nav-links a:hover {
+    color: #bac2de !important; /* Darker on hover */
+}
+
+.nav-links i {
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover i {
+    color: #bac2de;  /* Change icon color on hover */
+}
+
+.nav-links svg {
+    width: 16px !important;  /* Adjust width of the SVG */
+    height: 16px !important; /* Adjust height of the SVG */
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover svg {
+    color: #bac2de;  /* Change SVG icon color on hover */
+}
+
+
+
+/* Keep other styles unchanged */
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #11111b;
+    color: #cdd6f4;
+    font-family: 'Montserrat';
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+#search {
+    background: #181825;
+    font-size: inherit;
+    color: #cdd6f4;
+    font-family: inherit;
+    border: none;
+    outline: none;
+    padding: 1rem 1rem;
+    border-radius: 16px;
+    width: 42rem;
+    max-width: calc(100% - 2rem);
+}
+
+#search::placeholder {
+    color: #45475a;
+}
+
+
+h1 {
+    margin: 0;
+    margin-bottom: 0.25rem;
+}
+
+p {
+    margin: 0;
+    margin-bottom: 2rem;
+}
+
+a {
+    color: inherit;
+}
+
+#footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    color: #cdd6f4;
+    padding: 10px 20px;
+    font-size: 14px;
+    border-top-right-radius: 10px; /* Rounded corner on the top right */
+    z-index: 1000; /* Ensures it stays above other elements */
+}
+
+/* Ensure the logo and title are centered and stacked properly */
+.logo-above-title {
+    text-align: center; /* Center the content */
+    margin-top: 20px;    /* Adjust margin to provide spacing */
+  }
+  
+  .logo-above-title img {
+    max-width: 150px;    /* Control the size of the logo */
+    margin-bottom: 10px; /* Add space between the logo and the title */
+  }

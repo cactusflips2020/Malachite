@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title is="chemical-title" data-title-store>Mewing Academy</title>
+		<link rel="icon" is="chemical-icon" data-icon-store href="img/favicon.ico">
+		<link rel="stylesheet" href="css/index.css">
+		<script src="/chemical.js"></script>
+		<script src="/chemical.components.js"></script>
+		<script src="/chemical.cloaking.js"></script>
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+	</head>
+	<body>
+		<div class="navbar">
+			<div class="logo-container">
+				<a href="index.html">
+					<img src="/img/logo.png" alt="Logo">
+				</a>
+				<a href="index.html">Mewing Academy</a>
+			</div>
+			<div class="nav-links">
+				<a href="games.html">
+					<i class="fa-solid fa-gamepad"></i> Games
+				</a>
+				<a href="apps.html">
+					<i class="fa-solid fa-cubes"></i> Apps
+				</a>
+				<a href="settings.html">
+					<i class="fa-solid fa-gear"></i> Settings
+				</a>
+			</div>
+		</div>			
+		<div class="logo-above-title">
+			<img src="/img/logo.png" alt="Logo">
+			<br>
+			<h1>Mewing Academy</h1>
+			<br>
+		</div>
+		<input
+		  autofocus
+		  spellcheck="false"
+		  autocomplete="off"
+		  id="search"
+		  data-auto-https
+		  data-search-engine="https://www.google.com/search?q=%s"
+		  placeholder="Search or Enter a URL"
+		  is="chemical-input"
+		/>
+		<script>
+			document.getElementById("search").addEventListener("keypress", async function(event) {
+				if (event.key === "Enter") {
+					event.preventDefault();  // Prevent default form submission
+		
+					const input = event.target.value.trim(); // Get input value
+					if (!input) return;  // Do nothing if input is empty
+		
+					// Encode the URL using ChemicalJS
+					const encodedUrl = await chemical.encode(input, {
+						service: "uv",             // Use Ultraviolet (uv) service for encoding
+						autoHttps: true,           // Automatically ensure the URL uses HTTPS
+						searchEngine: searchEngineUrl  // Use Google as a search engine for redirection
+					});
+		
+					// Store encoded URL in sessionStorage
+					sessionStorage.setItem("encodedUrl", encodedUrl);
+		
+					// Redirect to proxy.html
+					window.location.href = "proxy.html";
+				}
+			});
+		</script>
+		<footer id="footer">
+			Version: 1.0.0
+		</footer>	
+		<script src="js/main.js" defer></script>	
+	  <script>
+		  // List of placeholder texts
+const placeholderTexts = [
+    "Search or Enter a URL...",
+    "sigma sigma on the wall what is the best proxy of all?",
+    "teacher i swear on skibidi im doing my work",
+    "skibidi skibidi",
+    "hello there",
+    "Better than doge!"
+  ];
+  
+  // Select a random placeholder from the list
+  const randomPlaceholder = placeholderTexts[Math.floor(Math.random() * placeholderTexts.length)];
+  
+  // Set the randomly selected placeholder
+  document.getElementById('search').placeholder = randomPlaceholder;
+	  </script>
+
+	</body>
+</html>
