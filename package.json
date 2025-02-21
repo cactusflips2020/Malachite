@@ -1,14 +1,14 @@
 {
   "name": "silly-proxy-site",
   "version": "1.0.0",
-  "main": "js/proxy.js",
+  "main": "index.js",  
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "author": "phoenix",
+  "license": "GNU",
+  "description": "web proxy used for browsing the internet anonymously",
   "dependencies": {
     "chemicaljs": "^2.6.4"
   }

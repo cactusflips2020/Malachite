@@ -5,46 +5,38 @@
     box-sizing: border-box;
 }
 
-/* Styling for the games grid */
 .games-container {
-    display: grid;
-    gap: 5px; /* Reduced gap between cards */
+    display: flex; /* Use flexbox for dynamic horizontal alignment */
+    flex-wrap: wrap; /* Allow wrapping to the next row if necessary */
+    gap: 20px; /* Adjust spacing between cards */
+    justify-content: center; /* Center the cards */
+    align-items: center; /* Align vertically */
     padding: 20px;
-    justify-content: center; /* Center the grid content horizontally */
     margin: 0 auto; /* Center the container */
-    width: 90%; /* Set the container to take up 90% of the screen width */
-    max-width: 1200px; /* Optional: Max width for larger screens */
-    min-width: 300px; /* Optional: Set a minimum width for smaller screens */
-    height: auto; /* Allow container height to adjust based on the content */
-    overflow: hidden; /* Hide any overflow */
-    justify-items: center; /* Align cards to the center of each grid cell */
-    grid-template-columns: repeat(auto-fill, minmax(125px, 1fr)); /* Adjust the columns dynamically */
-    grid-auto-rows: 125px; /* Ensure consistent card height */
+    width: 90%; /* Adjust width */
+    max-width: 1200px; /* Prevent excessive stretching */
 }
 
-/* Styling for each individual game card */
+/* Updated card styles to maintain consistent sizing */
 .game-card {
-    position: relative;
-    width: 125px; /* Fixed width to prevent squishing */
-    height: 125px; /* Fixed height to prevent squishing */
+    flex: 1 1 125px; /* Allow cards to resize dynamically */
+    max-width: 125px; /* Set max width to maintain uniform size */
+    height: 125px; /* Maintain consistent height */
     border-radius: 15px;
     overflow: hidden;
     cursor: pointer;
     transition: all 0.3s ease;
-    margin: 0; /* Remove any additional margin */
-    padding: 0; /* Ensure no padding */
-    box-sizing: border-box; /* Ensure the box model is correct */
-    border: 2px solid transparent; /* Default border state */
     background-color: #181825; /* Base background color */
 }
 
-/* Ensure the image fits within the card and doesn't affect its size */
+/* Ensures images fit properly */
 .game-card img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Ensures image covers the area without distortion */
-    border-radius: 15px; /* Match the border radius of the card */
+    object-fit: cover;
+    border-radius: 15px;
 }
+
 
 /* Add a dark overlay on the entire card */
 .game-card::before {
