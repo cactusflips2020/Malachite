@@ -10,7 +10,7 @@
 - 🎮 A library of games and apps
 - 🧑‍💻 Clean and sleek design
 
-## 📥 Setup Guide
+## Setup Guide 📥
 
 1. Clone the repository:
    ```bash
