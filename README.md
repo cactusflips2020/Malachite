@@ -4,13 +4,13 @@
 
 <h1 align="center">Mewing Academy</h1>
 
-# Features ✨
+<h2>>Features ✨</h2>
 - ⚡ Lightning fast proxy speeds
 - ⚙️ Multiple settings
 - 🎮 A library of games and apps
 - 🧑‍💻 Clean and sleek design
 
-# 📥 Setup Guide
+<h2>📥 Setup Guide</h2>
 
 1. Clone the repository:
    ```bash
@@ -30,7 +30,7 @@
 
 After starting it it will be hosted on localhost:3000 by default.
 
-# Requirements 🔧
+<h2>Requirements 🔧</h2>
 - Node.js
 - npm (comes with node)
 - Chemical.js (installs when you do npm install)
