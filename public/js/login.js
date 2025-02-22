@@ -1,3 +1,9 @@
+// Check if user is already logged in and redirect
+if (localStorage.getItem('isLoggedIn') === 'true') {
+    window.location.href = 'index.html';
+}
+
+// Handle login form submission
 document.getElementById('login-form').addEventListener('submit', function(event) {
     event.preventDefault();
 

@@ -5,17 +5,21 @@
     display: flex !important;
     justify-content: space-between !important;
     align-items: center !important;  /* Center items vertically */
-    padding: 10px 20px !important;
+    padding: 10px 20px !important;  /* Padding to add space inside */
     background-color: #181825 !important;
-    width: 100% !important;
     position: fixed !important; /* Fix position at the top */
-    top: 0 !important;
+    top: 15px !important; /* Reduced spacing from the top */
     z-index: 1000 !important; /* Ensure it's above other content */
-    left: 0 !important; /* Ensure it's aligned with the left edge */
-    right: 0 !important; /* Ensure it's aligned with the right edge */
+    left: 0 !important; /* Align navbar to the left */
+    right: 0 !important; /* Align navbar to the right */
     height: 60px !important; /* Fixed height for navbar */
+    border-radius: 10px !important; /* Round the corners */
+    margin-left: 15px !important; /* Margin from the left side */
+    margin-right: 15px !important; /* Margin from the right side */
+    width: calc(100% - 30px) !important; /* Adjust the width to account for both left and right margins */
 }
 
+/* Logo container styling */
 .logo-container {
     display: flex !important;
     align-items: center !important;  /* Vertically align the logo */
@@ -24,11 +28,13 @@
     height: 100% !important; /* Ensure logo container fills navbar height */
 }
 
+/* Logo image styling */
 .logo-container img {
     height: 40px !important; /* Adjusted to maintain proportions */
     max-height: 100% !important; /* Prevent the image from overflowing */
 }
 
+/* Logo link styling */
 .logo-container a {
     color: #cdd6f4 !important;
     font-size: 20px !important;
@@ -39,16 +45,19 @@
     justify-content: center; 
 }
 
+/* Hover effect for the logo link */
 .logo-container a:hover {
     filter: brightness(1.1) !important; /* Increase brightness on hover */
 }
 
+/* Navigation links container */
 .nav-links {
     display: flex !important;
     gap: 20px !important;
     align-items: center !important; /* Vertically align nav links */
 }
 
+/* Navigation link styling */
 .nav-links a {
     color: #cdd6f4 !important;
     text-decoration: none !important;
@@ -60,17 +69,17 @@
     gap: 10px;  /* Increased spacing between the text and the icon */
 }
 
+/* Hover effect for nav links */
 .nav-links a:hover {
     filter: brightness(1.1) !important; /* Increase brightness on hover */
 }
 
+/* Hover effect for icons inside nav links */
 .nav-links a:hover i,
 .nav-links a:hover svg {
     filter: brightness(1.1) !important; /* Increase brightness of icons on hover */
     transition: filter 0.3s ease !important; /* Smooth transition effect */
 }
-
-
 
 /* Keep other styles unchanged */
 body {
