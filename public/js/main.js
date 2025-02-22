@@ -20,7 +20,7 @@ function launchab() {
     stl.left = stl.right = stl.top = stl.bottom = '0'
     iframe.src = self.location
     tab.document.body.appendChild(iframe)
-    window.parent.window.location.replace(localStorage.getItem('panicurl') || 'https://classroom.google.com/h')
+    window.parent.window.location.replace('https://classroom.google.com/')
   }
 
   window.onload = function() {
