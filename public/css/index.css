@@ -33,14 +33,14 @@
     color: #cdd6f4 !important;
     font-size: 20px !important;
     text-decoration: none !important;
-    transition: color 0.3s ease !important;
+    transition: filter 0.3s ease !important; /* Smooth brightness transition */
     display: flex;
-    align-items: center;  /* Vertically align the text with the logo */
-    justify-content: center; /* Ensure the text is perfectly centered with respect to the container */
+    align-items: center;  
+    justify-content: center; 
 }
 
 .logo-container a:hover {
-    color: #bac2de !important; /* Darker on hover */
+    filter: brightness(1.1) !important; /* Increase brightness on hover */
 }
 
 .nav-links {
@@ -53,34 +53,21 @@
     color: #cdd6f4 !important;
     text-decoration: none !important;
     font-size: 18px !important;
-    transition: color 0.3s ease !important;
+    transition: filter 0.3s ease !important; /* Smooth transition effect */
     display: flex;
     align-items: center;  /* Vertically align text with the icon */
     justify-content: center; /* Center the text properly within the nav link */
     gap: 10px;  /* Increased spacing between the text and the icon */
 }
 
-
 .nav-links a:hover {
-    color: #bac2de !important; /* Darker on hover */
+    filter: brightness(1.1) !important; /* Increase brightness on hover */
 }
 
-.nav-links i {
-    transition: color 0.3s ease;
-}
-
-.nav-links a:hover i {
-    color: #bac2de;  /* Change icon color on hover */
-}
-
-.nav-links svg {
-    width: 16px !important;  /* Adjust width of the SVG */
-    height: 16px !important; /* Adjust height of the SVG */
-    transition: color 0.3s ease;
-}
-
+.nav-links a:hover i,
 .nav-links a:hover svg {
-    color: #bac2de;  /* Change SVG icon color on hover */
+    filter: brightness(1.1) !important; /* Increase brightness of icons on hover */
+    transition: filter 0.3s ease !important; /* Smooth transition effect */
 }
 
 

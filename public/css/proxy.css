@@ -73,10 +73,12 @@ html, body {
     align-items: center; /* Align logo and text vertically */
     text-decoration: none; /* Remove link underline */
     color: #cdd6f4; /* Default text color */
+    transition: filter 0.3s ease; /* Smooth brightness transition */
 }
 
-#logo-container:hover #logo-text {
-    color: #bac2de; /* Darker text on hover */
+/* Brightness effect on hover */
+#logo-container:hover {
+    filter: brightness(1.1);
 }
 
 #logo-container:active {
@@ -93,7 +95,12 @@ html, body {
 /* Style for text next to logo */
 #logo-text {
     font-size: 20px; /* Adjust the font size */
-    transition: color 0.3s ease; /* Smooth color transition on hover */
+    transition: filter 0.3s ease; /* Smooth brightness transition */
+}
+
+/* Brightness effect on hover */
+#logo-container:hover #logo-text {
+    filter: brightness(1.1);
 }
 
 /* Style for input inside the navbar */
@@ -140,13 +147,13 @@ html, body {
     cursor: pointer;
     flex-shrink: 0;  /* Prevent buttons from shrinking */
     border-radius: 5px; /* 15px border radius for buttons */
-    transition: background-color 0.3s ease, color 0.3s ease; /* Added transition */
+    transition: filter 0.3s ease; /* Smooth brightness transition */
 }
 
+/* Brightness effect on hover */
 #controls button:hover {
-    background-color: #313244;
+    filter: brightness(1.1);
 }
-
 
 /* Make the iframe take up the full viewport */
 #proxyIframe {
@@ -156,5 +163,3 @@ html, body {
     display: block;  /* Make sure iframe is displayed */
     margin-top: 50px; /* Offset the iframe for the navbar */
 }
-
-

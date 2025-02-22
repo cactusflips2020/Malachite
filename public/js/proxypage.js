@@ -1,13 +1,12 @@
 // When the page is loaded, display the loading screen
 window.addEventListener('load', function() {
-    // Wait 5 seconds before hiding the loading screen
     setTimeout(function() {
         const loadingScreen = document.querySelector('.loading-screen');
         loadingScreen.style.opacity = '0'; // Fade out
         setTimeout(function() {
             loadingScreen.style.visibility = 'hidden'; // Hide completely after fade
         }, 500); // Wait for the fade to complete
-    }, 5000); // 5 seconds before fading out
+    }, 0); // insta load :D
 });
 
 // Function to handle iframe load event
