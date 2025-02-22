@@ -27,4 +27,6 @@ app.use((req, res) => {
 // Start the server
 listen(port, () => {
     console.log(`Mewing Academy listening on port ${port}!`);
+    console.log(`https://localhost:${port}`)
 });
+
