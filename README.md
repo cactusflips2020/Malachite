@@ -1,7 +1,7 @@
-<p align="center">
+<div align="center">
   <img src="/public/img/logo.png" alt="Mewing Academy Logo" width="200"/>
   <h1>Mewing Academy</h1>
-</p>
+</div>
 
 ## What is Mewing Academy?
 Mewing Academy is a fast and simple UV-based proxy website that caters to all students needs, bypassing restrictions so you can browse the web with fast speeds and stealth.<br/><br/>
