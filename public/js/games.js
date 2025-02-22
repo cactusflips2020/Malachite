@@ -15,7 +15,13 @@ const gamesData = [
     { "name": "Subway Surfers", "image": "/img/games/subway.png", "link": "https://subwaysurfersgame.io/subway-surfers.embed" },
     { "name": "Slope", "image": "/img/games/slope.png", "link": "https://kdata1.com/2020/05/slope/" },
     { "name": "Time Shooter 2", "image": "/img/games/time-shooter-2.png", "link": "https://www.twoplayergames.org/embed/time-shooter-2" },
-    { "name": "The Binding of Issac", "image": "/img/games/tboi.avif", "link": "https://gnhustgames.org/the-binding-of-isaac-source/" }
+    { "name": "The Binding of Issac", "image": "/img/games/tboi.avif", "link": "https://gnhustgames.org/the-binding-of-isaac-source/" },
+    { "name": "Happy Wheels", "image": "/img/games/happywheels.png", "link": "https://games-online.io/game/HappyWheels/" },
+    { "name": "Moto X3M", "image": "/img/games/motox3m.avif", "link": "https://webglmath.github.io/moto-x3m//" },
+    { "name": "Monkey Mart", "image": "/img/games/monkeymart.png", "link": "https://www.getgames.io/games/gm/MonkeyMart/index.html/" },
+    { "name": "Bloxd.io", "image": "/img/games/bloxd.png", "link": "https://bloxd.io/" },
+    { "name": "1v1.lol", "image": "/img/games/1v1lol.png", "link": "https://1v1.lol/" },
+    { "name": "Deadshot.io", "image": "/img/games/deadshot-io.png", "link": "https://deadshot.io" },
 ];
 
 async function renderGames(filteredGames = gamesData) {

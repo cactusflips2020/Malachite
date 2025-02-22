@@ -59,7 +59,7 @@
 
 /* Hover effect for the app card */
 .app-card:hover {
-    border: 2px solid #cdd6f4; /* Apply border on hover */
+    border: 1px solid #cdd6f4; /* Apply border on hover */
     transform: scale(1.05); /* Scale the card */
     transform-origin: center center; /* Keep the scaling centered */
 }
@@ -117,7 +117,7 @@
     outline: none;
     padding: 1rem;
     border-radius: 5px;
-    width: 21rem;
+    width: 27rem;
     transition: background 0.3s;
 }
 

@@ -8,6 +8,9 @@ const appsData = [
     { "name": "GeForce Now", "image": "/img/apps/gfnow.png", "link": "https://nvidia.com/en-us/geforce-now/" },
     { "name": "Instagram", "image": "/img/apps/insta.png", "link": "https://instagram.com" },
     { "name": "Twitter (X)", "image": "/img/apps/twitter.png", "link": "https://twitter.com" },
+    { "name": "Android OS", "image": "/img/apps/OS_Android.webp", "link": "https://now.gg/play/uncube/10005/now" },
+    { "name": "Crazygames", "image": "/img/apps/crazygames.png", "link": "https://crazygames.com" },
+    { "name": "Poki", "image": "/img/apps/poki.png", "link": "https://poki.com" },
 ];
 
 async function renderApps(filteredApps = appsData) {

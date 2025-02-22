@@ -115,14 +115,6 @@ function autoab() {
 function updateButtonState() {
     let button = document.getElementById('autoabbutton'); // Get the specific button by ID
     let isActive = localStorage.getItem('autoab') === 'true';
-
-    if (isActive) {;
-        button.style.backgroundColor = '#40a02b'; // Set the background color to green when active
-        button.textContent = 'Automatically Launch in About:Blank';
-    } else {
-        button.style.backgroundColor = '#d20f39'; // Set the background color to red when inactive
-        button.textContent = 'Automatically Launch in About:Blank';
-    }
 }
 
 // On page load, update button state based on localStorage
@@ -206,12 +198,6 @@ function leaveconfirmation() {
 function updateLeaveConfirmButton() {
     let button = document.getElementById('leaveconfirmbutton');
     let isLeaveConfirmationEnabled = localStorage.getItem('leaveConfirmation') === 'true';
-
-    if (isLeaveConfirmationEnabled) {
-        button.style.backgroundColor = '#40a02b';
-    } else {
-        button.style.backgroundColor = '#d20f39';
-    }
 }
 
 // Ensure the button has the correct color when the settings page loads
