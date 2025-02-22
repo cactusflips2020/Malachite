@@ -39,6 +39,7 @@ After starting it it will be hosted on localhost:3000 by default.
 - Node.js
 - npm (comes with node)
 - Chemical.js (installs when you do npm install)
+- Express.js (installs when you do npm install)
 
 ## IMPORTANT ❗
 - When it prompts you to login the username is mewingacademy and the password is looksmaxxing123
