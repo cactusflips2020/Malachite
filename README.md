@@ -33,8 +33,6 @@ npm install
 npm start
 ```
 
-After starting it it will be hosted on localhost:3000 by default.
-
 ## Requirements 🔧
 - Node.js
 - npm (comes with node)
