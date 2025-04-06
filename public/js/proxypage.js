@@ -36,4 +36,3 @@ async function onIframeLoad() {
   if (iframe) {
     iframe.onload = onIframeLoad;
   }
-  

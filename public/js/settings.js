@@ -175,8 +175,8 @@ function loadSearchEngineSetting() {
         // If no saved option, fallback to 'google' by default
         const selectElement = document.querySelector('.searchengine-select');
         if (selectElement) {
-            selectElement.value = 'google'; // Set default to Google
-            applySearchEngine('google'); // Apply the default value
+            selectElement.value = 'duckduckgo'; // Set default to Google
+            applySearchEngine('duckduckgo'); // Apply the default value
         }
     }
 }
@@ -202,6 +202,69 @@ function updateLeaveConfirmButton() {
 
 // Ensure the button has the correct color when the settings page loads
 window.addEventListener('load', updateLeaveConfirmButton);
+
+let notifications = [];
+
+function showNotification() {
+    // Play notification sound
+    let audio = new Audio("/audio/notification.mp3");
+    audio.play().catch(error => console.warn("Audio play failed:", error));
+
+    let notification = document.createElement("div");
+    notification.className = "notification";
+    notification.innerText = "Changes saved!";
+
+    // Style the notification
+    Object.assign(notification.style, {
+        position: "fixed",
+        bottom: "20px",
+        right: "20px",
+        backgroundColor: "#333",
+        color: "#fff",
+        padding: "10px 15px",
+        borderRadius: "5px",
+        boxShadow: "0 2px 10px rgba(0,0,0,0.3)",
+        zIndex: "1000",
+        fontSize: "14px",
+        opacity: "1",
+        transition: "opacity 0.5s ease-in-out, transform 0.3s ease-in-out",
+    });
+
+    document.body.appendChild(notification);
+    notifications.push(notification);
+
+    // Adjust position of all notifications
+    notifications.forEach((notif, index) => {
+        notif.style.bottom = `${20 + (notifications.length - 1 - index) * 50}px`;
+    });
+
+    // If more than 3 notifications, remove the top (oldest) one
+    if (notifications.length > 3) {
+        let oldest = notifications.shift();
+        oldest.style.opacity = "0";
+        oldest.style.transform = "translateY(-20px)";
+        setTimeout(() => oldest.remove(), 500);
+    }
+
+    // Remove this notification after 3 seconds
+    setTimeout(() => {
+        if (notifications.includes(notification)) {
+            notifications = notifications.filter(n => n !== notification);
+            notification.style.opacity = "0";
+            notification.style.transform = "translateY(-20px)";
+            setTimeout(() => notification.remove(), 500);
+        }
+    }, 3000);
+}
+
+// Add event listeners for dropdowns
+document.querySelector(".transport-select").addEventListener("change", showNotification);
+document.querySelector(".cloak-select").addEventListener("change", showNotification);
+document.querySelector(".searchengine-select").addEventListener("change", showNotification);
+document.getElementById("leaveconfirmbutton").addEventListener("click", showNotification);
+document.getElementById("autoabbutton").addEventListener("click", showNotification);
+
+
 
 
 

@@ -135,6 +135,7 @@ html, body {
     align-items: center; /* Vertically align buttons */
     gap: 10px; /* Adds space between buttons */
     flex-shrink: 0;  /* Prevent buttons from shrinking */
+    /* Style for the controls section */
 }
 
 /* Style for buttons inside the navbar */
