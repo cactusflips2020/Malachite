@@ -166,7 +166,7 @@ a {
     font-family: 'Montserrat', sans-serif;
     font-size: 16px;
     padding: 12px 18px;  /* Increased padding to create extruding effect */
-    border-radius: 5px;
+    border-radius: 16px;
     width: fit-content;
     margin: 20px;
     text-align: center;
