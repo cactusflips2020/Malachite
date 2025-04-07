@@ -74,10 +74,18 @@ body {
 /* Darken effect on hover instead of changing color */
 .setting-button:hover {
     filter: brightness(1.2);
-    transform: scale(1.05); /* Slight scaling effect on hover */
+    transform: scale(1.01); /* Slight scaling effect on hover */
 }
 
 /* Ensure proper gap between the two buttons */
 .setting-card button + button {
     margin-top: 10px; /* Add a gap between the buttons */
+}
+
+/* Darken effect on hover instead of changing color for dropdowns */
+.searchengine-select:hover,
+.cloak-select:hover,
+.transport-select:hover {
+    filter: brightness(1.2);   /* Darken effect on hover */
+    transform: scale(1.01);     /* Slight scaling effect on hover */
 }
