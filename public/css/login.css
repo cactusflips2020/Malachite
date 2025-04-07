@@ -1,92 +1,176 @@
+/* Reset padding and margins for all elements */
 * {
-    margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    margin: 0;
 }
 
+/* Root font settings */
+:root {
+    --sgy-font-default: 'Roboto', Arial, Helvetica, sans-serif;
+    --sgy-font-light: 'Roboto Lighter', Arial, Helvetica, sans-serif;
+    --sgy-font-bold: 'Roboto Darker', Arial, Helvetica, sans-serif;
+    --sgy-font-mono-space: 'Roboto Mono', Courier, monospace;
+    --sgy-font-cursive: cursive;
+    --sgy-background-color-default: #f1f4f4;
+}
+
+/* HTML and Body settings */
+html, body {
+    font-family: var(--sgy-font-default);
+    height: 100%; /* Ensure full height of the page */
+    overflow: hidden; /* Prevent scrolling */
+    line-height: 1.4;
+    background: #f9f9f8;
+}
+
+/* Ensure body content fits */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #eef2f6;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    flex-direction: column;
 }
 
-.login-container {
+/* Top banner */
+.top-banner {
+    width: 100%;
     background-color: #fff;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 320px;
+    padding: 16px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     text-align: center;
 }
 
-h2 {
-    margin-bottom: 10px;
-    color: #2c3e50;
-    font-size: 24px;
+.top-logo {
+    height: 36px;
 }
 
-.site-description {
-    font-size: 14px;
-    color: #7f8c8d;
-    margin-bottom: 25px;
+/* Wrapper for the login box */
+.login-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1;
+    align-items: center;
+    padding: 10px;
+    max-height: calc(100vh - 155px); /* Calculate height without footer */
 }
 
-.input-group {
-    margin-bottom: 15px;
+/* Login box */
+.login-box {
+    background-color: white;
+    border: 1px solid #ddd;
+    padding: 30px;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    text-align: center;
+}
+
+/* Logo */
+.logo {
+    width: 140px;
+    margin-bottom: 20px;
+}
+
+/* Form layout */
+.login-form {
+    display: flex;
+    flex-direction: column;
     text-align: left;
 }
 
-.input-group label {
-    display: block;
+/* Form label */
+.login-form label {
+    margin-top: 10px;
+    font-weight: bold;
     font-size: 14px;
-    color: #555;
 }
 
-.input-group input {
-    width: 100%;
+/* Inputs */
+.login-form input {
     padding: 10px;
     margin-top: 5px;
+    font-size: 14px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 4px;
 }
 
-button {
-    width: 100%;
-    padding: 12px;
-    background-color: #3498db;
+/* Submit button */
+.login-form button {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #0074cd;
     color: white;
+    font-size: 16px;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
 }
 
-button:hover {
-    background-color: #2980b9;
+/* Button hover effect */
+.login-form button:hover {
+    background-color: #005fa3;
 }
 
-.error-message {
-    color: red;
-    font-size: 14px;
-    margin-top: 10px;
-}
-
-.links {
-    margin-top: 20px;
+/* Options links */
+.options {
+    margin-top: 15px;
+    font-size: 13px;
     display: flex;
-    justify-content: center;
-    gap: 15px;
+    justify-content: space-between;
 }
 
-.links a {
-    color: #3498db;
+.options a {
+    color: #0074cd;
     text-decoration: none;
-    font-size: 14px;
 }
 
-.links a:hover {
+.options a:hover {
     text-decoration: underline;
 }
 
+/* Footer styles */
+.modern-footer {
+    background-color: #FFF;
+    text-align: center;
+    padding: 20px;
+    width: 100%;
+    flex-shrink: 0; /* Ensure footer does not shrink */
+    position: relative;
+    bottom: 0;
+}
+
+/* Footer links */
+.modern-footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.modern-footer-links {
+    margin-bottom: 10px;
+}
+
+.modern-footer-links a {
+    color: #0074cd;
+    text-decoration: none;
+}
+
+.modern-footer-links a:hover {
+    text-decoration: underline;
+}
+
+.modern-footer-links span {
+    margin: 0 10px;
+}
+
+.modern-footer-copyright {
+    font-size: 12px;
+    color: #777;
+}
+
+/* Error message styling */
+.error-message {
+    color: red;
+    font-size: 13px;
+    margin-bottom: 10px;
+    text-align: center;
+}

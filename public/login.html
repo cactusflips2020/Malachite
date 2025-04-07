@@ -1,34 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EduPortal Login</title>
-    <link rel="stylesheet" href="css/login.css">
-    <link rel="icon" href="img/EduPortal.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Schoology Login</title>
+  <link rel="stylesheet" href="css/login.css" />
 </head>
 <body>
-    <div class="login-container">
-        <h2>Welcome to EduPortal</h2>
-        <p class="site-description">Your gateway to online learning</p>
-        <form id="login-form">
-            <div class="input-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" required>
-            </div>
-            <div class="input-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <button type="submit" id="login-btn">Login</button>
-        </form>
-        <p class="error-message" id="error-message"></p>
-        <div class="links">
-            <a href="#">Teacher Login</a> | 
-            <a href="#">Student Login</a> | 
-            <a href="#">Forgot Password?</a>
-        </div>
+    <!-- Top banner -->
+    <div class="top-banner">
+      <img src="https://asset-cdn.schoology.com/sites/all/themes/schoology_theme/images_front/sgylogo.svg" alt="PowerSchool Schoology Learning Logo" class="top-logo">
     </div>
+  
+    <!-- Login Wrapper -->
+    <div class="login-wrapper">
+      <div class="login-box">
+  
+        <!-- Error Message -->
+        <p id="error-message" class="error-message"></p>
+  
+        <!-- Login Form -->
+        <form id="login-form" class="login-form">
+          <label for="username">Username or Email</label>
+          <input type="text" id="username" placeholder="Username or Email" required />
+  
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="Password" required />
+  
+          <button type="submit">Log in</button>
+  
+          <div class="options">
+            <a href="#">Forgot your password?</a>
+            <a href="#">Log in with SSO</a>
+          </div>
+        </form>
+      </div> <!-- End of login-box -->
+    </div> <!-- End of login-wrapper -->
+  
+    <!-- Modern Footer -->
+    <footer class="modern-footer">
+      <div class="modern-footer-container">
+        <div class="modern-footer-links">
+          <a href="https://www.powerschool.com/privacy" target="_blank">Privacy Policy</a>
+          <span>|</span>
+          <a href="https://www.powerschool.com/wp-content/uploads/PowerSchool-Service-Agreements/2024_PowerSchool_MSA.pdf" target="_blank">Terms of Use</a>
+          <span>|</span>
+          <a href="https://help.powerschool.com" target="_blank">Help Center</a>
+        </div>
+        <div class="modern-footer-copyright">
+          PowerSchool © 2025
+        </div>
+      </div>
+    </footer>
+  
     <script src="js/login.js"></script>
-</body>
+</body>  
 </html>
