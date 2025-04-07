@@ -4,15 +4,19 @@
 </div>
 
 ## What is Mewing Academy?
-Mewing Academy is a fast and simple proxy site that allows you to browse the web with unfilted access<br/><br/>
+Mewing Academy is a fast and simple proxy site that allows you to browse the web with unfilted access.<br/><br/>
 
-## Features ✨
+## Features
 - Fast proxy speeds
 - Numerous settings
 - A library of games and apps
 - Sleek UI
 - Search bar
 - Proxy navagation tools
+- And a lot more...
+
+## Usage
+You **cannot** deploy Mewing Academy on any static hosting sites.
 
 ## Deployment
 <a target="_blank" href="https://heroku.com/deploy/?template=https://github.com/cactusflips2020/Mewing-Academy"><img alt="Deploy to Heroku" src="https://binbashbanana.github.io/deploy-buttons/buttons/official/heroku.svg"></a>
@@ -35,10 +39,10 @@ npm install
 npm start
 ```
 
-After starting it it will be hosted on localhost:3000 by default.
+Once it is all set up, head over to http://localhost:3000 to use Mewing Academy on your computer!
 
-## Requirements 🔧
+## Requirements
 - Node.js
 
-## IMPORTANT ❗
-- When it prompts you to login the username is mewingacademy and the password is looksmaxxing123
+> [!IMPORTANT]
+> When prompted to log in the username is mewingacademy and the password is looksmaxxing123. THESE ARE CASE SENSITIVE!
