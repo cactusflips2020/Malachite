@@ -1,51 +1,61 @@
 // Function to change the tab cloaking based on the selected option
 function changeCloak() {
-    const selectedOption = document.querySelector('.cloak-select').value;
-    localStorage.setItem('tabCloak', selectedOption);  // Save the selected option to localStorage
-    applyCloak(selectedOption);  // Apply the cloaking
+    const selectedCloakOption = document.querySelector('.cloak-select').value;
+    localStorage.setItem('tabCloak', selectedCloakOption);  // Save the selected option to localStorage
+    applyCloak(selectedCloakOption);  // Apply the cloaking option
+    console.log(`Saved cloak option: ${selectedCloakOption}`);  // Debugging line
 }
 
 // Function to apply the cloaking based on the selected option
 function applyCloak(option) {
-    // Log different messages based on the selected option
+    console.log(`Applying cloak: ${option}`);  // Debugging line to check what option is being applied
     switch(option) {
         case 'Google':
-            chemical.setStore("title", "Google")
-            chemical.setStore("icon", "../img/google.ico")
+            chemical.setStore("title", "Google");
+            chemical.setStore("icon", "../img/google.ico");
             break;
         case 'Gmail':
-            chemical.setStore("title", "Inbox (236) - s372126@student.roundrockisd.org - Gmail")
-            chemical.setStore("icon", "../img/gmail.ico")
+            chemical.setStore("title", "Inbox (236) - s372126@student.roundrockisd.org - Gmail");
+            chemical.setStore("icon", "../img/gmail.ico");
             break;
         case 'Google Drive':
-            chemical.setStore("title", "My Drive - Google Drive")
-            chemical.setStore("icon", "../img/drive.png")
+            chemical.setStore("title", "My Drive - Google Drive");
+            chemical.setStore("icon", "../img/drive.png");
             break;
         case 'Default':
         default:
-            chemical.setStore("title", "")
-            chemical.setStore("icon", "")
+            chemical.setStore("title", "");
+            chemical.setStore("icon", "");
             break;
     }
 }
 
-// Function to load the saved setting from localStorage on page load
+// Function to load the saved tab cloaking setting from localStorage on page load
 function loadCloakSetting() {
-    const savedOption = localStorage.getItem('tabCloak');
-    if (savedOption) {
-        // If a saved option exists, apply it
-        document.querySelector('.cloak-select').value = savedOption;
-        applyCloak(savedOption);
+    console.log("Loading cloak setting...");  // Debugging line to see if it's being triggered
+    const savedCloakOption = localStorage.getItem('tabCloak');
+    console.log(`Loaded cloak option: ${savedCloakOption}`);  // Debugging line to see the loaded value
+
+    if (savedCloakOption) {
+        const selectElement = document.querySelector('.cloak-select');
+        if (selectElement) {
+            selectElement.value = savedCloakOption; // Set the saved value to the select dropdown
+            applyCloak(savedCloakOption); // Apply the saved option
+            console.log(`Dropdown set to: ${savedCloakOption}`);  // Debugging line to check dropdown value
+        }
     } else {
-        // If no saved option, fallback to default
-        document.querySelector('.cloak-select').value = 'Default';
-        applyCloak('Default');
+        // If no saved option, fallback to 'Default'
+        const selectElement = document.querySelector('.cloak-select');
+        if (selectElement) {
+            selectElement.value = 'Default'; // Default fallback
+            applyCloak('Default'); // Apply the default value
+            console.log('Dropdown set to default');  // Debugging line for default
+        }
     }
 }
 
 // Load the setting on page load
-window.onload = loadCloakSetting;
-
+window.addEventListener('load', loadCloakSetting);
 
 function launchab() {
     const tab = window.open('about:blank', '_blank')
@@ -66,10 +76,12 @@ function changeTransport() {
     const selectedTransportOption = document.querySelector('.transport-select').value;
     localStorage.setItem('transportSelect', selectedTransportOption);  // Save the selected option to localStorage
     applyTransport(selectedTransportOption);  // Apply the transport option
+    console.log(`Saved transport option: ${selectedTransportOption}`);  // Debugging line
 }
 
 // Function to apply the transport based on the selected option
 function applyTransport(option) {
+    console.log(`Applying transport: ${option}`);  // Debugging line to check which transport is being applied
     // Only set transport to valid options (either 'epoxy' or 'libcurl')
     if (option === 'epoxy') {
         chemical.setTransport("epoxy");
@@ -81,20 +93,30 @@ function applyTransport(option) {
 
 // Function to load the saved setting from localStorage on page load
 function loadTransportSetting() {
+    console.log("Loading transport setting...");  // Debugging line to see if it's being triggered
     const savedTransportOption = localStorage.getItem('transportSelect');
+    console.log(`Loaded transport option: ${savedTransportOption}`);  // Debugging line to check what is loaded from localStorage
+
     if (savedTransportOption) {
-        // If a saved option exists, apply it
-        document.querySelector('.transport-select').value = savedTransportOption;
-        applyTransport(savedTransportOption);
+        const selectElement = document.querySelector('.transport-select');
+        if (selectElement) {
+            selectElement.value = savedTransportOption; // Set the saved value to the select dropdown
+            applyTransport(savedTransportOption); // Apply the saved option
+            console.log(`Dropdown set to: ${savedTransportOption}`);  // Debugging line to confirm dropdown update
+        }
     } else {
-        // If no saved option, fallback to 'libcurl' by default
-        document.querySelector('.transport-select').value = 'libcurl';
-        applyTransport('libcurl');
+        // If no saved option, fallback to 'libcurl'
+        const selectElement = document.querySelector('.transport-select');
+        if (selectElement) {
+            selectElement.value = 'libcurl'; // Set default to libcurl
+            applyTransport('libcurl'); // Apply the default value
+            console.log('Dropdown set to default (libcurl)');  // Debugging line for default
+        }
     }
 }
 
 // Load the setting on page load
-window.onload = loadTransportSetting;
+window.addEventListener('load', loadTransportSetting);
 
 function autoab() {
     // Check if 'autoab' is active in localStorage
@@ -263,8 +285,5 @@ document.querySelector(".cloak-select").addEventListener("change", showNotificat
 document.querySelector(".searchengine-select").addEventListener("change", showNotification);
 document.getElementById("leaveconfirmbutton").addEventListener("click", showNotification);
 document.getElementById("autoabbutton").addEventListener("click", showNotification);
-
-
-
 
 
