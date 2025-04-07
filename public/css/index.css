@@ -49,8 +49,12 @@
 /* Hover effect for the logo link */
 .logo-container a:hover {
     filter: brightness(1.1) !important; /* Increase brightness on hover */
+}
+
+/* Hover effect for the logo image */
+.logo-container img:hover {
     transform: rotate(360deg); /* Apply the rotation effect */
-    transition: filter 0.3s ease, transform 0.5s ease !important; /* Smooth transition for brightness and rotation */
+    transition: transform 0.5s ease, filter 0.3s ease !important; /* Smooth transition for rotation and brightness */
 }
 
 
