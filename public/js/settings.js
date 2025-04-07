@@ -14,7 +14,7 @@ function applyCloak(option) {
             chemical.setStore("icon", "../img/google.ico")
             break;
         case 'Gmail':
-            chemical.setStore("title", "Inbox (236) - s37212@student.roundrockisd.org - Gmail")
+            chemical.setStore("title", "Inbox (236) - s372126@student.roundrockisd.org - Gmail")
             chemical.setStore("icon", "../img/gmail.ico")
             break;
         case 'Google Drive':
@@ -58,7 +58,7 @@ function launchab() {
     stl.left = stl.right = stl.top = stl.bottom = '0'
     iframe.src = self.location
     tab.document.body.appendChild(iframe)
-    window.parent.window.location.replace(localStorage.getItem('panicurl') || 'https://classroom.google.com/h')
+    window.parent.window.location.replace(localStorage.getItem('panicurl') || 'https://google.com/') // will add panic url when not lazy lol
   }
 
 // Function to change the transport based on the selected option
