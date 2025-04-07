@@ -6,24 +6,24 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
-/* Grid layout for settings container */
 .settings-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 cards per row */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 20px;
     padding: 20px;
-    justify-content: center; /* Ensures grid is centered */
 }
 
-/* Style for each setting card */
 .setting-card {
-    background: #181825; /* Dark background */
+    flex: 0 1 calc((100% - 40px) / 3); /* 3 cards per row with 2 gaps (20px each) */
+    max-width: calc((100% - 40px) / 3);
+    background: #181825;
     color: #cdd6f4;
     padding: 20px;
     border-radius: 12px;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Added box-shadow transition */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     font-family: 'montserrat';
 }
 

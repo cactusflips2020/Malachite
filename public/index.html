@@ -30,7 +30,7 @@
 					<i class="fa-solid fa-gear"></i> Settings
 				</a>
 			</div>
-		</div>	
+		</div>						
 			<div class="logo-above-title">
 				<img src="/img/logo.png" alt="Logo">
 				<br>
@@ -47,9 +47,13 @@
 				placeholder="Search or Enter a URL"
 				is="chemical-input"
 			/>
-			<div id="clock-widget" class="clock-widget">
+			<div id="clock-widget" class="widget-container">
 				<span id="time"></span> | <div id="greeting" class="greeting-text"></div>
-			</div>	
+			</div>  
+			<div id="latency-fps-widget" class="widget-container">
+				Ping: <span id="latency-value">Fetching Ping...</span> | 
+				FPS: <span id="fps-value">0</span>
+			</div>					  
 		<script>
 			document.getElementById("search").addEventListener("keypress", async function(event) {
 				if (event.key === "Enter") {
@@ -119,6 +123,51 @@ document.addEventListener('keydown', (event) => {
 });
 
 		</script>
+		<script>
+			const latencySpan = document.getElementById("latency-value");
+		  
+			async function checkLatency() {
+			  const url = window.location.href;
+			  const start = performance.now();
+		  
+			  try {
+				// Use HEAD to avoid downloading the full page again
+				await fetch(url, { method: "HEAD", cache: "no-store" });
+				const end = performance.now();
+				const latency = Math.round(end - start);
+				latencySpan.textContent = `${latency} ms`;
+			  } catch (e) {
+				latencySpan.textContent = "offline";
+			  }
+			}
+		  
+			// Check every 5 seconds
+			setInterval(checkLatency, 1000);
+			checkLatency(); // Run on load
+		  </script>		
+		  <script>
+			const fpsSpan = document.getElementById("fps-value");
+			let lastTime = performance.now();
+			let frameCount = 0;
+			let fps = 0;
+		  
+			function updateFPS() {
+			  const now = performance.now();
+			  frameCount++;
+		  
+			  if (now - lastTime >= 1000) {
+				fps = frameCount;
+				fpsSpan.textContent = fps;
+				frameCount = 0;
+				lastTime = now;
+			  }
+		  
+			  requestAnimationFrame(updateFPS);
+			}
+		  
+			requestAnimationFrame(updateFPS);
+		  </script>
+			
 		<script src="js/clock.js"></script>
 	</body>
 </html>

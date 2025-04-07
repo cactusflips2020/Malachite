@@ -17,6 +17,7 @@
     margin-left: 15px !important; /* Margin from the left side */
     margin-right: 15px !important; /* Margin from the right side */
     width: calc(100% - 30px) !important; /* Adjust the width to account for both left and right margins */
+    box-sizing: border-box;
 }
 
 /* Logo container styling */
@@ -81,6 +82,37 @@
     transition: filter 0.3s ease !important; /* Smooth transition effect */
 }
 
+/* Ensure the widgets are centered in the navbar */
+.navbar-widgets {
+    display: flex !important;
+    justify-content: center !important;  /* Ensure widgets are centered */
+    flex-grow: 1 !important;  /* Fill available space between the logo and nav-links */
+    text-align: center !important;
+}
+
+#latency-fps-widget {
+    background-color: #181825;
+    color: #cdd6f4;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    padding: 12px 18px;
+    border-radius: 16px;
+    width: fit-content;
+    margin: 5px 10px 10px 10px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Apply better styling to separator */
+#latency-fps-widget .separator {
+    color: #cdd6f4;
+    margin: 0 8px;  /* Reduced spacing for closer separation */
+    font-weight: bold;
+    font-size: 18px;
+}
+
 /* Keep other styles unchanged */
 body {
     margin: 0;
@@ -123,7 +155,6 @@ body {
     color: #45475a;
 }
 
-
 h1 {
     margin: 0;
     margin-bottom: 0.25rem;
@@ -153,26 +184,26 @@ a {
 .logo-above-title {
     text-align: center; /* Center the content */
     margin-top: 20px;    /* Adjust margin to provide spacing */
-  }
-  
-  .logo-above-title img {
+}
+
+.logo-above-title img {
     max-width: 150px;    /* Control the size of the logo */
     margin-bottom: 10px; /* Add space between the logo and the title */
-  }
+}
 
-  #clock-widget {
+#clock-widget {
     background-color: #181825;
     color: #cdd6f4;
     font-family: 'Montserrat', sans-serif;
     font-size: 16px;
-    padding: 12px 18px;  /* Increased padding to create extruding effect */
+    padding: 12px 18px;
     border-radius: 16px;
     width: fit-content;
-    margin: 20px;
+    margin: 10px 10px 5px 10px;
     text-align: center;
     display: flex;
     align-items: center;
-    gap: 10px;  /* Adds spacing between clock and greeting */
+    gap: 5px;
 }
 
 .greeting-text {
