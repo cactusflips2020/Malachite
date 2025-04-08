@@ -77,8 +77,14 @@ html, body {
 }
 
 /* Brightness effect on hover */
-#logo-container:hover {
+#logo-text:hover {
     filter: brightness(1.1);
+}
+
+#logo:hover {
+    filter: brightness(1.1);
+    transform: rotate(360deg); /* Apply the rotation effect */
+    transition: transform 0.5s ease;
 }
 
 #logo-container:active {
