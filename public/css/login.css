@@ -18,7 +18,7 @@
 html, body {
     font-family: var(--sgy-font-default);
     height: 100%; /* Ensure full height of the page */
-    overflow: hidden; /* Prevent scrolling */
+    overflow: hidden;
     line-height: 1.4;
     background: #f9f9f8; /* Set the background to #f9f9f8 */
 }

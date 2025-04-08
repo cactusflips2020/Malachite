@@ -58,7 +58,7 @@ async function renderGames(filteredGames = gamesData) {
 
 function filterGames() {
     const searchInput = document.getElementById("search-input").value.toLowerCase();
-    const filteredGames = gamesData.filter(game => game.name.toLowerCase().startsWith(searchInput));
+    const filteredGames = gamesData.filter(game => game.name.toLowerCase().includes(searchInput));
     renderGames(filteredGames);
 }
 

@@ -6,18 +6,21 @@
 }
 
 .games-container {
-    display: flex; /* Use flexbox for dynamic horizontal alignment */
-    flex-wrap: wrap; /* Allow wrapping to the next row if necessary */
-    gap: 20px; /* Adjust spacing between cards */
-    justify-content: center; /* Center the cards horizontally */
-    align-items: flex-start; /* Align items to the top */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    align-items: flex-start;
     padding: 20px;
-    margin: 0 auto; /* Center the container */
-    width: 90%; /* Adjust width */
-    max-width: 1200px; /* Prevent excessive stretching */
-    min-height: 500px; /* Ensure container doesn't collapse */
-    box-sizing: border-box; /* Ensure padding is included in the width calculation */
-    align-content: flex-start; /* Ensure rows are aligned to the top */
+    margin: 0 auto;
+    width: 90%;
+    max-width: 1200px;
+    height: 600px; /* Set a fixed height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    box-sizing: border-box;
+    align-content: flex-start;
+    background-color: #181825; /* Optional: distinguish scroll area */
+    border-radius: 12px; /* Optional: rounded edges */
 }
 
 /* Ensure game cards are properly positioned */
@@ -42,7 +45,6 @@
     border-radius: 15px;
 }
 
-/* Add a dark overlay on the entire card */
 .game-card::before {
     content: "";
     position: absolute;
@@ -50,10 +52,13 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Darker overlay */
-    border-radius: 15px; /* Match border radius of the card */
-    opacity: 0; /* Hide the overlay by default */
-    transition: opacity 0.3s ease-in-out; /* Ensure a smooth transition */
+    border-radius: 15px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    backdrop-filter: blur(1px); /* Frosted glass blur */
+    -webkit-backdrop-filter: blur(1px); /* Safari support */
+    pointer-events: none; /* Don't block clicks */
+    background-color: rgba(0, 0, 0, 0.2); /* Semi-dark with glass effect */
 }
 
 /* Hover effect for the game card */
@@ -120,6 +125,7 @@
     border-radius: 5px;
     width: 27rem;
     transition: background 0.3s;
+    margin-bottom: 10px;
 }
 
 #search-input:hover,
@@ -129,4 +135,17 @@
 
 #search-input::placeholder {
     color: #45475a;
+}
+
+.games-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.games-container::-webkit-scrollbar-thumb {
+    background-color: #45475a;
+    border-radius: 10px;
+}
+
+.games-container::-webkit-scrollbar-track {
+    background: transparent;
 }

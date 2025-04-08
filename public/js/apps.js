@@ -46,8 +46,8 @@ async function renderApps(filteredApps = appsData) {
 }
 
 function filterApps() {
-    const searchInput = document.getElementById("search-input").value.toLowerCase();
-    const filteredApps = appsData.filter(app => app.name.toLowerCase().startsWith(searchInput));
+    const searchInput = document.getElementById("search-input").value.toLowerCase().trim();
+    const filteredApps = appsData.filter(app => app.name.toLowerCase().includes(searchInput));
     renderApps(filteredApps);
 }
 
