@@ -11,7 +11,9 @@ document.getElementById('login-form').addEventListener('submit', function(event)
     let password = document.getElementById('password').value;
 
     // Simulate checking username and password
-    if (username === 'mewingacademy' && password === 'looksmaxxing123') {
+    const savedPassword = localStorage.getItem('password') || 'looksmaxxing123';
+    if (username === 'mewingacademy' && password === savedPassword)
+     {
         // Save user information to localStorage to simulate login
         localStorage.setItem('isLoggedIn', 'true');
 

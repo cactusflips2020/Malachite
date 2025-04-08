@@ -45,7 +45,6 @@ add proxy switcher n panic key
                     <option value="epoxy">Epoxy</option>
                 </select>
             </div>
-        
             <div class="setting-card">
                 <div class="setting-title">About:Blank Cloak</div>
                 <div class="setting-description">Simple about:blank cloak to hide the site from your search history.</div>
@@ -81,6 +80,16 @@ add proxy switcher n panic key
                 <button class="setting-button"  id="leaveconfirmbutton" onclick="leaveconfirmation()">Toggle Leave Confirmation</button>  
             </div>
             <div class="setting-card">
+                <div class="setting-title">Panic Key</div>
+                <div class="setting-description">Choose a key that redirects you to a website when pressed.</div>
+                <button class="setting-button" onclick="openKeybindModal()">Open Panic Key Settings</button>
+            </div>      
+            <div class="setting-card">
+                <div class="setting-title">Change Password</div>
+                <div class="setting-description">Change your login password.</div>
+                <button class="setting-button" onclick="openPasswordModal()">Change Password</button>
+              </div>      
+            <div class="setting-card">
                 <div class="setting-title">Log Out</div>
                 <div class="setting-description">Signs you out of Mewing Academy.</div>
                 <button class="setting-button" onclick="signOut()" style="background-color: #d20f39;">Log out of Mewing Academy</button>
@@ -94,6 +103,34 @@ add proxy switcher n panic key
                 <div class="setting-title" style="font-weight: normal; font-size: medium;">More coming soon...</div>               
             </div>
         </div>
+        <div id="keybind-modal" class="keybind-modal" style="display:none;">
+            <div class="keybind-content">
+                <div class="keybind-title">Select Panic Key</div>
+                <div class="keybind-description">Click the box and press a key. Press Escape to unbind.</div>
+                <br>
+                
+                <div id="keybind-display" class="keybind-box">No key bound</div>
+        
+                <div class="keybind-description" style="margin-top: 10px;">Custom Panic URL</div>
+                <input id="keybind-url" class="keybind-url" placeholder="https://www.google.com" />
+        
+                <div class="keybind-buttons">
+                    <button onclick="applyKeybind()">Apply</button>
+                    <button onclick="closeKeybindModal()">Cancel</button>
+                </div>
+            </div>
+        </div>   
+<div class="password-modal" id="password-modal">
+    <div class="password-modal-content">
+      <h2>Change Password</h2>
+      <input type="password" id="new-password" placeholder="Enter new password" />
+      <div class="password-buttons">
+        <button onclick="applyNewPassword()">Apply</button>
+        <button onclick="resetPassword()">Reset</button>
+        <button onclick="closePasswordModal()">Close</button>
+      </div>
+    </div>
+  </div>           
         <!--add a notification when changes are made-->   
         </div>
         <script src="js/settings.js" defer></script>	

@@ -68,8 +68,8 @@ function launchab() {
     stl.left = stl.right = stl.top = stl.bottom = '0'
     iframe.src = self.location
     tab.document.body.appendChild(iframe)
-    window.parent.window.location.replace(localStorage.getItem('panicurl') || 'https://google.com/') // will add panic url when not lazy lol
-  }
+    window.parent.window.location.replace(localStorage.getItem('redirectUrl') || 'https://www.google.com/')
+}
 
 // Function to change the transport based on the selected option
 function changeTransport() {
@@ -286,4 +286,89 @@ document.querySelector(".searchengine-select").addEventListener("change", showNo
 document.getElementById("leaveconfirmbutton").addEventListener("click", showNotification);
 document.getElementById("autoabbutton").addEventListener("click", showNotification);
 
+let selectedKey = localStorage.getItem("redirectKey");
+let customURL = localStorage.getItem("redirectUrl") || "https://www.google.com";
+let tempKey = selectedKey; // Temporary storage for unsaved key
+let tempURL = customURL; // Temporary storage for unsaved URL
 
+function openKeybindModal() {
+    document.getElementById("keybind-modal").style.display = "flex";
+    document.getElementById("keybind-display").textContent = tempKey
+        ? tempKey.toUpperCase()
+        : "No key bound";
+    document.getElementById("keybind-url").value = tempURL;
+}
+
+function closeKeybindModal() {
+    // Reset to last saved values when closing without applying
+    tempKey = localStorage.getItem("redirectKey");
+    tempURL = localStorage.getItem("redirectUrl") || "https://www.google.com";
+    document.getElementById("keybind-modal").style.display = "none";
+}
+
+document.getElementById("keybind-display").addEventListener("click", () => {
+    document.getElementById("keybind-display").textContent = "Listening...";
+    const listener = (e) => {
+        if (e.key === "Escape") {
+            tempKey = null;
+            document.getElementById("keybind-display").textContent = "No key bound";
+        } else {
+            tempKey = e.key;
+            document.getElementById("keybind-display").textContent = tempKey.toUpperCase();
+        }
+        window.removeEventListener("keydown", listener);
+    };
+    window.addEventListener("keydown", listener);
+});
+
+function applyKeybind() {
+    let urlInput = document.getElementById("keybind-url").value.trim();
+    
+    if (urlInput && !/^https?:\/\//i.test(urlInput)) {
+        urlInput = "https://" + urlInput;
+    }
+
+    customURL = urlInput || "https://www.google.com";
+    localStorage.setItem("redirectUrl", customURL);
+
+    if (tempKey) {
+        selectedKey = tempKey;
+        localStorage.setItem("redirectKey", selectedKey);
+    } else {
+        selectedKey = null;
+        localStorage.removeItem("redirectKey");
+    }
+
+    closeKeybindModal();
+}
+
+let tempPassword = localStorage.getItem('password') || ''; // Temporary storage
+
+function openPasswordModal() {
+    document.getElementById('password-modal').classList.add('show');
+    tempPassword = localStorage.getItem('password') || '';
+    document.getElementById('new-password').value = tempPassword;
+}
+
+function closePasswordModal() {
+    // Reset to last saved password when closing
+    tempPassword = localStorage.getItem('password') || '';
+    document.getElementById('password-modal').classList.remove('show');
+}
+
+function applyNewPassword() {
+    const newPassword = document.getElementById('new-password').value.trim();
+    if (newPassword) {
+        localStorage.setItem('password', newPassword);
+        tempPassword = newPassword;
+        alert('Password changed!');
+        closePasswordModal();
+    } else {
+        alert('Please enter a valid password.');
+    }
+}
+
+function resetPassword() {
+    // Only reset when applied
+    document.getElementById('new-password').value = '';
+}

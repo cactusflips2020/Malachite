@@ -45,3 +45,12 @@ window.addEventListener('beforeunload', function (event) {
         event.returnValue = 'Are you sure you want to leave this page?'; // Chrome requires this message
     }
 });
+
+window.addEventListener("keydown", (e) => {
+    const savedKey = localStorage.getItem("redirectKey");
+    const redirectUrl = localStorage.getItem("redirectUrl") || "https://www.google.com";
+    if (savedKey && e.key === savedKey) {
+        window.location.href = redirectUrl;
+    }
+});
+
