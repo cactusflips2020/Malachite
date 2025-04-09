@@ -286,8 +286,8 @@ document.querySelector(".searchengine-select").addEventListener("change", showNo
 document.getElementById("leaveconfirmbutton").addEventListener("click", showNotification);
 document.getElementById("autoabbutton").addEventListener("click", showNotification);
 document.getElementById("applykeybindbutton").addEventListener("click", showNotification);
-document.getElementById("pswdbutton").addEventListener("click", showNotification);
-document.getElementById("resetbutton").addEventListener("click", showNotification);
+document.getElementById("applycredentialsbutton").addEventListener("click", showNotification);
+document.getElementById("resetcredentialsbutton").addEventListener("click", showNotification);
 
 let selectedKey = localStorage.getItem("redirectKey");
 let customURL = localStorage.getItem("redirectUrl") || "https://www.google.com";
@@ -345,36 +345,58 @@ function applyKeybind() {
     closeKeybindModal();
 }
 
-let tempPassword = localStorage.getItem('password') || ''; // Temporary storage
+// Default credentials
+const DEFAULT_USERNAME = "mewingacademy";
+const DEFAULT_PASSWORD = "looksmaxxing123";
 
-function openPasswordModal() {
-    document.getElementById('password-modal').classList.add('show');
-    tempPassword = localStorage.getItem('password') || '';
+// Set initial values if not already set
+if (!localStorage.getItem('username')) localStorage.setItem('username', DEFAULT_USERNAME);
+if (!localStorage.getItem('password')) localStorage.setItem('password', DEFAULT_PASSWORD);
+
+let tempUsername = localStorage.getItem('username') || DEFAULT_USERNAME;
+let tempPassword = localStorage.getItem('password') || DEFAULT_PASSWORD;
+
+function openCredentialsModal() {
+    document.getElementById('credentials-modal').classList.add('show');
+    document.getElementById('new-username').value = tempUsername;
     document.getElementById('new-password').value = tempPassword;
 }
 
-function closePasswordModal() {
-    // Reset to last saved password when closing
-    tempPassword = localStorage.getItem('password') || '';
-    document.getElementById('password-modal').classList.remove('show');
+function closeCredentialsModal() {
+    const modal = document.getElementById('credentials-modal');
+    modal.style.opacity = '0';
+    setTimeout(() => {
+        modal.classList.remove('show');
+        modal.style.opacity = '';
+    }, 250);
 }
 
-function applyNewPassword() {
-    const newPassword = document.getElementById('new-password').value.trim();
-    if (newPassword) {
-        localStorage.setItem('password', newPassword);
-        tempPassword = newPassword;
-        closePasswordModal();
-    } else {
-        alert('Please enter a valid password.');
-    }
+function applyCredentials() {
+    let newUsername = document.getElementById('new-username').value.trim();
+    let newPassword = document.getElementById('new-password').value.trim();
+
+    // Fallbacks
+    if (!newUsername) newUsername = DEFAULT_USERNAME;
+    if (!newPassword) newPassword = DEFAULT_PASSWORD;
+
+    localStorage.setItem('username', newUsername);
+    localStorage.setItem('password', newPassword);
+
+    tempUsername = newUsername;
+    tempPassword = newPassword;
+
+    closeCredentialsModal();
 }
 
-function resetPassword() {
-    localStorage.removeItem('password');
-    document.getElementById('new-password').value = '';
-    tempPassword = '';
-    closePasswordModal()
-}
+function resetCredentials() {
+    localStorage.setItem('username', DEFAULT_USERNAME);
+    localStorage.setItem('password', DEFAULT_PASSWORD);
 
-document.getElementById('resetbutton').addEventListener('click', resetPassword);
+    tempUsername = DEFAULT_USERNAME;
+    tempPassword = DEFAULT_PASSWORD;
+
+    document.getElementById('new-username').value = DEFAULT_USERNAME;
+    document.getElementById('new-password').value = DEFAULT_PASSWORD;
+
+    closeCredentialsModal();
+}

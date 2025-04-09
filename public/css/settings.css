@@ -203,7 +203,7 @@ body {
     }
 }
 
-.password-modal {
+.credentials-modal {
     position: fixed;
     top: 0;
     left: 0;
@@ -219,12 +219,12 @@ body {
     transition: opacity 0.25s ease;
 }
 
-.password-modal.show {
+.credentials-modal.show {
     display: flex;
     opacity: 1;
 }
 
-.password-modal-content {
+.credentials-modal-content {
     background-color: #1e1e2e;
     padding: 30px;
     border-radius: 10px;
@@ -232,21 +232,20 @@ body {
     width: 300px;
     box-shadow: 0 0 20px #000;
     border: 1px solid #45475a;
+    animation: modalSlideIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+    opacity: 0;
+    animation-fill-mode: forwards;
 }
 
-.password-modal-content h2 {
+.credentials-modal-content h2 {
     font-size: 1.3em;
     margin-bottom: 15px;
     text-align: center;
-    color: #cdd6f4;
 }
 
-.password-modal-content .input-group {
-    margin-bottom: 15px;
-}
-
-.password-modal-content input {
+.credentials-modal-content input {
     width: 100%;
+    margin-bottom: 10px;
     padding: 10px;
     border: 1px solid #45475a;
     border-radius: 5px;
@@ -255,18 +254,14 @@ body {
     font-family: inherit;
 }
 
-.password-modal-content input::placeholder {
-    color: #a6adc8;
-}
-
-.password-buttons {
+.credentials-buttons {
     display: flex;
     justify-content: space-between;
     gap: 10px;
     margin-top: 15px;
 }
 
-.password-buttons button {
+.credentials-buttons button {
     flex: 1;
     padding: 8px;
     border: none;
@@ -274,30 +269,15 @@ body {
     cursor: pointer;
     font-weight: 500;
     transition: all 0.2s;
-}
-
-.password-buttons button:first-child {
     background-color: #89b4fa;
     color: #1e1e2e;
 }
 
-.password-buttons button:nth-child(2) {
-    background-color: #f38ba8; /* Kept red for destructive action */
-    color: #1e1e2e;
+.credentials-buttons button:nth-child(2) {
+    background-color: #f38ba8;
 }
 
-.password-buttons button:last-child {
-    background-color: #89b4fa;
-    color: #1e1e2e;
-}
-
-.password-buttons button:hover {
+.credentials-buttons button:hover {
     opacity: 0.9;
     transform: translateY(-1px);
-}
-
-.password-modal-content {
-    animation: modalSlideIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1);
-    opacity: 0; /* Start hidden */
-    animation-fill-mode: forwards; /* Keeps final state */
 }

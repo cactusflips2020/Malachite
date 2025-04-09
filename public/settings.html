@@ -85,9 +85,9 @@ add proxy switcher n panic key
                 <button class="setting-button" onclick="openKeybindModal()">Open Panic Key Settings</button>
             </div>      
             <div class="setting-card">
-                <div class="setting-title">Change Password</div>
-                <div class="setting-description">Change your login password.</div>
-                <button class="setting-button" onclick="openPasswordModal()">Change Password</button>
+                <div class="setting-title">Change Credentials</div>
+                <div class="setting-description">Change your login credentials.</div>
+                <button class="setting-button" onclick="openCredentialsModal()">Change Credentials</button>
               </div>      
             <div class="setting-card">
                 <div class="setting-title">Log Out</div>
@@ -120,17 +120,18 @@ add proxy switcher n panic key
                 </div>
             </div>
         </div>   
-<div class="password-modal" id="password-modal">
-    <div class="password-modal-content">
-      <h2>Change Password</h2>
-      <input type="password" id="new-password" placeholder="looksmaxxing123" />
-      <div class="password-buttons">
-        <button id="pswdbutton" onclick="applyNewPassword()">Apply</button>
-        <button id="resetbutton" onclick="resetPassword()">Reset</button>
-        <button onclick="closePasswordModal()">Close</button>
-      </div>
-    </div>
-  </div>           
+        <div class="credentials-modal" id="credentials-modal">
+            <div class="credentials-modal-content">
+              <h2>Change Credentials</h2>
+              <input type="text" id="new-username" placeholder="Username" />
+              <input type="password" id="new-password" placeholder="Password" />
+              <div class="credentials-buttons">
+                <button id="applycredentialsbutton" onclick="applyCredentials()">Apply</button>
+                <button id="resetcredentialsbutton" onclick="resetCredentials()">Reset</button>
+                <button onclick="closeCredentialsModal()">Close</button>
+              </div>
+            </div>
+          </div>                  
         <!--add a notification when changes are made-->   
         </div>
         <script src="js/settings.js" defer></script>	

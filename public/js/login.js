@@ -10,16 +10,14 @@ document.getElementById('login-form').addEventListener('submit', function(event)
     let username = document.getElementById('username').value;
     let password = document.getElementById('password').value;
 
-    // Simulate checking username and password
-    const savedPassword = localStorage.getItem('password') || 'looksmaxxing123';
-    if (username === 'mewingacademy' && password === savedPassword)
-     {
-        // Save user information to localStorage to simulate login
+    let storedUsername = localStorage.getItem('username') || 'mewingacademy';
+    let storedPassword = localStorage.getItem('password') || 'looksmaxxing123';
+    
+    if (username === storedUsername && password === storedPassword) {
         localStorage.setItem('isLoggedIn', 'true');
-
-        // Redirect to the homepage (index.html)
         window.location.href = 'index.html';
-    } else {
+    }
+    else {
         document.getElementById('error-message').textContent = 'Invalid username or password';
     }
 });
