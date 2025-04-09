@@ -285,6 +285,9 @@ document.querySelector(".cloak-select").addEventListener("change", showNotificat
 document.querySelector(".searchengine-select").addEventListener("change", showNotification);
 document.getElementById("leaveconfirmbutton").addEventListener("click", showNotification);
 document.getElementById("autoabbutton").addEventListener("click", showNotification);
+document.getElementById("applykeybindbutton").addEventListener("click", showNotification);
+document.getElementById("pswdbutton").addEventListener("click", showNotification);
+document.getElementById("resetbutton").addEventListener("click", showNotification);
 
 let selectedKey = localStorage.getItem("redirectKey");
 let customURL = localStorage.getItem("redirectUrl") || "https://www.google.com";
@@ -361,7 +364,6 @@ function applyNewPassword() {
     if (newPassword) {
         localStorage.setItem('password', newPassword);
         tempPassword = newPassword;
-        alert('Password changed!');
         closePasswordModal();
     } else {
         alert('Please enter a valid password.');
@@ -369,6 +371,10 @@ function applyNewPassword() {
 }
 
 function resetPassword() {
-    // Only reset when applied
+    localStorage.removeItem('password');
     document.getElementById('new-password').value = '';
+    tempPassword = '';
+    closePasswordModal()
 }
+
+document.getElementById('resetbutton').addEventListener('click', resetPassword);

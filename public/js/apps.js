@@ -11,8 +11,8 @@ const appsData = [
     { "name": "Android OS", "image": "/img/apps/OS_Android.webp", "link": "https://now.gg/play/uncube/10005/now" },
     { "name": "Crazygames", "image": "/img/apps/crazygames.png", "link": "https://crazygames.com" },
     { "name": "Poki", "image": "/img/apps/poki.png", "link": "https://poki.com" },
+    { "name": "WebRetro", "image": "/img/apps/webretro.png", "link": "https://binbashbanana.github.io/webretro/" },
 ];
-
 async function renderApps(filteredApps = appsData) {
     const appsContainer = document.getElementById("apps-container");
     appsContainer.innerHTML = ""; // Clear previous cards

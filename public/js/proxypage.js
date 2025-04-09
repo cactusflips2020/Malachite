@@ -22,7 +22,6 @@ async function onIframeLoad() {
       try {
         // Wait for the decoded URL (assuming chemical.decode() returns a promise)
         const decodedUrl = await chemical.decode(iframeUrl);
-  
         // Set the decoded URL to the input field
         proxySearchInput.value = decodedUrl;
       } catch (error) {

@@ -115,7 +115,7 @@ add proxy switcher n panic key
                 <input id="keybind-url" class="keybind-url" placeholder="https://www.google.com" />
         
                 <div class="keybind-buttons">
-                    <button onclick="applyKeybind()">Apply</button>
+                    <button id="applykeybindbutton" onclick="applyKeybind()">Apply</button>
                     <button onclick="closeKeybindModal()">Cancel</button>
                 </div>
             </div>
@@ -123,10 +123,10 @@ add proxy switcher n panic key
 <div class="password-modal" id="password-modal">
     <div class="password-modal-content">
       <h2>Change Password</h2>
-      <input type="password" id="new-password" placeholder="Enter new password" />
+      <input type="password" id="new-password" placeholder="looksmaxxing123" />
       <div class="password-buttons">
-        <button onclick="applyNewPassword()">Apply</button>
-        <button onclick="resetPassword()">Reset</button>
+        <button id="pswdbutton" onclick="applyNewPassword()">Apply</button>
+        <button id="resetbutton" onclick="resetPassword()">Reset</button>
         <button onclick="closePasswordModal()">Close</button>
       </div>
     </div>
