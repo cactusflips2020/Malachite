@@ -33,7 +33,7 @@ node -v # This should be above v20.17.0!
 
 git clone https://github.com/cactusflips2020/Malachite.git
 
-cd "Mewing Academy"
+cd "Malachite"
 
 npm install
 
