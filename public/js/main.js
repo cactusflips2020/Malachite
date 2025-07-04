@@ -78,7 +78,7 @@ window.addEventListener("keydown", (e) => {
 })();
 
 document.addEventListener('DOMContentLoaded', function() {
-  var logo = document.querySelector('.logo-container img');
+  let logo = document.querySelector('.logo-container img');
   if (logo) {
     logo.addEventListener('mouseenter', function() {
       logo.classList.add('logo-spin');
@@ -113,12 +113,12 @@ function updateLogoAndFavicon(theme) {
     classic: 'img/classicfavicon.ico'
   };
   // Set logo for current theme (always)
-  var logoImgs = Array.from(document.querySelectorAll('.logo-container img, .logo-container a img, .logo-above-title img, #logo-container img, #logo'));
+  const logoImgs = Array.from(document.querySelectorAll('.logo-container img, .logo-container a img, .logo-above-title img, #logo-container img, #logo'));
   if (logoImgs.length > 0 && logoMap[theme]) {
     logoImgs.forEach(img => { img.src = logoMap[theme]; });
   }
   // Set favicon and title for current theme if tab cloak is Default or empty
-  var tabCloak = localStorage.getItem('tabCloak') || 'Default';
+  let tabCloak = localStorage.getItem('tabCloak') || 'Default';
   if (typeof chemical !== 'undefined' && chemical.setStore) {
     if (tabCloak === 'Default' || !tabCloak) {
       if (faviconMap[theme]) {
@@ -136,8 +136,8 @@ function getCurrentTheme() {
 // Update logo and favicon on load and when theme or cloak changes
 window.addEventListener('DOMContentLoaded', function() {
   setTimeout(function() {
-    var tabCloak = localStorage.getItem('tabCloak') || 'Default';
-    var theme = getCurrentTheme();
+    let tabCloak = localStorage.getItem('tabCloak') || 'Default';
+    let theme = getCurrentTheme();
     const faviconMap = {
       moss: 'img/mossfavicon.ico',
       midnight: 'img/midnightfavicon.ico',
@@ -158,8 +158,8 @@ window.addEventListener('DOMContentLoaded', function() {
 
 window.addEventListener('storage', function(e) {
   if (e.key === 'siteTheme' || e.key === 'tabCloak') {
-    var tabCloak = localStorage.getItem('tabCloak') || 'Default';
-    var theme = getCurrentTheme();
+    let tabCloak = localStorage.getItem('tabCloak') || 'Default';
+    let theme = getCurrentTheme();
     const faviconMap = {
       moss: 'img/mossfavicon.ico',
       midnight: 'img/midnightfavicon.ico',
@@ -185,8 +185,8 @@ window.addEventListener('storage', function(e) {
   localStorage.setItem = function(key, value) {
     origSetItem.apply(this, arguments);
     if (key === 'siteTheme' || key === 'tabCloak') {
-      var tabCloak = localStorage.getItem('tabCloak') || 'Default';
-      var theme = getCurrentTheme();
+      let tabCloak = localStorage.getItem('tabCloak') || 'Default';
+      let theme = getCurrentTheme();
       const faviconMap = {
         moss: 'img/mossfavicon.ico',
         midnight: 'img/midnightfavicon.ico',
