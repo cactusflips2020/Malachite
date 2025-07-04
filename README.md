@@ -12,16 +12,8 @@ Malachite is a fast, modern proxy site with a beautiful, fully themeable UI and 
 - Sleek, modern UI
 - Search bar
 - Proxy navigation tools
-- **Advanced theming system:**
-  - Multiple color themes (Moss, Midnight, Rose, Classic)
-  - Theme-based logos and favicons
-  - All UI elements (cards, navbars, buttons, dropdowns, modals, notifications, etc.) are fully themed
-  - Theme persists across all pages
-- Themed notification popups and modals (including panic key and credentials modals)
 - Panic key system
-- Tab cloaking (with theme-aware favicon logic)
-- Smooth breathing background animation
-- Keyboard shortcuts
+- Tab cloaking
 - And a lot more...
 
 > [!IMPORTANT]
