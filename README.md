@@ -39,7 +39,7 @@ Make sure you are using NodeJS v20.17.0+ before you locally deploy the project.
 ```bash
 node -v # This should be above v20.17.0!
 
-git clone https://github.com/cactusflips2020/Mewing-Academy.git
+git clone https://github.com/cactusflips2020/Malachite.git
 
 cd "Mewing Academy"
 
@@ -54,7 +54,7 @@ Once it is all set up, head over to http://localhost:3000 to use Malachite on yo
 - Node.js
 
 > [!IMPORTANT]
-> When prompted to log in the username is mewingacademy and the password is looksmaxxing123. THESE ARE CASE SENSITIVE!
+> When prompted to log in the username is malachite and the password is malachiteontop. THESE ARE CASE SENSITIVE!
 
 ## License
 

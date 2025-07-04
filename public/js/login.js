@@ -10,8 +10,8 @@ document.getElementById('login-form').addEventListener('submit', function(event)
     let username = document.getElementById('username').value;
     let password = document.getElementById('password').value;
 
-    let storedUsername = localStorage.getItem('username') || 'mewingacademy';
-    let storedPassword = localStorage.getItem('password') || 'looksmaxxing123';
+    let storedUsername = localStorage.getItem('username') || 'malachite';
+    let storedPassword = localStorage.getItem('password') || 'malachiteontop';
     
     if (username === storedUsername && password === storedPassword) {
         localStorage.setItem('isLoggedIn', 'true');
