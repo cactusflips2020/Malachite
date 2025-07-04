@@ -20,11 +20,11 @@ Malachite is a fast, modern proxy site with a beautiful, fully themeable UI and 
 > You **cannot** deploy Malachite on any static hosting sites.
 
 ## Deployment
-<a target="_blank" href="https://heroku.com/deploy/?template=https://github.com/cactusflips2020/Mewing-Academy"><img alt="Deploy to Heroku" src="https://binbashbanana.github.io/deploy-buttons/buttons/official/heroku.svg"></a>
-<a target="_blank" href="https://app.koyeb.com/deploy?type=git&repository=github.com/cactusflips2020/Mewing-Academy"><img alt="Run on Koyeb" src="https://binbashbanana.github.io/deploy-buttons/buttons/remade/koyeb.svg"></a>
-<a target="_blank" href="https://glitch.com/edit/#!/import/github/cactusflips2020/Mewing-Academy"><img alt="Remix on Glitch" src="https://binbashbanana.github.io/deploy-buttons/buttons/official/glitch.svg"></a>
-<a target="_blank" href="https://railway.app/new/template?template=https://github.com/cactusflips2020/Mewing-Academy"><img alt="Deploy on Railway" src="https://binbashbanana.github.io/deploy-buttons/buttons/official/railway.svg"></a>
-<a target="_blank" href="https://render.com/deploy?repo=https://github.com/cactusflips2020/Mewing-Academy"><img alt="Deploy to Render" src="https://binbashbanana.github.io/deploy-buttons/buttons/official/render.svg"></a>
+<a target="_blank" href="https://heroku.com/deploy/?template=https://github.com/cactusflips2020/Malachite"><img alt="Deploy to Heroku" src="https://binbashbanana.github.io/deploy-buttons/buttons/official/heroku.svg"></a>
+<a target="_blank" href="https://app.koyeb.com/deploy?type=git&repository=github.com/cactusflips2020/Malachite"><img alt="Run on Koyeb" src="https://binbashbanana.github.io/deploy-buttons/buttons/remade/koyeb.svg"></a>
+<a target="_blank" href="https://glitch.com/edit/#!/import/github/cactusflips2020/Malachite"><img alt="Remix on Glitch" src="https://binbashbanana.github.io/deploy-buttons/buttons/official/glitch.svg"></a>
+<a target="_blank" href="https://railway.app/new/template?template=https://github.com/cactusflips2020/Malachite"><img alt="Deploy on Railway" src="https://binbashbanana.github.io/deploy-buttons/buttons/official/railway.svg"></a>
+<a target="_blank" href="https://render.com/deploy?repo=https://github.com/cactusflips2020/Malachite"><img alt="Deploy to Render" src="https://binbashbanana.github.io/deploy-buttons/buttons/official/render.svg"></a>
 
 ## Local Deployment
 Make sure you are using NodeJS v20.17.0+ before you locally deploy the project.
