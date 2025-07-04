@@ -227,22 +227,39 @@ window.addEventListener('load', updateLeaveConfirmButton);
 
 let notifications = [];
 
-function showNotification() {
+function showNotification(message) {
     // Play notification sound
     let audio = new Audio("/audio/notification.mp3");
     audio.play().catch(error => console.warn("Audio play failed:", error));
 
     let notification = document.createElement("div");
-    notification.className = "notification";
-    notification.innerText = "Changes saved!";
+    const theme = localStorage.getItem('siteTheme') || 'moss';
+    notification.className = "notification theme-" + theme;
+    notification.innerText = message;
+    // Set background, text, and border color directly for each theme
+    if (theme === 'moss') {
+        notification.style.background = '#384438'; // old outline color
+        notification.style.color = '#b2c2a8';
+        notification.style.border = '1.5px solid #232b23';
+    } else if (theme === 'midnight') {
+        notification.style.background = '#2a3442'; // old outline color
+        notification.style.color = '#b8c7e0';
+        notification.style.border = '1.5px solid #181c24';
+    } else if (theme === 'rose') {
+        notification.style.background = '#6e3844'; // old outline color
+        notification.style.color = '#e0b8c7';
+        notification.style.border = '1.5px solid #2a1a1f';
+    } else if (theme === 'classic') {
+        notification.style.background = '#444'; // old outline color
+        notification.style.color = '#e0e0e0';
+        notification.style.border = '1.5px solid #181818';
+    }
 
     // Style the notification
     Object.assign(notification.style, {
         position: "fixed",
         bottom: "20px",
         right: "20px",
-        backgroundColor: "#181825",
-        color: "#cdd6f4",
         padding: "10px 15px",
         borderRadius: "5px",
         boxShadow: "0 2px 10px rgba(0,0,0,0.3)",
@@ -280,14 +297,14 @@ function showNotification() {
 }
 
 // Add event listeners for dropdowns
-document.querySelector(".transport-select").addEventListener("change", showNotification);
-document.querySelector(".cloak-select").addEventListener("change", showNotification);
-document.querySelector(".searchengine-select").addEventListener("change", showNotification);
-document.getElementById("leaveconfirmbutton").addEventListener("click", showNotification);
-document.getElementById("autoabbutton").addEventListener("click", showNotification);
-document.getElementById("applykeybindbutton").addEventListener("click", showNotification);
-document.getElementById("applycredentialsbutton").addEventListener("click", showNotification);
-document.getElementById("resetcredentialsbutton").addEventListener("click", showNotification);
+document.querySelector(".transport-select").addEventListener("change", () => showNotification('Changes saved!'));
+document.querySelector(".cloak-select").addEventListener("change", () => showNotification('Changes saved!'));
+document.querySelector(".searchengine-select").addEventListener("change", () => showNotification('Changes saved!'));
+document.getElementById("leaveconfirmbutton").addEventListener("click", () => showNotification('Changes saved!'));
+document.getElementById("autoabbutton").addEventListener("click", () => showNotification('Changes saved!'));
+document.getElementById("applykeybindbutton").addEventListener("click", () => showNotification('Changes saved!'));
+document.getElementById("applycredentialsbutton").addEventListener("click", () => showNotification('Changes saved!'));
+document.getElementById("resetcredentialsbutton").addEventListener("click", () => showNotification('Changes saved!'));
 
 let selectedKey = localStorage.getItem("redirectKey");
 let customURL = localStorage.getItem("redirectUrl") || "https://www.google.com";
@@ -400,3 +417,88 @@ function resetCredentials() {
 
     closeCredentialsModal();
 }
+
+// Persist breathing background animation state
+(function() {
+  const body = document.body;
+  const ANIMATION_NAME = 'breathing-bg';
+  const ANIMATION_DURATION = 14; // seconds
+  // On load, set animation delay to match saved progress
+  let progress = parseFloat(localStorage.getItem('breathingBgProgress') || '0');
+  if (!isNaN(progress)) {
+    body.style.animationDelay = `-${progress}s`;
+  }
+  // Update progress every 100ms
+  setInterval(() => {
+    // Get computed animation time
+    const start = performance.timing.navigationStart;
+    const now = Date.now();
+    // Estimate progress based on elapsed time and animation duration
+    let elapsed = ((now - start) / 1000 + progress) % ANIMATION_DURATION;
+    // If the animation is paused or not running, skip
+    if (getComputedStyle(body).animationName !== ANIMATION_NAME) return;
+    localStorage.setItem('breathingBgProgress', elapsed.toFixed(2));
+  }, 100);
+})();
+
+function changeTheme() {
+    const theme = document.querySelector('.theme-select').value;
+    document.body.classList.remove('theme-moss', 'theme-midnight', 'theme-solarized', 'theme-rose', 'theme-classic');
+    document.body.classList.add('theme-' + theme);
+    localStorage.setItem('siteTheme', theme);
+    showNotification('Changes saved!');
+    // Update theme classes for modals/popups
+    updateThemeModals();
+}
+
+function updateThemeModals() {
+    const theme = localStorage.getItem('siteTheme') || 'moss';
+    // Notification popup
+    const notifications = document.querySelectorAll('.notification');
+    notifications.forEach(n => {
+        n.className = 'notification theme-' + theme;
+    });
+    // Panic key modal and all children
+    const keybindModal = document.getElementById('keybind-modal');
+    if (keybindModal) {
+        keybindModal.className = 'keybind-modal theme-' + theme;
+        // All children
+        const keybindContent = keybindModal.querySelector('.keybind-content');
+        if (keybindContent) keybindContent.className = 'keybind-content theme-' + theme;
+        const keybindBox = keybindModal.querySelector('.keybind-box');
+        if (keybindBox) keybindBox.className = 'keybind-box theme-' + theme;
+        const keybindInput = keybindModal.querySelector('.keybind-url');
+        if (keybindInput) keybindInput.className = 'keybind-url theme-' + theme;
+        const keybindButtons = keybindModal.querySelectorAll('.keybind-buttons button');
+        keybindButtons.forEach(btn => {
+            btn.className = 'theme-' + theme;
+        });
+    }
+    // Credentials modal and all children
+    const credentialsModal = document.getElementById('credentials-modal');
+    if (credentialsModal) {
+        credentialsModal.className = 'credentials-modal theme-' + theme;
+        const credentialsContent = credentialsModal.querySelector('.credentials-modal-content');
+        if (credentialsContent) credentialsContent.className = 'credentials-modal-content theme-' + theme;
+        const credentialsInputs = credentialsModal.querySelectorAll('input');
+        credentialsInputs.forEach(input => {
+            input.className = 'theme-' + theme;
+        });
+        const credentialsButtons = credentialsModal.querySelectorAll('.credentials-buttons button');
+        credentialsButtons.forEach(btn => {
+            btn.className = 'theme-' + theme;
+        });
+        // Always add 'reset-btn' to the reset button
+        const resetBtn = credentialsModal.querySelector('#resetcredentialsbutton');
+        if (resetBtn) resetBtn.classList.add('reset-btn');
+    }
+}
+
+function loadThemeSetting() {
+    const savedTheme = localStorage.getItem('siteTheme') || 'moss';
+    document.body.classList.remove('theme-moss', 'theme-midnight', 'theme-solarized', 'theme-rose', 'theme-classic');
+    document.body.classList.add('theme-' + savedTheme);
+    const select = document.querySelector('.theme-select');
+    if (select) select.value = savedTheme;
+}
+window.addEventListener('DOMContentLoaded', loadThemeSetting);

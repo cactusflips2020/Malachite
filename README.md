@@ -1,21 +1,31 @@
 <div align="center">
-  <img src="/public/img/logo.png" alt="Mewing Academy Logo" width="200"/>
-  <h1>Mewing Academy</h1>
+  <img src="/public/img/mosslogo.png" alt="Malachite Logo" width="200"/>
+  <h1>Malachite</h1>
 </div>
 
-Mewing Academy is a fast and simple proxy site that allows you to browse the web with unfilted access.<br/><br/>
+Malachite is a fast, modern proxy site with a beautiful, fully themeable UI and a rich set of features for browsing, gaming, and customization.
 
 ## Features
 - Fast proxy speeds
 - Numerous settings
 - A library of games and apps
-- Sleek UI
+- Sleek, modern UI
 - Search bar
-- Proxy navagation tools
+- Proxy navigation tools
+- **Advanced theming system:**
+  - Multiple color themes (Moss, Midnight, Rose, Classic)
+  - Theme-based logos and favicons
+  - All UI elements (cards, navbars, buttons, dropdowns, modals, notifications, etc.) are fully themed
+  - Theme persists across all pages
+- Themed notification popups and modals (including panic key and credentials modals)
+- Panic key system
+- Tab cloaking (with theme-aware favicon logic)
+- Smooth breathing background animation
+- Keyboard shortcuts
 - And a lot more...
 
 > [!IMPORTANT]
-> You **cannot** deploy Mewing Academy on any static hosting sites.
+> You **cannot** deploy Malachite on any static hosting sites.
 
 ## Deployment
 <a target="_blank" href="https://heroku.com/deploy/?template=https://github.com/cactusflips2020/Mewing-Academy"><img alt="Deploy to Heroku" src="https://binbashbanana.github.io/deploy-buttons/buttons/official/heroku.svg"></a>
@@ -25,7 +35,7 @@ Mewing Academy is a fast and simple proxy site that allows you to browse the web
 <a target="_blank" href="https://render.com/deploy?repo=https://github.com/cactusflips2020/Mewing-Academy"><img alt="Deploy to Render" src="https://binbashbanana.github.io/deploy-buttons/buttons/official/render.svg"></a>
 
 ## Local Deployment
-Make sure if you are using NodeJS v20.17.0+ before you locally deploy the project.
+Make sure you are using NodeJS v20.17.0+ before you locally deploy the project.
 ```bash
 node -v # This should be above v20.17.0!
 
@@ -38,7 +48,7 @@ npm install
 npm start
 ```
 
-Once it is all set up, head over to http://localhost:3000 to use Mewing Academy on your computer!
+Once it is all set up, head over to http://localhost:3000 to use Malachite on your computer!
 
 ## Requirements
 - Node.js

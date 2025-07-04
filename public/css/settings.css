@@ -4,6 +4,14 @@
 /* Apply Montserrat font globally */
 body {
     font-family: 'Montserrat', sans-serif;
+    background-color: #232b23;
+    color: #b2c2a8;
+    animation: subtle-breathing-bg 14s linear infinite alternate;
+}
+
+@keyframes subtle-breathing-bg {
+    0% { background-color: #232b23; }
+    100% { background-color: #202620; }
 }
 
 .settings-container {
@@ -17,14 +25,15 @@ body {
 .setting-card {
     flex: 0 1 calc((100% - 40px) / 3); /* 3 cards per row with 2 gaps (20px each) */
     max-width: calc((100% - 40px) / 3);
-    background: #181825;
-    color: #cdd6f4;
+    background: #2e362e;
+    color: #b2c2a8;
     padding: 20px;
     border-radius: 12px;
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 8px #232b2340;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     font-family: 'montserrat';
+    border: 1px solid #384438;
 }
 
 .setting-card:hover {
@@ -37,57 +46,33 @@ body {
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 10px;
+    color: #b2c2a8;
 }
 
 .setting-description {
     font-size: 14px;
     opacity: 0.8;
     margin-bottom: 15px;
+    color: #b2c2a8;
 }
 
-/* Styling for the dropdowns and buttons */
-.transport-select, .cloak-select, .searchengine-select, .setting-button {
+/* Dropdowns and theme select styling */
+.transport-select, .searchengine-select, .cloak-select, .theme-select, .setting-button {
     width: 100%;
     padding: 10px;
     border: none;
     border-radius: 8px;
     font-size: 14px;
     cursor: pointer;
-    transition: transform 0.2s ease, filter 0.3s ease; /* Transition filter for darkness effect */
+    transition: transform 0.2s ease, filter 0.3s ease;
     font-family: 'montserrat';
+    background: #384438;
+    color: #b2c2a8;
+    margin-bottom: 10px;
 }
-
-/* Dropdowns styling */
-.transport-select, .searchengine-select, .cloak-select {
-    background: #1e1e2e;
-    color: #cdd6f4;
-}
-
-/* Button styling */
-.setting-button {
-    background: #1e1e2e;
-    color: #cdd6f4;
-    font-weight: normal;
-    margin-bottom: 10px; /* Gap between buttons */
-}
-
-/* Darken effect on hover instead of changing color */
-.setting-button:hover {
+.transport-select:hover, .searchengine-select:hover, .cloak-select:hover, .theme-select:hover, .setting-button:hover {
     filter: brightness(1.2);
-    transform: scale(1.01); /* Slight scaling effect on hover */
-}
-
-/* Ensure proper gap between the two buttons */
-.setting-card button + button {
-    margin-top: 10px; /* Add a gap between the buttons */
-}
-
-/* Darken effect on hover instead of changing color for dropdowns */
-.searchengine-select:hover,
-.cloak-select:hover,
-.transport-select:hover {
-    filter: brightness(1.2);   /* Darken effect on hover */
-    transform: scale(1.01);     /* Slight scaling effect on hover */
+    transform: scale(1.01);
 }
 
 /* Keybind Modal - Matched to Password Modal Style */
@@ -102,7 +87,7 @@ body {
     align-items: center;
     justify-content: center;
     z-index: 1000;
-    background: rgba(30, 30, 46, 0.6);
+    background: rgba(30, 46, 30, 0.6);
 }
 
 .keybind-modal.show {
@@ -111,13 +96,13 @@ body {
 }
 
 .keybind-content {
-    background-color: #1e1e2e;
+    background-color: #2e362e;
     padding: 30px;
     border-radius: 10px;
-    color: #cdd6f4;
+    color: #b2c2a8;
     width: 300px;
     box-shadow: 0 0 20px #000;
-    border: 1px solid #45475a;
+    border: 1px solid #384438;
     animation: modalSlideIn 0.3s ease-out forwards;
     opacity: 0;
 }
@@ -126,18 +111,18 @@ body {
     font-size: 1.3em;
     margin-bottom: 15px;
     text-align: center;
-    color: #cdd6f4;
+    color: #b2c2a8;
     font-weight: bold;
 }
 
 /* Updated keybind-box for perfect centering */
 .keybind-box {
-    background-color: #313244;
+    background-color: #384438;
     padding: 12px;
     border-radius: 6px;
     margin: 15px 0;
     cursor: pointer;
-    border: 1px solid #45475a;
+    border: 1px solid #232b23;
     display: flex;                  /* NEW: Enable flexbox */
     justify-content: center;        /* NEW: Horizontal center */
     align-items: center;            /* NEW: Vertical center */
@@ -155,10 +140,10 @@ body {
     width: 100%;
     padding: 10px;
     margin-top: 8px;
-    border: 1px solid #45475a;
+    border: 1px solid #232b23;
     border-radius: 5px;
-    background-color: #313244;
-    color: #cdd6f4;
+    background-color: #384438;
+    color: #b2c2a8;
     font-family: inherit;
 }
 
@@ -172,17 +157,17 @@ body {
 .keybind-buttons button {
     flex: 1;
     padding: 8px;
-    background-color: #89b4fa;
-    border: none;
+    background-color: #b2c2a8;
+    border: 1px solid #384438;
     border-radius: 5px;
     cursor: pointer;
-    color: black;
+    color: #232b23;
     transition: background-color 0.3s ease;
     font-weight: 500;
 }
 
 .keybind-buttons button:hover {
-    background-color: #74c7ec;
+    background-color: #94e2d5;
     transform: translateY(-1px);
 }
 
@@ -214,7 +199,7 @@ body {
     align-items: center;
     justify-content: center;
     z-index: 1000;
-    background: rgba(30, 30, 46, 0.6);
+    background: rgba(30, 46, 30, 0.6);
     opacity: 0;
     transition: opacity 0.25s ease;
 }
@@ -225,13 +210,13 @@ body {
 }
 
 .credentials-modal-content {
-    background-color: #1e1e2e;
+    background-color: #2e362e;
     padding: 30px;
     border-radius: 10px;
-    color: #cdd6f4;
+    color: #b2c2a8;
     width: 300px;
     box-shadow: 0 0 20px #000;
-    border: 1px solid #45475a;
+    border: 1px solid #384438;
     animation: modalSlideIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1);
     opacity: 0;
     animation-fill-mode: forwards;
@@ -247,10 +232,10 @@ body {
     width: 100%;
     margin-bottom: 10px;
     padding: 10px;
-    border: 1px solid #45475a;
+    border: 1px solid #232b23;
     border-radius: 5px;
-    background-color: #313244;
-    color: #cdd6f4;
+    background-color: #384438;
+    color: #b2c2a8;
     font-family: inherit;
 }
 
@@ -264,13 +249,13 @@ body {
 .credentials-buttons button {
     flex: 1;
     padding: 8px;
-    border: none;
+    border: 1px solid #384438;
     border-radius: 5px;
     cursor: pointer;
     font-weight: 500;
     transition: all 0.2s;
-    background-color: #89b4fa;
-    color: #1e1e2e;
+    background-color: #b2c2a8;
+    color: #232b23;
 }
 
 .credentials-buttons button:nth-child(2) {

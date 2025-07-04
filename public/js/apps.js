@@ -63,3 +63,32 @@ window.addEventListener("load", function() {
     }
     renderApps();
 });
+
+// Persist breathing background animation state
+(function() {
+  const body = document.body;
+  const ANIMATION_NAME = 'breathing-bg';
+  const ANIMATION_DURATION = 14; // seconds
+  // On load, set animation delay to match saved progress
+  let progress = parseFloat(localStorage.getItem('breathingBgProgress') || '0');
+  if (!isNaN(progress)) {
+    body.style.animationDelay = `-${progress}s`;
+  }
+  // Update progress every 100ms
+  setInterval(() => {
+    // Get computed animation time
+    const start = performance.timing.navigationStart;
+    const now = Date.now();
+    // Estimate progress based on elapsed time and animation duration
+    let elapsed = ((now - start) / 1000 + progress) % ANIMATION_DURATION;
+    // If the animation is paused or not running, skip
+    if (getComputedStyle(body).animationName !== ANIMATION_NAME) return;
+    localStorage.setItem('breathingBgProgress', elapsed.toFixed(2));
+  }, 100);
+})();
+
+(function() {
+  const savedTheme = localStorage.getItem('siteTheme') || 'moss';
+  document.body.classList.remove('theme-moss', 'theme-midnight', 'theme-solarized', 'theme-rose', 'theme-classic');
+  document.body.classList.add('theme-' + savedTheme);
+})();

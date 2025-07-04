@@ -20,8 +20,9 @@
     overflow-y: auto; /* Enable vertical scrolling */
     box-sizing: border-box;
     align-content: flex-start;
-    background-color: #181825; /* Optional: distinguish scroll area */
+    background-color: #232b23; /* Muted dark green-gray */
     border-radius: 12px; /* Optional: rounded edges */
+    border: 2px solid #384438;
 }
 
 /* Ensure game cards are properly positioned */
@@ -35,7 +36,9 @@
     overflow: hidden;
     cursor: pointer;
     transition: all 0.3s ease;
-    background-color: #181825; /* Base background color */
+    background-color: #2e362e;
+    border: 1px solid #384438;
+    box-shadow: 0 2px 8px #232b2340;
 }
 
 /* Ensures images fit properly */
@@ -62,7 +65,8 @@
 
 /* Hover effect for the game card */
 .app-card:hover {
-    border: 1px solid #cdd6f4; /* Apply border on hover */
+    border: 1px solid #b2c2a8;
+    background-color: #384438;
     transform: scale(1.05); /* Scale the card */
     transform-origin: center center; /* Keep the scaling centered */
 }
@@ -78,7 +82,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: #cdd6f4;
+    color: #b2c2a8;
     font-size: 12px; /* Adjust font size */
     font-weight: bold;
     opacity: 0; /* Initially hidden */
@@ -97,6 +101,7 @@
 /* Show the app name text on hover */
 .app-card:hover .app-name {
     opacity: 1; /* Make the text visible on hover */
+    color: #b2c2a8;
 }
 
 /* Ensure hidden cards don't affect layout */
@@ -112,11 +117,11 @@
 }
 
 #search-input {
-    background: #181825;
-    color: #cdd6f4;
+    background: #384438;
+    color: #b2c2a8;
     font-size: inherit;
     font-family: inherit;
-    border: none;
+    border: 1px solid #232b23;
     outline: none;
     padding: 1rem;
     border-radius: 5px;
@@ -127,11 +132,11 @@
 
 #search-input:hover,
 #search-input:focus {
-    background: #1e1e2e;
+    background: #1e2e1e;
 }
 
 #search-input::placeholder {
-    color: #45475a;
+    color: #7e8e7e;
 }
 
 .apps-container::-webkit-scrollbar {
@@ -145,4 +150,35 @@
 
 .apps-container::-webkit-scrollbar-track {
     background: transparent;
+}
+
+body {
+    background-color: #232b23;
+    color: #b2c2a8;
+    animation: subtle-breathing-bg 14s linear infinite alternate;
+}
+
+@keyframes subtle-breathing-bg {
+    0% { background-color: #232b23; }
+    100% { background-color: #202620; }
+}
+
+.theme-select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 15px;
+    background: #232b23;
+    color: #b2c2a8;
+    border: 1.5px solid #384438;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    transition: border 0.2s, box-shadow 0.2s;
+    outline: none;
+    box-shadow: 0 1px 4px #232b2340;
+}
+.theme-select:focus, .theme-select:hover {
+    border: 1.5px solid #b2c2a8;
+    box-shadow: 0 2px 8px #232b2360;
+    background: #202620;
 }

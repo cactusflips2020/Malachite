@@ -7,7 +7,7 @@ add proxy switcher n panic key
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title is="chemical-title" data-title-store>Mewing Academy</title>
+        <title is="chemical-title" data-title-store>Malachite</title>
 		<link rel="icon" is="chemical-icon" data-icon-store href="img/favicon.ico">
 		<link rel="stylesheet" href="css/index.css">
         <link rel="stylesheet" href="css/settings.css">
@@ -22,7 +22,7 @@ add proxy switcher n panic key
 				<a href="index.html">
 					<img src="/img/logo.png" alt="Logo">
 				</a>
-				<a href="index.html">Mewing Academy</a>
+				<a href="index.html">Malachite</a>
 			</div>
 			<div class="nav-links">
 				<a href="games.html">
@@ -90,17 +90,27 @@ add proxy switcher n panic key
                 <button class="setting-button" onclick="openCredentialsModal()">Change Credentials</button>
               </div>      
             <div class="setting-card">
-                <div class="setting-title">Log Out</div>
-                <div class="setting-description">Signs you out of Mewing Academy.</div>
-                <button class="setting-button" onclick="signOut()" style="background-color: #d20f39;">Log out of Mewing Academy</button>
+                <div class="setting-title">Theme</div>
+                <div class="setting-description">Choose your preferred site theme.</div>
+                <select class="theme-select" onchange="changeTheme()">
+                    <option value="moss">Moss (Default)</option>
+                    <option value="midnight">Midnight</option>
+                    <option value="rose">Rose</option>
+                    <option value="classic">Classic</option>
+                </select>
             </div>
             <div class="setting-card">
                 <div class="setting-title">Info</div>
-                <div class="setting-title" style="font-weight: normal; font-size: medium;">Mewing Academy | Version 1.0.1 | Made by Phoenix (a.k.a Cactusflips2020)</div>
+                <div class="setting-title" style="font-weight: normal; font-size: medium;">Malachite | Version 1.0.1 | Made by Phoenix (a.k.a Cactusflips2020)</div>
                 <div class="setting-title" style="font-weight: normal; font-size: medium;">
                     Github page: <a href="https://github.com/cactusflips2020/Mewing-Academy" target="_blank">https://github.com/cactusflips2020/Mewing-Academy</a>
                 </div> 
                 <div class="setting-title" style="font-weight: normal; font-size: medium;">More coming soon...</div>               
+            </div>
+            <div class="setting-card">
+                <div class="setting-title">Log Out</div>
+                <div class="setting-description">Signs you out of Malachite.</div>
+                <button class="setting-button" onclick="signOut()" style="background-color: #d20f39;">Log out of Malachite</button>
             </div>
         </div>
         <div id="keybind-modal" class="keybind-modal" style="display:none;">

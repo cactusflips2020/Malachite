@@ -54,3 +54,157 @@ window.addEventListener("keydown", (e) => {
     }
 });
 
+// Persist breathing background animation state
+(function() {
+  const body = document.body;
+  const ANIMATION_NAME = 'breathing-bg';
+  const ANIMATION_DURATION = 14; // seconds
+  // On load, set animation delay to match saved progress
+  let progress = parseFloat(localStorage.getItem('breathingBgProgress') || '0');
+  if (!isNaN(progress)) {
+    body.style.animationDelay = `-${progress}s`;
+  }
+  // Update progress every 100ms
+  setInterval(() => {
+    // Get computed animation time
+    const start = performance.timing.navigationStart;
+    const now = Date.now();
+    // Estimate progress based on elapsed time and animation duration
+    let elapsed = ((now - start) / 1000 + progress) % ANIMATION_DURATION;
+    // If the animation is paused or not running, skip
+    if (getComputedStyle(body).animationName !== ANIMATION_NAME) return;
+    localStorage.setItem('breathingBgProgress', elapsed.toFixed(2));
+  }, 100);
+})();
+
+document.addEventListener('DOMContentLoaded', function() {
+  var logo = document.querySelector('.logo-container img');
+  if (logo) {
+    logo.addEventListener('mouseenter', function() {
+      logo.classList.add('logo-spin');
+      logo.classList.remove('logo-reverse');
+    });
+    logo.addEventListener('mouseleave', function() {
+      logo.classList.remove('logo-spin');
+      logo.classList.add('logo-reverse');
+    });
+  }
+});
+
+(function() {
+  const savedTheme = localStorage.getItem('siteTheme') || 'moss';
+  document.body.classList.remove('theme-moss', 'theme-midnight', 'theme-solarized', 'theme-rose', 'theme-classic');
+  document.body.classList.add('theme-' + savedTheme);
+})();
+
+function updateLogoAndFavicon(theme) {
+  // Logo mapping
+  const logoMap = {
+    moss: 'img/mosslogo.png',
+    midnight: 'img/midnightlogo.png',
+    rose: 'img/roselogo.png',
+    classic: 'img/classiclogo.png'
+  };
+  // Favicon mapping
+  const faviconMap = {
+    moss: 'img/mossfavicon.ico',
+    midnight: 'img/midnightfavicon.ico',
+    rose: 'img/rosefavicon.ico',
+    classic: 'img/classicfavicon.ico'
+  };
+  // Set logo for current theme (always)
+  var logoImgs = Array.from(document.querySelectorAll('.logo-container img, .logo-container a img, .logo-above-title img, #logo-container img, #logo'));
+  if (logoImgs.length > 0 && logoMap[theme]) {
+    logoImgs.forEach(img => { img.src = logoMap[theme]; });
+  }
+  // Set favicon and title for current theme if tab cloak is Default or empty
+  var tabCloak = localStorage.getItem('tabCloak') || 'Default';
+  if (typeof chemical !== 'undefined' && chemical.setStore) {
+    if (tabCloak === 'Default' || !tabCloak) {
+      if (faviconMap[theme]) {
+        chemical.setStore('icon', faviconMap[theme]);
+      }
+    }
+    chemical.setStore('title', 'Malachite');
+  }
+}
+
+function getCurrentTheme() {
+  return (localStorage.getItem('siteTheme') || 'moss');
+}
+
+// Update logo and favicon on load and when theme or cloak changes
+window.addEventListener('DOMContentLoaded', function() {
+  setTimeout(function() {
+    var tabCloak = localStorage.getItem('tabCloak') || 'Default';
+    var theme = getCurrentTheme();
+    const faviconMap = {
+      moss: 'img/mossfavicon.ico',
+      midnight: 'img/midnightfavicon.ico',
+      rose: 'img/rosefavicon.ico',
+      classic: 'img/classicfavicon.ico'
+    };
+    if (typeof chemical !== 'undefined' && chemical.setStore) {
+      if (tabCloak === 'Default' || !tabCloak) {
+        if (faviconMap[theme]) {
+          chemical.setStore('icon', faviconMap[theme]);
+        }
+      }
+      chemical.setStore('title', 'Malachite');
+    }
+    updateLogoAndFavicon(theme);
+  }, 50);
+});
+
+window.addEventListener('storage', function(e) {
+  if (e.key === 'siteTheme' || e.key === 'tabCloak') {
+    var tabCloak = localStorage.getItem('tabCloak') || 'Default';
+    var theme = getCurrentTheme();
+    const faviconMap = {
+      moss: 'img/mossfavicon.ico',
+      midnight: 'img/midnightfavicon.ico',
+      rose: 'img/rosefavicon.ico',
+      classic: 'img/classicfavicon.ico'
+    };
+    if (typeof chemical !== 'undefined' && chemical.setStore) {
+      if (tabCloak === 'Default' || !tabCloak) {
+        if (faviconMap[theme]) {
+          setTimeout(function() {
+            chemical.setStore('icon', faviconMap[theme]);
+          }, 50);
+        }
+      }
+      chemical.setStore('title', 'Malachite');
+    }
+    updateLogoAndFavicon(theme);
+  }
+});
+
+(function() {
+  const origSetItem = localStorage.setItem;
+  localStorage.setItem = function(key, value) {
+    origSetItem.apply(this, arguments);
+    if (key === 'siteTheme' || key === 'tabCloak') {
+      var tabCloak = localStorage.getItem('tabCloak') || 'Default';
+      var theme = getCurrentTheme();
+      const faviconMap = {
+        moss: 'img/mossfavicon.ico',
+        midnight: 'img/midnightfavicon.ico',
+        rose: 'img/rosefavicon.ico',
+        classic: 'img/classicfavicon.ico'
+      };
+      if (typeof chemical !== 'undefined' && chemical.setStore) {
+        if (tabCloak === 'Default' || !tabCloak) {
+          if (faviconMap[theme]) {
+            setTimeout(function() {
+              chemical.setStore('icon', faviconMap[theme]);
+            }, 50);
+          }
+        }
+        chemical.setStore('title', 'Malachite');
+      }
+      updateLogoAndFavicon(theme);
+    }
+  };
+})();
+
