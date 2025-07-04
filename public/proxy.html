@@ -6,37 +6,58 @@
     <title is="chemical-title" data-title-store>Malachite</title>
     <link rel="icon" is="chemical-icon" data-icon-store href="img/favicon.ico">
     <link rel="stylesheet" href="css/proxy.css">
+    
+    <!-- Chemical.js Proxy Framework -->
     <script src="/chemical.js"></script>
     <script src="/chemical.components.js"></script>
     <script src="/chemical.cloaking.js"></script>
+    
+    <!-- Font Awesome Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    
+    <!-- Eruda DevTools for debugging -->
+    <script src="//cdn.jsdelivr.net/npm/eruda"></script>
+    <script>
+        // Initialize Eruda but keep it hidden until proxy loads
+        eruda.init();
+        eruda.hide();
+        
+        // Hide the floating button until proxy is ready
+        setTimeout(() => {
+            const erudaButton = document.querySelector('.eruda-launcher');
+            if (erudaButton) {
+                erudaButton.style.display = 'none';
+            }
+        }, 100);
+    </script>
 </head>
 <body>
+    <!-- Loading Screen - Shows while proxy initializes -->
     <div class="loading-screen">
         <div class="loading-wheel"></div>
         <br>
-        <div class="loading-text">Loading Proxy...</div>
+        <div class="loading-text" id="loadingText">Loading Proxy...</div>
     </div>
+    
+    <!-- Navigation Bar -->
     <div id="navbar">
-        <!-- Logo and text container -->
+        <!-- Logo and Home Link -->
         <a href="index.html" id="logo-container">
             <img src="/img/logo.png" alt="Logo" id="logo" />
             <span id="logo-text">Malachite</span>
         </a>
         
+        <!-- URL Search Input -->
         <input
             autofocus
             spellcheck="false"
             autocomplete="off"
             id="proxySearch" 
-            data-frame="proxyIframe" 
-            data-auto-https
-            data-service="uv"
-            data-search-engine="https://www.google.com/search?q=%s"
             placeholder="Search or Enter a URL"
             is="chemical-input"
         />
         
+        <!-- Navigation Controls -->
         <section id="controls">
             <button onclick="chemical.componentAction('back', 'proxyIframe')">
                 <i class="fa-solid fa-arrow-left"></i>
@@ -49,56 +70,84 @@
             </button>
         </section>
     </div>
+    
+    <!-- Proxy Iframe - Displays the proxied website -->
     <iframe id="proxyIframe"></iframe>
 
+    <!-- Main JavaScript -->
     <script>
+        // ===== LOADING SCREEN FUNCTIONALITY =====
+        
+        // Array of loading messages to display randomly
+        const loadingMessages = [
+            "Loading Proxy...",
+            "Connecting to Server...",
+            "Establishing Connection...",
+            "Initializing Proxy..."
+        ];
+
+        // Display random loading message on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const loadingTextElement = document.getElementById('loadingText');
+            if (loadingTextElement) {
+                const randomIndex = Math.floor(Math.random() * loadingMessages.length);
+                loadingTextElement.textContent = loadingMessages[randomIndex];
+            }
+        });
+
+        // ===== URL SEARCH FUNCTIONALITY =====
+        
+        // Handle Enter key press in search bar
         document.getElementById("proxySearch").addEventListener("keypress", async function(event) {
             if (event.key === "Enter") {
-                event.preventDefault();  // Prevent default form submission
+                event.preventDefault();
+                
+                const input = event.target.value.trim();
+                if (!input) return; // Don't process empty input
 
-                const input = event.target.value.trim(); // Get input value
-                if (!input) return;  // Do nothing if input is empty
+                try {
+                    // Encode the URL using Chemical.js Ultraviolet service
+                    const encodedUrl = await chemical.encode(input, {
+                        service: "uv",
+                        autoHttps: true,
+                        searchEngine: searchEngineUrl
+                    });
 
-                // Encode the URL using ChemicalJS
-                const encodedUrl = await chemical.encode(input, {
-                    service: "uv",             // Use Ultraviolet (uv) service for encoding
-                    autoHttps: true,           // Automatically ensure the URL uses HTTPS
-                    searchEngine: searchEngineUrl  // Use Google as a search engine for redirection
-                });
+                    // Store encoded URL for persistence
+                    sessionStorage.setItem("encodedUrl", encodedUrl);
 
-                // Store encoded URL in sessionStorage
-                sessionStorage.setItem("encodedUrl", encodedUrl);
-
-                // Load encoded URL in iframe
-                document.getElementById("proxyIframe").src = encodedUrl;
+                    // Load the encoded URL in the iframe
+                    document.getElementById("proxyIframe").src = encodedUrl;
+                } catch (error) {
+                    console.error('Error encoding URL:', error);
+                }
             }
         });
 
+        // ===== URL PERSISTENCE =====
+        
+        // Restore previous URL on page load
         window.addEventListener('DOMContentLoaded', (event) => {
-            // Retrieve the encoded URL from sessionStorage
             const encodedUrl = sessionStorage.getItem("encodedUrl");
-
             if (encodedUrl) {
-                // Set the iframe source to the encoded URL
                 document.getElementById("proxyIframe").src = encodedUrl;
             }
         });
-    </script>
-    <script>
-        window.addEventListener('load', function() {
-    // Get the search engine URL from localStorage
-    const savedSearchEngineUrl = localStorage.getItem('searchEngineSelectUrl') || "https://www.google.com/search?q=%s";  // Fallback to Google if not found in localStorage
 
-    // Get the input element
-    const searchInput = document.getElementById('proxySearch');
-    
-    // If the search input exists, update the data-search-engine attribute
-    if (searchInput) {
-        searchInput.setAttribute('data-search-engine', savedSearchEngineUrl);
-        console.log("Updated search engine URL:", savedSearchEngineUrl);  // Log the updated search engine URL
-    }
-});
+        // ===== SEARCH ENGINE CONFIGURATION =====
+        
+        // Load user's preferred search engine from settings
+        window.addEventListener('load', function() {
+            const savedSearchEngineUrl = localStorage.getItem('searchEngineSelectUrl') || "https://www.google.com/search?q=%s";
+            const searchInput = document.getElementById('proxySearch');
+            
+            if (searchInput) {
+                searchInput.setAttribute('data-search-engine', savedSearchEngineUrl);
+            }
+        });
     </script>
+    
+    <!-- External Scripts -->
     <script src="js/main.js" defer></script>
     <script src="js/proxypage.js"></script>	
 </body>

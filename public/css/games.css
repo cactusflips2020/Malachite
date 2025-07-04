@@ -140,12 +140,35 @@
     color: #7e8e7e;
 }
 
+/* Custom scrollbar styling for games container */
 .games-container::-webkit-scrollbar {
     width: 8px;
 }
 
+/* Theme-specific scrollbar colors for games container */
+body.theme-moss .games-container::-webkit-scrollbar-thumb {
+    background-color: #384438;
+    border-radius: 10px;
+}
+
+body.theme-midnight .games-container::-webkit-scrollbar-thumb {
+    background-color: #2a3442;
+    border-radius: 10px;
+}
+
+body.theme-rose .games-container::-webkit-scrollbar-thumb {
+    background-color: #6e3844;
+    border-radius: 10px;
+}
+
+body.theme-noir .games-container::-webkit-scrollbar-thumb {
+    background-color: #384438;
+    border-radius: 10px;
+}
+
+/* Default fallback */
 .games-container::-webkit-scrollbar-thumb {
-    background-color: #45475a;
+    background-color: #384438;
     border-radius: 10px;
 }
 

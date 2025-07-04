@@ -7,6 +7,17 @@ body {
     background-color: #232b23;
     color: #b2c2a8;
     animation: subtle-breathing-bg 14s linear infinite alternate;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+}
+
+html {
+    height: 100%;
+    overflow-y: auto;
 }
 
 @keyframes subtle-breathing-bg {
@@ -20,11 +31,18 @@ body {
     justify-content: center;
     gap: 20px;
     padding: 20px;
+    padding-top: 100px; /* Push content down below navbar */
+    min-height: 100vh;
+    box-sizing: border-box;
+    padding-bottom: 100px; /* Extra padding at bottom for scrolling */
+    width: 100%;
+    position: relative;
 }
 
 .setting-card {
     flex: 0 1 calc((100% - 40px) / 3); /* 3 cards per row with 2 gaps (20px each) */
     max-width: calc((100% - 40px) / 3);
+    min-width: 280px; /* Minimum width to prevent cards from becoming too narrow */
     background: #2e362e;
     color: #b2c2a8;
     padding: 20px;
@@ -34,6 +52,7 @@ body {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     font-family: 'montserrat';
     border: 1px solid #384438;
+    box-sizing: border-box;
 }
 
 .setting-card:hover {
@@ -57,7 +76,7 @@ body {
 }
 
 /* Dropdowns and theme select styling */
-.transport-select, .searchengine-select, .cloak-select, .theme-select, .setting-button {
+.transport-select, .proxy-backend-select, .searchengine-select, .cloak-select, .theme-select, .setting-button {
     width: 100%;
     padding: 10px;
     border: none;
@@ -70,7 +89,7 @@ body {
     color: #b2c2a8;
     margin-bottom: 10px;
 }
-.transport-select:hover, .searchengine-select:hover, .cloak-select:hover, .theme-select:hover, .setting-button:hover {
+.transport-select:hover, .proxy-backend-select:hover, .searchengine-select:hover, .cloak-select:hover, .theme-select:hover, .setting-button:hover {
     filter: brightness(1.2);
     transform: scale(1.01);
 }
@@ -266,3 +285,25 @@ body {
     opacity: 0.9;
     transform: translateY(-1px);
 }
+
+/* Responsive design for different screen sizes */
+@media (max-width: 1200px) {
+    .setting-card {
+        flex: 0 1 calc((100% - 20px) / 2); /* 2 cards per row on medium screens */
+        max-width: calc((100% - 20px) / 2);
+    }
+}
+
+@media (max-width: 768px) {
+    .setting-card {
+        flex: 0 1 100%; /* 1 card per row on small screens */
+        max-width: 100%;
+        min-width: auto;
+    }
+    
+    .settings-container {
+        padding: 15px;
+        padding-bottom: 80px;
+    }
+}
+

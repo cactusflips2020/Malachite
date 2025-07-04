@@ -3,7 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Sign in to your Schoology Learning Management System account to access your courses, assignments, and educational resources." />
+  <meta name="keywords" content="Schoology, LMS, learning management system, education, online learning" />
+  <meta name="author" content="PowerSchool" />
   <title>Log in to Schoology</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/login.css" />
   <link rel="icon" href="https://www.powerschool.com/favicon.ico" type="image/x-icon" />
 </head>
@@ -19,27 +25,91 @@
     <div class="login-wrapper">
       <div class="login-box">
   
-        <!-- Login Form -->
-        <form id="login-form" class="login-form">
+        <!-- Login Content -->
+        <div class="login-content clearfix">
           <h3 class="sign-in-header">Sign in to Schoology</h3>
-          <div class="form-item">
-            <span class="required-text-label" tabindex="-1" role="text">All fields are required</span>
-          </div>
-          <input type="text" id="username" placeholder="Username or Email" required />
-          <input type="password" id="password" placeholder="Password" required />
-  
-          <button type="submit">Log in</button>
- 
-        <!-- Error Message -->
-         <br>
-        <p id="error-message" class="error-message"></p>
-  
-          <div class="options">
-            <a href="#">Forgot your password?</a>
-            <a href="#">Log in with SSO</a>
-          </div>
-        </form>
+          <h3 class="forgot-header">Forgot Password</h3>
+
+          <form action="/login" accept-charset="UTF-8" method="post" id="s-user-login-form">
+            <div>
+              <div class="form-item">
+                <span class="required-text-label" tabindex="-1" role="text">All fields are required</span>
+              </div>
+              
+              <div class="form-item" id="edit-mail-wrapper">
+                <input type="text" maxlength="128" name="mail" id="edit-mail" size="60" value="" placeholder="Email or Username" aria-required="true" class="form-text">
+              </div>
+              
+              <div class="form-item" id="edit-pass-wrapper">
+                <input type="password" name="pass" id="edit-pass" maxlength="128" size="60" placeholder="Password" aria-required="true" autocomplete="off" class="form-text">
+              </div>
+
+              <div class="form-item" id="edit-school-wrapper" style="display: none;">
+                <label class="hide" for="edit-school">Select Your School (required):</label>
+                <span class="loader"></span>
+                <input type="text" aria-required="true" maxlength="30" name="school" id="edit-school" size="0" autocomplete="off" value="" class="form-text ac_input" placeholder="School or Postal Code " title="School or Postal Code ">
+                <div id="remember-school-wrapper">
+                  <label class="show option" for="remember-school">
+                    <input type="checkbox" id="remember-school" name="remember-school" value="remember-school"> Remember my School
+                  </label>
+                </div>
+              </div>
+              
+              <input type="hidden" name="school_nid" id="edit-school-nid" value="">
+              
+              <span class="submit-span-wrapper">
+                <input type="submit" name="op" id="edit-submit" value="Log in" class="form-submit">
+              </span>
+              
+              <div class="forgot-password">
+                <a href="#" id="forgot-password-link">Forgot your password</a>
+              </div>
+              
+              <div class="sso-login">
+                <span tabindex="0" role="link" class="sso-login-link clickable">SSO Login</span>
+                <span tabindex="0" role="link" class="regular-login-link hidden">Regular Login</span>
+              </div>
+              
+              <input type="hidden" name="form_build_id" id="d84b964-Imtiix5r4Z2Km4Gma9jKfkQML2zTqw5-gL8sxFiQmSM" value="d84b964-Imtiix5r4Z2Km4Gma9jKfkQML2zTqw5-gL8sxFiQmSM">
+              <input type="hidden" name="form_id" id="edit-s-user-login-form" value="s_user_login_form">
+            </div>
+          </form>
+          
+          <!-- Forgot Password Form -->
+          <form id="forgot-password-form" style="display: none;">
+            <div>
+              <div class="form-item">
+                <span class="required-text-label" tabindex="-1" role="text">All fields are required</span>
+              </div>
+              
+              <div class="form-item">
+                <input type="email" maxlength="128" name="forgot-email" id="forgot-email" size="60" value="" placeholder="Enter your email address" aria-required="true" class="form-text">
+              </div>
+              
+              <span class="submit-span-wrapper">
+                <input type="submit" name="forgot-submit" id="forgot-submit" value="Send my login info" class="form-submit">
+              </span>
+              
+              <div class="back-to-login">
+                <a href="#" id="back-to-login-link">Back to Sign In</a>
+              </div>
+            </div>
+          </form>
+        </div>
       </div> <!-- End of login-box -->
+      
+      <!-- Divider -->
+      <div class="divider-container">
+        <div class="divider-line"></div>
+        <span class="divider-text">or</span>
+        <div class="divider-line"></div>
+      </div>
+      
+      <!-- QR Code Section -->
+      <div class="qr-section">
+        <img src="https://app.schoology.com/sites/all/themes/schoology_theme/images/qr-scan-sample.png" alt="QR Code" class="qr-image">
+        <button type="button" class="qr-button">Scan QR Code</button>
+      </div>
     </div> <!-- End of login-wrapper -->
   
     <!-- Modern Footer -->
@@ -59,5 +129,37 @@
     </footer>
   
     <script src="js/login.js"></script>
+    <script>
+      // Show/hide school field functionality
+      document.addEventListener('DOMContentLoaded', function() {
+        const schoolWrapper = document.getElementById('edit-school-wrapper');
+        const ssoLoginLink = document.querySelector('.sso-login-link');
+        const regularLoginLink = document.querySelector('.regular-login-link');
+        
+        if (ssoLoginLink) {
+          ssoLoginLink.addEventListener('click', function() {
+            schoolWrapper.style.display = 'block';
+            ssoLoginLink.classList.add('hidden');
+            regularLoginLink.classList.remove('hidden');
+          });
+        }
+        
+        if (regularLoginLink) {
+          regularLoginLink.addEventListener('click', function() {
+            schoolWrapper.style.display = 'none';
+            regularLoginLink.classList.add('hidden');
+            ssoLoginLink.classList.remove('hidden');
+          });
+        }
+        
+        // Clear school field functionality
+        const clearSchoolField = document.getElementById('clear-school-field');
+        if (clearSchoolField) {
+          clearSchoolField.addEventListener('click', function() {
+            document.getElementById('edit-school').value = '';
+          });
+        }
+      });
+    </script>
 </body>  
 </html>

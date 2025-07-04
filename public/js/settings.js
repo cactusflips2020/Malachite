@@ -24,8 +24,8 @@ function applyCloak(option) {
             break;
         case 'Default':
         default:
-            chemical.setStore("title", "");
-            chemical.setStore("icon", "");
+            chemical.setStore("title", "Malachite");
+            // Don't set icon for Default - let main.js handle theme favicon
             break;
     }
 }
@@ -117,6 +117,8 @@ function loadTransportSetting() {
 
 // Load the setting on page load
 window.addEventListener('load', loadTransportSetting);
+
+
 
 function autoab() {
     // Check if 'autoab' is active in localStorage
@@ -249,7 +251,7 @@ function showNotification(message) {
         notification.style.background = '#6e3844'; // old outline color
         notification.style.color = '#e0b8c7';
         notification.style.border = '1.5px solid #2a1a1f';
-    } else if (theme === 'classic') {
+    } else if (theme === 'noir') {
         notification.style.background = '#444'; // old outline color
         notification.style.color = '#e0e0e0';
         notification.style.border = '1.5px solid #181818';
@@ -298,6 +300,7 @@ function showNotification(message) {
 
 // Add event listeners for dropdowns
 document.querySelector(".transport-select").addEventListener("change", () => showNotification('Changes saved!'));
+document.querySelector(".proxy-backend-select").addEventListener("change", () => showNotification('Changes saved!'));
 document.querySelector(".cloak-select").addEventListener("change", () => showNotification('Changes saved!'));
 document.querySelector(".searchengine-select").addEventListener("change", () => showNotification('Changes saved!'));
 document.getElementById("leaveconfirmbutton").addEventListener("click", () => showNotification('Changes saved!'));
@@ -363,8 +366,8 @@ function applyKeybind() {
 }
 
 // Default credentials
-const DEFAULT_USERNAME = "mewingacademy";
-const DEFAULT_PASSWORD = "looksmaxxing123";
+const DEFAULT_USERNAME = "malachite";
+const DEFAULT_PASSWORD = "malachiteontop";
 
 // Set initial values if not already set
 if (!localStorage.getItem('username')) localStorage.setItem('username', DEFAULT_USERNAME);
@@ -443,7 +446,7 @@ function resetCredentials() {
 
 function changeTheme() {
     const theme = document.querySelector('.theme-select').value;
-    document.body.classList.remove('theme-moss', 'theme-midnight', 'theme-solarized', 'theme-rose', 'theme-classic');
+    document.body.classList.remove('theme-moss', 'theme-midnight', 'theme-solarized', 'theme-rose', 'theme-noir');
     document.body.classList.add('theme-' + theme);
     localStorage.setItem('siteTheme', theme);
     showNotification('Changes saved!');
@@ -453,10 +456,28 @@ function changeTheme() {
 
 function updateThemeModals() {
     const theme = localStorage.getItem('siteTheme') || 'moss';
-    // Notification popup
+    // Notification popup - update both classes and inline styles
     const notifications = document.querySelectorAll('.notification');
     notifications.forEach(n => {
         n.className = 'notification theme-' + theme;
+        // Update inline styles to match new theme
+        if (theme === 'moss') {
+            n.style.background = '#384438';
+            n.style.color = '#b2c2a8';
+            n.style.border = '1.5px solid #232b23';
+        } else if (theme === 'midnight') {
+            n.style.background = '#2a3442';
+            n.style.color = '#b8c7e0';
+            n.style.border = '1.5px solid #181c24';
+        } else if (theme === 'rose') {
+            n.style.background = '#6e3844';
+            n.style.color = '#e0b8c7';
+            n.style.border = '1.5px solid #2a1a1f';
+        } else if (theme === 'noir') {
+            n.style.background = '#444';
+            n.style.color = '#e0e0e0';
+            n.style.border = '1.5px solid #181818';
+        }
     });
     // Panic key modal and all children
     const keybindModal = document.getElementById('keybind-modal');
@@ -496,7 +517,7 @@ function updateThemeModals() {
 
 function loadThemeSetting() {
     const savedTheme = localStorage.getItem('siteTheme') || 'moss';
-    document.body.classList.remove('theme-moss', 'theme-midnight', 'theme-solarized', 'theme-rose', 'theme-classic');
+    document.body.classList.remove('theme-moss', 'theme-midnight', 'theme-solarized', 'theme-rose', 'theme-noir');
     document.body.classList.add('theme-' + savedTheme);
     const select = document.querySelector('.theme-select');
     if (select) select.value = savedTheme;

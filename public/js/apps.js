@@ -89,6 +89,6 @@ window.addEventListener("load", function() {
 
 (function() {
   const savedTheme = localStorage.getItem('siteTheme') || 'moss';
-  document.body.classList.remove('theme-moss', 'theme-midnight', 'theme-solarized', 'theme-rose', 'theme-classic');
+      document.body.classList.remove('theme-moss', 'theme-midnight', 'theme-solarized', 'theme-rose', 'theme-noir');
   document.body.classList.add('theme-' + savedTheme);
 })();

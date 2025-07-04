@@ -139,12 +139,35 @@
     color: #7e8e7e;
 }
 
+/* Custom scrollbar styling for apps container */
 .apps-container::-webkit-scrollbar {
     width: 8px;
 }
 
+/* Theme-specific scrollbar colors for apps container */
+body.theme-moss .apps-container::-webkit-scrollbar-thumb {
+    background-color: #384438;
+    border-radius: 10px;
+}
+
+body.theme-midnight .apps-container::-webkit-scrollbar-thumb {
+    background-color: #2a3442;
+    border-radius: 10px;
+}
+
+body.theme-rose .apps-container::-webkit-scrollbar-thumb {
+    background-color: #6e3844;
+    border-radius: 10px;
+}
+
+body.theme-noir .apps-container::-webkit-scrollbar-thumb {
+    background-color: #384438;
+    border-radius: 10px;
+}
+
+/* Default fallback */
 .apps-container::-webkit-scrollbar-thumb {
-    background-color: #45475a;
+    background-color: #384438;
     border-radius: 10px;
 }
 

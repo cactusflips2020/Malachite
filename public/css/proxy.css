@@ -12,7 +12,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: 9999; /* Ensure it's on top of other content */
+    z-index: 2147483647; /* Maximum z-index value to be above absolutely everything */
     visibility: visible;
     opacity: 1;
     transition: opacity 0.5s ease-in-out;
@@ -24,6 +24,7 @@
     font-size: 30px;
     color: #b2c2a8;
     margin-bottom: 20px; /* Spacing between text and loading wheel */
+    transition: opacity 0.2s ease-in-out;
 }
 
 /* Loading wheel animation */
@@ -173,6 +174,14 @@ html, body {
     filter: brightness(1.1);
 }
 
+/* Active state for buttons */
+#controls button.active {
+    background-color: #b2c2a8;
+    color: #1a1f1a;
+}
+
+
+
 /* Make the iframe take up the full viewport */
 #proxyIframe {
     width: 100%;
@@ -293,6 +302,43 @@ body.theme-moss #controls button:hover {
     background: #384438;
     color: #fff;
 }
+
+body.theme-moss #controls button.active {
+    background: #b2c2a8;
+    color: #1a1f1a;
+}
+
+body.theme-moss #tab-bar {
+    background: #1a1f1a;
+    border-bottom: 1px solid #384438;
+}
+
+body.theme-moss .tab {
+    background: #2e362e;
+    color: #b2c2a8;
+    border: 1px solid #384438;
+}
+
+body.theme-moss .tab.active {
+    background: #384438;
+    color: #fff;
+}
+
+body.theme-moss #add-tab-btn {
+    background: #2e362e;
+    color: #b2c2a8;
+    border: 1px solid #384438;
+}
+
+body.theme-moss #add-tab-btn:hover {
+    background: #384438;
+    color: #fff;
+}
+
+body.theme-moss .eruda-nav-button.active {
+    background: #b2c2a8 !important;
+    color: #1a1f1a !important;
+}
 body.theme-moss .loading-screen {
     background-color: #232b23;
     border: 2px solid #384438;
@@ -335,6 +381,43 @@ body.theme-midnight #controls button:hover {
     background: #2a3442;
     color: #fff;
 }
+
+body.theme-midnight #controls button.active {
+    background: #b8c7e0;
+    color: #151a22;
+}
+
+body.theme-midnight #tab-bar {
+    background: #151a22;
+    border-bottom: 1px solid #2a3442;
+}
+
+body.theme-midnight .tab {
+    background: #181c24;
+    color: #b8c7e0;
+    border: 1px solid #2a3442;
+}
+
+body.theme-midnight .tab.active {
+    background: #2a3442;
+    color: #fff;
+}
+
+body.theme-midnight #add-tab-btn {
+    background: #181c24;
+    color: #b8c7e0;
+    border: 1px solid #2a3442;
+}
+
+body.theme-midnight #add-tab-btn:hover {
+    background: #2a3442;
+    color: #fff;
+}
+
+body.theme-midnight .eruda-nav-button.active {
+    background: #b8c7e0 !important;
+    color: #151a22 !important;
+}
 body.theme-midnight .loading-screen {
     background-color: #181c24;
     border: 2px solid #2a3442;
@@ -376,6 +459,43 @@ body.theme-amethyst #controls button {
 body.theme-amethyst #controls button:hover {
     background: #6c4f8c;
     color: #fff;
+}
+
+body.theme-amethyst #controls button.active {
+    background: #e0d7f7;
+    color: #2d2040;
+}
+
+body.theme-amethyst #tab-bar {
+    background: #221532;
+    border-bottom: 1px solid #6c4f8c;
+}
+
+body.theme-amethyst .tab {
+    background: #2d2040;
+    color: #e0d7f7;
+    border: 1px solid #6c4f8c;
+}
+
+body.theme-amethyst .tab.active {
+    background: #6c4f8c;
+    color: #fff;
+}
+
+body.theme-amethyst #add-tab-btn {
+    background: #2d2040;
+    color: #e0d7f7;
+    border: 1px solid #6c4f8c;
+}
+
+body.theme-amethyst #add-tab-btn:hover {
+    background: #6c4f8c;
+    color: #fff;
+}
+
+body.theme-amethyst .eruda-nav-button.active {
+    background: #e0d7f7 !important;
+    color: #2d2040 !important;
 }
 body.theme-amethyst .loading-screen {
     background-color: #23182e;
@@ -423,6 +543,43 @@ body.theme-rose #controls button:hover {
     background: #6e3844;
     color: #fff;
 }
+
+body.theme-rose #controls button.active {
+    background: #e0b8c7;
+    color: #1a1114;
+}
+
+body.theme-rose #tab-bar {
+    background: #1a1114;
+    border-bottom: 1px solid #6e3844;
+}
+
+body.theme-rose .tab {
+    background: #2a1a1f;
+    color: #e0b8c7;
+    border: 1px solid #6e3844;
+}
+
+body.theme-rose .tab.active {
+    background: #6e3844;
+    color: #fff;
+}
+
+body.theme-rose #add-tab-btn {
+    background: #2a1a1f;
+    color: #e0b8c7;
+    border: 1px solid #6e3844;
+}
+
+body.theme-rose #add-tab-btn:hover {
+    background: #6e3844;
+    color: #fff;
+}
+
+body.theme-rose .eruda-nav-button.active {
+    background: #e0b8c7 !important;
+    color: #1a1114 !important;
+}
 body.theme-rose .loading-screen {
     background-color: #2a1a1f;
     border: 2px solid #6e3844;
@@ -436,44 +593,81 @@ body.theme-rose .loading-wheel {
     border-top: 8px solid #e0b8c7;
 }
 
-/* --- THEME: CLASSIC --- */
-body.theme-classic #navbar {
+/* --- THEME: NOIR --- */
+body.theme-noir #navbar {
     background: #111 !important;
     border-bottom: 2px solid #444;
     border-top: 2px solid #444;
     border-left: 2px solid #444;
     border-right: 2px solid #444;
 }
-body.theme-classic #logo-text {
+body.theme-noir #logo-text {
     color: #e0e0e0;
 }
-body.theme-classic #proxySearch {
+body.theme-noir #proxySearch {
     background: #181818;
     color: #e0e0e0;
     border: 1.5px solid #444;
     outline: 1px solid rgba(68, 68, 68, 0.25);
 }
-body.theme-classic #proxySearch::placeholder {
+body.theme-noir #proxySearch::placeholder {
     color: #888;
 }
-body.theme-classic #controls button {
+body.theme-noir #controls button {
     background: #111;
     color: #e0e0e0;
     border: 1.5px solid #444;
 }
-body.theme-classic #controls button:hover {
+body.theme-noir #controls button:hover {
     background: #444;
     color: #fff;
 }
-body.theme-classic .loading-screen {
+
+body.theme-noir #controls button.active {
+    background: #e0e0e0;
+    color: #111;
+}
+
+body.theme-noir #tab-bar {
+    background: #111;
+    border-bottom: 1px solid #444;
+}
+
+body.theme-noir .tab {
+    background: #181818;
+    color: #e0e0e0;
+    border: 1px solid #444;
+}
+
+body.theme-noir .tab.active {
+    background: #444;
+    color: #fff;
+}
+
+body.theme-noir #add-tab-btn {
+    background: #181818;
+    color: #e0e0e0;
+    border: 1px solid #444;
+}
+
+body.theme-noir #add-tab-btn:hover {
+    background: #444;
+    color: #fff;
+}
+
+body.theme-noir .eruda-nav-button.active {
+    background: #e0e0e0 !important;
+    color: #111 !important;
+}
+body.theme-noir .loading-screen {
     background-color: #181818;
     border: 2px solid #444;
-    animation: classic-breathing 14s linear infinite alternate;
+    animation: noir-breathing 14s linear infinite alternate;
 }
-body.theme-classic .loading-text {
+body.theme-noir .loading-text {
     color: #e0e0e0;
 }
-body.theme-classic .loading-wheel {
+body.theme-noir .loading-wheel {
     border: 8px solid #444;
     border-top: 8px solid #e0e0e0;
 }

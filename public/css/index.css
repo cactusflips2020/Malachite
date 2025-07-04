@@ -204,6 +204,7 @@ body.theme-moss #proxySearch::placeholder {
 }
 body.theme-moss .setting-button,
 body.theme-moss .transport-select,
+body.theme-moss .proxy-backend-select,
 body.theme-moss .searchengine-select,
 body.theme-moss .cloak-select,
 body.theme-moss .theme-select {
@@ -342,6 +343,7 @@ body.theme-midnight .nav-links a {
 }
 body.theme-midnight .setting-button,
 body.theme-midnight .transport-select,
+body.theme-midnight .proxy-backend-select,
 body.theme-midnight .searchengine-select,
 body.theme-midnight .cloak-select,
 body.theme-midnight .theme-select {
@@ -377,6 +379,7 @@ body.theme-midnight #proxySearch::placeholder {
 }
 body.theme-midnight .setting-button,
 body.theme-midnight .transport-select,
+body.theme-midnight .proxy-backend-select,
 body.theme-midnight .searchengine-select,
 body.theme-midnight .cloak-select,
 body.theme-midnight .theme-select {
@@ -499,6 +502,7 @@ body.theme-rose .nav-links a {
 }
 body.theme-rose .setting-button,
 body.theme-rose .transport-select,
+body.theme-rose .proxy-backend-select,
 body.theme-rose .searchengine-select,
 body.theme-rose .cloak-select,
 body.theme-rose .theme-select {
@@ -534,6 +538,7 @@ body.theme-rose #proxySearch::placeholder {
 }
 body.theme-rose .setting-button,
 body.theme-rose .transport-select,
+body.theme-rose .proxy-backend-select,
 body.theme-rose .searchengine-select,
 body.theme-rose .cloak-select,
 body.theme-rose .theme-select {
@@ -648,171 +653,173 @@ body.theme-rose .loading-wheel {
     border-top: 8px solid #e0b8c7;
 }
 
-body.theme-classic {
+body.theme-noir {
     background-color: #181818;
     color: #e0e0e0;
-    animation: classic-breathing 14s linear infinite alternate;
+    animation: noir-breathing 14s linear infinite alternate;
 }
-body.theme-classic .setting-card,
-body.theme-classic .apps-container,
-body.theme-classic .games-container {
+body.theme-noir .setting-card,
+body.theme-noir .apps-container,
+body.theme-noir .games-container {
     background: #232323;
     color: #e0e0e0;
     border: 2px solid #444;
 }
-body.theme-classic .setting-title,
-body.theme-classic .setting-description,
-body.theme-classic .logo-container a,
-body.theme-classic .nav-links a {
+body.theme-noir .setting-title,
+body.theme-noir .setting-description,
+body.theme-noir .logo-container a,
+body.theme-noir .nav-links a {
     color: #e0e0e0 !important;
 }
-body.theme-classic .setting-button,
-body.theme-classic .transport-select,
-body.theme-classic .searchengine-select,
-body.theme-classic .cloak-select,
-body.theme-classic .theme-select {
+body.theme-noir .setting-button,
+body.theme-noir .transport-select,
+body.theme-noir .proxy-backend-select,
+body.theme-noir .searchengine-select,
+body.theme-noir .cloak-select,
+body.theme-noir .theme-select {
     background: #232323;
     color: #e0e0e0;
     border: none;
 }
-body.theme-classic .navbar,
-body.theme-classic #navbar {
+body.theme-noir .navbar,
+body.theme-noir #navbar {
     background: #111 !important;
     border-bottom: 2px solid #444;
     border-top: 2px solid #444;
     border-left: 2px solid #444;
     border-right: 2px solid #444;
 }
-body.theme-classic #latency-fps-widget,
-body.theme-classic #clock-widget {
+body.theme-noir #latency-fps-widget,
+body.theme-noir #clock-widget {
     background: #232323;
     color: #e0e0e0;
     border: 1.5px solid #181818;
 }
-body.theme-classic #search,
-body.theme-classic #search-input,
-body.theme-classic #proxySearch {
+body.theme-noir #search,
+body.theme-noir #search-input,
+body.theme-noir #proxySearch {
     background: #181818;
     color: #e0e0e0;
     border: 1.5px solid #444;
 }
-body.theme-classic #search::placeholder,
-body.theme-classic #search-input::placeholder,
-body.theme-classic #proxySearch::placeholder {
+body.theme-noir #search::placeholder,
+body.theme-noir #search-input::placeholder,
+body.theme-noir #proxySearch::placeholder {
     color: #888;
 }
-body.theme-classic .setting-button,
-body.theme-classic .transport-select,
-body.theme-classic .searchengine-select,
-body.theme-classic .cloak-select,
-body.theme-classic .theme-select {
+body.theme-noir .setting-button,
+body.theme-noir .transport-select,
+body.theme-noir .proxy-backend-select,
+body.theme-noir .searchengine-select,
+body.theme-noir .cloak-select,
+body.theme-noir .theme-select {
     background: #111;
     color: #e0e0e0;
     border: 1.5px solid #444;
 }
-body.theme-classic .app-card,
-body.theme-classic .game-card {
+body.theme-noir .app-card,
+body.theme-noir .game-card {
     background-color: #232323;
     border: 2px solid #444;
     box-shadow: 0 2px 8px #18181840;
     color: #e0e0e0;
 }
-body.theme-classic .app-card:hover,
-body.theme-classic .game-card:hover {
+body.theme-noir .app-card:hover,
+body.theme-noir .game-card:hover {
     border: 2px solid #e0e0e0;
     background-color: #444;
     color: #e0e0e0;
 }
-body.theme-classic .app-card:hover .app-name,
-body.theme-classic .game-card:hover .game-name {
+body.theme-noir .app-card:hover .app-name,
+body.theme-noir .game-card:hover .game-name {
     color: #e0e0e0;
 }
-body.theme-classic #navbar #logo-text {
+body.theme-noir #navbar #logo-text {
     color: #e0e0e0;
 }
-body.theme-classic #navbar #proxySearch {
+body.theme-noir #navbar #proxySearch {
     background: #181818;
     color: #e0e0e0;
     border: 1.5px solid #444;
 }
-body.theme-classic #navbar #proxySearch::placeholder {
+body.theme-noir #navbar #proxySearch::placeholder {
     color: #888;
 }
-body.theme-classic #navbar #controls button {
+body.theme-noir #navbar #controls button {
     background: #111;
     color: #e0e0e0;
     border: 1.5px solid #444;
 }
-body.theme-classic #navbar #controls button:hover {
+body.theme-noir #navbar #controls button:hover {
     background: #444;
     color: #fff;
 }
-body.theme-classic .notification,
-body.theme-classic .keybind-modal,
-body.theme-classic .keybind-content {
+body.theme-noir .notification,
+body.theme-noir .keybind-modal,
+body.theme-noir .keybind-content {
     background: #181818;
     color: #e0e0e0;
     border: 1.5px solid #444;
     box-shadow: 0 2px 10px #18181880;
 }
-body.theme-classic .keybind-buttons button {
+body.theme-noir .keybind-buttons button {
     background: #444;
     color: #e0e0e0;
     border: 1.5px solid #181818;
 }
-body.theme-classic .keybind-buttons button:hover {
+body.theme-noir .keybind-buttons button:hover {
     background: #e0e0e0;
     color: #181818;
 }
-body.theme-classic .keybind-title,
-body.theme-classic .keybind-description {
+body.theme-noir .keybind-title,
+body.theme-noir .keybind-description {
     color: #e0e0e0;
 }
-body.theme-classic .keybind-box {
+body.theme-noir .keybind-box {
     background: #232323;
     color: #e0e0e0;
     border: 1.5px solid #444;
 }
-body.theme-classic .keybind-url {
+body.theme-noir .keybind-url {
     background: #232323;
     color: #e0e0e0;
     border: 1.5px solid #444;
 }
-body.theme-classic .keybind-url::placeholder {
+body.theme-noir .keybind-url::placeholder {
     color: #888;
 }
-body.theme-classic .credentials-modal,
-body.theme-classic .credentials-modal-content {
+body.theme-noir .credentials-modal,
+body.theme-noir .credentials-modal-content {
     background: #181818;
     color: #e0e0e0;
     border: 1.5px solid #444;
 }
-body.theme-classic .credentials-modal input {
+body.theme-noir .credentials-modal input {
     background: #232323;
     color: #e0e0e0;
     border: 1.5px solid #444;
 }
-body.theme-classic .credentials-modal input::placeholder {
+body.theme-noir .credentials-modal input::placeholder {
     color: #888;
 }
-body.theme-classic .credentials-buttons button {
+body.theme-noir .credentials-buttons button {
     background: #444;
     color: #e0e0e0;
     border: 1.5px solid #181818;
 }
-body.theme-classic .credentials-buttons button:hover {
+body.theme-noir .credentials-buttons button:hover {
     background: #e0e0e0;
     color: #181818;
 }
-body.theme-classic .loading-screen {
+body.theme-noir .loading-screen {
     background-color: #181818;
     border: 2px solid #444;
-    animation: classic-breathing 14s linear infinite alternate;
+    animation: noir-breathing 14s linear infinite alternate;
 }
-body.theme-classic .loading-text {
+body.theme-noir .loading-text {
     color: #e0e0e0;
 }
-body.theme-classic .loading-wheel {
+body.theme-noir .loading-wheel {
     border: 8px solid #444;
     border-top: 8px solid #e0e0e0;
 }
@@ -833,7 +840,7 @@ body.theme-classic .loading-wheel {
     0% { background-color: #2a1a1f; }
     100% { background-color: #3a232b; }
 }
-@keyframes classic-breathing {
+@keyframes noir-breathing {
     0% { background-color: #181818; }
     100% { background-color: #232323; }
 }
@@ -954,4 +961,69 @@ a {
 .reset-btn:hover {
     background: #a00 !important;
     color: #fff !important;
+}
+
+/* Custom scrollbar styling - Theme-specific only */
+
+/* CSS Custom Properties for scrollbar colors */
+:root {
+    --scrollbar-track: #1a1f1a;
+    --scrollbar-thumb: #384438;
+    --scrollbar-thumb-hover: #4a5a4a;
+}
+
+/* Default scrollbar styling (fallback when no theme is applied) */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 6px;
+    border: 2px solid var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover);
+}
+
+/* Firefox scrollbar styling */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+/* Theme-specific scrollbar colors */
+
+/* Moss Theme */
+body.theme-moss {
+    --scrollbar-track: #1a1f1a;
+    --scrollbar-thumb: #384438;
+    --scrollbar-thumb-hover: #4a5a4a;
+}
+
+/* Midnight Theme */
+body.theme-midnight {
+    --scrollbar-track: #151a22;
+    --scrollbar-thumb: #2a3442;
+    --scrollbar-thumb-hover: #3a4452;
+}
+
+/* Rose Theme */
+body.theme-rose {
+    --scrollbar-track: #1a1114;
+    --scrollbar-thumb: #6e3844;
+    --scrollbar-thumb-hover: #8e4854;
+}
+
+/* Classic Theme */
+body.theme-noir {
+    --scrollbar-track: #1a1f1a;
+    --scrollbar-thumb: #384438;
+    --scrollbar-thumb-hover: #4a5a4a;
 }

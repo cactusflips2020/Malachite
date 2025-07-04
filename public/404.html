@@ -14,20 +14,138 @@
 			body {
 				display: flex;
 				flex-direction: column;
-				justify-content: flex-start; /* Moves content to the top */
+				justify-content: flex-start;
 				align-items: center;
 				height: 100vh;
 				text-align: center;
+				margin: 0;
+				padding: 0;
 			}
 
-            h1 {
-                margin-top: 200px; /* Adjust this value as needed */
-                text-align: center;
-                font-size: 2rem;
-                color: #cdd6f4;
-            }
+			.error-content {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				flex: 1;
+				padding: 40px 20px;
+				max-width: 600px;
+				width: 100%;
+			}
 
+			.error-icon {
+				font-size: 6rem;
+				margin-bottom: 20px;
+				opacity: 0.7;
+			}
+
+			.error-code {
+				font-size: 4rem;
+				font-weight: 700;
+				margin: 0 0 10px 0;
+			}
+
+			.error-title {
+				font-size: 2rem;
+				font-weight: 600;
+				margin: 0 0 20px 0;
+			}
+
+			.error-message {
+				font-size: 1.1rem;
+				line-height: 1.6;
+				margin: 0 0 40px 0;
+				max-width: 500px;
+			}
+
+			.home-button {
+				background-color: #1a1f1a;
+				color: var(--text-primary);
+				padding: 15px 35px;
+				border: none;
+				border-radius: 8px;
+				font-size: 16px;
+				font-weight: 500;
+				cursor: pointer;
+				text-decoration: none;
+				display: inline-block;
+				transition: all 0.4s ease;
+				font-family: 'Montserrat', sans-serif;
+			}
+
+			.home-button:hover {
+				background-color: #2a352a;
+				transform: scale(1.01);
+			}
+
+			/* Theme-specific navbar colors */
+			body.theme-moss .home-button {
+				background-color: #1a1f1a;
+			}
+
+			body.theme-moss .home-button:hover {
+				background-color: #2a352a;
+			}
+
+			body.theme-midnight .home-button {
+				background-color: #151a22;
+			}
+
+			body.theme-midnight .home-button:hover {
+				background-color: #2a3442;
+			}
+
+			body.theme-rose .home-button {
+				background-color: #1a1114;
+			}
+
+			body.theme-rose .home-button:hover {
+				background-color: #3a232b;
+			}
+
+			body.theme-noir .home-button {
+				background-color: #1a1f1a;
+			}
+
+			body.theme-noir .home-button:hover {
+				background-color: #2a352a;
+			}
+
+			.home-button:active {
+				transform: translateY(0);
+			}
+
+			@media (max-width: 768px) {
+				.error-content {
+					padding: 20px;
+				}
+				
+				.error-icon {
+					font-size: 4rem;
+				}
+				
+				.error-code {
+					font-size: 3rem;
+				}
+				
+				.error-title {
+					font-size: 1.5rem;
+				}
+				
+				.error-message {
+					font-size: 1rem;
+				}
+			}
 		</style>
+		<script>
+			// Check login status and redirect if not logged in
+			window.addEventListener('DOMContentLoaded', function() {
+				const isLoggedIn = localStorage.getItem('isLoggedIn');
+				if (!isLoggedIn || isLoggedIn !== 'true') {
+					window.location.href = '/404-login.html';
+				}
+			});
+		</script>
 	</head>
 	<body>
 		<div class="navbar">
@@ -49,9 +167,19 @@
 				</a>
 			</div>
 		</div>
-        <h1>404 | Page Not Found</h1>
-		<h2>
-			<a href="index.html">Go Home</a>
-		</h2>
+		<div class="error-content">
+			<div class="error-icon">
+				<i class="fa-solid fa-exclamation-triangle"></i>
+			</div>
+			<div class="error-code">404</div>
+			<div class="error-title">Page Not Found</div>
+			<div class="error-message">
+				Oops! The page you're looking for seems to have wandered off. Don't worry, you can always find your way back home.
+			</div>
+			<a href="index.html" class="home-button">
+				<i class="fa-solid fa-home"></i> Go Home
+			</a>
+		</div>
+		<script src="js/main.js" defer></script>
 	</body>
 </html>
