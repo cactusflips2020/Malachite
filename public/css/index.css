@@ -163,13 +163,14 @@ body {
     height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     background-color: #232b23;
     color: #b2c2a8;
     font-family: 'Montserrat';
     position: relative;
     overflow-x: hidden;
+    padding-top: 100px; /* Add padding to account for the fixed navbar */
 }
 
 /* Gradient background with frosted glass effect */

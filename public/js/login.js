@@ -34,6 +34,14 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             else {
                 console.log('Login failed'); // Debug log
+                
+                // Check if we're in SSO mode (school field is visible)
+                const schoolWrapper = document.getElementById('edit-school-wrapper');
+                if (schoolWrapper && schoolWrapper.style.display === 'block') {
+                    console.log('SSO login mode - not showing error popup');
+                    return false;
+                }
+                
                 // Create error message element if it doesn't exist
                 let errorElement = document.getElementById('error-message');
                 if (!errorElement) {
@@ -57,6 +65,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 errorElement.textContent = 'Invalid username or password';
                 errorElement.style.display = 'block';
+                
+                // Auto-hide error message after 3 seconds
+                setTimeout(function() {
+                    if (errorElement) {
+                        errorElement.style.display = 'none';
+                    }
+                }, 3000);
             }
             
             return false; // Prevent form submission
