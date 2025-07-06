@@ -16,6 +16,14 @@ Malachite is a fast, modern proxy site with a beautiful, fully themeable UI and 
 - Tab cloaking
 - And a lot more...
 
+## Changelog
+
+### [Unreleased]
+- Removed all new themes (Sunset, Ocean, Cyberpunk, Forest, Aurora, Desert)
+- Reverted to only the original themes: Moss, Midnight, Rose, Noir
+- Cleaned up all related code, CSS, theme selectors, JavaScript, and particle configurations for the removed themes
+- Ensured only the original themes are available and active throughout the site
+
 > [!IMPORTANT]
 > You **cannot** deploy Malachite on any static hosting sites.
 

@@ -122,7 +122,7 @@ function syncThemeSelector() {
     }
 }
 
-// Apply saved theme on page load
+    // Apply saved theme on page load
 (function() {
     const savedTheme = localStorage.getItem('siteTheme') || 'moss';
     document.body.classList.remove('theme-moss', 'theme-midnight', 'theme-solarized', 'theme-rose', 'theme-noir');

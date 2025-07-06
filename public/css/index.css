@@ -947,6 +947,572 @@ body.theme-noir .loading-wheel {
     border-top: 8px solid #e0e0e0;
 }
 
+/* ===== NEW THEMES ===== */
+
+/* Sunset Theme */
+body.theme-sunset {
+    background-color: #2d1b1b;
+    color: #ffb366;
+}
+
+body.theme-sunset::before {
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(255, 179, 102, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 107, 107, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(255, 140, 102, 0.08) 0%, transparent 50%),
+        linear-gradient(45deg, #2d1b1b 0%, #3d1f1f 50%, #4d2323 100%);
+}
+
+body.theme-sunset::after {
+    background: rgba(45, 27, 27, 0.3);
+}
+
+body.theme-sunset .setting-card,
+body.theme-sunset .apps-container,
+body.theme-sunset .games-container {
+    background: #3d1f1f;
+    color: #ffb366;
+    border: 2px solid #4d2323;
+}
+
+body.theme-sunset .setting-title,
+body.theme-sunset .setting-description,
+body.theme-sunset .logo-container a,
+body.theme-sunset .nav-links a {
+    color: #ffb366 !important;
+}
+
+body.theme-sunset .setting-button,
+body.theme-sunset .transport-select,
+body.theme-sunset .proxy-backend-select,
+body.theme-sunset .searchengine-select,
+body.theme-sunset .cloak-select,
+body.theme-sunset .theme-select {
+    background: #3d1f1f;
+    color: #ffb366;
+    border: 1.5px solid #4d2323;
+}
+
+body.theme-sunset .navbar,
+body.theme-sunset #navbar {
+    background: transparent !important;
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+    border: 1px solid rgba(77, 35, 35, 0.3) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
+}
+
+body.theme-sunset #latency-fps-widget,
+body.theme-sunset #clock-widget {
+    background: #3d1f1f;
+    color: #ffb366;
+    border: 1.5px solid #2d1b1b;
+}
+
+body.theme-sunset #search,
+body.theme-sunset #search-input,
+body.theme-sunset #proxySearch {
+    background: #2d1b1b;
+    color: #ffb366;
+    border: 1.5px solid #4d2323;
+}
+
+body.theme-sunset #search::placeholder,
+body.theme-sunset #search-input::placeholder,
+body.theme-sunset #proxySearch::placeholder {
+    color: #cc9966;
+}
+
+body.theme-sunset .app-card,
+body.theme-sunset .game-card {
+    background-color: #3d1f1f;
+    border: 2px solid #4d2323;
+    box-shadow: 0 2px 8px #2d1b1b40;
+    color: #ffb366;
+}
+
+body.theme-sunset .app-card:hover,
+body.theme-sunset .game-card:hover {
+    border: 2px solid #ffb366;
+    background-color: #4d2323;
+    color: #ffb366;
+}
+
+body.theme-sunset .app-card:hover .app-name,
+body.theme-sunset .game-card:hover .game-name {
+    color: #ffb366;
+}
+
+/* Ocean Theme */
+body.theme-ocean {
+    background-color: #1a2b3a;
+    color: #7dd3fc;
+}
+
+body.theme-ocean::before {
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(125, 211, 252, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(34, 211, 238, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(6, 182, 212, 0.08) 0%, transparent 50%),
+        linear-gradient(45deg, #1a2b3a 0%, #1e3a4a 50%, #2a4a5a 100%);
+}
+
+body.theme-ocean::after {
+    background: rgba(26, 43, 58, 0.3);
+}
+
+body.theme-ocean .setting-card,
+body.theme-ocean .apps-container,
+body.theme-ocean .games-container {
+    background: #1e3a4a;
+    color: #7dd3fc;
+    border: 2px solid #2a4a5a;
+}
+
+body.theme-ocean .setting-title,
+body.theme-ocean .setting-description,
+body.theme-ocean .logo-container a,
+body.theme-ocean .nav-links a {
+    color: #7dd3fc !important;
+}
+
+body.theme-ocean .setting-button,
+body.theme-ocean .transport-select,
+body.theme-ocean .proxy-backend-select,
+body.theme-ocean .searchengine-select,
+body.theme-ocean .cloak-select,
+body.theme-ocean .theme-select {
+    background: #1e3a4a;
+    color: #7dd3fc;
+    border: 1.5px solid #2a4a5a;
+}
+
+body.theme-ocean .navbar,
+body.theme-ocean #navbar {
+    background: transparent !important;
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+    border: 1px solid rgba(42, 74, 90, 0.3) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
+}
+
+body.theme-ocean #latency-fps-widget,
+body.theme-ocean #clock-widget {
+    background: #1e3a4a;
+    color: #7dd3fc;
+    border: 1.5px solid #1a2b3a;
+}
+
+body.theme-ocean #search,
+body.theme-ocean #search-input,
+body.theme-ocean #proxySearch {
+    background: #1a2b3a;
+    color: #7dd3fc;
+    border: 1.5px solid #2a4a5a;
+}
+
+body.theme-ocean #search::placeholder,
+body.theme-ocean #search-input::placeholder,
+body.theme-ocean #proxySearch::placeholder {
+    color: #5ba3cc;
+}
+
+body.theme-ocean .app-card,
+body.theme-ocean .game-card {
+    background-color: #1e3a4a;
+    border: 2px solid #2a4a5a;
+    box-shadow: 0 2px 8px #1a2b3a40;
+    color: #7dd3fc;
+}
+
+body.theme-ocean .app-card:hover,
+body.theme-ocean .game-card:hover {
+    border: 2px solid #7dd3fc;
+    background-color: #2a4a5a;
+    color: #7dd3fc;
+}
+
+body.theme-ocean .app-card:hover .app-name,
+body.theme-ocean .game-card:hover .game-name {
+    color: #7dd3fc;
+}
+
+/* Cyberpunk Theme */
+body.theme-cyberpunk {
+    background-color: #1a0a1a;
+    color: #ff00ff;
+}
+
+body.theme-cyberpunk::before {
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(255, 0, 255, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(0, 255, 255, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(255, 0, 128, 0.08) 0%, transparent 50%),
+        linear-gradient(45deg, #1a0a1a 0%, #2a0a2a 50%, #3a0a3a 100%);
+}
+
+body.theme-cyberpunk::after {
+    background: rgba(26, 10, 26, 0.3);
+}
+
+body.theme-cyberpunk .setting-card,
+body.theme-cyberpunk .apps-container,
+body.theme-cyberpunk .games-container {
+    background: #2a0a2a;
+    color: #ff00ff;
+    border: 2px solid #3a0a3a;
+}
+
+body.theme-cyberpunk .setting-title,
+body.theme-cyberpunk .setting-description,
+body.theme-cyberpunk .logo-container a,
+body.theme-cyberpunk .nav-links a {
+    color: #ff00ff !important;
+}
+
+body.theme-cyberpunk .setting-button,
+body.theme-cyberpunk .transport-select,
+body.theme-cyberpunk .proxy-backend-select,
+body.theme-cyberpunk .searchengine-select,
+body.theme-cyberpunk .cloak-select,
+body.theme-cyberpunk .theme-select {
+    background: #2a0a2a;
+    color: #ff00ff;
+    border: 1.5px solid #3a0a3a;
+}
+
+body.theme-cyberpunk .navbar,
+body.theme-cyberpunk #navbar {
+    background: transparent !important;
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+    border: 1px solid rgba(58, 10, 58, 0.3) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
+}
+
+body.theme-cyberpunk #latency-fps-widget,
+body.theme-cyberpunk #clock-widget {
+    background: #2a0a2a;
+    color: #ff00ff;
+    border: 1.5px solid #1a0a1a;
+}
+
+body.theme-cyberpunk #search,
+body.theme-cyberpunk #search-input,
+body.theme-cyberpunk #proxySearch {
+    background: #1a0a1a;
+    color: #ff00ff;
+    border: 1.5px solid #3a0a3a;
+}
+
+body.theme-cyberpunk #search::placeholder,
+body.theme-cyberpunk #search-input::placeholder,
+body.theme-cyberpunk #proxySearch::placeholder {
+    color: #cc00cc;
+}
+
+body.theme-cyberpunk .app-card,
+body.theme-cyberpunk .game-card {
+    background-color: #2a0a2a;
+    border: 2px solid #3a0a3a;
+    box-shadow: 0 2px 8px #1a0a1a40;
+    color: #ff00ff;
+}
+
+body.theme-cyberpunk .app-card:hover,
+body.theme-cyberpunk .game-card:hover {
+    border: 2px solid #ff00ff;
+    background-color: #3a0a3a;
+    color: #ff00ff;
+}
+
+body.theme-cyberpunk .app-card:hover .app-name,
+body.theme-cyberpunk .game-card:hover .game-name {
+    color: #ff00ff;
+}
+
+/* Forest Theme */
+body.theme-forest {
+    background-color: #1a2e1a;
+    color: #90ee90;
+}
+
+body.theme-forest::before {
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(144, 238, 144, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(34, 139, 34, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(85, 107, 47, 0.08) 0%, transparent 50%),
+        linear-gradient(45deg, #1a2e1a 0%, #2a3e2a 50%, #3a4e3a 100%);
+}
+
+body.theme-forest::after {
+    background: rgba(26, 46, 26, 0.3);
+}
+
+body.theme-forest .setting-card,
+body.theme-forest .apps-container,
+body.theme-forest .games-container {
+    background: #2a3e2a;
+    color: #90ee90;
+    border: 2px solid #3a4e3a;
+}
+
+body.theme-forest .setting-title,
+body.theme-forest .setting-description,
+body.theme-forest .logo-container a,
+body.theme-forest .nav-links a {
+    color: #90ee90 !important;
+}
+
+body.theme-forest .setting-button,
+body.theme-forest .transport-select,
+body.theme-forest .proxy-backend-select,
+body.theme-forest .searchengine-select,
+body.theme-forest .cloak-select,
+body.theme-forest .theme-select {
+    background: #2a3e2a;
+    color: #90ee90;
+    border: 1.5px solid #3a4e3a;
+}
+
+body.theme-forest .navbar,
+body.theme-forest #navbar {
+    background: transparent !important;
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+    border: 1px solid rgba(58, 78, 58, 0.3) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
+}
+
+body.theme-forest #latency-fps-widget,
+body.theme-forest #clock-widget {
+    background: #2a3e2a;
+    color: #90ee90;
+    border: 1.5px solid #1a2e1a;
+}
+
+body.theme-forest #search,
+body.theme-forest #search-input,
+body.theme-forest #proxySearch {
+    background: #1a2e1a;
+    color: #90ee90;
+    border: 1.5px solid #3a4e3a;
+}
+
+body.theme-forest #search::placeholder,
+body.theme-forest #search-input::placeholder,
+body.theme-forest #proxySearch::placeholder {
+    color: #70ce70;
+}
+
+body.theme-forest .app-card,
+body.theme-forest .game-card {
+    background-color: #2a3e2a;
+    border: 2px solid #3a4e3a;
+    box-shadow: 0 2px 8px #1a2e1a40;
+    color: #90ee90;
+}
+
+body.theme-forest .app-card:hover,
+body.theme-forest .game-card:hover {
+    border: 2px solid #90ee90;
+    background-color: #3a4e3a;
+    color: #90ee90;
+}
+
+body.theme-forest .app-card:hover .app-name,
+body.theme-forest .game-card:hover .game-name {
+    color: #90ee90;
+}
+
+/* Aurora Theme */
+body.theme-aurora {
+    background-color: #0a1a2a;
+    color: #00ff88;
+}
+
+body.theme-aurora::before {
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(0, 255, 136, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(0, 255, 255, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(255, 0, 255, 0.08) 0%, transparent 50%),
+        linear-gradient(45deg, #0a1a2a 0%, #1a2a3a 50%, #2a3a4a 100%);
+}
+
+body.theme-aurora::after {
+    background: rgba(10, 26, 42, 0.3);
+}
+
+body.theme-aurora .setting-card,
+body.theme-aurora .apps-container,
+body.theme-aurora .games-container {
+    background: #1a2a3a;
+    color: #00ff88;
+    border: 2px solid #2a3a4a;
+}
+
+body.theme-aurora .setting-title,
+body.theme-aurora .setting-description,
+body.theme-aurora .logo-container a,
+body.theme-aurora .nav-links a {
+    color: #00ff88 !important;
+}
+
+body.theme-aurora .setting-button,
+body.theme-aurora .transport-select,
+body.theme-aurora .proxy-backend-select,
+body.theme-aurora .searchengine-select,
+body.theme-aurora .cloak-select,
+body.theme-aurora .theme-select {
+    background: #1a2a3a;
+    color: #00ff88;
+    border: 1.5px solid #2a3a4a;
+}
+
+body.theme-aurora .navbar,
+body.theme-aurora #navbar {
+    background: transparent !important;
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+    border: 1px solid rgba(42, 58, 74, 0.3) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
+}
+
+body.theme-aurora #latency-fps-widget,
+body.theme-aurora #clock-widget {
+    background: #1a2a3a;
+    color: #00ff88;
+    border: 1.5px solid #0a1a2a;
+}
+
+body.theme-aurora #search,
+body.theme-aurora #search-input,
+body.theme-aurora #proxySearch {
+    background: #0a1a2a;
+    color: #00ff88;
+    border: 1.5px solid #2a3a4a;
+}
+
+body.theme-aurora #search::placeholder,
+body.theme-aurora #search-input::placeholder,
+body.theme-aurora #proxySearch::placeholder {
+    color: #00cc6a;
+}
+
+body.theme-aurora .app-card,
+body.theme-aurora .game-card {
+    background-color: #1a2a3a;
+    border: 2px solid #2a3a4a;
+    box-shadow: 0 2px 8px #0a1a2a40;
+    color: #00ff88;
+}
+
+body.theme-aurora .app-card:hover,
+body.theme-aurora .game-card:hover {
+    border: 2px solid #00ff88;
+    background-color: #2a3a4a;
+    color: #00ff88;
+}
+
+body.theme-aurora .app-card:hover .app-name,
+body.theme-aurora .game-card:hover .game-name {
+    color: #00ff88;
+}
+
+/* Desert Theme */
+body.theme-desert {
+    background-color: #2a1a0a;
+    color: #ffd700;
+}
+
+body.theme-desert::before {
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(255, 215, 0, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 165, 0, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(210, 105, 30, 0.08) 0%, transparent 50%),
+        linear-gradient(45deg, #2a1a0a 0%, #3a2a1a 50%, #4a3a2a 100%);
+}
+
+body.theme-desert::after {
+    background: rgba(42, 26, 10, 0.3);
+}
+
+body.theme-desert .setting-card,
+body.theme-desert .apps-container,
+body.theme-desert .games-container {
+    background: #3a2a1a;
+    color: #ffd700;
+    border: 2px solid #4a3a2a;
+}
+
+body.theme-desert .setting-title,
+body.theme-desert .setting-description,
+body.theme-desert .logo-container a,
+body.theme-desert .nav-links a {
+    color: #ffd700 !important;
+}
+
+body.theme-desert .setting-button,
+body.theme-desert .transport-select,
+body.theme-desert .proxy-backend-select,
+body.theme-desert .searchengine-select,
+body.theme-desert .cloak-select,
+body.theme-desert .theme-select {
+    background: #3a2a1a;
+    color: #ffd700;
+    border: 1.5px solid #4a3a2a;
+}
+
+body.theme-desert .navbar,
+body.theme-desert #navbar {
+    background: transparent !important;
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+    border: 1px solid rgba(74, 58, 42, 0.3) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
+}
+
+body.theme-desert #latency-fps-widget,
+body.theme-desert #clock-widget {
+    background: #3a2a1a;
+    color: #ffd700;
+    border: 1.5px solid #2a1a0a;
+}
+
+body.theme-desert #search,
+body.theme-desert #search-input,
+body.theme-desert #proxySearch {
+    background: #2a1a0a;
+    color: #ffd700;
+    border: 1.5px solid #4a3a2a;
+}
+
+body.theme-desert #search::placeholder,
+body.theme-desert #search-input::placeholder,
+body.theme-desert #proxySearch::placeholder {
+    color: #ccac00;
+}
+
+body.theme-desert .app-card,
+body.theme-desert .game-card {
+    background-color: #3a2a1a;
+    border: 2px solid #4a3a2a;
+    box-shadow: 0 2px 8px #2a1a0a40;
+    color: #ffd700;
+}
+
+body.theme-desert .app-card:hover,
+body.theme-desert .game-card:hover {
+    border: 2px solid #ffd700;
+    background-color: #4a3a2a;
+    color: #ffd700;
+}
+
+body.theme-desert .app-card:hover .app-name,
+body.theme-desert .game-card:hover .game-name {
+    color: #ffd700;
+}
+
 
 
 *,
@@ -1139,6 +1705,10 @@ body.theme-noir {
     --scrollbar-thumb: #384438;
     --scrollbar-thumb-hover: #4a5a4a;
 }
+
+/* New Theme Scrollbar Colors */
+
+
 
 /* ===== RESPONSIVE DESIGN ===== */
 

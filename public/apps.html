@@ -39,7 +39,21 @@
     
         <script src="js/particles.min.js"></script>
         <script src="js/apps.js" defer></script>	
-		<script src="js/main.js"></script>	
+		<script src="js/main.js"></script>
+		<script>
+			// Register Service Worker for better performance
+			if ('serviceWorker' in navigator) {
+				window.addEventListener('load', () => {
+					navigator.serviceWorker.register('/sw.js')
+						.then((registration) => {
+							console.log('SW registered: ', registration);
+						})
+						.catch((registrationError) => {
+							console.log('SW registration failed: ', registrationError);
+						});
+				});
+			}
+		</script>	
 		<script>
 			// Theme-based particle configurations
 			const particleConfigs = {
@@ -145,6 +159,168 @@
 							grab: { distance: 140, line_linked: { opacity: 1 } },
 							bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
 							repulse: { distance: 180, duration: 0.4 },
+							push: { particles_nb: 4 },
+							remove: { particles_nb: 2 }
+						}
+					},
+					retina_detect: true
+				},
+				sunset: {
+					particles: {
+						number: { value: 35, density: { enable: true, value_area: 800 } },
+						color: { value: ['#ffb366', '#ff8c42', '#ff6b35', '#ffa07a'] },
+						shape: { type: 'circle' },
+						opacity: { value: 0.3, random: true, anim: { enable: false, speed: 1.3, opacity_min: 0.15, sync: false } },
+						size: { value: 2.2, random: true, anim: { enable: false, speed: 2.8, size_min: 1, sync: false } },
+						line_linked: { enable: true, distance: 200, color: '#ffb366', opacity: 0.2, width: 0.5 },
+						move: { enable: true, speed: 1.6, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
+					},
+					interactivity: {
+						detect_on: 'canvas',
+						events: {
+							onhover: { enable: false, mode: 'bubble' },
+							onclick: { enable: false, mode: 'push' },
+							resize: true
+						},
+						modes: {
+							grab: { distance: 140, line_linked: { opacity: 1 } },
+							bubble: { distance: 300, size: 40, duration: 2, opacity: 8, speed: 3 },
+							repulse: { distance: 200, duration: 0.4 },
+							push: { particles_nb: 4 },
+							remove: { particles_nb: 2 }
+						}
+					},
+					retina_detect: true
+				},
+				ocean: {
+					particles: {
+						number: { value: 45, density: { enable: true, value_area: 800 } },
+						color: { value: ['#7dd3fc', '#22d3ee', '#06b6d4', '#0891b2'] },
+						shape: { type: 'circle' },
+						opacity: { value: 0.35, random: true, anim: { enable: false, speed: 1.4, opacity_min: 0.2, sync: false } },
+						size: { value: 2.4, random: true, anim: { enable: false, speed: 3.2, size_min: 1, sync: false } },
+						line_linked: { enable: true, distance: 180, color: '#7dd3fc', opacity: 0.25, width: 0.5 },
+						move: { enable: true, speed: 1.8, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
+					},
+					interactivity: {
+						detect_on: 'canvas',
+						events: {
+							onhover: { enable: false, mode: 'grab' },
+							onclick: { enable: false, mode: 'push' },
+							resize: true
+						},
+						modes: {
+							grab: { distance: 140, line_linked: { opacity: 1 } },
+							bubble: { distance: 350, size: 40, duration: 2, opacity: 8, speed: 3 },
+							repulse: { distance: 200, duration: 0.4 },
+							push: { particles_nb: 4 },
+							remove: { particles_nb: 2 }
+						}
+					},
+					retina_detect: true
+				},
+				cyberpunk: {
+					particles: {
+						number: { value: 40, density: { enable: true, value_area: 800 } },
+						color: { value: ['#ff00ff', '#00ffff', '#ff0080', '#8000ff'] },
+						shape: { type: 'circle' },
+						opacity: { value: 0.4, random: true, anim: { enable: false, speed: 1.6, opacity_min: 0.2, sync: false } },
+						size: { value: 2.6, random: true, anim: { enable: false, speed: 3.5, size_min: 1, sync: false } },
+						line_linked: { enable: true, distance: 160, color: '#ff00ff', opacity: 0.3, width: 0.5 },
+						move: { enable: true, speed: 2.2, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
+					},
+					interactivity: {
+						detect_on: 'canvas',
+						events: {
+							onhover: { enable: false, mode: 'repulse' },
+							onclick: { enable: false, mode: 'push' },
+							resize: true
+						},
+						modes: {
+							grab: { distance: 140, line_linked: { opacity: 1 } },
+							bubble: { distance: 250, size: 40, duration: 2, opacity: 8, speed: 3 },
+							repulse: { distance: 180, duration: 0.4 },
+							push: { particles_nb: 4 },
+							remove: { particles_nb: 2 }
+						}
+					},
+					retina_detect: true
+				},
+				forest: {
+					particles: {
+						number: { value: 38, density: { enable: true, value_area: 800 } },
+						color: { value: ['#90ee90', '#32cd32', '#556b2f', '#6b8e23'] },
+						shape: { type: 'circle' },
+						opacity: { value: 0.32, random: true, anim: { enable: false, speed: 1.2, opacity_min: 0.18, sync: false } },
+						size: { value: 2.1, random: true, anim: { enable: false, speed: 2.6, size_min: 1, sync: false } },
+						line_linked: { enable: true, distance: 220, color: '#90ee90', opacity: 0.18, width: 0.5 },
+						move: { enable: true, speed: 1.4, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
+					},
+					interactivity: {
+						detect_on: 'canvas',
+						events: {
+							onhover: { enable: false, mode: 'bubble' },
+							onclick: { enable: false, mode: 'push' },
+							resize: true
+						},
+						modes: {
+							grab: { distance: 140, line_linked: { opacity: 1 } },
+							bubble: { distance: 320, size: 40, duration: 2, opacity: 8, speed: 3 },
+							repulse: { distance: 200, duration: 0.4 },
+							push: { particles_nb: 4 },
+							remove: { particles_nb: 2 }
+						}
+					},
+					retina_detect: true
+				},
+				aurora: {
+					particles: {
+						number: { value: 42, density: { enable: true, value_area: 800 } },
+						color: { value: ['#00ff88', '#00ffff', '#ff00ff', '#0080ff'] },
+						shape: { type: 'circle' },
+						opacity: { value: 0.38, random: true, anim: { enable: false, speed: 1.5, opacity_min: 0.22, sync: false } },
+						size: { value: 2.3, random: true, anim: { enable: false, speed: 3.0, size_min: 1, sync: false } },
+						line_linked: { enable: true, distance: 190, color: '#00ff88', opacity: 0.28, width: 0.5 },
+						move: { enable: true, speed: 1.9, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
+					},
+					interactivity: {
+						detect_on: 'canvas',
+						events: {
+							onhover: { enable: false, mode: 'grab' },
+							onclick: { enable: false, mode: 'push' },
+							resize: true
+						},
+						modes: {
+							grab: { distance: 140, line_linked: { opacity: 1 } },
+							bubble: { distance: 280, size: 40, duration: 2, opacity: 8, speed: 3 },
+							repulse: { distance: 200, duration: 0.4 },
+							push: { particles_nb: 4 },
+							remove: { particles_nb: 2 }
+						}
+					},
+					retina_detect: true
+				},
+				desert: {
+					particles: {
+						number: { value: 36, density: { enable: true, value_area: 800 } },
+						color: { value: ['#ffd700', '#ffa500', '#d2691e', '#cd853f'] },
+						shape: { type: 'circle' },
+						opacity: { value: 0.3, random: true, anim: { enable: false, speed: 1.1, opacity_min: 0.16, sync: false } },
+						size: { value: 2.0, random: true, anim: { enable: false, speed: 2.4, size_min: 1, sync: false } },
+						line_linked: { enable: true, distance: 240, color: '#ffd700', opacity: 0.2, width: 0.5 },
+						move: { enable: true, speed: 1.3, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
+					},
+					interactivity: {
+						detect_on: 'canvas',
+						events: {
+							onhover: { enable: false, mode: 'repulse' },
+							onclick: { enable: false, mode: 'push' },
+							resize: true
+						},
+						modes: {
+							grab: { distance: 140, line_linked: { opacity: 1 } },
+							bubble: { distance: 360, size: 40, duration: 2, opacity: 8, speed: 3 },
+							repulse: { distance: 200, duration: 0.4 },
 							push: { particles_nb: 4 },
 							remove: { particles_nb: 2 }
 						}

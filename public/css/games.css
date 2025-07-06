@@ -183,6 +183,44 @@ body.theme-noir .games-container::-webkit-scrollbar-thumb {
     border-radius: 10px;
 }
 
+/* New Theme Scrollbar Colors */
+
+/* Sunset Theme */
+body.theme-sunset .games-container::-webkit-scrollbar-thumb {
+    background-color: #4d2323;
+    border-radius: 10px;
+}
+
+/* Ocean Theme */
+body.theme-ocean .games-container::-webkit-scrollbar-thumb {
+    background-color: #2a4a5a;
+    border-radius: 10px;
+}
+
+/* Cyberpunk Theme */
+body.theme-cyberpunk .games-container::-webkit-scrollbar-thumb {
+    background-color: #3a0a3a;
+    border-radius: 10px;
+}
+
+/* Forest Theme */
+body.theme-forest .games-container::-webkit-scrollbar-thumb {
+    background-color: #3a4e3a;
+    border-radius: 10px;
+}
+
+/* Aurora Theme */
+body.theme-aurora .games-container::-webkit-scrollbar-thumb {
+    background-color: #2a3a4a;
+    border-radius: 10px;
+}
+
+/* Desert Theme */
+body.theme-desert .games-container::-webkit-scrollbar-thumb {
+    background-color: #4a3a2a;
+    border-radius: 10px;
+}
+
 /* Default fallback */
 .games-container::-webkit-scrollbar-thumb {
     background-color: #384438;

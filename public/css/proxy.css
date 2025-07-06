@@ -969,6 +969,8 @@ body.theme-noir::after {
     background: rgba(24, 24, 24, 0.3);
 }
 
+
+
 /* ===== RESPONSIVE DESIGN ===== */
 
 /* Small screens (mobile) */
@@ -1119,4 +1121,48 @@ body.theme-noir {
     --scrollbar-track: #1a1f1a;
     --scrollbar-thumb: #384438;
     --scrollbar-thumb-hover: #4a5a4a;
+}
+
+/* New Theme Scrollbar Colors */
+
+/* Sunset Theme */
+body.theme-sunset {
+    --scrollbar-track: #2d1b1b;
+    --scrollbar-thumb: #4d2323;
+    --scrollbar-thumb-hover: #5d3333;
+}
+
+/* Ocean Theme */
+body.theme-ocean {
+    --scrollbar-track: #1a2b3a;
+    --scrollbar-thumb: #2a4a5a;
+    --scrollbar-thumb-hover: #3a5a6a;
+}
+
+/* Cyberpunk Theme */
+body.theme-cyberpunk {
+    --scrollbar-track: #1a0a1a;
+    --scrollbar-thumb: #3a0a3a;
+    --scrollbar-thumb-hover: #4a0a4a;
+}
+
+/* Forest Theme */
+body.theme-forest {
+    --scrollbar-track: #1a2e1a;
+    --scrollbar-thumb: #3a4e3a;
+    --scrollbar-thumb-hover: #4a5e4a;
+}
+
+/* Aurora Theme */
+body.theme-aurora {
+    --scrollbar-track: #0a1a2a;
+    --scrollbar-thumb: #2a3a4a;
+    --scrollbar-thumb-hover: #3a4a5a;
+}
+
+/* Desert Theme */
+body.theme-desert {
+    --scrollbar-track: #2a1a0a;
+    --scrollbar-thumb: #4a3a2a;
+    --scrollbar-thumb-hover: #5a4a3a;
 }
