@@ -7,6 +7,30 @@
     <link rel="icon" is="chemical-icon" data-icon-store href="img/favicon.ico">
     <link rel="stylesheet" href="css/proxy.css">
     
+    <!-- Preload optimizations for faster iframe loading -->
+    <link rel="preload" as="document" href="about:blank">
+    <link rel="dns-prefetch" href="//www.google.com">
+    <link rel="dns-prefetch" href="//www.bing.com">
+    <link rel="dns-prefetch" href="//www.youtube.com">
+    <link rel="dns-prefetch" href="//www.github.com">
+    <link rel="dns-prefetch" href="//www.reddit.com">
+    <link rel="dns-prefetch" href="//www.twitter.com">
+    <link rel="dns-prefetch" href="//www.facebook.com">
+    <link rel="dns-prefetch" href="//www.instagram.com">
+    <link rel="dns-prefetch" href="//www.discord.com">
+    <link rel="dns-prefetch" href="//www.netflix.com">
+    <link rel="dns-prefetch" href="//www.spotify.com">
+    <link rel="dns-prefetch" href="//www.twitch.tv">
+    <link rel="dns-prefetch" href="//www.amazon.com">
+    <link rel="dns-prefetch" href="//www.wikipedia.org">
+    <link rel="dns-prefetch" href="//www.stackoverflow.com">
+    <link rel="dns-prefetch" href="//www.github.com">
+    <link rel="dns-prefetch" href="//www.cloudflare.com">
+    <link rel="dns-prefetch" href="//www.jsdelivr.net">
+    <link rel="dns-prefetch" href="//www.cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="//www.unpkg.com">
+    <link rel="dns-prefetch" href="//www.cdn.jsdelivr.net">
+    
     <!-- Chemical.js Proxy Framework -->
     <script src="/chemical.js"></script>
     <script src="/chemical.components.js"></script>
@@ -18,22 +42,79 @@
     <!-- Eruda DevTools for debugging -->
     <script src="//cdn.jsdelivr.net/npm/eruda"></script>
     <script>
-        // Initialize Eruda but keep it hidden until proxy loads
+        // Initialize Eruda but keep it completely hidden
         eruda.init();
         eruda.hide();
         
-        // Hide the floating button until proxy is ready
-        setTimeout(() => {
+        // Function to show devtools when proxy is loaded
+        function showDevTools() {
+            console.log('Showing Eruda devtools...');
+            const erudaButton = document.querySelector('.eruda-launcher');
+            if (erudaButton) {
+                erudaButton.style.display = 'block';
+                erudaButton.style.visibility = 'visible';
+                erudaButton.style.opacity = '1';
+                erudaButton.style.pointerEvents = 'auto';
+                erudaButton.style.zIndex = '2147483646'; // High z-index but below loading screen
+                console.log('Eruda button should now be visible');
+            } else {
+                console.log('Eruda button not found, trying alternative selector...');
+                // Try alternative selectors
+                const alternativeButtons = document.querySelectorAll('[class*="eruda"], [id*="eruda"]');
+                console.log('Found alternative eruda elements:', alternativeButtons.length);
+                alternativeButtons.forEach(btn => {
+                    btn.style.display = 'block';
+                    btn.style.visibility = 'visible';
+                    btn.style.opacity = '1';
+                    btn.style.pointerEvents = 'auto';
+                    btn.style.zIndex = '2147483646';
+                });
+            }
+        }
+        
+        // Hide the floating button immediately and keep it hidden
+        function hideErudaButton() {
             const erudaButton = document.querySelector('.eruda-launcher');
             if (erudaButton) {
                 erudaButton.style.display = 'none';
+                erudaButton.style.visibility = 'hidden';
+                erudaButton.style.opacity = '0';
+                erudaButton.style.pointerEvents = 'none';
+                console.log('Eruda button hidden');
             }
-        }, 100);
+            
+            // Also hide any other eruda elements
+            const alternativeButtons = document.querySelectorAll('[class*="eruda"], [id*="eruda"]');
+            alternativeButtons.forEach(btn => {
+                btn.style.display = 'none';
+                btn.style.visibility = 'hidden';
+                btn.style.opacity = '0';
+                btn.style.pointerEvents = 'none';
+            });
+        }
+        
+        // Hide Eruda button immediately and keep checking
+        hideErudaButton();
+        
+        // Keep hiding the button periodically to ensure it stays hidden
+        setInterval(hideErudaButton, 1000); // Check every second
+        
+        // Ensure Eruda is properly initialized
+        window.addEventListener('load', function() {
+            if (typeof eruda !== 'undefined') {
+                console.log('Eruda is available and ready');
+                hideErudaButton(); // Hide again after page loads
+            } else {
+                console.log('Eruda not available');
+            }
+        });
     </script>
 </head>
 <body>
+    <div id="particles-js"></div>
     <!-- Loading Screen - Shows while proxy initializes -->
     <div class="loading-screen">
+        <div id="loading-particles-js"></div>
         <div class="loading-wheel"></div>
         <br>
         <div class="loading-text" id="loadingText">Loading Proxy...</div>
@@ -68,11 +149,22 @@
             <button onclick="chemical.componentAction('reload', 'proxyIframe')">
                 <i class="fa-solid fa-rotate-right"></i>
             </button>
+            <button onclick="toggleFullscreen()" id="fullscreenBtn">
+                <i class="fa-solid fa-expand" id="fullscreenIcon"></i>
+            </button>
         </section>
     </div>
     
     <!-- Proxy Iframe - Displays the proxied website -->
-    <iframe id="proxyIframe"></iframe>
+    <iframe 
+        id="proxyIframe" 
+        src="about:blank"
+        loading="eager"
+        importance="high"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen
+        sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox allow-presentation allow-top-navigation"
+    ></iframe>
 
     <!-- Main JavaScript -->
     <script>
@@ -82,7 +174,6 @@
         const loadingMessages = [
             "Loading Proxy...",
             "Connecting to Server...",
-            "Establishing Connection...",
             "Initializing Proxy..."
         ];
 
@@ -95,9 +186,242 @@
             }
         });
 
+        // ===== LOADING SCREEN PARTICLES =====
+        
+        // Theme-based particle configurations for loading screen
+        const loadingParticleConfigs = {
+            moss: {
+                particles: {
+                    number: { value: 30, density: { enable: true, value_area: 800 } },
+                    color: { value: ['#b2c2a8', '#94e2d5', '#a6e3a1', '#89dceb'] },
+                    shape: { type: 'circle' },
+                    opacity: { value: 0.4, random: true, anim: { enable: false, speed: 1, opacity_min: 0.2, sync: false } },
+                    size: { value: 2.5, random: true, anim: { enable: false, speed: 2, size_min: 1, sync: false } },
+                    line_linked: { enable: true, distance: 180, color: '#b2c2a8', opacity: 0.3, width: 0.5 },
+                    move: { enable: true, speed: 2, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
+                },
+                interactivity: {
+                    detect_on: 'canvas',
+                    events: {
+                        onhover: { enable: false, mode: 'repulse' },
+                        onclick: { enable: false, mode: 'push' },
+                        resize: true
+                    },
+                    modes: {
+                        grab: { distance: 140, line_linked: { opacity: 1 } },
+                        bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
+                        repulse: { distance: 150, duration: 0.4 },
+                        push: { particles_nb: 4 },
+                        remove: { particles_nb: 2 }
+                    }
+                },
+                retina_detect: true
+            },
+            midnight: {
+                particles: {
+                    number: { value: 35, density: { enable: true, value_area: 800 } },
+                    color: { value: ['#b8c7e0', '#81a1c1', '#5e81ac', '#88c0d0'] },
+                    shape: { type: 'circle' },
+                    opacity: { value: 0.5, random: true, anim: { enable: false, speed: 1.5, opacity_min: 0.3, sync: false } },
+                    size: { value: 3, random: true, anim: { enable: false, speed: 4, size_min: 1, sync: false } },
+                    line_linked: { enable: true, distance: 160, color: '#b8c7e0', opacity: 0.35, width: 0.5 },
+                    move: { enable: true, speed: 2.5, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
+                },
+                interactivity: {
+                    detect_on: 'canvas',
+                    events: {
+                        onhover: { enable: false, mode: 'grab' },
+                        onclick: { enable: false, mode: 'push' },
+                        resize: true
+                    },
+                    modes: {
+                        grab: { distance: 140, line_linked: { opacity: 1 } },
+                        bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
+                        repulse: { distance: 200, duration: 0.4 },
+                        push: { particles_nb: 4 },
+                        remove: { particles_nb: 2 }
+                    }
+                },
+                retina_detect: true
+            },
+            rose: {
+                particles: {
+                    number: { value: 25, density: { enable: true, value_area: 800 } },
+                    color: { value: ['#e0b8c7', '#f38ba8', '#eba0ac', '#f5c2e7'] },
+                    shape: { type: 'circle' },
+                    opacity: { value: 0.45, random: true, anim: { enable: false, speed: 1.2, opacity_min: 0.3, sync: false } },
+                    size: { value: 2.8, random: true, anim: { enable: false, speed: 2.5, size_min: 1, sync: false } },
+                    line_linked: { enable: true, distance: 200, color: '#e0b8c7', opacity: 0.3, width: 0.5 },
+                    move: { enable: true, speed: 2.2, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
+                },
+                interactivity: {
+                    detect_on: 'canvas',
+                    events: {
+                        onhover: { enable: false, mode: 'bubble' },
+                        onclick: { enable: false, mode: 'push' },
+                        resize: true
+                    },
+                    modes: {
+                        grab: { distance: 140, line_linked: { opacity: 1 } },
+                        bubble: { distance: 200, size: 40, duration: 2, opacity: 8, speed: 3 },
+                        repulse: { distance: 200, duration: 0.4 },
+                        push: { particles_nb: 4 },
+                        remove: { particles_nb: 2 }
+                    }
+                },
+                retina_detect: true
+            },
+            noir: {
+                particles: {
+                    number: { value: 20, density: { enable: true, value_area: 800 } },
+                    color: { value: ['#e0e0e0', '#c0c0c0', '#a0a0a0', '#808080'] },
+                    shape: { type: 'circle' },
+                    opacity: { value: 0.35, random: true, anim: { enable: false, speed: 1, opacity_min: 0.2, sync: false } },
+                    size: { value: 2.2, random: true, anim: { enable: false, speed: 3, size_min: 1, sync: false } },
+                    line_linked: { enable: true, distance: 220, color: '#e0e0e0', opacity: 0.25, width: 0.5 },
+                    move: { enable: true, speed: 1.8, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
+                },
+                interactivity: {
+                    detect_on: 'canvas',
+                    events: {
+                        onhover: { enable: false, mode: 'repulse' },
+                        onclick: { enable: false, mode: 'push' },
+                        resize: true
+                    },
+                    modes: {
+                        grab: { distance: 140, line_linked: { opacity: 1 } },
+                        bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
+                        repulse: { distance: 180, duration: 0.4 },
+                        push: { particles_nb: 4 },
+                        remove: { particles_nb: 2 }
+                    }
+                },
+                retina_detect: true
+            }
+        };
+
+        // Function to initialize loading particles with current theme
+        function initializeLoadingParticles() {
+            const currentTheme = localStorage.getItem('siteTheme') || 'moss';
+            const config = loadingParticleConfigs[currentTheme];
+            
+            console.log('Initializing loading particles for theme:', currentTheme);
+            console.log('ParticlesJS available:', typeof particlesJS !== 'undefined');
+            console.log('Loading particles container exists:', !!document.getElementById('loading-particles-js'));
+            
+            if (typeof particlesJS !== 'undefined' && config) {
+                try {
+                    particlesJS('loading-particles-js', config);
+                    console.log('Loading particles initialized successfully for theme:', currentTheme);
+                } catch (error) {
+                    console.error('Error initializing loading particles:', error);
+                    createSimpleLoadingParticles();
+                }
+            } else {
+                console.log('ParticlesJS not available or config not found for loading screen');
+                createSimpleLoadingParticles();
+            }
+        }
+
+        // Fallback function for loading particles
+        function createSimpleLoadingParticles() {
+            const container = document.getElementById('loading-particles-js');
+            if (!container) {
+                console.log('Loading particles container not found');
+                return;
+            }
+            
+            console.log('Creating simple loading particles as fallback');
+            container.innerHTML = '';
+            
+            // Create simple animated dots for loading screen
+            for (let i = 0; i < 15; i++) {
+                const particle = document.createElement('div');
+                particle.style.cssText = `
+                    position: absolute;
+                    width: 3px;
+                    height: 3px;
+                    background: #b2c2a8;
+                    border-radius: 50%;
+                    opacity: 0.4;
+                    animation: loading-float 4s ease-in-out infinite;
+                    animation-delay: ${i * 0.2}s;
+                `;
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                container.appendChild(particle);
+            }
+            
+            // Add CSS animation
+            if (!document.querySelector('#loading-particles-style')) {
+                const style = document.createElement('style');
+                style.id = 'loading-particles-style';
+                style.textContent = `
+                    @keyframes loading-float {
+                        0%, 100% { transform: translateY(0px) translateX(0px); opacity: 0.4; }
+                        50% { transform: translateY(-15px) translateX(8px); opacity: 0.8; }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+        }
+
+        // Initialize loading particles on page load with multiple attempts
+        window.addEventListener('load', function() {
+            setTimeout(initializeLoadingParticles, 100);
+            setTimeout(initializeLoadingParticles, 500);
+            setTimeout(initializeLoadingParticles, 1000);
+        });
+
+        // Also try on DOMContentLoaded
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(initializeLoadingParticles, 100);
+            setTimeout(initializeLoadingParticles, 500);
+        });
+
+        // Reinitialize loading particles when theme changes
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'siteTheme') {
+                // Clean up existing loading particles
+                if (typeof pJSDom !== 'undefined' && pJSDom.length > 1) {
+                    pJSDom[1].pJS.fn.vendors.destroypJS();
+                    pJSDom.splice(1, 1);
+                }
+                // Reinitialize with new theme
+                setTimeout(initializeLoadingParticles, 100);
+            }
+        });
+
         // ===== URL SEARCH FUNCTIONALITY =====
         
-        // Handle Enter key press in search bar
+        // Preload iframe for faster loading
+        const proxyIframe = document.getElementById("proxyIframe");
+        
+        // Optimize iframe loading
+        function optimizeIframeLoading() {
+            // Set high priority for iframe
+            proxyIframe.setAttribute('importance', 'high');
+            
+            // Preload common domains
+            const commonDomains = [
+                'https://www.google.com',
+                'https://www.youtube.com',
+                'https://www.github.com',
+                'https://www.reddit.com',
+                'https://www.twitter.com',
+                'https://www.discord.com'
+            ];
+            
+            // Preload DNS for common domains
+            commonDomains.forEach(domain => {
+                const link = document.createElement('link');
+                link.rel = 'dns-prefetch';
+                link.href = domain;
+                document.head.appendChild(link);
+            });
+        }
+        
+        // Handle Enter key press in search bar with optimized loading
         document.getElementById("proxySearch").addEventListener("keypress", async function(event) {
             if (event.key === "Enter") {
                 event.preventDefault();
@@ -106,6 +430,9 @@
                 if (!input) return; // Don't process empty input
 
                 try {
+                    // Show loading state
+                    proxyIframe.style.opacity = '0.7';
+                    
                     // Encode the URL using Chemical.js Ultraviolet service
                     const encodedUrl = await chemical.encode(input, {
                         service: "uv",
@@ -116,22 +443,125 @@
                     // Store encoded URL for persistence
                     sessionStorage.setItem("encodedUrl", encodedUrl);
 
-                    // Load the encoded URL in the iframe
-                    document.getElementById("proxyIframe").src = encodedUrl;
+                    // Preload the URL before setting src
+                    const preloadLink = document.createElement('link');
+                    preloadLink.rel = 'preload';
+                    preloadLink.as = 'document';
+                    preloadLink.href = encodedUrl;
+                    document.head.appendChild(preloadLink);
+
+                    // Load the encoded URL in the iframe with optimized loading
+                    proxyIframe.src = encodedUrl;
+                    
+                    // Remove preload link after a short delay
+                    setTimeout(() => {
+                        if (preloadLink.parentNode) {
+                            preloadLink.parentNode.removeChild(preloadLink);
+                        }
+                    }, 1000);
+                    
                 } catch (error) {
                     console.error('Error encoding URL:', error);
+                    proxyIframe.style.opacity = '1';
                 }
             }
         });
 
+        // ===== CHEMICAL.JS LOADING DETECTION =====
+        
+        // Function to check if Chemical.js is fully loaded and ready
+        function isChemicalReady() {
+            return typeof chemical !== 'undefined' && 
+                   typeof chemical.encode === 'function' && 
+                   typeof chemical.setStore === 'function' &&
+                   typeof chemical.componentAction === 'function';
+        }
+        
+        // Function to hide loading screen
+        function hideLoadingScreen() {
+            const loadingScreen = document.querySelector('.loading-screen');
+            if (loadingScreen) {
+                loadingScreen.style.opacity = '0';
+                loadingScreen.style.visibility = 'hidden';
+                // Don't show devtools here - wait for iframe to fully load
+            }
+        }
+        
+        // Function to show devtools after iframe is fully loaded
+        function showDevToolsAfterIframeLoad() {
+            console.log('Iframe fully loaded, waiting 0.1 seconds before showing Eruda devtools...');
+            
+            // Add a 0.1 second delay before showing devtools
+            setTimeout(() => {
+                console.log('Delay complete, now showing Eruda devtools...');
+                showDevTools();
+                
+                // Also try to show devtools multiple times to ensure it appears
+                setTimeout(showDevTools, 100);
+                setTimeout(showDevTools, 200);
+                setTimeout(showDevTools, 500);
+            }, 100); // 0.1 second delay
+        }
+        
+        // Track if iframe has loaded content
+        let iframeHasLoaded = false;
+        let chemicalIsReady = false;
+        
         // ===== URL PERSISTENCE =====
         
-        // Restore previous URL on page load
+        // Restore previous URL on page load and wait for both Chemical.js and iframe
         window.addEventListener('DOMContentLoaded', (event) => {
+            // Optimize iframe loading immediately
+            optimizeIframeLoading();
+            
             const encodedUrl = sessionStorage.getItem("encodedUrl");
             if (encodedUrl) {
-                document.getElementById("proxyIframe").src = encodedUrl;
+                // Preload the stored URL for faster loading
+                const preloadLink = document.createElement('link');
+                preloadLink.rel = 'preload';
+                preloadLink.as = 'document';
+                preloadLink.href = encodedUrl;
+                document.head.appendChild(preloadLink);
+                
+                // Load the encoded URL in the iframe
+                proxyIframe.src = encodedUrl;
+                
+                // Remove preload link after loading
+                setTimeout(() => {
+                    if (preloadLink.parentNode) {
+                        preloadLink.parentNode.removeChild(preloadLink);
+                    }
+                }, 2000);
             }
+            
+            // Wait for Chemical.js to be ready
+            function waitForChemical() {
+                if (isChemicalReady()) {
+                    console.log('Chemical.js is ready');
+                    chemicalIsReady = true;
+                    checkIfReadyToHide();
+                } else {
+                    console.log('Chemical.js not ready yet, checking again...');
+                    setTimeout(waitForChemical, 100); // Check every 100ms
+                }
+            }
+            
+            // Check if both Chemical.js and iframe are ready
+            function checkIfReadyToHide() {
+                if (chemicalIsReady && iframeHasLoaded) {
+                    console.log('Both Chemical.js and iframe are ready, hiding loading screen');
+                    hideLoadingScreen();
+                    // Show devtools after iframe is fully loaded
+                    showDevToolsAfterIframeLoad();
+                } else if (chemicalIsReady && !iframeHasLoaded) {
+                    console.log('Chemical.js ready but waiting for iframe to load...');
+                } else if (!chemicalIsReady && iframeHasLoaded) {
+                    console.log('Iframe loaded but waiting for Chemical.js...');
+                }
+            }
+            
+            // Start checking for Chemical.js readiness
+            setTimeout(waitForChemical, 500); // Start checking after 500ms
         });
 
         // ===== SEARCH ENGINE CONFIGURATION =====
@@ -145,10 +575,321 @@
                 searchInput.setAttribute('data-search-engine', savedSearchEngineUrl);
             }
         });
+
+        // ===== LOADING SCREEN MANAGEMENT =====
+        
+        // Hide loading screen when iframe loads (but only if both Chemical.js and iframe are ready)
+        proxyIframe.addEventListener('load', function() {
+            console.log('Iframe has loaded content');
+            
+            // Add loaded class to iframe for smooth fade-in
+            this.classList.add('loaded');
+            
+            // Restore full opacity
+            this.style.opacity = '1';
+            
+            // Mark iframe as loaded
+            iframeHasLoaded = true;
+            
+            // Check if both Chemical.js and iframe are ready
+            if (chemicalIsReady) {
+                console.log('Both Chemical.js and iframe are ready, hiding loading screen');
+                setTimeout(() => {
+                    hideLoadingScreen();
+                    // Show devtools after iframe is fully loaded
+                    showDevToolsAfterIframeLoad();
+                }, 300); // Small delay for smooth transition
+            } else {
+                console.log('Iframe loaded but waiting for Chemical.js...');
+            }
+        });
+        
+        // Add error handling for iframe loading
+        proxyIframe.addEventListener('error', function() {
+            console.error('Iframe failed to load');
+            this.style.opacity = '1';
+        });
+        
+        // ===== FULLSCREEN FUNCTIONALITY =====
+        
+        // Toggle fullscreen mode for the iframe
+        function toggleFullscreen() {
+            const iframe = document.getElementById('proxyIframe');
+            const fullscreenBtn = document.getElementById('fullscreenBtn');
+            const fullscreenIcon = document.getElementById('fullscreenIcon');
+            const navbar = document.getElementById('navbar');
+            
+            if (!document.fullscreenElement) {
+                // Enter fullscreen
+                if (iframe.requestFullscreen) {
+                    iframe.requestFullscreen();
+                } else if (iframe.webkitRequestFullscreen) {
+                    iframe.webkitRequestFullscreen();
+                } else if (iframe.msRequestFullscreen) {
+                    iframe.msRequestFullscreen();
+                }
+                
+                // Update icon and button state
+                fullscreenIcon.className = 'fa-solid fa-compress';
+                fullscreenBtn.classList.add('active');
+                
+                // Hide navbar in fullscreen
+                navbar.style.display = 'none';
+            } else {
+                // Exit fullscreen
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+                
+                // Update icon and button state
+                fullscreenIcon.className = 'fa-solid fa-expand';
+                fullscreenBtn.classList.remove('active');
+                
+                // Show navbar when exiting fullscreen
+                navbar.style.display = 'flex';
+            }
+        }
+        
+        // Listen for fullscreen change events to update UI
+        document.addEventListener('fullscreenchange', updateFullscreenUI);
+        document.addEventListener('webkitfullscreenchange', updateFullscreenUI);
+        document.addEventListener('mozfullscreenchange', updateFullscreenUI);
+        document.addEventListener('MSFullscreenChange', updateFullscreenUI);
+        
+        function updateFullscreenUI() {
+            const fullscreenBtn = document.getElementById('fullscreenBtn');
+            const fullscreenIcon = document.getElementById('fullscreenIcon');
+            const navbar = document.getElementById('navbar');
+            
+            if (document.fullscreenElement) {
+                fullscreenIcon.className = 'fa-solid fa-compress';
+                fullscreenBtn.classList.add('active');
+                navbar.style.display = 'none';
+            } else {
+                fullscreenIcon.className = 'fa-solid fa-expand';
+                fullscreenBtn.classList.remove('active');
+                navbar.style.display = 'flex';
+            }
+        }
     </script>
     
     <!-- External Scripts -->
+    <script src="js/particles.min.js"></script>
     <script src="js/main.js" defer></script>
-    <script src="js/proxypage.js"></script>	
+    <script src="js/proxypage.js"></script>
+    <script>
+        // Test if particles.js loaded
+        console.log('Particles.js loaded:', typeof particlesJS !== 'undefined');
+        console.log('Particles container exists:', !!document.getElementById('particles-js'));
+    </script>	
+	<script>
+		// Theme-based particle configurations
+		const particleConfigs = {
+			moss: {
+				particles: {
+					number: { value: 40, density: { enable: true, value_area: 800 } },
+					color: { value: ['#b2c2a8', '#94e2d5', '#a6e3a1', '#89dceb'] },
+					shape: { type: 'circle' },
+					opacity: { value: 0.3, random: true, anim: { enable: false, speed: 1, opacity_min: 0.1, sync: false } },
+					size: { value: 2, random: true, anim: { enable: false, speed: 2, size_min: 1, sync: false } },
+					line_linked: { enable: true, distance: 200, color: '#b2c2a8', opacity: 0.2, width: 0.5 },
+					move: { enable: true, speed: 1.5, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
+				},
+				interactivity: {
+					detect_on: 'canvas',
+					events: {
+						onhover: { enable: false, mode: 'repulse' },
+						onclick: { enable: false, mode: 'push' },
+						resize: true
+					},
+					modes: {
+						grab: { distance: 140, line_linked: { opacity: 1 } },
+						bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
+						repulse: { distance: 150, duration: 0.4 },
+						push: { particles_nb: 4 },
+						remove: { particles_nb: 2 }
+					}
+				},
+				retina_detect: true
+			},
+			midnight: {
+				particles: {
+					number: { value: 50, density: { enable: true, value_area: 800 } },
+					color: { value: ['#b8c7e0', '#81a1c1', '#5e81ac', '#88c0d0'] },
+					shape: { type: 'circle' },
+					opacity: { value: 0.4, random: true, anim: { enable: false, speed: 1.5, opacity_min: 0.2, sync: false } },
+					size: { value: 2.5, random: true, anim: { enable: false, speed: 4, size_min: 1, sync: false } },
+					line_linked: { enable: true, distance: 180, color: '#b8c7e0', opacity: 0.25, width: 0.5 },
+					move: { enable: true, speed: 2, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
+				},
+				interactivity: {
+					detect_on: 'canvas',
+					events: {
+						onhover: { enable: false, mode: 'grab' },
+						onclick: { enable: false, mode: 'push' },
+						resize: true
+					},
+					modes: {
+						grab: { distance: 140, line_linked: { opacity: 1 } },
+						bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
+						repulse: { distance: 200, duration: 0.4 },
+						push: { particles_nb: 4 },
+						remove: { particles_nb: 2 }
+					}
+				},
+				retina_detect: true
+			},
+			rose: {
+				particles: {
+					number: { value: 35, density: { enable: true, value_area: 800 } },
+					color: { value: ['#e0b8c7', '#f38ba8', '#eba0ac', '#f5c2e7'] },
+					shape: { type: 'circle' },
+					opacity: { value: 0.35, random: true, anim: { enable: false, speed: 1.2, opacity_min: 0.2, sync: false } },
+					size: { value: 2.2, random: true, anim: { enable: false, speed: 2.5, size_min: 1, sync: false } },
+					line_linked: { enable: true, distance: 220, color: '#e0b8c7', opacity: 0.2, width: 0.5 },
+					move: { enable: true, speed: 1.8, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
+				},
+				interactivity: {
+					detect_on: 'canvas',
+					events: {
+						onhover: { enable: false, mode: 'bubble' },
+						onclick: { enable: false, mode: 'push' },
+						resize: true
+					},
+					modes: {
+						grab: { distance: 140, line_linked: { opacity: 1 } },
+						bubble: { distance: 200, size: 40, duration: 2, opacity: 8, speed: 3 },
+						repulse: { distance: 200, duration: 0.4 },
+						push: { particles_nb: 4 },
+						remove: { particles_nb: 2 }
+					}
+				},
+				retina_detect: true
+			},
+			noir: {
+				particles: {
+					number: { value: 30, density: { enable: true, value_area: 800 } },
+					color: { value: ['#e0e0e0', '#c0c0c0', '#a0a0a0', '#808080'] },
+					shape: { type: 'circle' },
+					opacity: { value: 0.25, random: true, anim: { enable: false, speed: 1, opacity_min: 0.1, sync: false } },
+					size: { value: 1.8, random: true, anim: { enable: false, speed: 3, size_min: 1, sync: false } },
+					line_linked: { enable: true, distance: 250, color: '#e0e0e0', opacity: 0.15, width: 0.5 },
+					move: { enable: true, speed: 1.2, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
+				},
+				interactivity: {
+					detect_on: 'canvas',
+					events: {
+						onhover: { enable: false, mode: 'repulse' },
+						onclick: { enable: false, mode: 'push' },
+						resize: true
+					},
+					modes: {
+						grab: { distance: 140, line_linked: { opacity: 1 } },
+						bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
+						repulse: { distance: 180, duration: 0.4 },
+						push: { particles_nb: 4 },
+						remove: { particles_nb: 2 }
+					}
+				},
+				retina_detect: true
+			}
+		};
+
+		// Function to initialize particles with current theme
+		function initializeParticles() {
+			const currentTheme = localStorage.getItem('siteTheme') || 'moss';
+			const config = particleConfigs[currentTheme];
+			
+			console.log('Initializing particles for theme:', currentTheme);
+			console.log('ParticlesJS available:', typeof particlesJS !== 'undefined');
+			console.log('Config available:', !!config);
+			
+			if (typeof particlesJS !== 'undefined' && config) {
+				try {
+					particlesJS('particles-js', config);
+					console.log('Particles initialized successfully for theme:', currentTheme);
+				} catch (error) {
+					console.error('Error initializing particles:', error);
+				}
+			} else {
+				console.log('ParticlesJS not available or config not found');
+				// Fallback: create simple particles manually
+				createSimpleParticles();
+			}
+		}
+
+		// Fallback function to create simple particles
+		function createSimpleParticles() {
+			const container = document.getElementById('particles-js');
+			if (!container) {
+				console.log('Particles container not found');
+				return;
+			}
+			
+			console.log('Creating simple particles as fallback');
+			container.innerHTML = '';
+			
+			// Create simple animated dots
+			for (let i = 0; i < 20; i++) {
+				const particle = document.createElement('div');
+				particle.style.cssText = `
+					position: absolute;
+					width: 4px;
+					height: 4px;
+					background: #b2c2a8;
+					border-radius: 50%;
+					opacity: 0.3;
+					animation: float 3s ease-in-out infinite;
+					animation-delay: ${i * 0.1}s;
+				`;
+				particle.style.left = Math.random() * 100 + '%';
+				particle.style.top = Math.random() * 100 + '%';
+				container.appendChild(particle);
+			}
+			
+			// Add CSS animation
+			if (!document.querySelector('#simple-particles-style')) {
+				const style = document.createElement('style');
+				style.id = 'simple-particles-style';
+				style.textContent = `
+					@keyframes float {
+						0%, 100% { transform: translateY(0px) translateX(0px); }
+						50% { transform: translateY(-20px) translateX(10px); }
+					}
+				`;
+				document.head.appendChild(style);
+			}
+		}
+
+		// Initialize particles on page load with multiple attempts
+		window.addEventListener('load', function() {
+			setTimeout(initializeParticles, 100);
+			setTimeout(initializeParticles, 500);
+			setTimeout(initializeParticles, 1000);
+		});
+
+		// Also try on DOMContentLoaded
+		document.addEventListener('DOMContentLoaded', function() {
+			setTimeout(initializeParticles, 100);
+			setTimeout(initializeParticles, 500);
+		});
+
+		// Reinitialize particles when theme changes
+		window.addEventListener('storage', function(e) {
+			if (e.key === 'siteTheme') {
+				// Clean up existing particles
+				if (typeof pJSDom !== 'undefined' && pJSDom.length > 0) {
+					pJSDom[0].pJS.fn.vendors.destroypJS();
+					pJSDom = [];
+				}
+				// Reinitialize with new theme
+				setTimeout(initializeParticles, 100);
+			}
+		});
+	</script>
 </body>
 </html>

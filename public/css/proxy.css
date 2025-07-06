@@ -1,5 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
+/* Particles container */
+#particles-js {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    background: transparent;
+    overflow: hidden;
+}
+
+/* Ensure main content stays above particles */
+body, #navbar, #proxyIframe, .loading-screen {
+    position: relative;
+    z-index: 1;
+}
+
 /* Fullscreen loading screen */
 .loading-screen {
     position: fixed;
@@ -12,11 +31,59 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: 2147483647; /* Maximum z-index value to be above absolutely everything */
+    z-index: 2147483647; /* Maximum z-index value */
     visibility: visible;
     opacity: 1;
     transition: opacity 0.5s ease-in-out;
-    animation: subtle-breathing-bg 14s linear infinite alternate;
+}
+
+/* Gradient background for loading screen */
+.loading-screen::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(178, 194, 168, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(148, 226, 213, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(166, 227, 161, 0.1) 0%, transparent 50%),
+        linear-gradient(45deg, #232b23 0%, #202620 50%, #1e2e1e 100%);
+    animation: gradient-move 20s ease-in-out infinite alternate;
+    z-index: -1;
+}
+
+/* Frosted glass overlay for loading screen */
+.loading-screen::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(35, 43, 35, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: -1;
+}
+
+/* Loading particles container */
+#loading-particles-js {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Ensure loading content stays above particles */
+.loading-screen .loading-wheel,
+.loading-screen .loading-text {
+    position: relative;
+    z-index: 10;
 }
 
 /* Text in the middle of the screen */
@@ -50,14 +117,55 @@ html, body {
     height: 100%;
     overflow: hidden;  /* Prevent scrolling */
     font-family: 'montserrat';
-    background-color: #232b23;
+    background-color: #232b23; /* Default moss theme */
     color: #b2c2a8;
-    animation: subtle-breathing-bg 14s linear infinite alternate;
+    position: relative;
 }
 
-@keyframes subtle-breathing-bg {
-    0% { background-color: #232b23; }
-    100% { background-color: #202620; }
+/* Default gradient background with frosted glass effect (moss theme) */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(178, 194, 168, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(148, 226, 213, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(166, 227, 161, 0.1) 0%, transparent 50%),
+        linear-gradient(45deg, #232b23 0%, #202620 50%, #1e2e1e 100%);
+    animation: gradient-move 20s ease-in-out infinite alternate;
+    z-index: -1;
+}
+
+/* Default frosted glass overlay (moss theme) */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(35, 43, 35, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: -1;
+}
+
+@keyframes gradient-move {
+    0% {
+        background-position: 0% 0%;
+        transform: scale(1);
+    }
+    50% {
+        background-position: 100% 100%;
+        transform: scale(1.1);
+    }
+    100% {
+        background-position: 0% 0%;
+        transform: scale(1);
+    }
 }
 
 /* Style for the navbar */
@@ -74,8 +182,10 @@ html, body {
     justify-content: space-between;  /* Distribute space between left, center, and right */
     align-items: center;      /* Vertically center all items */
     box-sizing: border-box; /* Include padding in width calculation */
-    flex-wrap: nowrap;  /* Prevent the content from wrapping */
+    flex-wrap: wrap;  /* Allow wrapping on small screens */
     border-bottom: 1px solid #384438;
+    min-height: 60px; /* Minimum height, can grow if wrapped */
+    gap: 10px; /* Space between wrapped items */
 }
 
 /* Logo and text container */
@@ -104,16 +214,19 @@ html, body {
 
 /* Style for logo */
 #logo {
-    width: 40px; /* Adjust the size of the logo */
+    width: 35px; /* Slightly smaller logo */
     height: auto;
-    margin-right: 10px; /* Space between logo and text */
+    margin-right: 8px; /* Reduced margin */
+    flex-shrink: 0; /* Prevent logo from shrinking */
 }
 
 /* Style for text next to logo */
 #logo-text {
-    font-size: 20px; /* Adjust the font size */
+    font-size: 18px; /* Slightly smaller font */
     color: #b2c2a8;
     transition: filter 0.3s ease; /* Smooth brightness transition */
+    white-space: nowrap; /* Prevent text wrapping */
+    flex-shrink: 0; /* Prevent text from shrinking */
 }
 
 /* Brightness effect on hover */
@@ -123,7 +236,9 @@ html, body {
 
 /* Style for input inside the navbar */
 #proxySearch {
-    width: 50%;  /* Set the input to take up 50% of the navbar */
+    flex: 1;  /* Take up available space */
+    min-width: 200px; /* Minimum width */
+    max-width: 600px; /* Maximum width */
     margin: 0 10px; /* Space between the input and the logo */
     padding: 8px;
     font-size: 16px;
@@ -151,15 +266,15 @@ html, body {
 #controls {
     display: flex;
     align-items: center; /* Vertically align buttons */
-    gap: 10px; /* Adds space between buttons */
+    gap: 5px; /* Reduced gap for smaller screens */
     flex-shrink: 0;  /* Prevent buttons from shrinking */
-    /* Style for the controls section */
+    flex-wrap: wrap; /* Allow buttons to wrap */
 }
 
 /* Style for buttons inside the navbar */
 #controls button {
-    padding: 8px 16px;
-    font-size: 16px;
+    padding: 6px 12px; /* Reduced padding for smaller screens */
+    font-size: 14px; /* Smaller font size */
     background-color: #384438;
     color: #b2c2a8;
     border: 1px solid #232b23;
@@ -167,6 +282,8 @@ html, body {
     flex-shrink: 0;  /* Prevent buttons from shrinking */
     border-radius: 5px; /* 15px border radius for buttons */
     transition: filter 0.3s ease; /* Smooth brightness transition */
+    min-width: 40px; /* Minimum button width */
+    white-space: nowrap; /* Prevent text wrapping in buttons */
 }
 
 /* Brightness effect on hover */
@@ -184,11 +301,25 @@ html, body {
 
 /* Make the iframe take up the full viewport */
 #proxyIframe {
+    position: fixed;
+    top: 60px; /* Position below navbar */
+    left: 0;
     width: 100%;
-    height: 100%;
+    height: calc(100vh - 60px); /* Full height minus navbar */
     border: none; /* Remove iframe border */
     display: block;  /* Make sure iframe is displayed */
-    margin-top: 50px; /* Offset the iframe for the navbar */
+    z-index: 1; /* Ensure it's above particles but below navbar */
+    background: transparent; /* Make iframe background transparent */
+    opacity: 0; /* Start invisible */
+    transition: opacity 0.3s ease-in-out; /* Smooth fade in */
+    will-change: opacity; /* Optimize for opacity transitions */
+    contain: layout style paint; /* Optimize rendering */
+    transform: translateZ(0); /* Force hardware acceleration */
+}
+
+/* Show iframe when loaded */
+#proxyIframe.loaded {
+    opacity: 1;
 }
 
 #tab-bar {
@@ -275,11 +406,11 @@ html, body {
 
 /* --- THEME: MOSS --- */
 body.theme-moss #navbar {
-    background: #1a1f1a !important;
-    border-bottom: 2px solid #384438;
-    border-top: 2px solid #384438;
-    border-left: 2px solid #384438;
-    border-right: 2px solid #384438;
+    background: transparent !important;
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+    border: 1px solid rgba(56, 68, 56, 0.3) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
 }
 body.theme-moss #logo-text {
     color: #b2c2a8;
@@ -342,7 +473,18 @@ body.theme-moss .eruda-nav-button.active {
 body.theme-moss .loading-screen {
     background-color: #232b23;
     border: 2px solid #384438;
-    animation: subtle-breathing-bg 14s linear infinite alternate;
+}
+
+body.theme-moss .loading-screen::before {
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(178, 194, 168, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(148, 226, 213, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(166, 227, 161, 0.1) 0%, transparent 50%),
+        linear-gradient(45deg, #232b23 0%, #202620 50%, #1e2e1e 100%);
+}
+
+body.theme-moss .loading-screen::after {
+    background: rgba(35, 43, 35, 0.3);
 }
 body.theme-moss .loading-text {
     color: #b2c2a8;
@@ -352,13 +494,36 @@ body.theme-moss .loading-wheel {
     border-top: 8px solid #b2c2a8;
 }
 
+/* Theme-specific iframe backgrounds */
+body.theme-moss #proxyIframe {
+    background: #232b23; /* Moss theme background */
+}
+
+/* Moss theme body background */
+body.theme-moss {
+    background-color: #232b23;
+    color: #b2c2a8;
+}
+
+body.theme-moss::before {
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(178, 194, 168, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(148, 226, 213, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(166, 227, 161, 0.1) 0%, transparent 50%),
+        linear-gradient(45deg, #232b23 0%, #202620 50%, #1e2e1e 100%);
+}
+
+body.theme-moss::after {
+    background: rgba(35, 43, 35, 0.3);
+}
+
 /* --- THEME: MIDNIGHT --- */
 body.theme-midnight #navbar {
-    background: #151a22 !important;
-    border-bottom: 2px solid #2a3442;
-    border-top: 2px solid #2a3442;
-    border-left: 2px solid #2a3442;
-    border-right: 2px solid #2a3442;
+    background: transparent !important;
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+    border: 1px solid rgba(42, 52, 66, 0.3) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
 }
 body.theme-midnight #logo-text {
     color: #b8c7e0;
@@ -421,7 +586,18 @@ body.theme-midnight .eruda-nav-button.active {
 body.theme-midnight .loading-screen {
     background-color: #181c24;
     border: 2px solid #2a3442;
-    animation: midnight-breathing 14s linear infinite alternate;
+}
+
+body.theme-midnight .loading-screen::before {
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(184, 199, 224, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(129, 161, 193, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(94, 129, 172, 0.1) 0%, transparent 50%),
+        linear-gradient(45deg, #181c24 0%, #151a22 50%, #232a36 100%);
+}
+
+body.theme-midnight .loading-screen::after {
+    background: rgba(24, 28, 36, 0.3);
 }
 body.theme-midnight .loading-text {
     color: #b8c7e0;
@@ -431,13 +607,35 @@ body.theme-midnight .loading-wheel {
     border-top: 8px solid #b8c7e0;
 }
 
+body.theme-midnight #proxyIframe {
+    background: #181c24; /* Midnight theme background */
+}
+
+/* Midnight theme body background */
+body.theme-midnight {
+    background-color: #181c24;
+    color: #b8c7e0;
+}
+
+body.theme-midnight::before {
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(184, 199, 224, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(129, 161, 193, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(94, 129, 172, 0.1) 0%, transparent 50%),
+        linear-gradient(45deg, #181c24 0%, #151a22 50%, #1e2a3a 100%);
+}
+
+body.theme-midnight::after {
+    background: rgba(24, 28, 36, 0.3);
+}
+
 /* --- THEME: AMETHYST --- */
 body.theme-amethyst #navbar {
-    background: #221532 !important;
-    border-bottom: 2px solid #6c4f8c;
-    border-top: 2px solid #6c4f8c;
-    border-left: 2px solid #6c4f8c;
-    border-right: 2px solid #6c4f8c;
+    background: transparent !important;
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+    border: 1px solid rgba(108, 79, 140, 0.3) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
 }
 body.theme-amethyst #logo-text {
     color: #a084ca;
@@ -500,7 +698,18 @@ body.theme-amethyst .eruda-nav-button.active {
 body.theme-amethyst .loading-screen {
     background-color: #23182e;
     border: 2px solid #6c4f8c;
-    animation: amethyst-breathing 14s linear infinite alternate;
+}
+
+body.theme-amethyst .loading-screen::before {
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(160, 132, 202, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(224, 215, 247, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(108, 79, 140, 0.1) 0%, transparent 50%),
+        linear-gradient(45deg, #23182e 0%, #1a1423 50%, #2d2040 100%);
+}
+
+body.theme-amethyst .loading-screen::after {
+    background: rgba(35, 24, 46, 0.3);
 }
 body.theme-amethyst .loading-text {
     color: #a084ca;
@@ -509,6 +718,28 @@ body.theme-amethyst .loading-wheel {
     border: 8px solid #6c4f8c;
     border-top: 8px solid #a084ca;
 }
+
+body.theme-amethyst #proxyIframe {
+    background: #23182e; /* Amethyst theme background */
+}
+
+/* Amethyst theme body background */
+body.theme-amethyst {
+    background-color: #23182e;
+    color: #a084ca;
+}
+
+body.theme-amethyst::before {
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(160, 132, 202, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(108, 79, 140, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+        linear-gradient(45deg, #23182e 0%, #1a1423 50%, #2e1c3a 100%);
+}
+
+body.theme-amethyst::after {
+    background: rgba(35, 24, 46, 0.3);
+}
 @keyframes amethyst-breathing {
     0% { background-color: #1a1423; }
     100% { background-color: #23182e; }
@@ -516,11 +747,11 @@ body.theme-amethyst .loading-wheel {
 
 /* --- THEME: ROSE --- */
 body.theme-rose #navbar {
-    background: #1a1114 !important;
-    border-bottom: 2px solid #6e3844;
-    border-top: 2px solid #6e3844;
-    border-left: 2px solid #6e3844;
-    border-right: 2px solid #6e3844;
+    background: transparent !important;
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+    border: 1px solid rgba(110, 56, 68, 0.3) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
 }
 body.theme-rose #logo-text {
     color: #e0b8c7;
@@ -583,7 +814,18 @@ body.theme-rose .eruda-nav-button.active {
 body.theme-rose .loading-screen {
     background-color: #2a1a1f;
     border: 2px solid #6e3844;
-    animation: rose-breathing 14s linear infinite alternate;
+}
+
+body.theme-rose .loading-screen::before {
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(224, 184, 199, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(243, 139, 168, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(235, 160, 172, 0.1) 0%, transparent 50%),
+        linear-gradient(45deg, #2a1a1f 0%, #1a1114 50%, #3a232b 100%);
+}
+
+body.theme-rose .loading-screen::after {
+    background: rgba(42, 26, 31, 0.3);
 }
 body.theme-rose .loading-text {
     color: #e0b8c7;
@@ -593,13 +835,35 @@ body.theme-rose .loading-wheel {
     border-top: 8px solid #e0b8c7;
 }
 
+body.theme-rose #proxyIframe {
+    background: #2a1a1f; /* Rose theme background */
+}
+
+/* Rose theme body background */
+body.theme-rose {
+    background-color: #2a1a1f;
+    color: #e0b8c7;
+}
+
+body.theme-rose::before {
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(224, 184, 199, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(243, 139, 168, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(235, 160, 172, 0.1) 0%, transparent 50%),
+        linear-gradient(45deg, #2a1a1f 0%, #1a1114 50%, #3a232b 100%);
+}
+
+body.theme-rose::after {
+    background: rgba(42, 26, 31, 0.3);
+}
+
 /* --- THEME: NOIR --- */
 body.theme-noir #navbar {
-    background: #111 !important;
-    border-bottom: 2px solid #444;
-    border-top: 2px solid #444;
-    border-left: 2px solid #444;
-    border-right: 2px solid #444;
+    background: transparent !important;
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+    border: 1px solid rgba(68, 68, 68, 0.3) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
 }
 body.theme-noir #logo-text {
     color: #e0e0e0;
@@ -662,7 +926,18 @@ body.theme-noir .eruda-nav-button.active {
 body.theme-noir .loading-screen {
     background-color: #181818;
     border: 2px solid #444;
-    animation: noir-breathing 14s linear infinite alternate;
+}
+
+body.theme-noir .loading-screen::before {
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(224, 224, 224, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(192, 192, 192, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(160, 160, 160, 0.1) 0%, transparent 50%),
+        linear-gradient(45deg, #181818 0%, #0f0f0f 50%, #232323 100%);
+}
+
+body.theme-noir .loading-screen::after {
+    background: rgba(24, 24, 24, 0.3);
 }
 body.theme-noir .loading-text {
     color: #e0e0e0;
@@ -670,4 +945,178 @@ body.theme-noir .loading-text {
 body.theme-noir .loading-wheel {
     border: 8px solid #444;
     border-top: 8px solid #e0e0e0;
+}
+
+body.theme-noir #proxyIframe {
+    background: #181818; /* Noir theme background */
+}
+
+/* Noir theme body background */
+body.theme-noir {
+    background-color: #181818;
+    color: #e0e0e0;
+}
+
+body.theme-noir::before {
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(224, 224, 224, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(192, 192, 192, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(160, 160, 160, 0.1) 0%, transparent 50%),
+        linear-gradient(45deg, #181818 0%, #0f0f0f 50%, #232323 100%);
+}
+
+body.theme-noir::after {
+    background: rgba(24, 24, 24, 0.3);
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+
+/* Small screens (mobile) */
+@media (max-width: 768px) {
+    #navbar {
+        padding: 8px 12px;
+        gap: 8px;
+    }
+    
+    #proxySearch {
+        min-width: 150px;
+        font-size: 14px;
+        padding: 6px;
+        margin: 0 5px;
+    }
+    
+    #controls button {
+        padding: 5px 8px;
+        font-size: 12px;
+        min-width: 35px;
+    }
+    
+    #logo {
+        width: 30px;
+        margin-right: 6px;
+    }
+    
+    #logo-text {
+        font-size: 16px;
+    }
+}
+
+/* Very small screens */
+@media (max-width: 480px) {
+    #navbar {
+        padding: 6px 8px;
+        gap: 5px;
+    }
+    
+    #proxySearch {
+        min-width: 120px;
+        font-size: 13px;
+        padding: 5px;
+        margin: 0 3px;
+    }
+    
+    #controls button {
+        padding: 4px 6px;
+        font-size: 11px;
+        min-width: 30px;
+    }
+    
+    #logo {
+        width: 25px;
+        margin-right: 4px;
+    }
+    
+    #logo-text {
+        font-size: 14px;
+    }
+}
+
+/* Extra small screens */
+@media (max-width: 360px) {
+    #navbar {
+        padding: 4px 6px;
+        gap: 3px;
+    }
+    
+    #proxySearch {
+        min-width: 100px;
+        font-size: 12px;
+        padding: 4px;
+        margin: 0 2px;
+    }
+    
+    #controls button {
+        padding: 3px 5px;
+        font-size: 10px;
+        min-width: 28px;
+    }
+    
+    #logo {
+        width: 22px;
+        margin-right: 3px;
+    }
+    
+    #logo-text {
+        font-size: 12px;
+    }
+}
+
+/* ===== CUSTOM SCROLLBAR STYLING ===== */
+
+/* CSS Custom Properties for scrollbar colors */
+:root {
+    --scrollbar-track: #1a1f1a;
+    --scrollbar-thumb: #384438;
+    --scrollbar-thumb-hover: #4a5a4a;
+}
+
+/* Default scrollbar styling (fallback when no theme is applied) */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 6px;
+    border: 2px solid var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover);
+}
+
+/* Firefox scrollbar styling */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+/* Theme-specific scrollbar colors */
+body.theme-moss {
+    --scrollbar-track: #1a1f1a;
+    --scrollbar-thumb: #384438;
+    --scrollbar-thumb-hover: #4a5a4a;
+}
+
+body.theme-midnight {
+    --scrollbar-track: #151a22;
+    --scrollbar-thumb: #2a3442;
+    --scrollbar-thumb-hover: #3a4452;
+}
+
+body.theme-rose {
+    --scrollbar-track: #1a1114;
+    --scrollbar-thumb: #6e3844;
+    --scrollbar-thumb-hover: #8e4854;
+}
+
+body.theme-noir {
+    --scrollbar-track: #1a1f1a;
+    --scrollbar-thumb: #384438;
+    --scrollbar-thumb-hover: #4a5a4a;
 }

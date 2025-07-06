@@ -6,7 +6,6 @@ body {
     font-family: 'Montserrat', sans-serif;
     background-color: #232b23;
     color: #b2c2a8;
-    animation: subtle-breathing-bg 14s linear infinite alternate;
     margin: 0;
     padding: 0;
     min-height: 100vh;
@@ -15,15 +14,75 @@ body {
     position: relative;
 }
 
+/* Particles container */
+#particles-js {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Ensure main content stays above particles */
+body, .navbar, .settings-container, .setting-card {
+    position: relative;
+    z-index: 1;
+}
+
+/* Gradient background with frosted glass effect */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(178, 194, 168, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(148, 226, 213, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(166, 227, 161, 0.08) 0%, transparent 50%),
+        linear-gradient(45deg, #232b23 0%, #202620 50%, #1e2e1e 100%);
+    animation: gradient-move 45s ease-in-out infinite alternate;
+    z-index: -1;
+}
+
+/* Frosted glass overlay */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(35, 43, 35, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: -1;
+}
+
+@keyframes gradient-move {
+    0% {
+        background-position: 0% 0%;
+        transform: scale(1);
+    }
+    50% {
+        background-position: 100% 100%;
+        transform: scale(1.05);
+    }
+    100% {
+        background-position: 0% 0%;
+        transform: scale(1);
+    }
+}
+
 html {
     height: 100%;
     overflow-y: auto;
 }
 
-@keyframes subtle-breathing-bg {
-    0% { background-color: #232b23; }
-    100% { background-color: #202620; }
-}
+
 
 .settings-container {
     display: flex;
@@ -191,6 +250,24 @@ html {
 }
 
 /* Animations */
+@keyframes gradient-shift {
+    0%, 100% { 
+        background-position: 0% 50%;
+    }
+    50% { 
+        background-position: 100% 50%;
+    }
+}
+
+@keyframes smooth-gradient {
+    0%, 100% { 
+        background-position: 0% 50%;
+    }
+    50% { 
+        background-position: 100% 50%;
+    }
+}
+
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
@@ -213,14 +290,41 @@ html {
     left: 0;
     width: 100vw;
     height: 100vh;
-    backdrop-filter: blur(10px);
     display: none;
     align-items: center;
     justify-content: center;
     z-index: 1000;
-    background: rgba(30, 46, 30, 0.6);
     opacity: 0;
     transition: opacity 0.25s ease;
+}
+
+#particles-js {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+#credentials-particles-js {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.credentials-modal::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.1);
+    z-index: 2;
 }
 
 .credentials-modal.show {
@@ -239,6 +343,8 @@ html {
     animation: modalSlideIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1);
     opacity: 0;
     animation-fill-mode: forwards;
+    position: relative;
+    z-index: 3;
 }
 
 .credentials-modal-content h2 {
@@ -286,6 +392,60 @@ html {
     transform: translateY(-1px);
 }
 
+/* ===== THEME-SPECIFIC CREDENTIALS MODAL BACKGROUNDS ===== */
+
+/* Default background (moss theme) */
+.credentials-modal {
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(178, 194, 168, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(148, 226, 213, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(166, 227, 161, 0.08) 0%, transparent 50%),
+        linear-gradient(45deg, #232b23 0%, #202620 50%, #1e2e1e 100%) !important;
+    background-size: 400% 400% !important;
+    animation: gradient-move 45s ease-in-out infinite alternate !important;
+}
+
+/* Theme-specific animated gradient backgrounds */
+body.theme-moss .credentials-modal {
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(178, 194, 168, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(148, 226, 213, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(166, 227, 161, 0.08) 0%, transparent 50%),
+        linear-gradient(45deg, #232b23 0%, #202620 50%, #1e2e1e 100%) !important;
+    background-size: 400% 400% !important;
+    animation: gradient-move 45s ease-in-out infinite alternate !important;
+}
+
+body.theme-midnight .credentials-modal {
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(184, 199, 224, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(129, 161, 193, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(94, 129, 172, 0.08) 0%, transparent 50%),
+        linear-gradient(45deg, #181c24 0%, #151a22 50%, #232a36 100%) !important;
+    background-size: 400% 400% !important;
+    animation: gradient-move 45s ease-in-out infinite alternate !important;
+}
+
+body.theme-rose .credentials-modal {
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(235, 188, 186, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(243, 139, 168, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(245, 194, 231, 0.08) 0%, transparent 50%),
+        linear-gradient(45deg, #2d1b1b 0%, #2a1a1a 50%, #3d1f1f 100%) !important;
+    background-size: 400% 400% !important;
+    animation: gradient-move 45s ease-in-out infinite alternate !important;
+}
+
+body.theme-noir .credentials-modal {
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(178, 194, 168, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(148, 226, 213, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(166, 227, 161, 0.08) 0%, transparent 50%),
+        linear-gradient(45deg, #232b23 0%, #202620 50%, #1e2e1e 100%) !important;
+    background-size: 400% 400% !important;
+    animation: gradient-move 45s ease-in-out infinite alternate !important;
+}
+
 /* Responsive design for different screen sizes */
 @media (max-width: 1200px) {
     .setting-card {
@@ -295,15 +455,115 @@ html {
 }
 
 @media (max-width: 768px) {
+    body {
+        padding-top: 90px; /* Add padding to account for navbar height */
+    }
+    
     .setting-card {
         flex: 0 1 100%; /* 1 card per row on small screens */
         max-width: 100%;
         min-width: auto;
+        padding: 15px;
     }
     
     .settings-container {
         padding: 15px;
         padding-bottom: 80px;
+        gap: 15px;
+        margin-top: 20px; /* Add space below navbar */
+    }
+    
+    .setting-title {
+        font-size: 16px;
+    }
+    
+    .setting-description {
+        font-size: 13px;
+    }
+    
+    .transport-select, .proxy-backend-select, .searchengine-select, .cloak-select, .theme-select, .setting-button {
+        padding: 8px;
+        font-size: 13px;
+    }
+    
+    .keybind-content, .credentials-modal-content {
+        width: 280px;
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding-top: 100px; /* More padding for very small screens */
+    }
+    
+    .setting-card {
+        padding: 12px;
+        margin: 0 5px;
+    }
+    
+    .settings-container {
+        padding: 10px;
+        gap: 10px;
+        margin-top: 25px; /* More space below navbar */
+    }
+    
+    .setting-title {
+        font-size: 15px;
+    }
+    
+    .setting-description {
+        font-size: 12px;
+    }
+    
+    .transport-select, .proxy-backend-select, .searchengine-select, .cloak-select, .theme-select, .setting-button {
+        padding: 6px;
+        font-size: 12px;
+    }
+    
+    .keybind-content, .credentials-modal-content {
+        width: 260px;
+        padding: 15px;
+    }
+    
+    .keybind-buttons, .credentials-buttons {
+        flex-direction: column;
+        gap: 8px;
+    }
+}
+
+@media (max-width: 360px) {
+    body {
+        padding-top: 110px; /* Maximum padding for extra small screens */
+    }
+    
+    .setting-card {
+        padding: 10px;
+        margin: 0 2px;
+    }
+    
+    .settings-container {
+        padding: 8px;
+        gap: 8px;
+        margin-top: 30px; /* Maximum space below navbar */
+    }
+    
+    .setting-title {
+        font-size: 14px;
+    }
+    
+    .setting-description {
+        font-size: 11px;
+    }
+    
+    .transport-select, .proxy-backend-select, .searchengine-select, .cloak-select, .theme-select, .setting-button {
+        padding: 5px;
+        font-size: 11px;
+    }
+    
+    .keybind-content, .credentials-modal-content {
+        width: 240px;
+        padding: 12px;
     }
 }
 

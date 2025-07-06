@@ -5,6 +5,23 @@
     box-sizing: border-box;
 }
 
+/* Particles container */
+#particles-js {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Ensure main content stays above particles */
+body, .navbar, .apps-container, #search-input {
+    position: relative;
+    z-index: 1;
+}
+
 /* Styling for the apps grid */
 .apps-container {
     display: flex;
@@ -178,12 +195,54 @@ body.theme-noir .apps-container::-webkit-scrollbar-thumb {
 body {
     background-color: #232b23;
     color: #b2c2a8;
-    animation: subtle-breathing-bg 14s linear infinite alternate;
+    position: relative;
+    overflow-x: hidden;
 }
 
-@keyframes subtle-breathing-bg {
-    0% { background-color: #232b23; }
-    100% { background-color: #202620; }
+/* Gradient background with frosted glass effect */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(178, 194, 168, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(148, 226, 213, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(166, 227, 161, 0.08) 0%, transparent 50%),
+        linear-gradient(45deg, #232b23 0%, #202620 50%, #1e2e1e 100%);
+    animation: gradient-move 45s ease-in-out infinite alternate;
+    z-index: -1;
+}
+
+/* Frosted glass overlay */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(35, 43, 35, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: -1;
+}
+
+@keyframes gradient-move {
+    0% {
+        background-position: 0% 0%;
+        transform: scale(1);
+    }
+    50% {
+        background-position: 100% 100%;
+        transform: scale(1.05);
+    }
+    100% {
+        background-position: 0% 0%;
+        transform: scale(1);
+    }
 }
 
 .theme-select {
@@ -204,4 +263,113 @@ body {
     border: 1.5px solid #b2c2a8;
     box-shadow: 0 2px 8px #232b2360;
     background: #202620;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+
+/* Small screens (mobile) */
+@media (max-width: 768px) {
+    body {
+        padding-top: 90px; /* Add padding to account for navbar height */
+    }
+    
+    .apps-container {
+        width: 95%;
+        gap: 15px;
+        padding: 15px;
+        height: 500px;
+        margin-top: 20px; /* Add space below navbar */
+    }
+    
+    .app-card {
+        flex: 0 1 100px;
+        max-width: 100px;
+        min-width: 100px;
+        height: 100px;
+    }
+    
+    .app-name {
+        font-size: 10px;
+    }
+    
+    #search-input {
+        width: 90vw;
+        max-width: 400px;
+        min-width: 250px;
+        padding: 0.8rem;
+        font-size: 16px;
+        margin-top: 20px; /* Add space below navbar */
+    }
+}
+
+/* Very small screens */
+@media (max-width: 480px) {
+    body {
+        padding-top: 100px; /* More padding for very small screens */
+    }
+    
+    .apps-container {
+        width: 98%;
+        gap: 10px;
+        padding: 10px;
+        height: 400px;
+        margin-top: 25px; /* More space below navbar */
+    }
+    
+    .app-card {
+        flex: 0 1 80px;
+        max-width: 80px;
+        min-width: 80px;
+        height: 80px;
+    }
+    
+    .app-name {
+        font-size: 9px;
+        padding: 3px;
+    }
+    
+    #search-input {
+        width: 95vw;
+        max-width: 300px;
+        min-width: 200px;
+        padding: 0.7rem;
+        font-size: 14px;
+        margin-top: 25px; /* More space below navbar */
+    }
+}
+
+/* Extra small screens */
+@media (max-width: 360px) {
+    body {
+        padding-top: 110px; /* Maximum padding for extra small screens */
+    }
+    
+    .apps-container {
+        width: 100%;
+        gap: 8px;
+        padding: 8px;
+        height: 350px;
+        margin-top: 30px; /* Maximum space below navbar */
+    }
+    
+    .app-card {
+        flex: 0 1 70px;
+        max-width: 70px;
+        min-width: 70px;
+        height: 70px;
+    }
+    
+    .app-name {
+        font-size: 8px;
+        padding: 2px;
+    }
+    
+    #search-input {
+        width: 98vw;
+        max-width: 250px;
+        min-width: 180px;
+        padding: 0.6rem;
+        font-size: 13px;
+        margin-top: 30px; /* Maximum space below navbar */
+    }
 }

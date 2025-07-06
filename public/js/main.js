@@ -112,12 +112,28 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // ===== THEME INITIALIZATION =====
 
+// Function to sync theme selector with current theme
+function syncThemeSelector() {
+    const savedTheme = localStorage.getItem('siteTheme') || 'moss';
+    const themeSelector = document.querySelector('.theme-select');
+    if (themeSelector) {
+        themeSelector.value = savedTheme;
+        console.log('Main.js: Theme selector synced to:', savedTheme);
+    }
+}
+
 // Apply saved theme on page load
 (function() {
     const savedTheme = localStorage.getItem('siteTheme') || 'moss';
     document.body.classList.remove('theme-moss', 'theme-midnight', 'theme-solarized', 'theme-rose', 'theme-noir');
     document.body.classList.add('theme-' + savedTheme);
+    
+    // Also update theme selector if it exists (for settings page)
+    syncThemeSelector();
 })();
+
+// Sync theme selector when DOM is loaded
+document.addEventListener('DOMContentLoaded', syncThemeSelector);
 
 // ===== LOGO AND FAVICON MANAGEMENT =====
 
