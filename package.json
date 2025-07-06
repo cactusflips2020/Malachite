@@ -1,13 +1,13 @@
 {
   "name": "malachite",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "start": "node index.js"
   },
   "keywords": [],
-  "author": "phoenix",
+  "author": "cactusflips2020",
   "license": "ISC",
   "description": "web proxy used for browsing the internet anonymously",
   "dependencies": {
