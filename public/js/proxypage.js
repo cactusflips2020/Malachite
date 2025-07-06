@@ -2,7 +2,7 @@
 
 // ===== LOADING SCREEN MANAGEMENT =====
 
-// Hide loading screen and show Eruda devtools when page loads
+// Hide loading screen when page loads
 window.addEventListener('load', function() {
     setTimeout(function() {
         const loadingScreen = document.querySelector('.loading-screen');
@@ -10,12 +10,6 @@ window.addEventListener('load', function() {
         
         setTimeout(function() {
             loadingScreen.style.visibility = 'hidden'; // Hide completely after fade
-            
-            // Show Eruda floating button after proxy is ready
-            const erudaButton = document.querySelector('.eruda-launcher');
-            if (erudaButton) {
-                erudaButton.style.display = 'block';
-            }
         }, 500); // Wait for fade animation to complete
     }, 0); // Start immediately
 });
@@ -43,7 +37,24 @@ async function onIframeLoad() {
 // Attach load event to iframe
 const iframe = document.getElementById('proxyIframe');
 if (iframe) {
-    iframe.onload = onIframeLoad;
+    iframe.onload = function() {
+        // Call the original onIframeLoad function
+        onIframeLoad();
+        
+        // Show devtools only after iframe has loaded
+        if (typeof window.showDevTools === 'function') {
+            // Clear the interval that was hiding devtools
+            if (typeof window.clearHideInterval === 'function') {
+                window.clearHideInterval();
+            }
+            
+            // Show devtools after a short delay to ensure everything is ready
+            setTimeout(function() {
+                window.showDevTools();
+                console.log('Devtools shown after proxy iframe loaded');
+            }, 1000);
+        }
+    };
 }
 
 // ===== BREATHING ANIMATION PERSISTENCE =====

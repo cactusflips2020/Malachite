@@ -214,19 +214,20 @@ body::after {
 
 /* Style for logo */
 #logo {
-    width: 35px; /* Slightly smaller logo */
+    width: 45px; /* Larger logo */
     height: auto;
-    margin-right: 8px; /* Reduced margin */
+    margin-right: 10px; /* Increased margin */
     flex-shrink: 0; /* Prevent logo from shrinking */
 }
 
 /* Style for text next to logo */
 #logo-text {
-    font-size: 18px; /* Slightly smaller font */
+    font-size: 20px; /* Match index.html navbar text size */
     color: #b2c2a8;
     transition: filter 0.3s ease; /* Smooth brightness transition */
     white-space: nowrap; /* Prevent text wrapping */
     flex-shrink: 0; /* Prevent text from shrinking */
+    font-weight: 500; /* Slightly bolder for better visibility */
 }
 
 /* Brightness effect on hover */
@@ -273,8 +274,8 @@ body::after {
 
 /* Style for buttons inside the navbar */
 #controls button {
-    padding: 6px 12px; /* Reduced padding for smaller screens */
-    font-size: 14px; /* Smaller font size */
+    padding: 8px 16px; /* Increased padding for better touch targets */
+    font-size: 16px; /* Larger font size for better visibility */
     background-color: #384438;
     color: #b2c2a8;
     border: 1px solid #232b23;
@@ -282,7 +283,7 @@ body::after {
     flex-shrink: 0;  /* Prevent buttons from shrinking */
     border-radius: 5px; /* 15px border radius for buttons */
     transition: filter 0.3s ease; /* Smooth brightness transition */
-    min-width: 40px; /* Minimum button width */
+    min-width: 44px; /* Increased minimum button width */
     white-space: nowrap; /* Prevent text wrapping in buttons */
 }
 
@@ -994,12 +995,12 @@ body.theme-noir::after {
     }
     
     #logo {
-        width: 30px;
-        margin-right: 6px;
+        width: 38px;
+        margin-right: 8px;
     }
     
     #logo-text {
-        font-size: 16px;
+        font-size: 18px; /* Match index.html mobile size */
     }
 }
 
@@ -1024,12 +1025,12 @@ body.theme-noir::after {
     }
     
     #logo {
-        width: 25px;
-        margin-right: 4px;
+        width: 32px;
+        margin-right: 6px;
     }
     
     #logo-text {
-        font-size: 14px;
+        font-size: 16px; /* Match index.html small mobile size */
     }
 }
 
@@ -1054,12 +1055,12 @@ body.theme-noir::after {
     }
     
     #logo {
-        width: 22px;
-        margin-right: 3px;
+        width: 28px;
+        margin-right: 5px;
     }
     
     #logo-text {
-        font-size: 12px;
+        font-size: 14px; /* Match index.html extra small mobile size */
     }
 }
 
@@ -1123,46 +1124,4 @@ body.theme-noir {
     --scrollbar-thumb-hover: #4a5a4a;
 }
 
-/* New Theme Scrollbar Colors */
 
-/* Sunset Theme */
-body.theme-sunset {
-    --scrollbar-track: #2d1b1b;
-    --scrollbar-thumb: #4d2323;
-    --scrollbar-thumb-hover: #5d3333;
-}
-
-/* Ocean Theme */
-body.theme-ocean {
-    --scrollbar-track: #1a2b3a;
-    --scrollbar-thumb: #2a4a5a;
-    --scrollbar-thumb-hover: #3a5a6a;
-}
-
-/* Cyberpunk Theme */
-body.theme-cyberpunk {
-    --scrollbar-track: #1a0a1a;
-    --scrollbar-thumb: #3a0a3a;
-    --scrollbar-thumb-hover: #4a0a4a;
-}
-
-/* Forest Theme */
-body.theme-forest {
-    --scrollbar-track: #1a2e1a;
-    --scrollbar-thumb: #3a4e3a;
-    --scrollbar-thumb-hover: #4a5e4a;
-}
-
-/* Aurora Theme */
-body.theme-aurora {
-    --scrollbar-track: #0a1a2a;
-    --scrollbar-thumb: #2a3a4a;
-    --scrollbar-thumb-hover: #3a4a5a;
-}
-
-/* Desert Theme */
-body.theme-desert {
-    --scrollbar-track: #2a1a0a;
-    --scrollbar-thumb: #4a3a2a;
-    --scrollbar-thumb-hover: #5a4a3a;
-}

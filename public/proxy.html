@@ -42,20 +42,19 @@
     <!-- Eruda DevTools for debugging -->
     <script src="//cdn.jsdelivr.net/npm/eruda"></script>
     <script>
-        // Initialize Eruda but keep it completely hidden
+        // Initialize Eruda but keep it hidden initially
         eruda.init();
-        eruda.hide();
         
         // Function to show devtools when proxy is loaded
         function showDevTools() {
-            console.log('Showing Eruda devtools...');
+            console.log('Showing Eruda devtools after proxy load...');
             const erudaButton = document.querySelector('.eruda-launcher');
             if (erudaButton) {
                 erudaButton.style.display = 'block';
                 erudaButton.style.visibility = 'visible';
                 erudaButton.style.opacity = '1';
                 erudaButton.style.pointerEvents = 'auto';
-                erudaButton.style.zIndex = '2147483646'; // High z-index but below loading screen
+                erudaButton.style.zIndex = '2147483646';
                 console.log('Eruda button should now be visible');
             } else {
                 console.log('Eruda button not found, trying alternative selector...');
@@ -72,15 +71,14 @@
             }
         }
         
-        // Hide the floating button immediately and keep it hidden
-        function hideErudaButton() {
+        // Function to hide devtools initially
+        function hideDevTools() {
             const erudaButton = document.querySelector('.eruda-launcher');
             if (erudaButton) {
                 erudaButton.style.display = 'none';
                 erudaButton.style.visibility = 'hidden';
                 erudaButton.style.opacity = '0';
                 erudaButton.style.pointerEvents = 'none';
-                console.log('Eruda button hidden');
             }
             
             // Also hide any other eruda elements
@@ -93,21 +91,18 @@
             });
         }
         
-        // Hide Eruda button immediately and keep checking
-        hideErudaButton();
+        // Hide devtools initially
+        hideDevTools();
         
-        // Keep hiding the button periodically to ensure it stays hidden
-        setInterval(hideErudaButton, 1000); // Check every second
+        // Keep hiding the button periodically until proxy loads
+        const hideInterval = setInterval(hideDevTools, 500);
         
-        // Ensure Eruda is properly initialized
-        window.addEventListener('load', function() {
-            if (typeof eruda !== 'undefined') {
-                console.log('Eruda is available and ready');
-                hideErudaButton(); // Hide again after page loads
-            } else {
-                console.log('Eruda not available');
-            }
-        });
+        // Make showDevTools function globally available for proxypage.js
+        window.showDevTools = showDevTools;
+        window.hideDevTools = hideDevTools;
+        window.clearHideInterval = function() {
+            clearInterval(hideInterval);
+        };
     </script>
 </head>
 <body>
