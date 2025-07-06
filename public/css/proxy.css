@@ -281,21 +281,39 @@ body::after {
     border: 1px solid #232b23;
     cursor: pointer;
     flex-shrink: 0;  /* Prevent buttons from shrinking */
-    border-radius: 5px; /* 15px border radius for buttons */
-    transition: filter 0.3s ease; /* Smooth brightness transition */
+    border-radius: 8px; /* Rounded corners for modern look */
+    transition: all 0.3s ease; /* Smooth transitions for all properties */
     min-width: 44px; /* Increased minimum button width */
     white-space: nowrap; /* Prevent text wrapping in buttons */
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Brightness effect on hover */
+/* Enhanced hover effects */
 #controls button:hover {
-    filter: brightness(1.1);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    border-color: rgba(178, 194, 168, 0.4);
+    background: rgba(56, 68, 56, 0.8);
 }
 
 /* Active state for buttons */
 #controls button.active {
     background-color: #b2c2a8;
     color: #1a1f1a;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Remove hold/active effects but keep buttons visible */
+#controls button:active {
+    transform: translateY(0px) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+    filter: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: block !important;
 }
 
 
@@ -429,15 +447,22 @@ body.theme-moss #controls button {
     background: #232b23;
     color: #b2c2a8;
     border: 1.5px solid #384438;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 body.theme-moss #controls button:hover {
     background: #384438;
     color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    border-color: rgba(178, 194, 168, 0.4);
 }
 
 body.theme-moss #controls button.active {
     background: #b2c2a8;
     color: #1a1f1a;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 body.theme-moss #tab-bar {
@@ -542,15 +567,22 @@ body.theme-midnight #controls button {
     background: #151a22;
     color: #b8c7e0;
     border: 1.5px solid #2a3442;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 body.theme-midnight #controls button:hover {
     background: #2a3442;
     color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    border-color: rgba(184, 199, 224, 0.4);
 }
 
 body.theme-midnight #controls button.active {
     background: #b8c7e0;
     color: #151a22;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 body.theme-midnight #tab-bar {
@@ -654,15 +686,22 @@ body.theme-amethyst #controls button {
     background: #2d2040;
     color: #e0d7f7;
     border: 1.5px solid #a084ca;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 body.theme-amethyst #controls button:hover {
     background: #6c4f8c;
     color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    border-color: rgba(224, 215, 247, 0.4);
 }
 
 body.theme-amethyst #controls button.active {
     background: #e0d7f7;
     color: #2d2040;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 body.theme-amethyst #tab-bar {
@@ -770,15 +809,22 @@ body.theme-rose #controls button {
     background: #1a1114;
     color: #e0b8c7;
     border: 1.5px solid #6e3844;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 body.theme-rose #controls button:hover {
     background: #6e3844;
     color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    border-color: rgba(224, 184, 199, 0.4);
 }
 
 body.theme-rose #controls button.active {
     background: #e0b8c7;
     color: #1a1114;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 body.theme-rose #tab-bar {
@@ -882,6 +928,8 @@ body.theme-noir #controls button {
     background: #111;
     color: #e0e0e0;
     border: 1.5px solid #444;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 body.theme-noir #controls button:hover {
     background: #444;

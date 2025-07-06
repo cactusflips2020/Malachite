@@ -311,15 +311,40 @@ function showNotification(message) {
 }
 
 // Add event listeners for dropdowns
-document.querySelector(".transport-select").addEventListener("change", () => showNotification('Changes saved!'));
-document.querySelector(".proxy-backend-select").addEventListener("change", () => showNotification('Changes saved!'));
-document.querySelector(".cloak-select").addEventListener("change", () => showNotification('Changes saved!'));
-document.querySelector(".searchengine-select").addEventListener("change", () => showNotification('Changes saved!'));
-document.getElementById("leaveconfirmbutton").addEventListener("click", () => showNotification('Changes saved!'));
-document.getElementById("autoabbutton").addEventListener("click", () => showNotification('Changes saved!'));
-document.getElementById("applykeybindbutton").addEventListener("click", () => showNotification('Changes saved!'));
-document.getElementById("applycredentialsbutton").addEventListener("click", () => showNotification('Changes saved!'));
-document.getElementById("resetcredentialsbutton").addEventListener("click", () => showNotification('Changes saved!'));
+document.addEventListener('DOMContentLoaded', function() {
+    const transportSelect = document.querySelector(".transport-select");
+    if (transportSelect) {
+        transportSelect.addEventListener("change", () => showNotification('Changes saved!'));
+    }
+});
+// Move all event listeners to DOMContentLoaded to prevent errors
+document.addEventListener('DOMContentLoaded', function() {
+    // Add notification listeners for various elements
+    const proxySelect = document.querySelector(".proxy-backend-select");
+    if (proxySelect) {
+        proxySelect.addEventListener("change", () => showNotification('Changes saved!'));
+    }
+    
+    const cloakSelect = document.querySelector(".cloak-select");
+    if (cloakSelect) {
+        cloakSelect.addEventListener("change", () => showNotification('Changes saved!'));
+    }
+    
+    const searchSelect = document.querySelector(".searchengine-select");
+    if (searchSelect) {
+        searchSelect.addEventListener("change", () => showNotification('Changes saved!'));
+    }
+    
+    const leaveConfirmBtn = document.getElementById("leaveconfirmbutton");
+    if (leaveConfirmBtn) {
+        leaveConfirmBtn.addEventListener("click", () => showNotification('Changes saved!'));
+    }
+    
+    const autoabBtn = document.getElementById("autoabbutton");
+    if (autoabBtn) {
+        autoabBtn.addEventListener("click", () => showNotification('Changes saved!'));
+    }
+});
 
 let selectedKey = localStorage.getItem("redirectKey");
 let customURL = localStorage.getItem("redirectUrl") || "https://www.google.com";
@@ -327,53 +352,167 @@ let tempKey = selectedKey; // Temporary storage for unsaved key
 let tempURL = customURL; // Temporary storage for unsaved URL
 
 function openKeybindModal() {
-    document.getElementById("keybind-modal").style.display = "flex";
-    document.getElementById("keybind-display").textContent = tempKey
-        ? tempKey.toUpperCase()
-        : "No key bound";
-    document.getElementById("keybind-url").value = tempURL;
+    console.log('Opening keybind modal...');
+    
+    const modal = document.getElementById("keybind-modal");
+    if (!modal) {
+        console.error('Keybind modal not found!');
+        return;
+    }
+    
+    // Apply current theme to modal
+    const currentTheme = localStorage.getItem('siteTheme') || 'moss';
+    modal.className = 'keybind-modal theme-' + currentTheme;
+    
+    modal.classList.add("show");
+    modal.style.display = "flex";
+    
+    const keybindDisplay = document.getElementById("keybind-display");
+    const keybindUrl = document.getElementById("keybind-url");
+    
+    if (keybindDisplay) {
+        keybindDisplay.textContent = tempKey ? tempKey.toUpperCase() : "No key bound";
+    }
+    if (keybindUrl) {
+        keybindUrl.value = tempURL;
+    }
+    
+    // Initialize particles for keybind modal
+    initializeKeybindParticles(currentTheme);
+    
+    console.log('Keybind modal opened successfully');
 }
 
 function closeKeybindModal() {
+    console.log('Closing keybind modal...');
     // Reset to last saved values when closing without applying
     tempKey = localStorage.getItem("redirectKey");
     tempURL = localStorage.getItem("redirectUrl") || "https://www.google.com";
-    document.getElementById("keybind-modal").style.display = "none";
+    const modal = document.getElementById("keybind-modal");
+    if (modal) {
+        modal.classList.remove("show");
+        modal.style.display = "none";
+        
+        // Clean up keybind modal particles
+        cleanupKeybindParticles();
+        
+        console.log('Keybind modal closed successfully');
+    }
 }
 
-document.getElementById("keybind-display").addEventListener("click", () => {
-    document.getElementById("keybind-display").textContent = "Listening...";
-    const listener = (e) => {
-        if (e.key === "Escape") {
-            tempKey = null;
-            document.getElementById("keybind-display").textContent = "No key bound";
-        } else {
-            tempKey = e.key;
-            document.getElementById("keybind-display").textContent = tempKey.toUpperCase();
-        }
-        window.removeEventListener("keydown", listener);
-    };
-    window.addEventListener("keydown", listener);
+// Add event listener for keybind display when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded, setting up keybind listeners...');
+    
+    const keybindDisplay = document.getElementById("keybind-display");
+    if (keybindDisplay) {
+        console.log('Keybind display found, adding click listener');
+        keybindDisplay.addEventListener("click", () => {
+            console.log('Keybind display clicked');
+            keybindDisplay.textContent = "Listening...";
+            const listener = (e) => {
+                console.log('Key pressed:', e.key);
+                if (e.key === "Escape") {
+                    tempKey = null;
+                    keybindDisplay.textContent = "No key bound";
+                } else {
+                    tempKey = e.key;
+                    keybindDisplay.textContent = tempKey.toUpperCase();
+                }
+                window.removeEventListener("keydown", listener);
+            };
+            window.addEventListener("keydown", listener);
+        });
+    } else {
+        console.error('Keybind display not found!');
+    }
+    
+    // Add URL completion for keybind URL input
+    const keybindUrl = document.getElementById("keybind-url");
+    if (keybindUrl) {
+        console.log('Keybind URL input found, adding completion listener');
+        keybindUrl.addEventListener("blur", function() {
+            let urlValue = this.value.trim();
+            if (urlValue && !/^https?:\/\//i.test(urlValue)) {
+                // Auto-complete the URL
+                this.value = "https://" + urlValue;
+                console.log('URL auto-completed to:', this.value);
+            }
+        });
+        
+        // Also complete on Enter key
+        keybindUrl.addEventListener("keydown", function(e) {
+            if (e.key === "Enter") {
+                let urlValue = this.value.trim();
+                if (urlValue && !/^https?:\/\//i.test(urlValue)) {
+                    this.value = "https://" + urlValue;
+                    console.log('URL auto-completed on Enter to:', this.value);
+                }
+            }
+        });
+    } else {
+        console.error('Keybind URL input not found!');
+    }
+    
+    // Test if the button exists
+    const openButton = document.querySelector('button[onclick="openKeybindModal()"]');
+    if (openButton) {
+        console.log('Open keybind button found');
+    } else {
+        console.error('Open keybind button not found!');
+    }
 });
 
 function applyKeybind() {
-    let urlInput = document.getElementById("keybind-url").value.trim();
+    console.log('Applying keybind settings...');
+    const urlInput = document.getElementById("keybind-url");
+    if (!urlInput) {
+        console.error('Keybind URL input not found!');
+        return;
+    }
     
-    if (urlInput && !/^https?:\/\//i.test(urlInput)) {
-        urlInput = "https://" + urlInput;
+    let urlValue = urlInput.value.trim();
+    
+    if (urlValue && !/^https?:\/\//i.test(urlValue)) {
+        urlValue = "https://" + urlValue;
     }
 
-    customURL = urlInput || "https://www.google.com";
+    customURL = urlValue || "https://www.google.com";
     localStorage.setItem("redirectUrl", customURL);
 
     if (tempKey) {
         selectedKey = tempKey;
         localStorage.setItem("redirectKey", selectedKey);
+        console.log('Keybind saved:', selectedKey, '->', customURL);
     } else {
         selectedKey = null;
         localStorage.removeItem("redirectKey");
+        console.log('Keybind removed');
     }
 
+    closeKeybindModal();
+    showNotification('Changes saved!');
+}
+
+function resetKeybind() {
+    console.log('Resetting keybind settings...');
+    
+    // Reset to default values
+    tempKey = null;
+    tempURL = "https://www.google.com";
+    
+    // Clear from localStorage
+    localStorage.removeItem("redirectKey");
+    localStorage.setItem("redirectUrl", "https://www.google.com");
+    
+    // Update global variables
+    selectedKey = null;
+    customURL = "https://www.google.com";
+    
+    console.log('Keybind settings reset to defaults');
+    showNotification('Changes saved!');
+    
+    // Close the modal
     closeKeybindModal();
 }
 
@@ -554,6 +693,193 @@ function createSimpleParticles() {
     }
 }
 
+function initializeKeybindParticles(theme) {
+    console.log('Initializing keybind particles for theme:', theme);
+    
+    // Theme-specific particle configurations for keybind modal
+    const keybindParticleConfigs = {
+        moss: {
+            particles: {
+                number: { value: 35, density: { enable: true, value_area: 800 } },
+                color: { value: ['#b2c2a8', '#94e2d5', '#a6e3a1', '#89dceb'] },
+                shape: { type: 'circle' },
+                opacity: { value: 0.25, random: true, anim: { enable: false, speed: 1, opacity_min: 0.1, sync: false } },
+                size: { value: 1.8, random: true, anim: { enable: false, speed: 2, size_min: 1, sync: false } },
+                line_linked: { enable: true, distance: 180, color: '#b2c2a8', opacity: 0.15, width: 0.5 },
+                move: { enable: true, speed: 1.2, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: false, mode: 'repulse' },
+                    onclick: { enable: false, mode: 'push' },
+                    resize: true
+                },
+                modes: {
+                    grab: { distance: 140, line_linked: { opacity: 1 } },
+                    bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
+                    repulse: { distance: 150, duration: 0.4 },
+                    push: { particles_nb: 4 },
+                    remove: { particles_nb: 2 }
+                }
+            },
+            retina_detect: true
+        },
+        midnight: {
+            particles: {
+                number: { value: 40, density: { enable: true, value_area: 800 } },
+                color: { value: ['#b8c7e0', '#81a1c1', '#5e81ac', '#88c0d0'] },
+                shape: { type: 'circle' },
+                opacity: { value: 0.3, random: true, anim: { enable: false, speed: 1.5, opacity_min: 0.2, sync: false } },
+                size: { value: 2, random: true, anim: { enable: false, speed: 3, size_min: 1, sync: false } },
+                line_linked: { enable: true, distance: 160, color: '#b8c7e0', opacity: 0.2, width: 0.5 },
+                move: { enable: true, speed: 1.5, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: false, mode: 'grab' },
+                    onclick: { enable: false, mode: 'push' },
+                    resize: true
+                },
+                modes: {
+                    grab: { distance: 140, line_linked: { opacity: 1 } },
+                    bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
+                    repulse: { distance: 200, duration: 0.4 },
+                    push: { particles_nb: 4 },
+                    remove: { particles_nb: 2 }
+                }
+            },
+            retina_detect: true
+        },
+        rose: {
+            particles: {
+                number: { value: 30, density: { enable: true, value_area: 800 } },
+                color: { value: ['#e0b8c7', '#f38ba8', '#eba0ac', '#f5c2e7'] },
+                shape: { type: 'circle' },
+                opacity: { value: 0.28, random: true, anim: { enable: false, speed: 1.2, opacity_min: 0.15, sync: false } },
+                size: { value: 1.9, random: true, anim: { enable: false, speed: 2.2, size_min: 1, sync: false } },
+                line_linked: { enable: true, distance: 200, color: '#e0b8c7', opacity: 0.18, width: 0.5 },
+                move: { enable: true, speed: 1.4, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: false, mode: 'bubble' },
+                    onclick: { enable: false, mode: 'push' },
+                    resize: true
+                },
+                modes: {
+                    grab: { distance: 140, line_linked: { opacity: 1 } },
+                    bubble: { distance: 200, size: 40, duration: 2, opacity: 8, speed: 3 },
+                    repulse: { distance: 200, duration: 0.4 },
+                    push: { particles_nb: 4 },
+                    remove: { particles_nb: 2 }
+                }
+            },
+            retina_detect: true
+        },
+        noir: {
+            particles: {
+                number: { value: 25, density: { enable: true, value_area: 800 } },
+                color: { value: ['#e0e0e0', '#c0c0c0', '#a0a0a0', '#808080'] },
+                shape: { type: 'circle' },
+                opacity: { value: 0.2, random: true, anim: { enable: false, speed: 1, opacity_min: 0.1, sync: false } },
+                size: { value: 1.6, random: true, anim: { enable: false, speed: 2.5, size_min: 1, sync: false } },
+                line_linked: { enable: true, distance: 220, color: '#e0e0e0', opacity: 0.12, width: 0.5 },
+                move: { enable: true, speed: 1, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: false, mode: 'repulse' },
+                    onclick: { enable: false, mode: 'push' },
+                    resize: true
+                },
+                modes: {
+                    grab: { distance: 140, line_linked: { opacity: 1 } },
+                    bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
+                    repulse: { distance: 180, duration: 0.4 },
+                    push: { particles_nb: 4 },
+                    remove: { particles_nb: 2 }
+                }
+            },
+            retina_detect: true
+        }
+    };
+    
+    // Initialize particles.js with a small delay to ensure DOM is ready
+    setTimeout(() => {
+        console.log('Checking particlesJS for keybind modal:', typeof particlesJS !== 'undefined');
+        if (typeof particlesJS !== 'undefined') {
+            console.log('Initializing keybind particles for theme:', theme);
+            const config = keybindParticleConfigs[theme] || keybindParticleConfigs.moss;
+            particlesJS('keybind-particles-js', config);
+            console.log('Keybind particles initialized successfully');
+        } else {
+            console.log('ParticlesJS not available for keybind modal, trying alternative approach...');
+            // Try to create a simple particle effect manually
+            createSimpleKeybindParticles(theme);
+        }
+    }, 100);
+}
+
+function createSimpleKeybindParticles(theme) {
+    console.log('Creating simple keybind particles manually...');
+    const container = document.getElementById('keybind-particles-js');
+    if (container) {
+        // Get current theme for particle colors
+        const themeColors = {
+            moss: ['#b2c2a8', '#94e2d5', '#a6e3a1', '#89dceb'],
+            midnight: ['#b8c7e0', '#81a1c1', '#5e81ac', '#88c0d0'],
+            rose: ['#e0b8c7', '#f38ba8', '#eba0ac', '#f5c2e7'],
+            noir: ['#e0e0e0', '#c0c0c0', '#a0a0a0', '#808080']
+        };
+        const colors = themeColors[theme] || themeColors.moss;
+        
+        for (let i = 0; i < 40; i++) {
+            const particle = document.createElement('div');
+            particle.style.position = 'absolute';
+            particle.style.width = '2px';
+            particle.style.height = '2px';
+            particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            particle.style.borderRadius = '50%';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.opacity = '0.25';
+            particle.style.pointerEvents = 'none';
+            particle.style.zIndex = '1';
+            container.appendChild(particle);
+        }
+        console.log('Simple keybind particles created for theme:', theme);
+    }
+}
+
+function cleanupKeybindParticles() {
+    console.log('Cleaning up keybind particles...');
+    
+    // Clean up particles.js particles
+    if (typeof pJSDom !== 'undefined' && pJSDom.length > 0) {
+        // Find and destroy only the keybind modal particles
+        for (let i = pJSDom.length - 1; i >= 0; i--) {
+            if (pJSDom[i].pJS && pJSDom[i].pJS.canvas && pJSDom[i].pJS.canvas.el && 
+                pJSDom[i].pJS.canvas.el.id === 'keybind-particles-js') {
+                pJSDom[i].pJS.fn.vendors.destroypJS();
+                pJSDom.splice(i, 1);
+                break;
+            }
+        }
+    }
+    
+    // Clean up simple particles
+    const container = document.getElementById('keybind-particles-js');
+    if (container) {
+        container.innerHTML = '';
+    }
+    
+    console.log('Keybind particles cleaned up');
+}
+
 function closeCredentialsModal() {
     const modal = document.getElementById('credentials-modal');
     modal.style.opacity = '0';
@@ -597,6 +923,7 @@ function applyCredentials() {
     tempPassword = newPassword;
 
     closeCredentialsModal();
+    showNotification('Changes saved!');
 }
 
 function resetCredentials() {
@@ -610,6 +937,7 @@ function resetCredentials() {
     document.getElementById('new-password').value = DEFAULT_PASSWORD;
 
     closeCredentialsModal();
+    showNotification('Changes saved!');
 }
 
 // Persist breathing background animation state

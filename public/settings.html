@@ -10,6 +10,7 @@ add proxy switcher n panic key
         <title is="chemical-title" data-title-store>Malachite</title>
 		<link rel="icon" is="chemical-icon" data-icon-store href="img/favicon.ico">
 		<link rel="stylesheet" href="css/index.css">
+		<link rel="stylesheet" href="css/transitions.css">
         <link rel="stylesheet" href="css/settings.css">
 		<script src="/chemical.js"></script>
 		<script src="/chemical.components.js"></script>
@@ -116,6 +117,7 @@ add proxy switcher n panic key
             </div>
         </div>
         <div id="keybind-modal" class="keybind-modal" style="display:none;">
+            <div id="keybind-particles-js"></div>
             <div class="keybind-content">
                 <div class="keybind-title">Select Panic Key</div>
                 <div class="keybind-description">Click the box and press a key. Press Escape to unbind.</div>
@@ -128,6 +130,7 @@ add proxy switcher n panic key
         
                 <div class="keybind-buttons">
                     <button id="applykeybindbutton" onclick="applyKeybind()">Apply</button>
+                    <button id="resetkeybindbutton" onclick="resetKeybind()">Reset</button>
                     <button onclick="closeKeybindModal()">Cancel</button>
                 </div>
             </div>
@@ -291,7 +294,8 @@ add proxy switcher n panic key
                 }
             });
         </script>
-        <script src="js/settings.js" defer></script>	
-        <script src="js/main.js" defer></script>	
+        		<script src="js/settings.js" defer></script>
+		<script src="js/main.js" defer></script>
+		<script src="js/transitions.js" defer></script>	
 	</body>
 </html>

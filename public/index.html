@@ -6,6 +6,7 @@
         <title is="chemical-title" data-title-store>Malachite</title>
 		<link rel="icon" is="chemical-icon" data-icon-store href="img/favicon.ico">
 		<link rel="stylesheet" href="css/index.css">
+		<link rel="stylesheet" href="css/transitions.css">
 		<script src="/chemical.js"></script>
 		<script src="/chemical.components.js"></script>
 		<script src="/chemical.cloaking.js"></script>
@@ -54,32 +55,10 @@
 			<div id="latency-fps-widget" class="widget-container">
 				Ping: <span id="latency-value">Fetching Ping...</span> | 
 				FPS: <span id="fps-value">0</span>
-			</div>					  
-		<script>
-			document.getElementById("search").addEventListener("keypress", async function(event) {
-				if (event.key === "Enter") {
-					event.preventDefault();  // Prevent default form submission
-		
-					const input = event.target.value.trim(); // Get input value
-					if (!input) return;  // Do nothing if input is empty
-		
-					// Encode the URL using ChemicalJS
-					const encodedUrl = await chemical.encode(input, {
-						service: "uv",             // Use Ultraviolet (uv) service for encoding
-						autoHttps: true,           // Automatically ensure the URL uses HTTPS
-						searchEngine: searchEngineUrl  // Use Google as a search engine for redirection
-					});
-		
-					// Store encoded URL in sessionStorage
-					sessionStorage.setItem("encodedUrl", encodedUrl);
-		
-					// Redirect to proxy.html
-					window.location.href = "proxy.html";
-				}
-			});
-		</script>	
+			</div>
 		<div class="open-area" id="openArea"></div>						
 		<script src="js/main.js" defer></script>
+		<script src="js/transitions.js" defer></script>
 		<script>
 			// Register Service Worker for better performance
 			if ('serviceWorker' in navigator) {
@@ -176,6 +155,7 @@ document.addEventListener('keydown', (event) => {
 		  
 			requestAnimationFrame(updateFPS);
 		  </script>
+
 			
 		<script src="js/particles.min.js"></script>
 		<script src="js/clock.js"></script>

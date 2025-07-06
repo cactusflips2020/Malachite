@@ -143,6 +143,8 @@
     border: 1px solid #232b23;
 }
 
+
+
 /* Apply better styling to separator */
 #latency-fps-widget .separator {
     color: #a3bfa3;
@@ -1199,6 +1201,8 @@ body.theme-noir {
         padding: 10px 14px;
     }
     
+
+    
     .logo-above-title img {
         max-width: 120px;
     }
@@ -1255,6 +1259,8 @@ body.theme-noir {
         padding: 8px 12px;
     }
     
+
+    
     .logo-above-title img {
         max-width: 100px;
     }
@@ -1310,6 +1316,8 @@ body.theme-noir {
         font-size: 11px;
         padding: 6px 10px;
     }
+    
+
     
     .logo-above-title img {
         max-width: 80px;

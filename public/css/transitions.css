@@ -1,0 +1,333 @@
+/* Modern Page Transitions */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOutUp {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Page transition states */
+.page-transition {
+    opacity: 0;
+    transition: opacity 0.6s ease-out;
+}
+
+.page-transition.loaded {
+    opacity: 1;
+}
+
+.page-leaving {
+    opacity: 0;
+    transition: opacity 0.4s ease-in;
+}
+
+/* Smooth hover effects */
+.nav-links a {
+    transition: filter 0.3s ease !important;
+}
+
+.nav-links a:hover {
+    filter: brightness(1.1) !important;
+}
+
+.nav-links a:hover i,
+.nav-links a:hover svg {
+    filter: brightness(1.1) !important;
+    transition: filter 0.3s ease !important;
+}
+
+/* Logo animations */
+.logo-container a {
+    transition: filter 0.3s ease !important;
+}
+
+.logo-container a:hover {
+    filter: brightness(1.1) !important;
+}
+
+.logo-container img {
+    transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+}
+
+.logo-container img:hover {
+    transform: rotate(360deg);
+    transition: transform 0.5s ease, filter 0.3s ease !important;
+}
+
+/* Search input animations */
+#search {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid transparent;
+}
+
+#search:focus {
+    outline: none;
+}
+
+/* Widget animations */
+.widget-container {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: slideIn 0.6s ease-out 0.2s both;
+    background: rgba(56, 68, 56, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(178, 194, 168, 0.2);
+    border-radius: 12px;
+    padding: 12px 18px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.widget-container:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    border-color: rgba(178, 194, 168, 0.4);
+    background: rgba(56, 68, 56, 0.4);
+}
+
+/* Card animations - Smooth sequential loading */
+.app-card, .game-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: cardSlideIn 0.6s ease-out forwards;
+    animation-delay: calc(var(--animation-order, 0) * 0.15s);
+}
+
+@keyframes cardSlideIn {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.app-card:hover, .game-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.app-card img, .game-card img {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.app-card:hover img, .game-card:hover img {
+    transform: scale(1.1);
+    filter: brightness(0.7);
+}
+
+/* Settings animations */
+.setting-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: cardSlideIn 0.6s ease-out forwards;
+    animation-delay: calc(var(--animation-order, 0) * 0.08s);
+}
+
+.setting-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Button animations */
+button, .setting-button, .transport-select, .proxy-backend-select, .searchengine-select, .cloak-select, .theme-select {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+button:hover, .setting-button:hover, .transport-select:hover, .proxy-backend-select:hover, .searchengine-select:hover, .cloak-select:hover, .theme-select:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Remove hold/active effects but keep buttons visible */
+button:active, .setting-button:active, .transport-select:active, .proxy-backend-select:active, .searchengine-select:active, .cloak-select:active, .theme-select:active {
+    transform: none !important;
+    box-shadow: none !important;
+    filter: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: block !important;
+}
+
+/* Modal animations */
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.keybind-modal, .credentials-modal {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.keybind-modal.show, .credentials-modal.show {
+    animation: modalSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Loading animation */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.loading {
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Focus animations - removed green outline */
+*:focus:not(.nav-links a):not(.logo-container a):not(#logo-container):not(#logo-text):not(#proxySearch):not(#controls button):not(button):not(.setting-button):not(.transport-select):not(.proxy-backend-select):not(.searchengine-select):not(.cloak-select):not(.theme-select):not(#search):not(input[type="search"]):not(input[placeholder*="Search"]) {
+    outline: none;
+}
+
+/* Remove focus outline from navbar elements and buttons */
+.nav-links a:focus,
+.logo-container a:focus,
+#logo-container:focus,
+#logo-text:focus,
+#proxySearch:focus,
+#controls button:focus,
+button:focus,
+.setting-button:focus,
+.transport-select:focus,
+.proxy-backend-select:focus,
+.searchengine-select:focus,
+.cloak-select:focus,
+.theme-select:focus,
+#search:focus,
+input[type="search"]:focus,
+input[placeholder*="Search"]:focus {
+    outline: none;
+}
+
+/* Remove dark effect on hold/active state */
+#logo-container:active,
+#logo-text:active,
+#proxySearch:active,
+#controls button:active {
+    background: transparent !important;
+    filter: none !important;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* Remove hold effects from proxy logo and text */
+#logo:active {
+    filter: none !important;
+    transform: none !important;
+}
+
+#logo-container:active #logo {
+    filter: none !important;
+    transform: none !important;
+}
+
+#logo-container:active #logo-text {
+    filter: none !important;
+    transform: none !important;
+}
+
+/* Remove click/active effects from proxy logo and text (keep hover effects) */
+#logo-container:active {
+    filter: none !important;
+    background: transparent !important;
+}
+
+#logo-container:active #logo {
+    filter: none !important;
+    transform: none !important;
+}
+
+#logo-container:active #logo-text {
+    filter: none !important;
+    transform: none !important;
+}
+
+/* Completely remove darkening on hold click */
+#logo-container:active,
+#logo-container:active *,
+#logo-container:active #logo,
+#logo-container:active #logo-text {
+    filter: none !important;
+    background: transparent !important;
+    transform: none !important;
+    box-shadow: none !important;
+    opacity: 1 !important;
+}
+
+/* Remove gradient effect from proxy navbar */
+#navbar {
+    background: #1a1f1a !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+/* Remove any gradient overlays from proxy navbar */
+#navbar::before,
+#navbar::after {
+    display: none !important;
+}
+
+/* Responsive animations */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+
+
+ 
