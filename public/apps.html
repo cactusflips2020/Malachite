@@ -36,6 +36,52 @@
 		</div>			
 			<input type="text" id="search-input" placeholder="Search apps..." />
 			<div class="apps-container" id="apps-container"></div>
+			
+			<!-- Add Custom App Modal -->
+			<div id="add-app-modal" class="add-modal">
+				<div class="add-modal-content">
+					<div class="add-modal-header">
+						<h2>Add Custom App</h2>
+						<button class="close-modal" onclick="closeAddAppModal()">&times;</button>
+					</div>
+					<div class="add-modal-body">
+						<div class="form-group">
+							<label for="app-name">App Name:</label>
+							<input type="text" id="app-name" placeholder="Enter app name" />
+						</div>
+						<div class="form-group">
+							<label for="app-link">App URL:</label>
+							<input type="url" id="app-link" placeholder="https://example.com" />
+						</div>
+						<div class="form-group">
+							<label for="app-image">Image URL:</label>
+							<input type="url" id="app-image" placeholder="https://example.com/image.png" />
+						</div>
+						<div class="form-actions">
+							<button onclick="addCustomApp()" class="add-btn">Add App</button>
+							<button onclick="closeAddAppModal()" class="cancel-btn">Cancel</button>
+						</div>
+					</div>
+							</div>
+			
+			<!-- Manage Custom Apps Modal -->
+			<div id="manage-apps-modal" class="manage-modal">
+				<div class="manage-modal-content">
+					<div class="manage-modal-header">
+						<h2>Manage Custom Apps</h2>
+						<button class="close-modal" onclick="closeManageAppsModal()">&times;</button>
+					</div>
+					<div class="manage-modal-body">
+						<div id="custom-apps-list" class="custom-apps-list">
+							<!-- Custom apps will be listed here -->
+						</div>
+						<div class="manage-modal-footer">
+							<button onclick="closeManageAppsModal()" class="cancel-btn">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
 		
     
         <script src="js/particles.min.js"></script>

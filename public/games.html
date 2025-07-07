@@ -37,6 +37,34 @@
 			<input type="text" id="search-input" placeholder="Search games..." />
 			<div class="games-container" id="games-container"></div>
 			
+			<!-- Add Custom Game Modal -->
+			<div id="add-game-modal" class="add-modal">
+				<div class="add-modal-content">
+					<div class="add-modal-header">
+						<h2>Add Custom Game</h2>
+						<button class="close-modal" onclick="closeAddGameModal()">&times;</button>
+					</div>
+					<div class="add-modal-body">
+						<div class="form-group">
+							<label for="game-name">Game Name:</label>
+							<input type="text" id="game-name" placeholder="Enter game name" />
+						</div>
+						<div class="form-group">
+							<label for="game-link">Game URL:</label>
+							<input type="url" id="game-link" placeholder="https://example.com" />
+						</div>
+						<div class="form-group">
+							<label for="game-image">Image URL:</label>
+							<input type="url" id="game-image" placeholder="https://example.com/image.png" />
+						</div>
+						<div class="form-actions">
+							<button onclick="addCustomGame()" class="add-btn">Add Game</button>
+							<button onclick="closeAddGameModal()" class="cancel-btn">Cancel</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
 		<script src="js/particles.min.js"></script>
 		<script src="/js/games.js" defer></script>
 		<script src="js/main.js"></script>
