@@ -318,12 +318,32 @@ body::after {
     justify-content: center;
     align-items: center;
     transition: all 0.3s ease;
+    position: relative;
+}
+
+.add-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none;
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 .add-card:hover {
-    border-color: #a3be8c;
-    background: linear-gradient(135deg, #2e362e 0%, #384438 100%);
+    border: 1px solid #b2c2a8;
+    background-color: #384438;
     transform: scale(1.05);
+    transform-origin: center center;
+}
+
+.add-card:hover::before {
+    opacity: 1;
 }
 
 .add-icon {
@@ -343,7 +363,7 @@ body::after {
 
 .add-card .game-name {
     opacity: 0;
-    color: #a3be8c;
+    color: #b2c2a8;
     font-size: 11px;
     font-weight: 600;
     transition: opacity 0.3s ease-in-out;
@@ -351,7 +371,7 @@ body::after {
 
 .add-card:hover .game-name {
     opacity: 1;
-    color: #a3be8c;
+    color: #b2c2a8;
 }
 
 /* Delete button styling */
@@ -565,6 +585,20 @@ body.theme-noir .close-modal:active {
     filter: brightness(1.2);
 }
 
+/* Moss theme cancel button styling */
+body.theme-moss .cancel-btn {
+    background: #232b23;
+    color: #b2c2a8;
+    border: 1px solid #384438;
+}
+
+body.theme-moss .cancel-btn:hover,
+body.theme-moss .cancel-btn:focus,
+body.theme-moss .cancel-btn:active {
+    background: #384438;
+    color: #fff;
+}
+
 /* Theme-specific card colors */
 body.theme-midnight .game-card {
     background-color: #1e262e;
@@ -621,8 +655,8 @@ body.theme-midnight .add-card {
 }
 
 body.theme-midnight .add-card:hover {
-    border-color: #88c0d0;
-    background: linear-gradient(135deg, #181c24 0%, #1e262e 100%);
+    border: 1px solid #b8c7e0;
+    background-color: #2a3442;
 }
 
 body.theme-midnight .add-icon {
@@ -634,11 +668,11 @@ body.theme-midnight .add-card:hover .add-icon {
 }
 
 body.theme-midnight .add-card .game-name {
-    color: #81a1c1;
+    color: #b8c7e0;
 }
 
 body.theme-midnight .add-card:hover .game-name {
-    color: #88c0d0;
+    color: #b8c7e0;
 }
 
 body.theme-rose .add-card {
@@ -647,8 +681,8 @@ body.theme-rose .add-card {
 }
 
 body.theme-rose .add-card:hover {
-    border-color: #f5c2e7;
-    background: linear-gradient(135deg, #2a1a1f 0%, #5a2f38 100%);
+    border: 1px solid #e0b8c7;
+    background-color: #6e3844;
 }
 
 body.theme-rose .add-icon {
@@ -673,8 +707,8 @@ body.theme-noir .add-card {
 }
 
 body.theme-noir .add-card:hover {
-    border-color: #e0e0e0;
-    background: linear-gradient(135deg, #181818 0%, #333 100%);
+    border: 1px solid #e0e0e0;
+    background-color: #444;
 }
 
 body.theme-noir .add-icon {
@@ -871,27 +905,4 @@ body.theme-noir .cancel-btn:active {
     filter: brightness(1.2);
 }
 
-/* Mobile responsiveness for modal */
-@media (max-width: 768px) {
-    .add-modal-content {
-        width: 95%;
-        margin: 20px;
-    }
-    
-    .add-modal-header {
-        padding: 15px 20px 10px 20px;
-    }
-    
-    .add-modal-body {
-        padding: 20px;
-    }
-    
-    .form-actions {
-        flex-direction: column;
-        gap: 10px;
-    }
-    
-    .add-btn, .cancel-btn {
-        width: 100%;
-    }
-}
+

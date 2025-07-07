@@ -1,5 +1,127 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
+/* Slide-in animation styles */
+.slide-in-element {
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.slide-in-element.animate {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+/* Welcome back overlay styles */
+.welcome-back-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.welcome-back-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.welcome-back-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(35, 43, 35, 0.95);
+    border: 2px solid #b2c2a8;
+    border-radius: 20px;
+    padding: 24px 32px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    height: 200px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    transform: scale(0.8);
+    opacity: 0;
+    transition: transform 0.6s ease, opacity 0.6s ease;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+}
+
+.welcome-back-overlay.show .welcome-back-content {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.welcome-back-icon {
+    font-size: 3em;
+    margin: 0 0 20px 0;
+    color: #b2c2a8;
+    animation: welcome-bounce 1s ease 0.3s both;
+    text-align: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.welcome-back-title {
+    font-size: 1.8em;
+    font-weight: bold;
+    margin: 0 0 10px 0;
+    color: #b2c2a8;
+    animation: welcome-fade-in 0.8s ease 0.5s both;
+    text-align: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.welcome-back-message {
+    font-size: 1.1em;
+    color: #a3bfa3;
+    margin: 0;
+    animation: welcome-fade-in 0.8s ease 0.7s both;
+    text-align: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@keyframes welcome-bounce {
+    0% {
+        transform: scale(0) rotate(-180deg);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.2) rotate(0deg);
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+@keyframes welcome-fade-in {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 #particles-js {
     position: fixed;
     top: 0;
@@ -173,6 +295,9 @@ body {
     position: relative;
     overflow-x: hidden;
     padding-top: 0px; /* Increased padding to move content up */
+    min-height: 100vh;
+    min-width: 100vw;
+    box-sizing: border-box;
 }
 
 /* Gradient background with frosted glass effect */
@@ -220,6 +345,8 @@ body::after {
         transform: scale(1);
     }
 }
+
+
 
 
 
@@ -410,6 +537,21 @@ body.theme-moss .credentials-buttons button:hover {
     color: #232b23;
 }
 
+/* Welcome back overlay theme styles */
+body.theme-moss .welcome-back-content {
+    background: rgba(35, 43, 35, 0.95);
+    border: 2px solid #b2c2a8;
+}
+
+body.theme-moss .welcome-back-icon,
+body.theme-moss .welcome-back-title {
+    color: #b2c2a8;
+}
+
+body.theme-moss .welcome-back-message {
+    color: #a3bfa3;
+}
+
 body.theme-midnight {
     background-color: #181c24;
     color: #b8c7e0;
@@ -580,6 +722,20 @@ body.theme-midnight .credentials-buttons button {
 body.theme-midnight .credentials-buttons button:hover {
     background: #b8c7e0;
     color: #181c24;
+}
+
+body.theme-midnight .welcome-back-content {
+    background: rgba(24, 28, 36, 0.95);
+    border: 2px solid #b8c7e0;
+}
+
+body.theme-midnight .welcome-back-icon,
+body.theme-midnight .welcome-back-title {
+    color: #b8c7e0;
+}
+
+body.theme-midnight .welcome-back-message {
+    color: #a3b3d0;
 }
 
 body.theme-rose {
@@ -753,6 +909,21 @@ body.theme-rose .credentials-buttons button:hover {
     background: #e0b8c7;
     color: #2a1a1f;
 }
+
+body.theme-rose .welcome-back-content {
+    background: rgba(45, 27, 27, 0.95);
+    border: 2px solid #e0b8c7;
+}
+
+body.theme-rose .welcome-back-icon,
+body.theme-rose .welcome-back-title {
+    color: #e0b8c7;
+}
+
+body.theme-rose .welcome-back-message {
+    color: #d4a5a3;
+}
+
 body.theme-rose .loading-screen {
     background-color: #2a1a1f;
     border: 2px solid #6e3844;
@@ -937,6 +1108,21 @@ body.theme-noir .credentials-buttons button:hover {
     background: #e0e0e0;
     color: #181818;
 }
+
+body.theme-noir .welcome-back-content {
+    background: rgba(24, 24, 24, 0.95);
+    border: 2px solid #e0e0e0;
+}
+
+body.theme-noir .welcome-back-icon,
+body.theme-noir .welcome-back-title {
+    color: #e0e0e0;
+}
+
+body.theme-noir .welcome-back-message {
+    color: #c0c0c0;
+}
+
 body.theme-noir .loading-screen {
     background-color: #181818;
     border: 2px solid #444;
@@ -1158,5 +1344,7 @@ body.theme-noir {
 
 
 /* ===== RESPONSIVE DESIGN ===== */
+
+
 
 

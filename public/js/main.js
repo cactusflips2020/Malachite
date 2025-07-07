@@ -30,13 +30,22 @@ function launchab() {
 
 // ===== AUTHENTICATION CHECK =====
 
-// Redirect to login if not authenticated
+// Redirect to login if not authenticated, or to home if no name set
 window.onload = function() {
     const isLoggedIn = localStorage.getItem('isLoggedIn');
     
     if (!isLoggedIn || isLoggedIn !== 'true') {
         if (window.location.pathname !== '/login.html') {
             window.location.href = '/login.html';
+        }
+    } else {
+        // Check if user has a name set
+        const userName = localStorage.getItem('userName');
+        const currentPath = window.location.pathname;
+        
+        // If logged in but no name set, redirect to home page (except if already on home)
+        if (!userName && currentPath !== '/index.html' && currentPath !== '/') {
+            window.location.href = '/index.html';
         }
     }
 };
@@ -237,66 +246,5 @@ window.addEventListener('storage', function(e) {
     };
 })();
 
-// Mobile viewport handling
-function setMobileViewport() {
-    if (isMobile) {
-        const viewport = document.querySelector('meta[name="viewport"]');
-        if (viewport) {
-            viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
-        }
-    }
-}
 
-// Call viewport function
-setMobileViewport();
-
-// Mobile-specific CSS variables
-if (isMobile) {
-    document.documentElement.style.setProperty('--mobile-padding', '10px');
-    document.documentElement.style.setProperty('--mobile-font-size', '14px');
-    document.documentElement.style.setProperty('--mobile-touch-target', '44px');
-} else {
-    document.documentElement.style.setProperty('--mobile-padding', '20px');
-    document.documentElement.style.setProperty('--mobile-font-size', '16px');
-    document.documentElement.style.setProperty('--mobile-touch-target', '32px');
-}
-
-// Mobile orientation change handling
-window.addEventListener('orientationchange', function() {
-    setTimeout(() => {
-        // Recalculate layout after orientation change
-        window.dispatchEvent(new Event('resize'));
-        
-        // Update mobile detection
-        const newIsMobile = window.innerWidth <= 768;
-        if (newIsMobile !== isMobile) {
-            location.reload(); // Reload for better layout
-        }
-    }, 500);
-});
-
-// Mobile-specific error handling
-if (isMobile) {
-    window.addEventListener('error', function(e) {
-        console.log('Mobile error:', e.error);
-        // Add mobile-specific error handling here
-    });
-}
-
-// Mobile network detection
-if (isMobile && 'connection' in navigator) {
-    const connection = navigator.connection;
-    if (connection) {
-        connection.addEventListener('change', function() {
-            console.log('Network type:', connection.effectiveType);
-            // Adjust performance based on network
-            if (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g') {
-                // Reduce animations and effects for slow connections
-                document.body.classList.add('slow-connection');
-            } else {
-                document.body.classList.remove('slow-connection');
-            }
-        });
-    }
-}
 

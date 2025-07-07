@@ -65,6 +65,17 @@
 				</div>
 			</div>
 			
+			<!-- Welcome Back Overlay -->
+			<div id="welcomeBackOverlay" class="welcome-back-overlay">
+				<div class="welcome-back-content">
+					<div class="welcome-back-icon">
+						<i class="fa-solid fa-hand-wave"></i>
+					</div>
+					<div class="welcome-back-title" id="welcomeBackTitle">Welcome Back!</div>
+					<div class="welcome-back-message" id="welcomeBackMessage">Great to see you again!</div>
+				</div>
+			</div>
+			
 		<script src="js/particles.min.js"></script>
 		<script src="/js/games.js" defer></script>
 		<script src="js/main.js"></script>
@@ -210,6 +221,66 @@
 					// Reinitialize with new theme
 					setTimeout(initializeParticles, 100);
 				}
+			});
+			
+			// Welcome back overlay functionality
+			function checkWelcomeBack() {
+				const lastVisit = localStorage.getItem('lastVisit');
+				const currentTime = Date.now();
+				const userName = localStorage.getItem('userName');
+				
+				// Show welcome back if:
+				// 1. User has a name set
+				// 2. Last visit was more than 30 seconds ago (to avoid showing on refresh)
+				// 3. Last visit exists (not first time)
+				// 4. User actually left the site (not just navigated between pages)
+				if (userName && lastVisit && (currentTime - parseInt(lastVisit)) > 30000) {
+					showWelcomeBackOverlay();
+				}
+				
+				// Don't update last visit time here - only update when actually leaving the site
+			}
+			
+			// Track when user leaves the site
+			function trackSiteLeave() {
+				localStorage.setItem('lastVisit', Date.now().toString());
+			}
+			
+			// Listen for when user leaves the site
+			window.addEventListener('beforeunload', trackSiteLeave);
+			window.addEventListener('pagehide', trackSiteLeave);
+			
+			// Function to show welcome back overlay
+			function showWelcomeBackOverlay() {
+				const overlay = document.getElementById('welcomeBackOverlay');
+				const title = document.getElementById('welcomeBackTitle');
+				const message = document.getElementById('welcomeBackMessage');
+				const userName = localStorage.getItem('userName');
+				
+				// Update the welcome message with user's name
+				title.textContent = `Welcome Back, ${userName}!`;
+				message.textContent = 'Great to see you again!';
+				
+				// Show the overlay
+				overlay.classList.add('show');
+				
+				// Hide after 3 seconds
+				setTimeout(() => {
+					overlay.classList.remove('show');
+				}, 3000);
+			}
+			
+			// Keybind to test welcome back modal (Ctrl + M)
+			document.addEventListener('keydown', (event) => {
+				if (event.ctrlKey && event.key === 'm') {
+					event.preventDefault();
+					showWelcomeBackOverlay();
+				}
+			});
+			
+			// Check welcome back when page loads
+			document.addEventListener('DOMContentLoaded', () => {
+				setTimeout(checkWelcomeBack, 100);
 			});
 		</script>
 	</body>

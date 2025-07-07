@@ -115,27 +115,7 @@
 				transform: translateY(0);
 			}
 
-			@media (max-width: 768px) {
-				.error-content {
-					padding: 20px;
-				}
-				
-				.error-icon {
-					font-size: 4rem;
-				}
-				
-				.error-code {
-					font-size: 3rem;
-				}
-				
-				.error-title {
-					font-size: 1.5rem;
-				}
-				
-				.error-message {
-					font-size: 1rem;
-				}
-			}
+
 		</style>
 		<script>
 			// Check login status and redirect if not logged in
@@ -143,6 +123,12 @@
 				const isLoggedIn = localStorage.getItem('isLoggedIn');
 				if (!isLoggedIn || isLoggedIn !== 'true') {
 					window.location.href = '/404-login.html';
+				} else {
+					// Check if user has a name set
+					const userName = localStorage.getItem('userName');
+					if (!userName) {
+						window.location.href = '/index.html';
+					}
 				}
 			});
 		</script>

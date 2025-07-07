@@ -492,57 +492,56 @@ select:focus, .setting-button:focus {
 /* ===== THEME-SPECIFIC MODAL BACKGROUNDS ===== */
 
 /* Default background (moss theme) */
-.credentials-modal, .keybind-modal {
-    background: 
-        radial-gradient(circle at 20% 80%, rgba(178, 194, 168, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(148, 226, 213, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 40% 40%, rgba(166, 227, 161, 0.08) 0%, transparent 50%),
-        linear-gradient(45deg, #232b23 0%, #202620 50%, #1e2e1e 100%) !important;
+.credentials-modal, .keybind-modal, .change-name-modal {
+    background: radial-gradient(circle at 20% 80%, rgba(178, 194, 168, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(148, 226, 213, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(166, 227, 161, 0.08) 0%, transparent 50%),
+                linear-gradient(45deg, #232b23 0%, #202620 50%, #1e2e1e 100%) !important;
     background-size: 400% 400% !important;
     animation: gradient-move 45s ease-in-out infinite alternate !important;
 }
 
 /* Theme-specific animated gradient backgrounds */
 body.theme-moss .credentials-modal,
-body.theme-moss .keybind-modal {
-    background: 
-        radial-gradient(circle at 20% 80%, rgba(178, 194, 168, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(148, 226, 213, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 40% 40%, rgba(166, 227, 161, 0.08) 0%, transparent 50%),
-        linear-gradient(45deg, #232b23 0%, #202620 50%, #1e2e1e 100%) !important;
+body.theme-moss .keybind-modal,
+body.theme-moss .change-name-modal {
+    background: radial-gradient(circle at 20% 80%, rgba(178, 194, 168, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(148, 226, 213, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(166, 227, 161, 0.08) 0%, transparent 50%),
+                linear-gradient(45deg, #232b23 0%, #202620 50%, #1e2e1e 100%) !important;
     background-size: 400% 400% !important;
     animation: gradient-move 45s ease-in-out infinite alternate !important;
 }
 
 body.theme-midnight .credentials-modal,
-body.theme-midnight .keybind-modal {
-    background: 
-        radial-gradient(circle at 20% 80%, rgba(184, 199, 224, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(129, 161, 193, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 40% 40%, rgba(94, 129, 172, 0.08) 0%, transparent 50%),
-        linear-gradient(45deg, #181c24 0%, #151a22 50%, #232a36 100%) !important;
+body.theme-midnight .keybind-modal,
+body.theme-midnight .change-name-modal {
+    background: radial-gradient(circle at 20% 80%, rgba(184, 199, 224, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(129, 161, 193, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(94, 129, 172, 0.08) 0%, transparent 50%),
+                linear-gradient(45deg, #181c24 0%, #151a22 50%, #232a36 100%) !important;
     background-size: 400% 400% !important;
     animation: gradient-move 45s ease-in-out infinite alternate !important;
 }
 
 body.theme-rose .credentials-modal,
-body.theme-rose .keybind-modal {
-    background: 
-        radial-gradient(circle at 20% 80%, rgba(235, 188, 186, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(243, 139, 168, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 40% 40%, rgba(245, 194, 231, 0.08) 0%, transparent 50%),
-        linear-gradient(45deg, #2d1b1b 0%, #2a1a1a 50%, #3d1f1f 100%) !important;
+body.theme-rose .keybind-modal,
+body.theme-rose .change-name-modal {
+    background: radial-gradient(circle at 20% 80%, rgba(235, 188, 186, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(243, 139, 168, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(245, 194, 231, 0.08) 0%, transparent 50%),
+                linear-gradient(45deg, #2d1b1b 0%, #2a1a1a 50%, #3d1f1f 100%) !important;
     background-size: 400% 400% !important;
     animation: gradient-move 45s ease-in-out infinite alternate !important;
 }
 
 body.theme-noir .credentials-modal,
-body.theme-noir .keybind-modal {
-    background: 
-        radial-gradient(circle at 20% 80%, rgba(178, 194, 168, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(148, 226, 213, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 40% 40%, rgba(166, 227, 161, 0.08) 0%, transparent 50%),
-        linear-gradient(45deg, #232b23 0%, #202620 50%, #1e2e1e 100%) !important;
+body.theme-noir .keybind-modal,
+body.theme-noir .change-name-modal {
+    background: radial-gradient(circle at 20% 80%, rgba(224, 224, 224, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(192, 192, 192, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(160, 160, 160, 0.08) 0%, transparent 50%),
+                linear-gradient(45deg, #1a1a1a 0%, #181818 50%, #222222 100%) !important;
     background-size: 400% 400% !important;
     animation: gradient-move 45s ease-in-out infinite alternate !important;
 }
@@ -721,6 +720,138 @@ body.theme-noir select:focus {
 body.theme-noir select option {
     background: #444;
     color: #e0e0e0;
+}
+
+.change-name-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(178, 194, 168, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(148, 226, 213, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(166, 227, 161, 0.08) 0%, transparent 50%),
+        linear-gradient(45deg, #232b23 0%, #202620 50%, #1e2e1e 100%);
+    background-size: 400% 400%;
+    animation: gradient-move 45s ease-in-out infinite alternate;
+}
+
+#change-name-particles-js {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+}
+.change-name-modal.show {
+    opacity: 1;
+    visibility: visible;
+}
+.change-name-modal-content {
+    background: var(--bg-color, #2e362e);
+    color: var(--text-color, #b2c2a8);
+    padding: 32px 28px 24px 28px;
+    border-radius: 12px;
+    box-shadow: 0 0 20px #000;
+    border: 1px solid var(--accent-color, #b2c2a8);
+    min-width: 300px;
+    max-width: 90vw;
+    width: 350px;
+    position: relative;
+    z-index: 2;
+    animation: modalSlideIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+    opacity: 1;
+}
+.change-name-modal-content h2 {
+    font-size: 1.3em;
+    margin: 0 auto 10px auto;
+    text-align: center;
+    color: var(--text-color, #b2c2a8);
+    font-weight: bold;
+    display: block;
+    width: 100%;
+}
+.change-name-modal-content p {
+    margin: 0 0 12px 0;
+    color: var(--text-color, #b2c2a8);
+    font-size: 13px;
+    opacity: 0.8;
+    text-align: center;
+}
+.change-name-modal-content input[type="text"] {
+    width: 100%;
+    margin-bottom: 8px;
+    padding: 8px 10px;
+    border: 1px solid var(--accent-color, #b2c2a8);
+    border-radius: 4px;
+    background-color: var(--bg-color, #384438);
+    color: var(--text-color, #b2c2a8);
+    font-family: inherit;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+.change-name-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+.change-name-buttons button {
+    flex: 0 0 auto;
+    padding: 7px 18px;
+    border: 1px solid var(--accent-color, #b2c2a8);
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 14px;
+    transition: all 0.2s;
+    background-color: var(--accent-color, #b2c2a8);
+    color: var(--bg-color, #232b23);
+}
+.change-name-buttons button:last-child {
+    background-color: transparent;
+    color: var(--text-color, #b2c2a8);
+}
+.change-name-buttons button:hover {
+    filter: brightness(1.1);
+}
+
+.change-name-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--accent-color, #b2c2a8);
+    color: var(--bg-color, #232b23);
+    padding: 12px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    font-weight: 500;
+    font-size: 14px;
+    z-index: 2000;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.change-name-notification.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.change-name-notification.hide {
+    opacity: 0;
+    transform: translateX(100%);
 }
 
 

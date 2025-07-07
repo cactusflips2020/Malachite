@@ -136,6 +136,14 @@ window.addEventListener("load", function() {
         }
         return;
     }
+    
+    // Check if user has a name set
+    const userName = localStorage.getItem('userName');
+    if (!userName) {
+        window.location.href = '/index.html';
+        return;
+    }
+    
     renderGames();
 });
 

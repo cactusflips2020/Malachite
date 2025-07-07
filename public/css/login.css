@@ -441,18 +441,7 @@ body {
     font-weight: 400;
 }
 
-/* Responsive design */
-@media (max-width: 480px) {
-    .login-box {
-        width: 100%;
-        max-width: 350px;
-        padding: 30px 24px;
-    }
-    
-    .modern-footer {
-        padding: 20px 16px;
-    }
-}
+
 
 /* Accessibility improvements */
 @media (prefers-reduced-motion: reduce) {

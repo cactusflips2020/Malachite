@@ -26,7 +26,6 @@ body, #navbar, #proxyIframe, .loading-screen {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #232b23;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -35,6 +34,12 @@ body, #navbar, #proxyIframe, .loading-screen {
     visibility: visible;
     opacity: 1;
     transition: opacity 0.5s ease-in-out;
+    background: radial-gradient(circle at 20% 80%, rgba(178, 194, 168, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(148, 226, 213, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(166, 227, 161, 0.08) 0%, transparent 50%),
+                linear-gradient(45deg, #232b23 0%, #202620 50%, #1e2e1e 100%);
+    background-size: 400% 400%;
+    animation: gradient-move 45s ease-in-out infinite alternate;
 }
 
 /* Gradient background for loading screen */
@@ -170,14 +175,14 @@ body::after {
 
 /* Style for the navbar */
 #navbar {
-    position: fixed;
+    position: relative;
     top: 0;
     left: 0;
     width: 100%;
-    background-color: #1a1f1a;
+    background: #1a1f1a !important;
     color: #b2c2a8;
     padding: 10px 20px;  /* Add padding for spacing */
-    z-index: 1000;  /* Make sure the navbar is on top */
+    z-index: 1100;
     display: flex;
     justify-content: space-between;  /* Distribute space between left, center, and right */
     align-items: center;      /* Vertically center all items */
@@ -1020,97 +1025,7 @@ body.theme-noir::after {
 
 
 
-/* ===== RESPONSIVE DESIGN ===== */
 
-/* Small screens (mobile) */
-@media (max-width: 768px) {
-    #navbar {
-        padding: 8px 12px;
-        gap: 8px;
-    }
-    
-    #proxySearch {
-        min-width: 150px;
-        font-size: 14px;
-        padding: 6px;
-        margin: 0 5px;
-    }
-    
-    #controls button {
-        padding: 5px 8px;
-        font-size: 12px;
-        min-width: 35px;
-    }
-    
-    #logo {
-        width: 38px;
-        margin-right: 8px;
-    }
-    
-    #logo-text {
-        font-size: 18px; /* Match index.html mobile size */
-    }
-}
-
-/* Very small screens */
-@media (max-width: 480px) {
-    #navbar {
-        padding: 6px 8px;
-        gap: 5px;
-    }
-    
-    #proxySearch {
-        min-width: 120px;
-        font-size: 13px;
-        padding: 5px;
-        margin: 0 3px;
-    }
-    
-    #controls button {
-        padding: 4px 6px;
-        font-size: 11px;
-        min-width: 30px;
-    }
-    
-    #logo {
-        width: 32px;
-        margin-right: 6px;
-    }
-    
-    #logo-text {
-        font-size: 16px; /* Match index.html small mobile size */
-    }
-}
-
-/* Extra small screens */
-@media (max-width: 360px) {
-    #navbar {
-        padding: 4px 6px;
-        gap: 3px;
-    }
-    
-    #proxySearch {
-        min-width: 100px;
-        font-size: 12px;
-        padding: 4px;
-        margin: 0 2px;
-    }
-    
-    #controls button {
-        padding: 3px 5px;
-        font-size: 10px;
-        min-width: 28px;
-    }
-    
-    #logo {
-        width: 28px;
-        margin-right: 5px;
-    }
-    
-    #logo-text {
-        font-size: 14px; /* Match index.html extra small mobile size */
-    }
-}
 
 /* ===== CUSTOM SCROLLBAR STYLING ===== */
 

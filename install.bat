@@ -28,5 +28,6 @@ if defined missing (
     echo Starting Malachite...
     echo.
     npm start
+    timeout /t 5 /nobreak >nul
 )
 endlocal 

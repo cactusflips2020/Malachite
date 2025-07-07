@@ -31,4 +31,5 @@ else
     echo "All dependencies found."
     echo "Starting Malachite..."
     npm start
+    sleep 5
 fi 

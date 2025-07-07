@@ -33,11 +33,12 @@
 				</a>
 			</div>
 		</div>						
-			<div class="logo-above-title">
-				<img src="/img/logo.png" alt="Logo">
-				<br>
-				<h1>Malachite</h1>
-				<br>
+			<div class="logo-above-title slide-in-element" style="opacity: 0; transform: translateY(-30px);">
+				<div style="text-align: center; margin-bottom: 2px;">
+	<span id="main-time" style="font-size: 5.5em; font-weight: bold; line-height: 1;"></span>
+</div>
+				<span id="main-date" style="font-size: 1em; display: block; margin-bottom: 5px;"></span>
+				<span id="main-greeting" style="font-size: 1.1em; font-style: italic; display: block; margin-bottom: 20px;"></span>
 			</div>
 			<input
 				autofocus
@@ -48,15 +49,27 @@
 				data-search-engine="https://www.google.com/search?q=%s"
 				placeholder="Search or Enter a URL"
 				is="chemical-input"
+				class="slide-in-element"
+				style="opacity: 0; transform: translateY(-30px);"
 			/>
-			<div id="clock-widget" class="widget-container">
-				<span id="time"></span> | <div id="greeting" class="greeting-text"></div>
-			</div>  
-			<div id="latency-fps-widget" class="widget-container">
+  
+			<div id="latency-fps-widget" class="widget-container slide-in-element" style="opacity: 0; transform: translateY(-30px);">
 				Ping: <span id="latency-value">Fetching Ping...</span> | 
 				FPS: <span id="fps-value">0</span>
 			</div>
-		<div class="open-area" id="openArea"></div>						
+		<div class="open-area" id="openArea"></div>
+		
+		<!-- Welcome Back Overlay -->
+		<div id="welcomeBackOverlay" class="welcome-back-overlay">
+			<div class="welcome-back-content">
+				<div class="welcome-back-icon">
+					<i class="fa-solid fa-hand-wave"></i>
+				</div>
+				<div class="welcome-back-title" id="welcomeBackTitle">Welcome Back!</div>
+				<div class="welcome-back-message" id="welcomeBackMessage">Great to see you again!</div>
+			</div>
+		</div>
+						
 		<script src="js/main.js" defer></script>
 		<script src="js/transitions.js" defer></script>
 		<script>
@@ -159,6 +172,963 @@ document.addEventListener('keydown', (event) => {
 			
 		<script src="js/particles.min.js"></script>
 		<script src="js/clock.js"></script>
+		<script>
+			// Slide-in animation function
+			function triggerSlideInAnimations() {
+				const slideElements = document.querySelectorAll('.slide-in-element');
+				slideElements.forEach((element, index) => {
+					setTimeout(() => {
+						element.classList.add('animate');
+					}, index * 200); // Stagger the animations by 200ms each
+				});
+			}
+			
+			// Welcome back overlay functionality
+			function checkWelcomeBack() {
+				const lastVisit = localStorage.getItem('lastVisit');
+				const currentTime = Date.now();
+				const userName = localStorage.getItem('userName');
+				
+				// Show welcome back if:
+				// 1. User has a name set
+				// 2. Last visit was more than 30 seconds ago (to avoid showing on refresh)
+				// 3. Last visit exists (not first time)
+				// 4. User actually left the site (not just navigated between pages)
+				if (userName && lastVisit && (currentTime - parseInt(lastVisit)) > 30000) {
+					showWelcomeBackOverlay();
+				}
+				
+				// Don't update last visit time here - only update when actually leaving the site
+			}
+			
+			// Track when user leaves the site
+			function trackSiteLeave() {
+				localStorage.setItem('lastVisit', Date.now().toString());
+			}
+			
+			// Listen for when user leaves the site
+			window.addEventListener('beforeunload', trackSiteLeave);
+			window.addEventListener('pagehide', trackSiteLeave);
+			
+			// Function to show welcome back overlay
+			function showWelcomeBackOverlay() {
+				const overlay = document.getElementById('welcomeBackOverlay');
+				const title = document.getElementById('welcomeBackTitle');
+				const message = document.getElementById('welcomeBackMessage');
+				const userName = localStorage.getItem('userName');
+				
+				// Update the welcome message with user's name
+				title.textContent = `Welcome Back, ${userName}!`;
+				message.textContent = 'Great to see you again!';
+				
+				// Show the overlay
+				overlay.classList.add('show');
+				
+				// Hide after 3 seconds
+				setTimeout(() => {
+					overlay.classList.remove('show');
+				}, 3000);
+			}
+			
+			// Keybind to test welcome back modal (Ctrl + M)
+			document.addEventListener('keydown', (event) => {
+				if (event.ctrlKey && event.key === 'm') {
+					event.preventDefault();
+					showWelcomeBackOverlay();
+				}
+			});
+			
+			// Trigger animations and check welcome back when page loads
+			document.addEventListener('DOMContentLoaded', () => {
+				// Small delay to ensure everything is ready
+				setTimeout(() => {
+					triggerSlideInAnimations();
+					checkWelcomeBack();
+				}, 100);
+			});
+		</script>
+		<script>
+			// Function to check if user needs to set their name
+			function checkUserName() {
+				const isLoggedIn = localStorage.getItem('isLoggedIn');
+				const userName = localStorage.getItem('userName');
+				
+				if (isLoggedIn === 'true' && !userName) {
+					// Hide all content initially
+					document.body.style.overflow = 'hidden';
+					// Hide all main content including navbar
+					const mainContent = document.querySelectorAll('.navbar, .logo-above-title, input, .widget-container, .open-area');
+					mainContent.forEach(el => {
+						if (el) el.style.display = 'none';
+					});
+					// Set particles behind the modal
+					const particlesContainer = document.getElementById('particles-js');
+					if (particlesContainer) {
+						particlesContainer.style.zIndex = '0';
+					}
+					showNamePrompt();
+				} else {
+					// Ensure main content is visible if user has a name or is not logged in
+					document.body.style.overflow = '';
+					const mainContent = document.querySelectorAll('.navbar, .logo-above-title, input, .widget-container, .open-area');
+					mainContent.forEach(el => {
+						if (el) el.style.display = '';
+					});
+					// Restore particles z-index
+					const particlesContainer = document.getElementById('particles-js');
+					if (particlesContainer) {
+						particlesContainer.style.zIndex = '';
+					}
+				}
+			}
+			
+			// Function to show name prompt popup
+			function showNamePrompt() {
+				// Create modal overlay
+				const overlay = document.createElement('div');
+				overlay.id = 'namePromptOverlay';
+				overlay.className = 'name-prompt-modal';
+				
+				// Get current theme for background
+				const currentTheme = localStorage.getItem('siteTheme') || 'moss';
+				
+				// Theme-specific background gradients
+				const themeBackgrounds = {
+					moss: `
+						radial-gradient(circle at 20% 80%, rgba(178, 194, 168, 0.08) 0%, transparent 50%),
+						radial-gradient(circle at 80% 20%, rgba(148, 226, 213, 0.08) 0%, transparent 50%),
+						radial-gradient(circle at 40% 40%, rgba(166, 227, 161, 0.08) 0%, transparent 50%),
+						linear-gradient(45deg, #232b23 0%, #202620 50%, #1e2e1e 100%)
+					`,
+					midnight: `
+						radial-gradient(circle at 20% 80%, rgba(184, 199, 224, 0.08) 0%, transparent 50%),
+						radial-gradient(circle at 80% 20%, rgba(129, 161, 193, 0.08) 0%, transparent 50%),
+						radial-gradient(circle at 40% 40%, rgba(94, 129, 172, 0.08) 0%, transparent 50%),
+						linear-gradient(45deg, #181c24 0%, #151a22 50%, #232a36 100%)
+					`,
+					rose: `
+						radial-gradient(circle at 20% 80%, rgba(235, 188, 186, 0.08) 0%, transparent 50%),
+						radial-gradient(circle at 80% 20%, rgba(243, 139, 168, 0.08) 0%, transparent 50%),
+						radial-gradient(circle at 40% 40%, rgba(245, 194, 231, 0.08) 0%, transparent 50%),
+						linear-gradient(45deg, #2d1b1b 0%, #2a1a1a 50%, #3d1f1f 100%)
+					`,
+					noir: `
+						radial-gradient(circle at 20% 80%, rgba(224, 224, 224, 0.08) 0%, transparent 50%),
+						radial-gradient(circle at 80% 20%, rgba(192, 192, 192, 0.08) 0%, transparent 50%),
+						radial-gradient(circle at 40% 40%, rgba(160, 160, 160, 0.08) 0%, transparent 50%),
+						linear-gradient(45deg, #1a1a1a 0%, #181818 50%, #222222 100%)
+					`
+				};
+				
+				const backgroundGradient = themeBackgrounds[currentTheme] || themeBackgrounds.moss;
+				
+				overlay.style.cssText = `
+					position: fixed;
+					top: 0;
+					left: 0;
+					width: 100vw;
+					height: 100vh;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					z-index: 1000;
+					opacity: 0;
+					transition: opacity 0.25s ease;
+					background: ${backgroundGradient};
+					background-size: 400% 400%;
+					animation: gradient-move 45s ease-in-out infinite alternate;
+				`;
+				
+				// Create particles container
+				const particlesContainer = document.createElement('div');
+				particlesContainer.id = 'name-prompt-particles-js';
+				particlesContainer.style.cssText = `
+					position: absolute;
+					top: 0;
+					left: 0;
+					width: 100%;
+					height: 100%;
+					z-index: 1;
+					pointer-events: none;
+				`;
+				
+				// Add light overlay
+				const overlayBefore = document.createElement('div');
+				overlayBefore.style.cssText = `
+					content: '';
+					position: absolute;
+					top: 0;
+					left: 0;
+					width: 100%;
+					height: 100%;
+					background: rgba(0, 0, 0, 0.1);
+					z-index: 2;
+				`;
+				
+				// Create modal content
+				const modalContent = document.createElement('div');
+				modalContent.className = 'name-prompt-content';
+				modalContent.style.cssText = `
+					background-color: var(--bg-color, #2e362e);
+					padding: 30px;
+					border-radius: 10px;
+					color: var(--text-color, #b2c2a8);
+					width: 300px;
+					box-shadow: 0 0 20px #000;
+					border: 1px solid var(--accent-color, #b2c2a8);
+					animation: modalSlideIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+					opacity: 0;
+					animation-fill-mode: forwards;
+					position: relative;
+					z-index: 3;
+				`;
+				
+				modalContent.innerHTML = `
+					<h2 style="font-size: 1.3em; margin: 0 auto 10px auto; text-align: center; white-space: nowrap; color: var(--text-color, #b2c2a8); font-weight: bold; display: block; width: 100%;">Welcome to Malachite!</h2>
+					<p style="margin: 0 0 12px 0; color: var(--text-color, #b2c2a8); font-size: 13px; opacity: 0.8; text-align: center;">Please enter your name to personalize your experience:</p>
+					<input type="text" id="nameInput" placeholder="Enter your name" maxlength="20" style="
+						width: 100%;
+						margin-bottom: 8px;
+						padding: 6px 8px;
+						border: 1px solid var(--accent-color, #b2c2a8);
+						border-radius: 4px;
+						background-color: var(--bg-color, #384438);
+						color: var(--text-color, #b2c2a8);
+						font-family: inherit;
+						font-size: 13px;
+						box-sizing: border-box;
+					">
+					<div class="name-prompt-buttons" style="display: flex; justify-content: center; gap: 8px; margin-top: 10px;">
+						<button id="saveNameBtn" style="
+							flex: 0 0 auto;
+							padding: 6px 16px;
+							border: 1px solid var(--accent-color, #b2c2a8);
+							border-radius: 4px;
+							cursor: pointer;
+							font-weight: 500;
+							font-size: 13px;
+							transition: all 0.2s;
+							background-color: var(--accent-color, #b2c2a8);
+							color: var(--bg-color, #232b23);
+						">Save Name</button>
+					</div>
+				`;
+				
+				overlay.appendChild(particlesContainer);
+				overlay.appendChild(overlayBefore);
+				overlay.appendChild(modalContent);
+				document.body.appendChild(overlay);
+				
+				// Add CSS animations
+				const style = document.createElement('style');
+				style.textContent = `
+					@keyframes modalSlideIn {
+						from {
+							opacity: 0;
+							transform: translateY(-50px) scale(0.9);
+						}
+						to {
+							opacity: 1;
+							transform: translateY(0) scale(1);
+						}
+					}
+					
+					@keyframes gradient-move {
+						0% {
+							background-position: 0% 0%;
+							transform: scale(1);
+						}
+						50% {
+							background-position: 100% 100%;
+							transform: scale(1.05);
+						}
+						100% {
+							background-position: 0% 0%;
+							transform: scale(1);
+						}
+					}
+					
+					#nameInput:focus {
+						outline: none;
+						border: 2px solid var(--accent-color, #b2c2a8);
+						box-shadow: 0 0 10px rgba(178, 194, 168, 0.3);
+					}
+					
+					#saveNameBtn:hover {
+						opacity: 0.9;
+						transform: translateY(-1px);
+					}
+					
+					#saveNameBtn:active {
+						opacity: 1;
+						transform: none;
+					}
+				`;
+				document.head.appendChild(style);
+				
+				// Show the modal with fade in
+				setTimeout(() => {
+					overlay.style.opacity = '1';
+				}, 10);
+				
+				// Initialize particles for the modal
+				setTimeout(() => {
+					const currentTheme = localStorage.getItem('siteTheme') || 'moss';
+					
+					// Apply theme-specific styling to modal
+					const modalContent = document.querySelector('.name-prompt-content');
+					if (modalContent) {
+						// Theme-specific colors
+						const themeColors = {
+							moss: {
+								bg: '#2e362e',
+								text: '#b2c2a8',
+								accent: '#b2c2a8',
+								border: '#384438',
+								inputBg: '#384438'
+							},
+							midnight: {
+								bg: '#2a3442',
+								text: '#b8c7e0',
+								accent: '#b8c7e0',
+								border: '#3b4252',
+								inputBg: '#3b4252'
+							},
+							rose: {
+								bg: '#6e3844',
+								text: '#e0b8c7',
+								accent: '#e0b8c7',
+								border: '#8b4d5a',
+								inputBg: '#8b4d5a'
+							},
+							noir: {
+								bg: '#444',
+								text: '#e0e0e0',
+								accent: '#e0e0e0',
+								border: '#555',
+								inputBg: '#555'
+							}
+						};
+						
+						const colors = themeColors[currentTheme] || themeColors.moss;
+						
+						// Update modal background and border
+						modalContent.style.backgroundColor = colors.bg;
+						modalContent.style.borderColor = colors.border;
+						modalContent.style.color = colors.text;
+						
+						// Update input styling
+						const nameInput = document.getElementById('nameInput');
+						if (nameInput) {
+							nameInput.style.backgroundColor = colors.inputBg;
+							nameInput.style.borderColor = colors.accent;
+							nameInput.style.color = colors.text;
+						}
+						
+						// Update button styling
+						const saveBtn = document.getElementById('saveNameBtn');
+						if (saveBtn) {
+							saveBtn.style.backgroundColor = colors.accent;
+							saveBtn.style.borderColor = colors.accent;
+							saveBtn.style.color = colors.bg;
+						}
+						
+						// Update text colors
+						const h2 = modalContent.querySelector('h2');
+						const p = modalContent.querySelector('p');
+						if (h2) h2.style.color = colors.text;
+						if (p) p.style.color = colors.text;
+					}
+					
+					// Theme-specific particle configurations
+					const particleConfigs = {
+						moss: {
+							particles: {
+								number: { value: 40, density: { enable: true, value_area: 800 } },
+								color: { value: ['#b2c2a8', '#94e2d5', '#a6e3a1', '#89dceb'] },
+								shape: { type: 'circle' },
+								opacity: { value: 0.3, random: true, anim: { enable: false, speed: 1, opacity_min: 0.1, sync: false } },
+								size: { value: 2, random: true, anim: { enable: false, speed: 2, size_min: 1, sync: false } },
+								line_linked: { enable: true, distance: 200, color: '#b2c2a8', opacity: 0.2, width: 0.5 },
+								move: { enable: true, speed: 1.5, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
+							},
+							interactivity: {
+								detect_on: 'canvas',
+								events: {
+									onhover: { enable: false, mode: 'repulse' },
+									onclick: { enable: false, mode: 'push' },
+									resize: true
+								},
+								modes: {
+									grab: { distance: 140, line_linked: { opacity: 1 } },
+									bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
+									repulse: { distance: 150, duration: 0.4 },
+									push: { particles_nb: 4 },
+									remove: { particles_nb: 2 }
+								}
+							},
+							retina_detect: true
+						},
+						midnight: {
+							particles: {
+								number: { value: 50, density: { enable: true, value_area: 800 } },
+								color: { value: ['#b8c7e0', '#81a1c1', '#5e81ac', '#88c0d0'] },
+								shape: { type: 'circle' },
+								opacity: { value: 0.4, random: true, anim: { enable: false, speed: 1.5, opacity_min: 0.2, sync: false } },
+								size: { value: 2.5, random: true, anim: { enable: false, speed: 4, size_min: 1, sync: false } },
+								line_linked: { enable: true, distance: 180, color: '#b8c7e0', opacity: 0.25, width: 0.5 },
+								move: { enable: true, speed: 2, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
+							},
+							interactivity: {
+								detect_on: 'canvas',
+								events: {
+									onhover: { enable: false, mode: 'grab' },
+									onclick: { enable: false, mode: 'push' },
+									resize: true
+								},
+								modes: {
+									grab: { distance: 140, line_linked: { opacity: 1 } },
+									bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
+									repulse: { distance: 200, duration: 0.4 },
+									push: { particles_nb: 4 },
+									remove: { particles_nb: 2 }
+								}
+							},
+							retina_detect: true
+						},
+						rose: {
+							particles: {
+								number: { value: 35, density: { enable: true, value_area: 800 } },
+								color: { value: ['#e0b8c7', '#f38ba8', '#eba0ac', '#f5c2e7'] },
+								shape: { type: 'circle' },
+								opacity: { value: 0.35, random: true, anim: { enable: false, speed: 1.2, opacity_min: 0.2, sync: false } },
+								size: { value: 2.2, random: true, anim: { enable: false, speed: 2.5, size_min: 1, sync: false } },
+								line_linked: { enable: true, distance: 220, color: '#e0b8c7', opacity: 0.2, width: 0.5 },
+								move: { enable: true, speed: 1.8, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
+							},
+							interactivity: {
+								detect_on: 'canvas',
+								events: {
+									onhover: { enable: false, mode: 'bubble' },
+									onclick: { enable: false, mode: 'push' },
+									resize: true
+								},
+								modes: {
+									grab: { distance: 140, line_linked: { opacity: 1 } },
+									bubble: { distance: 200, size: 40, duration: 2, opacity: 8, speed: 3 },
+									repulse: { distance: 200, duration: 0.4 },
+									push: { particles_nb: 4 },
+									remove: { particles_nb: 2 }
+								}
+							},
+							retina_detect: true
+						},
+						noir: {
+							particles: {
+								number: { value: 30, density: { enable: true, value_area: 800 } },
+								color: { value: ['#e0e0e0', '#c0c0c0', '#a0a0a0', '#808080'] },
+								shape: { type: 'circle' },
+								opacity: { value: 0.25, random: true, anim: { enable: false, speed: 1, opacity_min: 0.1, sync: false } },
+								size: { value: 1.8, random: true, anim: { enable: false, speed: 3, size_min: 1, sync: false } },
+								line_linked: { enable: true, distance: 250, color: '#e0e0e0', opacity: 0.15, width: 0.5 },
+								move: { enable: true, speed: 1.2, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
+							},
+							interactivity: {
+								detect_on: 'canvas',
+								events: {
+									onhover: { enable: false, mode: 'repulse' },
+									onclick: { enable: false, mode: 'push' },
+									resize: true
+								},
+								modes: {
+									grab: { distance: 140, line_linked: { opacity: 1 } },
+									bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
+									repulse: { distance: 180, duration: 0.4 },
+									push: { particles_nb: 4 },
+									remove: { particles_nb: 2 }
+								}
+							},
+							retina_detect: true
+						}
+					};
+					
+					// Initialize particles
+					if (typeof particlesJS !== 'undefined') {
+						const config = particleConfigs[currentTheme] || particleConfigs.moss;
+						particlesJS('name-prompt-particles-js', config);
+					} else {
+						// Fallback: create simple particles manually
+						createSimpleNamePromptParticles(currentTheme);
+					}
+				}, 100);
+				
+				// Focus on input
+				const nameInput = document.getElementById('nameInput');
+				nameInput.focus();
+				
+				// Handle save button click
+				document.getElementById('saveNameBtn').addEventListener('click', saveUserName);
+				
+				// Handle Enter key
+				nameInput.addEventListener('keypress', function(e) {
+					if (e.key === 'Enter') {
+						saveUserName();
+					}
+				});
+				
+				// Prevent closing by clicking overlay
+				overlay.addEventListener('click', function(e) {
+					if (e.target === overlay) {
+						// Don't close - require name input
+					}
+				});
+			}
+			
+			// Function to create simple particles for name prompt modal
+			function createSimpleNamePromptParticles(theme) {
+				const container = document.getElementById('name-prompt-particles-js');
+				if (container) {
+					const themeColors = {
+						moss: ['#b2c2a8', '#94e2d5', '#a6e3a1', '#89dceb'],
+						midnight: ['#b8c7e0', '#81a1c1', '#5e81ac', '#88c0d0'],
+						rose: ['#e0b8c7', '#f38ba8', '#eba0ac', '#f5c2e7'],
+						noir: ['#e0e0e0', '#c0c0c0', '#a0a0a0', '#808080']
+					};
+					const colors = themeColors[theme] || themeColors.moss;
+					
+					for (let i = 0; i < 50; i++) {
+						const particle = document.createElement('div');
+						particle.style.position = 'absolute';
+						particle.style.width = '2px';
+						particle.style.height = '2px';
+						particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+						particle.style.borderRadius = '50%';
+						particle.style.left = Math.random() * 100 + '%';
+						particle.style.top = Math.random() * 100 + '%';
+						particle.style.opacity = '0.3';
+						particle.style.pointerEvents = 'none';
+						particle.style.zIndex = '1';
+						container.appendChild(particle);
+					}
+				}
+			}
+			
+			// Function to save user name
+			function saveUserName() {
+				const nameInput = document.getElementById('nameInput');
+				const userName = nameInput.value.trim();
+				
+				if (userName && userName.length <= 20) {
+					localStorage.setItem('userName', userName);
+					
+					// Clean up particles
+					if (typeof pJSDom !== 'undefined' && pJSDom.length > 0) {
+						for (let i = pJSDom.length - 1; i >= 0; i--) {
+							if (pJSDom[i].pJS && pJSDom[i].pJS.canvas && pJSDom[i].pJS.canvas.el && 
+								pJSDom[i].pJS.canvas.el.id === 'name-prompt-particles-js') {
+								pJSDom[i].pJS.fn.vendors.destroypJS();
+								pJSDom.splice(i, 1);
+								break;
+							}
+						}
+					}
+					
+					// Clean up simple particles
+					const container = document.getElementById('name-prompt-particles-js');
+					if (container) {
+						container.innerHTML = '';
+					}
+					
+					// Remove popup
+					const overlay = document.getElementById('namePromptOverlay');
+					if (overlay) {
+						overlay.remove();
+					}
+					// Restore body overflow
+					document.body.style.overflow = '';
+					// Show all main content
+					const mainContent = document.querySelectorAll('.navbar, .logo-above-title, input, .widget-container, .open-area');
+					mainContent.forEach(el => {
+						if (el) el.style.display = '';
+					});
+					// Restore particles z-index
+					const particlesContainer = document.getElementById('particles-js');
+					if (particlesContainer) {
+						particlesContainer.style.zIndex = '';
+					}
+					// Update greeting immediately
+					updateTimeDisplay();
+				} else {
+					// Highlight input if empty or too long
+					nameInput.style.borderColor = '#ff4444';
+					setTimeout(() => {
+						nameInput.style.borderColor = 'var(--accent-color, #b2c2a8)';
+					}, 1000);
+				}
+			}
+			
+			// Function to update time, date, and greeting in navbar and main area
+			function updateTimeDisplay() {
+				const now = new Date();
+				
+				// Format time (12-hour format)
+				const hours24 = now.getHours();
+				const hours12 = hours24 % 12 || 12;
+				const minutes = String(now.getMinutes()).padStart(2, '0');
+				const seconds = String(now.getSeconds()).padStart(2, '0');
+				const timeString = `${hours12}:${minutes}:${seconds}`;
+				
+				// Format date
+				const options = { 
+					weekday: 'long', 
+					year: 'numeric', 
+					month: 'long', 
+					day: 'numeric' 
+				};
+				const dateString = now.toLocaleDateString('en-US', options);
+				
+				// Get greeting based on time
+				const hour = now.getHours();
+				let greetingText = "Hello";
+				if (hour >= 5 && hour < 12) {
+					greetingText = "Good morning";
+				} else if (hour >= 12 && hour < 18) {
+					greetingText = "Good afternoon";
+				} else if (hour >= 18 && hour < 22) {
+					greetingText = "Good evening";
+				} else {
+					greetingText = "Good night";
+				}
+				
+				// Add username to greeting if available
+				const userName = localStorage.getItem('userName');
+				if (userName) {
+					greetingText += `, ${userName}!`;
+				} else {
+					greetingText += "!";
+				}
+				
+				// Update navbar elements
+				const navbarTime = document.getElementById('navbar-time');
+				const navbarDate = document.getElementById('navbar-date');
+				if (navbarTime) navbarTime.textContent = timeString;
+				if (navbarDate) navbarDate.textContent = dateString;
+				
+				// Update main area elements
+				const mainTime = document.getElementById('main-time');
+				const mainDate = document.getElementById('main-date');
+				const mainGreeting = document.getElementById('main-greeting');
+				
+				if (mainTime) mainTime.textContent = timeString;
+				if (mainDate) mainDate.textContent = dateString;
+				if (mainGreeting) mainGreeting.textContent = greetingText;
+			}
+			
+			// Check for username on page load
+			document.addEventListener('DOMContentLoaded', function() {
+				// Initialize time display immediately
+				updateTimeDisplay();
+				
+				// Update time display every second
+				setInterval(updateTimeDisplay, 1000);
+				
+				// Small delay to ensure all elements are loaded
+				setTimeout(checkUserName, 100);
+				
+				// Add event listener for change name button
+				const changeNameBtn = document.getElementById('changeNameBtn');
+				if (changeNameBtn) {
+					changeNameBtn.addEventListener('click', showChangeNameModal);
+				}
+			});
+			
+			// Function to show change name modal
+			function showChangeNameModal() {
+				const currentUserName = localStorage.getItem('userName') || '';
+				
+				// Create modal overlay
+				const overlay = document.createElement('div');
+				overlay.id = 'changeNameOverlay';
+				overlay.className = 'change-name-modal';
+				
+				// Get current theme for background
+				const currentTheme = localStorage.getItem('siteTheme') || 'moss';
+				
+				// Theme-specific background gradients
+				const themeBackgrounds = {
+					moss: `
+						radial-gradient(circle at 20% 80%, rgba(178, 194, 168, 0.08) 0%, transparent 50%),
+						radial-gradient(circle at 80% 20%, rgba(148, 226, 213, 0.08) 0%, transparent 50%),
+						radial-gradient(circle at 40% 40%, rgba(166, 227, 161, 0.08) 0%, transparent 50%),
+						linear-gradient(45deg, #232b23 0%, #202620 50%, #1e2e1e 100%)
+					`,
+					midnight: `
+						radial-gradient(circle at 20% 80%, rgba(184, 199, 224, 0.08) 0%, transparent 50%),
+						radial-gradient(circle at 80% 20%, rgba(129, 161, 193, 0.08) 0%, transparent 50%),
+						radial-gradient(circle at 40% 40%, rgba(94, 129, 172, 0.08) 0%, transparent 50%),
+						linear-gradient(45deg, #181c24 0%, #151a22 50%, #232a36 100%)
+					`,
+					rose: `
+						radial-gradient(circle at 20% 80%, rgba(235, 188, 186, 0.08) 0%, transparent 50%),
+						radial-gradient(circle at 80% 20%, rgba(243, 139, 168, 0.08) 0%, transparent 50%),
+						radial-gradient(circle at 40% 40%, rgba(245, 194, 231, 0.08) 0%, transparent 50%),
+						linear-gradient(45deg, #2d1b1b 0%, #2a1a1a 50%, #3d1f1f 100%)
+					`,
+					noir: `
+						radial-gradient(circle at 20% 80%, rgba(224, 224, 224, 0.08) 0%, transparent 50%),
+						radial-gradient(circle at 80% 20%, rgba(192, 192, 192, 0.08) 0%, transparent 50%),
+						radial-gradient(circle at 40% 40%, rgba(160, 160, 160, 0.08) 0%, transparent 50%),
+						linear-gradient(45deg, #1a1a1a 0%, #181818 50%, #222222 100%)
+					`
+				};
+				
+				const backgroundGradient = themeBackgrounds[currentTheme] || themeBackgrounds.moss;
+				
+				overlay.style.cssText = `
+					position: fixed;
+					top: 0;
+					left: 0;
+					width: 100vw;
+					height: 100vh;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					z-index: 1000;
+					opacity: 0;
+					transition: opacity 0.25s ease;
+					background: ${backgroundGradient};
+					background-size: 400% 400%;
+					animation: gradient-move 45s ease-in-out infinite alternate;
+				`;
+				
+				// Create particles container
+				const particlesContainer = document.createElement('div');
+				particlesContainer.id = 'change-name-particles-js';
+				particlesContainer.style.cssText = `
+					position: absolute;
+					top: 0;
+					left: 0;
+					width: 100%;
+					height: 100%;
+					z-index: 1;
+					pointer-events: none;
+				`;
+				
+				// Add light overlay
+				const overlayBefore = document.createElement('div');
+				overlayBefore.style.cssText = `
+					content: '';
+					position: absolute;
+					top: 0;
+					left: 0;
+					width: 100%;
+					height: 100%;
+					background: rgba(0, 0, 0, 0.1);
+					z-index: 2;
+				`;
+				
+				// Create modal content
+				const modalContent = document.createElement('div');
+				modalContent.className = 'change-name-content';
+				modalContent.style.cssText = `
+					background-color: var(--bg-color, #2e362e);
+					padding: 30px;
+					border-radius: 10px;
+					color: var(--text-color, #b2c2a8);
+					width: 300px;
+					box-shadow: 0 0 20px #000;
+					border: 1px solid var(--accent-color, #b2c2a8);
+					animation: modalSlideIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+					opacity: 0;
+					animation-fill-mode: forwards;
+					position: relative;
+					z-index: 3;
+				`;
+				
+				modalContent.innerHTML = `
+					<h2 style="font-size: 1.3em; margin: 0 auto 10px auto; text-align: center; white-space: nowrap; color: var(--text-color, #b2c2a8); font-weight: bold; display: block; width: 100%;">Change Your Name</h2>
+					<p style="margin: 0 0 12px 0; color: var(--text-color, #b2c2a8); font-size: 13px; opacity: 0.8; text-align: center;">Enter your new name (max 20 characters):</p>
+					<input type="text" id="changeNameInput" placeholder="Enter your new name" maxlength="20" value="${currentUserName}" style="
+						width: 100%;
+						margin-bottom: 8px;
+						padding: 6px 8px;
+						border: 1px solid var(--accent-color, #b2c2a8);
+						border-radius: 4px;
+						background-color: var(--bg-color, #384438);
+						color: var(--text-color, #b2c2a8);
+						font-family: inherit;
+						font-size: 13px;
+						box-sizing: border-box;
+					">
+					<div class="change-name-buttons" style="display: flex; justify-content: center; gap: 8px; margin-top: 10px;">
+						<button id="saveChangeNameBtn" style="
+							flex: 0 0 auto;
+							padding: 6px 16px;
+							border: 1px solid var(--accent-color, #b2c2a8);
+							border-radius: 4px;
+							cursor: pointer;
+							font-weight: 500;
+							font-size: 13px;
+							transition: all 0.2s;
+							background-color: var(--accent-color, #b2c2a8);
+							color: var(--bg-color, #232b23);
+						">Save</button>
+						<button id="cancelChangeNameBtn" style="
+							flex: 0 0 auto;
+							padding: 6px 16px;
+							border: 1px solid var(--accent-color, #b2c2a8);
+							border-radius: 4px;
+							cursor: pointer;
+							font-weight: 500;
+							font-size: 13px;
+							transition: all 0.2s;
+							background-color: transparent;
+							color: var(--text-color, #b2c2a8);
+						">Cancel</button>
+					</div>
+				`;
+				
+				overlay.appendChild(particlesContainer);
+				overlay.appendChild(overlayBefore);
+				overlay.appendChild(modalContent);
+				document.body.appendChild(overlay);
+				
+				// Apply theme-specific styling
+				setTimeout(() => {
+					const themeColors = {
+						moss: {
+							bg: '#2e362e',
+							text: '#b2c2a8',
+							accent: '#b2c2a8',
+							border: '#384438',
+							inputBg: '#384438'
+						},
+						midnight: {
+							bg: '#2a3442',
+							text: '#b8c7e0',
+							accent: '#b8c7e0',
+							border: '#3b4252',
+							inputBg: '#3b4252'
+						},
+						rose: {
+							bg: '#6e3844',
+							text: '#e0b8c7',
+							accent: '#e0b8c7',
+							border: '#8b4d5a',
+							inputBg: '#8b4d5a'
+						},
+						noir: {
+							bg: '#444',
+							text: '#e0e0e0',
+							accent: '#e0e0e0',
+							border: '#555',
+							inputBg: '#555'
+						}
+					};
+					
+					const colors = themeColors[currentTheme] || themeColors.moss;
+					
+					// Update modal styling
+					modalContent.style.backgroundColor = colors.bg;
+					modalContent.style.borderColor = colors.border;
+					modalContent.style.color = colors.text;
+					
+					// Update input styling
+					const nameInput = document.getElementById('changeNameInput');
+					if (nameInput) {
+						nameInput.style.backgroundColor = colors.inputBg;
+						nameInput.style.borderColor = colors.accent;
+						nameInput.style.color = colors.text;
+					}
+					
+					// Update button styling
+					const saveBtn = document.getElementById('saveChangeNameBtn');
+					const cancelBtn = document.getElementById('cancelChangeNameBtn');
+					if (saveBtn) {
+						saveBtn.style.backgroundColor = colors.accent;
+						saveBtn.style.borderColor = colors.accent;
+						saveBtn.style.color = colors.bg;
+					}
+					if (cancelBtn) {
+						cancelBtn.style.borderColor = colors.accent;
+						cancelBtn.style.color = colors.text;
+					}
+					
+					// Update text colors
+					const h2 = modalContent.querySelector('h2');
+					const p = modalContent.querySelector('p');
+					if (h2) h2.style.color = colors.text;
+					if (p) p.style.color = colors.text;
+				}, 100);
+				
+				// Show the modal with fade in
+				setTimeout(() => {
+					overlay.style.opacity = '1';
+				}, 10);
+				
+				// Focus on input and select all text
+				const nameInput = document.getElementById('changeNameInput');
+				nameInput.focus();
+				nameInput.select();
+				
+				// Handle save button click
+				document.getElementById('saveChangeNameBtn').addEventListener('click', saveChangeName);
+				
+				// Handle cancel button click
+				document.getElementById('cancelChangeNameBtn').addEventListener('click', closeChangeNameModal);
+				
+				// Handle Enter key
+				nameInput.addEventListener('keypress', function(e) {
+					if (e.key === 'Enter') {
+						saveChangeName();
+					}
+				});
+				
+				// Handle Escape key
+				document.addEventListener('keydown', function(e) {
+					if (e.key === 'Escape') {
+						closeChangeNameModal();
+					}
+				});
+				
+				// Prevent closing by clicking overlay
+				overlay.addEventListener('click', function(e) {
+					if (e.target === overlay) {
+						// Don't close - require explicit action
+					}
+				});
+			}
+			
+			// Function to save changed name
+			function saveChangeName() {
+				const nameInput = document.getElementById('changeNameInput');
+				const userName = nameInput.value.trim();
+				
+				if (userName && userName.length <= 20) {
+					localStorage.setItem('userName', userName);
+					closeChangeNameModal();
+					// Update greeting immediately
+					updateTimeDisplay();
+				} else {
+					// Highlight input if empty or too long
+					nameInput.style.borderColor = '#ff4444';
+					setTimeout(() => {
+						nameInput.style.borderColor = 'var(--accent-color, #b2c2a8)';
+					}, 1000);
+				}
+			}
+			
+			// Function to close change name modal
+			function closeChangeNameModal() {
+				const overlay = document.getElementById('changeNameOverlay');
+				if (overlay) {
+					overlay.style.opacity = '0';
+					setTimeout(() => {
+						overlay.remove();
+					}, 250);
+				}
+			}
+		</script>
 		<script>
 			// Theme-based particle configurations
 			const particleConfigs = {

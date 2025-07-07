@@ -93,6 +93,11 @@ add proxy switcher n panic key
                 <button class="setting-button" onclick="openCredentialsModal()">Change Credentials</button>
               </div>      
             <div class="setting-card">
+                <div class="setting-title">Change Display Name</div>
+                <div class="setting-description">Change the name displayed in your greeting.</div>
+                <button class="setting-button" onclick="openChangeNameModal()">Change Display Name</button>
+            </div>
+            <div class="setting-card">
                 <div class="setting-title">Theme</div>
                 <div class="setting-description">Choose your preferred site theme.</div>
                 <select id="theme-select">
@@ -147,7 +152,34 @@ add proxy switcher n panic key
                 <button onclick="closeCredentialsModal()">Close</button>
               </div>
             </div>
-          </div>                  
+          </div>
+        <div class="change-name-modal" id="change-name-modal">
+            <div id="change-name-particles-js"></div>
+            <div class="change-name-modal-content">
+              <h2>Change Display Name</h2>
+              <p>Enter your new display name (max 20 characters):</p>
+              <input type="text" id="change-name-input" placeholder="Enter your new name" maxlength="20" />
+              <div class="change-name-buttons">
+                <button id="applychangenamebutton" onclick="applyChangeName()">Apply</button>
+                <button onclick="closeChangeNameModal()">Cancel</button>
+              </div>
+            </div>
+          </div>
+        <div id="change-name-notification" class="change-name-notification">
+            <span>Changes saved!</span>
+        </div>
+        
+        <!-- Welcome Back Overlay -->
+        <div id="welcomeBackOverlay" class="welcome-back-overlay">
+            <div class="welcome-back-content">
+                <div class="welcome-back-icon">
+                    <i class="fa-solid fa-hand-wave"></i>
+                </div>
+                <div class="welcome-back-title" id="welcomeBackTitle">Welcome Back!</div>
+                <div class="welcome-back-message" id="welcomeBackMessage">Great to see you again!</div>
+            </div>
+        </div>
+        
         <!--add a notification when changes are made-->   
         </div>
         <script src="js/particles.min.js"></script>
@@ -292,6 +324,66 @@ add proxy switcher n panic key
                     // Reinitialize with new theme
                     setTimeout(initializeParticles, 100);
                 }
+            });
+            
+            // Welcome back overlay functionality
+            function checkWelcomeBack() {
+                const lastVisit = localStorage.getItem('lastVisit');
+                const currentTime = Date.now();
+                const userName = localStorage.getItem('userName');
+                
+                // Show welcome back if:
+                // 1. User has a name set
+                // 2. Last visit was more than 30 seconds ago (to avoid showing on refresh)
+                // 3. Last visit exists (not first time)
+                // 4. User actually left the site (not just navigated between pages)
+                if (userName && lastVisit && (currentTime - parseInt(lastVisit)) > 30000) {
+                    showWelcomeBackOverlay();
+                }
+                
+                // Don't update last visit time here - only update when actually leaving the site
+            }
+            
+            // Track when user leaves the site
+            function trackSiteLeave() {
+                localStorage.setItem('lastVisit', Date.now().toString());
+            }
+            
+            // Listen for when user leaves the site
+            window.addEventListener('beforeunload', trackSiteLeave);
+            window.addEventListener('pagehide', trackSiteLeave);
+            
+            // Function to show welcome back overlay
+            function showWelcomeBackOverlay() {
+                const overlay = document.getElementById('welcomeBackOverlay');
+                const title = document.getElementById('welcomeBackTitle');
+                const message = document.getElementById('welcomeBackMessage');
+                const userName = localStorage.getItem('userName');
+                
+                // Update the welcome message with user's name
+                title.textContent = `Welcome Back, ${userName}!`;
+                message.textContent = 'Great to see you again!';
+                
+                // Show the overlay
+                overlay.classList.add('show');
+                
+                // Hide after 3 seconds
+                setTimeout(() => {
+                    overlay.classList.remove('show');
+                }, 3000);
+            }
+            
+            // Keybind to test welcome back modal (Ctrl + M)
+            document.addEventListener('keydown', (event) => {
+                if (event.ctrlKey && event.key === 'm') {
+                    event.preventDefault();
+                    showWelcomeBackOverlay();
+                }
+            });
+            
+            // Check welcome back when page loads
+            document.addEventListener('DOMContentLoaded', () => {
+                setTimeout(checkWelcomeBack, 100);
             });
         </script>
         		<script src="js/settings.js" defer></script>
