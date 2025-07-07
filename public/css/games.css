@@ -32,22 +32,22 @@ body, .navbar, .games-container, #search-input {
     margin: 0 auto;
     width: 90%;
     max-width: 1200px;
-    height: 600px; /* Set a fixed height */
-    overflow-y: auto; /* Enable vertical scrolling */
+    height: 600px;
+    overflow-y: auto;
     box-sizing: border-box;
     align-content: flex-start;
-    background-color: #232b23; /* Muted dark green-gray */
-    border-radius: 12px; /* Optional: rounded edges */
+    background-color: #232b23;
+    border-radius: 12px;
     border: 2px solid #384438;
 }
 
 /* Ensure game cards are properly positioned */
 .game-card {
-    position: relative; /* Ensure absolute children (like ::before) are positioned correctly */
-    flex: 0 1 125px; /* Allow cards to resize dynamically but limit them to a minimum width */
-    max-width: 125px; /* Set max width to maintain uniform size */
-    min-width: 125px; /* Ensure cards are not smaller than this width */
-    height: 125px; /* Maintain consistent height */
+    position: relative;
+    flex: 0 1 125px;
+    max-width: 125px;
+    min-width: 125px;
+    height: 125px;
     border-radius: 15px;
     overflow: hidden;
     cursor: pointer;
@@ -75,7 +75,7 @@ body, .navbar, .games-container, #search-input {
     border-radius: 15px;
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
-    pointer-events: none; /* Don't block clicks */
+    pointer-events: none;
     background-color: rgba(0, 0, 0, 0.4);
 }
 
@@ -83,13 +83,13 @@ body, .navbar, .games-container, #search-input {
 .game-card:hover {
     border: 1px solid #b2c2a8;
     background-color: #384438;
-    transform: scale(1.05); /* Scale the card */
-    transform-origin: center center; /* Keep the scaling centered */
+    transform: scale(1.05);
+    transform-origin: center center;
 }
 
 /* Reveal the overlay and darken the image on hover */
 .game-card:hover::before {
-    opacity: 1; /* Show the dark overlay */
+    opacity: 1;
 }
 
 /* Styling for the game name text */
@@ -99,9 +99,9 @@ body, .navbar, .games-container, #search-input {
     left: 50%;
     transform: translate(-50%, -50%);
     color: #b2c2a8;
-    font-size: 12px; /* Adjust font size */
+    font-size: 12px;
     font-weight: bold;
-    opacity: 0; /* Initially hidden */
+    opacity: 0;
     transition: opacity 0.3s ease-in-out;
 
     display: flex;
@@ -109,28 +109,28 @@ body, .navbar, .games-container, #search-input {
     align-items: center;
     text-align: center;
 
-    width: 90%; /* Adjust width so text stays within the card */
-    height: 100%; /* Make it fill the card */
-    padding: 5px; /* Add padding to prevent overflow */
-    white-space: normal; /* Allows text to wrap */
-    word-wrap: break-word; /* Break long words */
+    width: 90%;
+    height: 100%;
+    padding: 5px;
+    white-space: normal;
+    word-wrap: break-word;
 }
 
 /* Show the game name text on hover */
 .game-card:hover .game-name {
-    opacity: 1; /* Make the text visible on hover */
+    opacity: 1;
     color: #b2c2a8;
 }
 
 /* Ensure hidden cards don't affect layout */
 .game-card.hide {
-    visibility: hidden; /* Hide cards but maintain layout */
+    visibility: hidden;
 }
 
 /* Remove gaps between rows while keeping space between cards */
 .games-container::after {
     content: "";
-    flex-basis: 100%; /* Force the last row to use the full width */
+    flex-basis: 100%;
     height: 0;
 }
 
@@ -307,111 +307,7 @@ body::after {
 /* ===== RESPONSIVE DESIGN ===== */
 
 /* Small screens (mobile) */
-@media (max-width: 768px) {
-    body {
-        padding-top: 90px; /* Add padding to account for navbar height */
-    }
-    
-    .games-container {
-        width: 95%;
-        gap: 15px;
-        padding: 15px;
-        height: 500px;
-        margin-top: 20px; /* Add space below navbar */
-    }
-    
-    .game-card {
-        flex: 0 1 100px;
-        max-width: 100px;
-        min-width: 100px;
-        height: 100px;
-    }
-    
-    .game-name {
-        font-size: 10px;
-    }
-    
-    #search-input {
-        width: 90vw;
-        max-width: 400px;
-        min-width: 250px;
-        padding: 0.8rem;
-        font-size: 16px;
-        margin-top: 20px; /* Add space below navbar */
-    }
-}
 
-/* Very small screens */
-@media (max-width: 480px) {
-    body {
-        padding-top: 100px; /* More padding for very small screens */
-    }
-    
-    .games-container {
-        width: 98%;
-        gap: 10px;
-        padding: 10px;
-        height: 400px;
-        margin-top: 25px; /* More space below navbar */
-    }
-    
-    .game-card {
-        flex: 0 1 80px;
-        max-width: 80px;
-        min-width: 80px;
-        height: 80px;
-    }
-    
-    .game-name {
-        font-size: 9px;
-        padding: 3px;
-    }
-    
-    #search-input {
-        width: 95vw;
-        max-width: 300px;
-        min-width: 200px;
-        padding: 0.7rem;
-        font-size: 14px;
-        margin-top: 25px; /* More space below navbar */
-    }
-}
-
-/* Extra small screens */
-@media (max-width: 360px) {
-    body {
-        padding-top: 110px; /* Maximum padding for extra small screens */
-    }
-    
-    .games-container {
-        width: 100%;
-        gap: 8px;
-        padding: 8px;
-        height: 350px;
-        margin-top: 30px; /* Maximum space below navbar */
-    }
-    
-    .game-card {
-        flex: 0 1 70px;
-        max-width: 70px;
-        min-width: 70px;
-        height: 70px;
-    }
-    
-    .game-name {
-        font-size: 8px;
-        padding: 2px;
-    }
-    
-    #search-input {
-        width: 98vw;
-        max-width: 250px;
-        min-width: 180px;
-        padding: 0.6rem;
-        font-size: 13px;
-        margin-top: 30px; /* Maximum space below navbar */
-    }
-}
 
 /* Add Custom Game Card Styling */
 .add-card {

@@ -40,6 +40,8 @@ npm install
 npm start
 ```
 
+Or just run the install.bat or install.sh file!
+
 Once it is all set up, head over to http://localhost:3000 to use Malachite on your computer!
 
 ## Requirements
