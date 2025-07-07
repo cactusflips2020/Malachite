@@ -12,10 +12,11 @@ let tempPassword = localStorage.getItem('password') || DEFAULT_PASSWORD;
 
 // Function to change the tab cloaking based on the selected option
 function changeCloak() {
-    const selectedCloakOption = document.querySelector('.cloak-select').value;
+    const selectedCloakOption = document.getElementById('cloak-select').value;
     localStorage.setItem('tabCloak', selectedCloakOption);  // Save the selected option to localStorage
     applyCloak(selectedCloakOption);  // Apply the cloaking option
     console.log(`Saved cloak option: ${selectedCloakOption}`);  // Debugging line
+    showNotification('Changes saved');
 }
 
 // Function to apply the cloaking based on the selected option
@@ -49,7 +50,7 @@ function loadCloakSetting() {
     console.log(`Loaded cloak option: ${savedCloakOption}`);  // Debugging line to see the loaded value
 
     if (savedCloakOption) {
-        const selectElement = document.querySelector('.cloak-select');
+        const selectElement = document.getElementById('cloak-select');
         if (selectElement) {
             selectElement.value = savedCloakOption; // Set the saved value to the select dropdown
             applyCloak(savedCloakOption); // Apply the saved option
@@ -57,7 +58,7 @@ function loadCloakSetting() {
         }
     } else {
         // If no saved option, fallback to 'Default'
-        const selectElement = document.querySelector('.cloak-select');
+        const selectElement = document.getElementById('cloak-select');
         if (selectElement) {
             selectElement.value = 'Default'; // Default fallback
             applyCloak('Default'); // Apply the default value
@@ -85,10 +86,12 @@ function launchab() {
 
 // Function to change the transport based on the selected option
 function changeTransport() {
-    const selectedTransportOption = document.querySelector('.transport-select').value;
+    console.log('changeTransport function called');
+    const selectedTransportOption = document.getElementById('transport-select').value;
     localStorage.setItem('transportSelect', selectedTransportOption);  // Save the selected option to localStorage
     applyTransport(selectedTransportOption);  // Apply the transport option
     console.log(`Saved transport option: ${selectedTransportOption}`);  // Debugging line
+    showNotification('Changes saved');
 }
 
 // Function to apply the transport based on the selected option
@@ -110,7 +113,7 @@ function loadTransportSetting() {
     console.log(`Loaded transport option: ${savedTransportOption}`);  // Debugging line to check what is loaded from localStorage
 
     if (savedTransportOption) {
-        const selectElement = document.querySelector('.transport-select');
+        const selectElement = document.getElementById('transport-select');
         if (selectElement) {
             selectElement.value = savedTransportOption; // Set the saved value to the select dropdown
             applyTransport(savedTransportOption); // Apply the saved option
@@ -118,7 +121,7 @@ function loadTransportSetting() {
         }
     } else {
         // If no saved option, fallback to 'libcurl'
-        const selectElement = document.querySelector('.transport-select');
+        const selectElement = document.getElementById('transport-select');
         if (selectElement) {
             selectElement.value = 'libcurl'; // Set default to libcurl
             applyTransport('libcurl'); // Apply the default value
@@ -127,8 +130,45 @@ function loadTransportSetting() {
     }
 }
 
-// Load the setting on page load
-window.addEventListener('load', loadTransportSetting);
+// Load saved values function
+function loadSavedValues() {
+    // Load transport setting
+    const savedTransport = localStorage.getItem('transportSelect');
+    if (savedTransport) {
+        const transportSelect = document.getElementById('transport-select');
+        if (transportSelect) {
+            transportSelect.value = savedTransport;
+            applyTransport(savedTransport);
+        }
+    }
+    
+    // Load cloak setting
+    const savedCloak = localStorage.getItem('tabCloak');
+    if (savedCloak) {
+        const cloakSelect = document.getElementById('cloak-select');
+        if (cloakSelect) {
+            cloakSelect.value = savedCloak;
+            applyCloak(savedCloak);
+        }
+    }
+    
+    // Load search engine setting
+    const savedSearchEngine = localStorage.getItem('searchEngineSelect');
+    if (savedSearchEngine) {
+        const searchEngineSelect = document.getElementById('searchengine-select');
+        if (searchEngineSelect) {
+            searchEngineSelect.value = savedSearchEngine;
+            applySearchEngine(savedSearchEngine);
+        }
+    }
+    
+    // Load theme setting
+    const savedTheme = localStorage.getItem('siteTheme') || 'moss';
+    const themeSelect = document.getElementById('theme-select');
+    if (themeSelect) {
+        themeSelect.value = savedTheme;
+    }
+}
 
 
 
@@ -145,6 +185,9 @@ function autoab() {
 
     // Update button state text and color
     updateButtonState();
+    
+    // Show notification
+    showNotification('Changes saved');
 }
 
 // Helper function to update the specific button's text and color based on the state
@@ -176,8 +219,9 @@ function signOut() {
 
 // Function to change the search engine based on the selected option
 function changeSearchEngine() {
-    const selectedSearchEngine = document.querySelector('.searchengine-select').value;
+    const selectedSearchEngine = document.getElementById('searchengine-select').value;
     applySearchEngine(selectedSearchEngine);  // Apply the selected search engine
+    showNotification('Changes saved');
 }
 
 // Function to apply the selected search engine
@@ -202,14 +246,14 @@ function loadSearchEngineSetting() {
     const savedSearchEngineOption = localStorage.getItem('searchEngineSelect');
 
     if (savedSearchEngineOption) {
-        const selectElement = document.querySelector('.searchengine-select');
+        const selectElement = document.getElementById('searchengine-select');
         if (selectElement) {
             selectElement.value = savedSearchEngineOption; // Set the saved value to the select dropdown
             applySearchEngine(savedSearchEngineOption); // Apply the saved option
         }
     } else {
         // If no saved option, fallback to 'google' by default
-        const selectElement = document.querySelector('.searchengine-select');
+        const selectElement = document.getElementById('searchengine-select');
         if (selectElement) {
             selectElement.value = 'duckduckgo'; // Set default to Google
             applySearchEngine('duckduckgo'); // Apply the default value
@@ -220,6 +264,19 @@ function loadSearchEngineSetting() {
 // Load the setting on page load
 window.addEventListener('load', loadSearchEngineSetting);
 
+// Function to load the current theme setting on page load
+function loadThemeSetting() {
+    const savedTheme = localStorage.getItem('siteTheme') || 'moss';
+    const selectElement = document.getElementById('theme-select');
+    if (selectElement) {
+        selectElement.value = savedTheme;
+        console.log(`Theme dropdown set to: ${savedTheme}`);
+    }
+}
+
+// Load the theme setting on page load
+window.addEventListener('load', loadThemeSetting);
+
 function leaveconfirmation() {
     let button = document.getElementById('leaveconfirmbutton');
 
@@ -229,6 +286,9 @@ function leaveconfirmation() {
 
     // Update button appearance
     updateLeaveConfirmButton();
+    
+    // Show notification
+    showNotification('Changes saved');
 }
 
 function updateLeaveConfirmButton() {
@@ -310,40 +370,43 @@ function showNotification(message) {
     }, 3000);
 }
 
-// Add event listeners for dropdowns
+// Simple dropdown setup
 document.addEventListener('DOMContentLoaded', function() {
-    const transportSelect = document.querySelector(".transport-select");
-    if (transportSelect) {
-        transportSelect.addEventListener("change", () => showNotification('Changes saved!'));
-    }
-});
-// Move all event listeners to DOMContentLoaded to prevent errors
-document.addEventListener('DOMContentLoaded', function() {
-    // Add notification listeners for various elements
-    const proxySelect = document.querySelector(".proxy-backend-select");
-    if (proxySelect) {
-        proxySelect.addEventListener("change", () => showNotification('Changes saved!'));
-    }
+    console.log('Setting up basic dropdowns');
     
-    const cloakSelect = document.querySelector(".cloak-select");
-    if (cloakSelect) {
-        cloakSelect.addEventListener("change", () => showNotification('Changes saved!'));
-    }
+    // Basic dropdown event listeners
+    document.getElementById("transport-select")?.addEventListener("change", function() {
+        const value = this.value;
+        localStorage.setItem('transportSelect', value);
+        if (value === 'epoxy') {
+            chemical.setTransport("epoxy");
+        } else {
+            chemical.setTransport("libcurl");
+        }
+        showNotification('Changes saved');
+    });
     
-    const searchSelect = document.querySelector(".searchengine-select");
-    if (searchSelect) {
-        searchSelect.addEventListener("change", () => showNotification('Changes saved!'));
-    }
+    document.getElementById("cloak-select")?.addEventListener("change", function() {
+        const value = this.value;
+        localStorage.setItem('tabCloak', value);
+        applyCloak(value);
+        showNotification('Changes saved');
+    });
     
-    const leaveConfirmBtn = document.getElementById("leaveconfirmbutton");
-    if (leaveConfirmBtn) {
-        leaveConfirmBtn.addEventListener("click", () => showNotification('Changes saved!'));
-    }
+    document.getElementById("searchengine-select")?.addEventListener("change", function() {
+        const value = this.value;
+        applySearchEngine(value);
+        showNotification('Changes saved');
+    });
     
-    const autoabBtn = document.getElementById("autoabbutton");
-    if (autoabBtn) {
-        autoabBtn.addEventListener("click", () => showNotification('Changes saved!'));
-    }
+    document.getElementById("theme-select")?.addEventListener("change", function() {
+        const value = this.value;
+        applyTheme(value);
+        showNotification('Changes saved');
+    });
+    
+    // Load saved values
+    loadSavedValues();
 });
 
 let selectedKey = localStorage.getItem("redirectKey");
@@ -964,9 +1027,32 @@ function resetCredentials() {
 })();
 
 function changeTheme() {
-    const selectedTheme = document.querySelector('.theme-select').value;
+    const selectedTheme = document.getElementById('theme-select').value;
+    console.log(`Theme changed to: ${selectedTheme}`);
+    
+    // TEMPORARILY DISABLE THEME CHANGE TO TEST DROPDOWNS
+    console.log('Theme change temporarily disabled for testing');
+    showNotification('Theme change temporarily disabled');
+    
+    /*
+    // Debug: Check dropdowns before theme change
+    console.log('Dropdowns before theme change:');
+    console.log('Transport select:', document.getElementById('transport-select'));
+    console.log('Cloak select:', document.getElementById('cloak-select'));
+    console.log('Search engine select:', document.getElementById('searchengine-select'));
+    console.log('Theme select:', document.getElementById('theme-select'));
+    
     applyTheme(selectedTheme); // Apply the selected theme
-    showNotification('Changes saved!');
+    
+    // Debug: Check dropdowns after theme change
+    setTimeout(() => {
+        console.log('Dropdowns after theme change:');
+        console.log('Transport select:', document.getElementById('transport-select'));
+        console.log('Cloak select:', document.getElementById('cloak-select'));
+        console.log('Search engine select:', document.getElementById('searchengine-select'));
+        console.log('Theme select:', document.getElementById('theme-select'));
+    }, 100);
+    */
 }
 
 function updateThemeModals() {

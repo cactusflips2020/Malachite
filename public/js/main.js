@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // Function to sync theme selector with current theme
 function syncThemeSelector() {
     const savedTheme = localStorage.getItem('siteTheme') || 'moss';
-    const themeSelector = document.querySelector('.theme-select');
+    const themeSelector = document.getElementById('theme-select');
     if (themeSelector) {
         themeSelector.value = savedTheme;
         console.log('Main.js: Theme selector synced to:', savedTheme);

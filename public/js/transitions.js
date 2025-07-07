@@ -19,6 +19,17 @@ class PageTransitionManager {
         setTimeout(() => {
             document.body.classList.add('loaded');
         }, 100);
+        
+        // Prevent focus interference with form elements
+        document.addEventListener('focusin', (e) => {
+            if (e.target.tagName === 'SELECT' || 
+                e.target.tagName === 'INPUT' || 
+                e.target.tagName === 'BUTTON' ||
+                e.target.tagName === 'TEXTAREA') {
+                console.log('Form element focused, preventing transition interference');
+                e.stopPropagation();
+            }
+        });
     }
 
     setupStaggeredAnimations() {
@@ -44,13 +55,27 @@ class PageTransitionManager {
     interceptNavigation() {
         // Intercept all navigation links
         document.addEventListener('click', (e) => {
+            // Don't intercept clicks on form elements or their containers
+            if (e.target.tagName === 'SELECT' || 
+                e.target.tagName === 'OPTION' || 
+                e.target.tagName === 'INPUT' || 
+                e.target.tagName === 'BUTTON' ||
+                e.target.tagName === 'TEXTAREA' ||
+                e.target.closest('select') ||
+                e.target.closest('input') ||
+                e.target.closest('button') ||
+                e.target.closest('.setting-card') ||
+                e.target.closest('.settings-container')) {
+                return;
+            }
+            
             const link = e.target.closest('a');
             if (link && this.shouldIntercept(link)) {
                 e.preventDefault();
                 this.navigateTo(link.href);
             }
         });
-
+        
         // Intercept search input
         const searchInput = document.getElementById('search');
         if (searchInput) {
