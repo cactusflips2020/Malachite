@@ -68,11 +68,11 @@ function shutdown() {
     console.log(chalk.yellow('  ⏱️  Uptime: ') + chalk.bold(formatUptime()));
     console.log(chalk.red('-----------------------------------------------'));
     console.log(chalk.green.bold(`  Thank you for using Malachite!  `));
-    console.log(chalk.blue('  Exiting in 5 seconds...'));
+    console.log(chalk.blue('  Exiting in 3 seconds...'));
     console.log(chalk.red('-----------------------------------------------'));
     setTimeout(() => {
         process.exit(1);
-    }, 5000);
+    }, 3000);
 }
 
 // Handle shutdown signals

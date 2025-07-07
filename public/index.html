@@ -230,14 +230,6 @@ document.addEventListener('keydown', (event) => {
 				}, 3000);
 			}
 			
-			// Keybind to test welcome back modal (Ctrl + M)
-			document.addEventListener('keydown', (event) => {
-				if (event.ctrlKey && event.key === 'm') {
-					event.preventDefault();
-					showWelcomeBackOverlay();
-				}
-			});
-			
 			// Trigger animations and check welcome back when page loads
 			document.addEventListener('DOMContentLoaded', () => {
 				// Small delay to ensure everything is ready

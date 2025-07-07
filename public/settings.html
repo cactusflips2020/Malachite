@@ -373,14 +373,6 @@ add proxy switcher n panic key
                 }, 3000);
             }
             
-            // Keybind to test welcome back modal (Ctrl + M)
-            document.addEventListener('keydown', (event) => {
-                if (event.ctrlKey && event.key === 'm') {
-                    event.preventDefault();
-                    showWelcomeBackOverlay();
-                }
-            });
-            
             // Check welcome back when page loads
             document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(checkWelcomeBack, 100);
