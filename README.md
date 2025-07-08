@@ -1,6 +1,6 @@
 <div align="center">
   <img src="/public/img/mosslogo.png" alt="Malachite Logo" width="200"/>
-  <h1>Malachite</h1>
+  <h1>Malachite v1.1.0</h1>
 </div>
 
 Malachite is a fast, modern proxy site with a beautiful, fully themeable UI and a rich set of features for browsing, gaming, and customization.
