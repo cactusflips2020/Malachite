@@ -53,7 +53,7 @@ window.onload = function() {
 // ===== SEARCH ENGINE CONFIGURATION =====
 
 // Get user's preferred search engine
-const searchEngineUrl = localStorage.getItem('searchEngineSelectUrl') || "https://www.google.com/search?q=%s";
+const searchEngineUrl = localStorage.getItem('searchEngineSelectUrl') || "https://www.duckduckgo.com/?q=%s";
 
 // ===== PAGE PROTECTION =====
 

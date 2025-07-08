@@ -301,50 +301,9 @@ body {
 }
 
 /* Gradient background with frosted glass effect */
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: 
-        radial-gradient(circle at 20% 80%, rgba(178, 194, 168, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(148, 226, 213, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 40% 40%, rgba(166, 227, 161, 0.08) 0%, transparent 50%),
-        linear-gradient(45deg, #232b23 0%, #202620 50%, #1e2e1e 100%);
-    animation: gradient-move 45s ease-in-out infinite alternate;
-    z-index: -1;
-}
 
-/* Frosted glass overlay */
-body::after {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(35, 43, 35, 0.3);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    z-index: -1;
-}
 
-@keyframes gradient-move {
-    0% {
-        background-position: 0% 0%;
-        transform: scale(1);
-    }
-    50% {
-        background-position: 100% 100%;
-        transform: scale(1.05);
-    }
-    100% {
-        background-position: 0% 0%;
-        transform: scale(1);
-    }
-}
+
 
 
 
@@ -355,17 +314,7 @@ body.theme-moss {
     color: #b2c2a8;
 }
 
-body.theme-moss::before {
-    background: 
-        radial-gradient(circle at 20% 80%, rgba(178, 194, 168, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(148, 226, 213, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 40% 40%, rgba(166, 227, 161, 0.1) 0%, transparent 50%),
-        linear-gradient(45deg, #232b23 0%, #202620 50%, #1e2e1e 100%);
-}
 
-body.theme-moss::after {
-    background: rgba(35, 43, 35, 0.3);
-}
 
 
 body.theme-moss .setting-card,
@@ -446,7 +395,6 @@ body.theme-moss .games-container {
 body.theme-moss .loading-screen {
     background-color: #232b23;
     border: 2px solid #384438;
-    animation: subtle-breathing-bg 14s linear infinite alternate;
 }
 body.theme-moss .loading-text {
     color: #b2c2a8;
@@ -557,17 +505,7 @@ body.theme-midnight {
     color: #b8c7e0;
 }
 
-body.theme-midnight::before {
-    background: 
-        radial-gradient(circle at 20% 80%, rgba(184, 199, 224, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(129, 161, 193, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 40% 40%, rgba(94, 129, 172, 0.1) 0%, transparent 50%),
-        linear-gradient(45deg, #181c24 0%, #151a22 50%, #232a36 100%);
-}
 
-body.theme-midnight::after {
-    background: rgba(24, 28, 36, 0.3);
-}
 
 
 body.theme-midnight .setting-card,
@@ -743,17 +681,7 @@ body.theme-rose {
     color: #e0b8c7;
 }
 
-body.theme-rose::before {
-    background: 
-        radial-gradient(circle at 20% 80%, rgba(224, 184, 199, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(243, 139, 168, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 40% 40%, rgba(235, 160, 172, 0.1) 0%, transparent 50%),
-        linear-gradient(45deg, #2a1a1f 0%, #1a1114 50%, #3a232b 100%);
-}
 
-body.theme-rose::after {
-    background: rgba(42, 26, 31, 0.3);
-}
 
 
 body.theme-rose .setting-card,
@@ -927,7 +855,6 @@ body.theme-rose .welcome-back-message {
 body.theme-rose .loading-screen {
     background-color: #2a1a1f;
     border: 2px solid #6e3844;
-    animation: rose-breathing 14s linear infinite alternate;
 }
 body.theme-rose .loading-text {
     color: #e0b8c7;
@@ -942,17 +869,7 @@ body.theme-noir {
     color: #e0e0e0;
 }
 
-body.theme-noir::before {
-    background: 
-        radial-gradient(circle at 20% 80%, rgba(224, 224, 224, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(192, 192, 192, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 40% 40%, rgba(160, 160, 160, 0.1) 0%, transparent 50%),
-        linear-gradient(45deg, #181818 0%, #0f0f0f 50%, #232323 100%);
-}
 
-body.theme-noir::after {
-    background: rgba(24, 24, 24, 0.3);
-}
 
 
 body.theme-noir .setting-card,
@@ -1126,7 +1043,6 @@ body.theme-noir .welcome-back-message {
 body.theme-noir .loading-screen {
     background-color: #181818;
     border: 2px solid #444;
-    animation: noir-breathing 14s linear infinite alternate;
 }
 body.theme-noir .loading-text {
     color: #e0e0e0;

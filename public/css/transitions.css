@@ -207,20 +207,6 @@ button:active, .setting-button:active, .transport-select:active, .proxy-backend-
     animation: modalSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
-/* Loading animation */
-@keyframes pulse {
-    0%, 100% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0.5;
-    }
-}
-
-.loading {
-    animation: pulse 1.5s ease-in-out infinite;
-}
-
 /* Smooth scrolling */
 html {
     scroll-behavior: smooth;

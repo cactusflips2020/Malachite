@@ -12,7 +12,7 @@
   "description": "web proxy used for browsing the internet anonymously",
   "dependencies": {
     "chalk": "^5.4.1",
-    "chemicaljs": "^2.6.4",
+    "chemicaljs": "^2.0.2",
     "express": "^4.21.2",
     "psl": "^1.15.0"
   }

@@ -45,6 +45,7 @@
     <script>
         // Initialize Eruda but keep it hidden initially
         eruda.init();
+        eruda.get('entryBtn').hide(); // Hide the entry button using Eruda's API
         
         // Function to show devtools when proxy is loaded
         function showDevTools() {
@@ -105,57 +106,78 @@
             clearInterval(hideInterval);
         };
         
-        // Welcome back overlay functionality
-        function checkWelcomeBack() {
-            const lastVisit = localStorage.getItem('lastVisit');
-            const currentTime = Date.now();
-            const userName = localStorage.getItem('userName');
+        // Manual theme testing function (can be called from browser console)
+        window.testScrollbarTheme = function(theme) {
+            console.log('Manually testing scrollbar theme:', theme);
+            document.body.classList.remove('theme-moss', 'theme-midnight', 'theme-solarized', 'theme-rose', 'theme-noir');
+            document.body.classList.add('theme-' + theme);
             
-            // Show welcome back if:
-            // 1. User has a name set
-            // 2. Last visit was more than 30 seconds ago (to avoid showing on refresh)
-            // 3. Last visit exists (not first time)
-            // 4. User actually left the site (not just navigated between pages)
-            if (userName && lastVisit && (currentTime - parseInt(lastVisit)) > 30000) {
-                showWelcomeBackOverlay();
+            // Apply theme-specific scrollbar colors
+            const root = document.documentElement;
+            if (theme === 'moss') {
+                root.style.setProperty('--scrollbar-track', '#1a1f1a');
+                root.style.setProperty('--scrollbar-thumb', '#384438');
+                root.style.setProperty('--scrollbar-thumb-hover', '#4a5a4a');
+            } else if (theme === 'midnight') {
+                root.style.setProperty('--scrollbar-track', '#151a22');
+                root.style.setProperty('--scrollbar-thumb', '#2a3442');
+                root.style.setProperty('--scrollbar-thumb-hover', '#3a4452');
+            } else if (theme === 'rose') {
+                root.style.setProperty('--scrollbar-track', '#1a1114');
+                root.style.setProperty('--scrollbar-thumb', '#6e3844');
+                root.style.setProperty('--scrollbar-thumb-hover', '#8e4854');
+            } else if (theme === 'noir') {
+                root.style.setProperty('--scrollbar-track', '#1a1f1a');
+                root.style.setProperty('--scrollbar-thumb', '#384438');
+                root.style.setProperty('--scrollbar-thumb-hover', '#4a5a4a');
             }
             
-            // Don't update last visit time here - only update when actually leaving the site
-        }
-        
-        // Track when user leaves the site
-        function trackSiteLeave() {
-            localStorage.setItem('lastVisit', Date.now().toString());
-        }
-        
-        // Listen for when user leaves the site
-        window.addEventListener('beforeunload', trackSiteLeave);
-        window.addEventListener('pagehide', trackSiteLeave);
-        
-        // Function to show welcome back overlay
-        function showWelcomeBackOverlay() {
-            const overlay = document.getElementById('welcomeBackOverlay');
-            const title = document.getElementById('welcomeBackTitle');
-            const message = document.getElementById('welcomeBackMessage');
-            const userName = localStorage.getItem('userName');
+            // Force a repaint to ensure the scrollbar updates
+            const tabsContainer = document.getElementById('tabs-container');
+            if (tabsContainer) {
+                console.log('Found tabs container, forcing repaint...');
+                tabsContainer.style.display = 'none';
+                tabsContainer.offsetHeight; // Force reflow
+                tabsContainer.style.display = '';
+                
+                // Also try forcing the scrollbar to update by temporarily changing overflow
+                tabsContainer.style.overflowX = 'hidden';
+                setTimeout(() => {
+                    tabsContainer.style.overflowX = 'auto';
+                }, 10);
+            } else {
+                console.log('Tabs container not found!');
+            }
             
-            // Update the welcome message with user's name
-            title.textContent = `Welcome Back, ${userName}!`;
-            message.textContent = 'Great to see you again!';
+            // Log current CSS variable values
+            console.log('Current CSS variables:');
+            console.log('--scrollbar-track:', getComputedStyle(root).getPropertyValue('--scrollbar-track'));
+            console.log('--scrollbar-thumb:', getComputedStyle(root).getPropertyValue('--scrollbar-thumb'));
+            console.log('--scrollbar-thumb-hover:', getComputedStyle(root).getPropertyValue('--scrollbar-thumb-hover'));
             
-            // Show the overlay
-            overlay.classList.add('show');
-            
-            // Hide after 3 seconds
+            // Check if scrollbar elements exist and their computed styles
             setTimeout(() => {
-                overlay.classList.remove('show');
-            }, 3000);
-        }
-        
-        // Check welcome back when page loads
-        document.addEventListener('DOMContentLoaded', () => {
-            setTimeout(checkWelcomeBack, 100);
-        });
+                const scrollbarTrack = document.querySelector('#tabs-container::-webkit-scrollbar-track');
+                const scrollbarThumb = document.querySelector('#tabs-container::-webkit-scrollbar-thumb');
+                console.log('Scrollbar elements found:', { track: scrollbarTrack, thumb: scrollbarThumb });
+                
+                // Try to directly set styles on the scrollbar elements
+                const style = document.createElement('style');
+                style.textContent = `
+                    #tabs-container::-webkit-scrollbar-track {
+                        background: ${getComputedStyle(root).getPropertyValue('--scrollbar-track')} !important;
+                    }
+                    #tabs-container::-webkit-scrollbar-thumb {
+                        background: ${getComputedStyle(root).getPropertyValue('--scrollbar-thumb')} !important;
+                    }
+                    #tabs-container::-webkit-scrollbar-thumb:hover {
+                        background: ${getComputedStyle(root).getPropertyValue('--scrollbar-thumb-hover')} !important;
+                    }
+                `;
+                document.head.appendChild(style);
+                console.log('Added inline styles for scrollbar');
+            }, 100);
+        };
     </script>
 </head>
 <body>
@@ -207,8 +229,17 @@
             <button onclick="chemical.componentAction('reload', 'proxyIframe')">
                 <i class="fa-solid fa-rotate-right"></i>
             </button>
+            <button onclick="openInNewTab()" title="Open in New Tab">
+                <i class="fa-solid fa-external-link-alt"></i>
+            </button>
+            <button onclick="showSettingsPage()" title="Settings">
+                <i class="fa-solid fa-gear"></i>
+            </button>
             <button onclick="toggleFullscreen()" id="fullscreenBtn">
                 <i class="fa-solid fa-expand" id="fullscreenIcon"></i>
+            </button>
+            <button onclick="toggleErudaDevtools()" id="devtoolsBtn" title="Toggle Devtools">
+                <i class="fa-solid fa-code"></i>
             </button>
         </section>
     </div>
@@ -223,17 +254,93 @@
         allowfullscreen
         sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox allow-presentation allow-top-navigation"
     ></iframe>
-
-    <!-- Welcome Back Overlay -->
-    <div id="welcomeBackOverlay" class="welcome-back-overlay" style="z-index: 999999;">
-        <div class="welcome-back-content">
-            <div class="welcome-back-icon">
-                <i class="fa-solid fa-hand-wave"></i>
+    
+    <!-- Tab Bar -->
+    <div id="tab-bar">
+        <div id="tabs-container">
+            <!-- Tabs will be dynamically added here -->
+        </div>
+        <button id="add-tab-btn" class="add-tab" onclick="addNewTab()">
+            <i class="fa-solid fa-plus"></i>
+        </button>
+    </div>
+    
+    <!-- Homepage Overlay -->
+    <div id="homepage-overlay" class="homepage-overlay">
+        <div class="logo-above-title slide-in-element" style="opacity: 0; transform: translateY(-30px);">
+            <div style="text-align: center; margin-bottom: 2px;">
+                <span id="proxy-main-time" style="font-size: 5.5em; font-weight: bold; line-height: 1;"></span>
             </div>
-            <div class="welcome-back-title" id="welcomeBackTitle">Welcome Back!</div>
-            <div class="welcome-back-message" id="welcomeBackMessage">Great to see you again!</div>
+            <span id="proxy-main-date" style="font-size: 1em; display: block; margin-bottom: 5px;"></span>
+            <span id="proxy-main-greeting" style="font-size: 1.1em; font-style: italic; display: block; margin-bottom: 20px;"></span>
+        </div>
+        
+        <input
+            autofocus
+            spellcheck="false"
+            autocomplete="off"
+            id="homepage-search"
+            data-auto-https
+            data-search-engine="https://www.google.com/search?q=%s"
+            placeholder="Search or Enter a URL"
+            is="chemical-input"
+            class="slide-in-element"
+            style="opacity: 0; transform: translateY(-30px);"
+        />
+        
+        <div id="proxy-latency-fps-widget" class="widget-container slide-in-element" style="opacity: 0; transform: translateY(-30px);">
+            Ping: <span id="proxy-latency-value">Fetching Ping...</span> | 
+            FPS: <span id="proxy-fps-value">0</span>
+        </div>
+        <!-- Custom Buttons Container: always visible under FPS/Ping widget -->
+        <div id="custom-buttons-container" class="custom-buttons-container slide-in-element" style="opacity: 0; transform: translateY(-30px);">
+            <!-- Custom buttons will be dynamically added here -->
         </div>
     </div>
+    
+    <!-- Add Custom Button Modal -->
+    <div id="add-button-modal" class="add-button-modal">
+        <div class="add-button-modal-content">
+            <div class="add-button-modal-header">
+                <h2>Add Custom Button</h2>
+                <button class="close-modal" onclick="closeAddButtonModal()">&times;</button>
+            </div>
+            <div class="add-button-modal-body">
+                <div class="form-group">
+                    <label for="button-name">Button Name:</label>
+                    <input type="text" id="button-name" placeholder="Enter button name" />
+                </div>
+                <div class="form-group">
+                    <label for="button-link">URL:</label>
+                    <input type="url" id="button-link" placeholder="https://example.com" />
+                </div>
+                <div class="form-group">
+                    <label for="button-icon">Icon (FontAwesome class):</label>
+                    <input type="text" id="button-icon" placeholder="fa-solid fa-link" />
+                </div>
+                <div class="form-actions">
+                    <button onclick="addCustomButton()" class="add-btn">Add Button</button>
+                    <button onclick="closeAddButtonModal()" class="cancel-btn">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Manage Custom Buttons Modal -->
+    <div id="manage-buttons-modal" class="manage-buttons-modal">
+        <div class="manage-buttons-modal-content">
+            <div class="manage-buttons-modal-header">
+                <h2>Manage Custom Buttons</h2>
+                <button class="close-modal" onclick="closeManageButtonsModal()">&times;</button>
+            </div>
+            <div class="manage-buttons-modal-body">
+                <div id="custom-buttons-list">
+                    <!-- Custom buttons will be listed here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- Main JavaScript -->
     <script>
@@ -452,9 +559,15 @@
         window.addEventListener('storage', function(e) {
             if (e.key === 'siteTheme') {
                 // Clean up existing loading particles
-                if (typeof pJSDom !== 'undefined' && pJSDom.length > 1) {
-                    pJSDom[1].pJS.fn.vendors.destroypJS();
-                    pJSDom.splice(1, 1);
+                if (typeof pJSDom !== 'undefined' && pJSDom && pJSDom.length > 1) {
+                    if (pJSDom[1] && pJSDom[1].pJS && pJSDom[1].pJS.fn && pJSDom[1].pJS.fn.vendors) {
+                        try {
+                            pJSDom[1].pJS.fn.vendors.destroypJS();
+                            pJSDom.splice(1, 1);
+                        } catch (error) {
+                            console.error('Error destroying loading particles:', error);
+                        }
+                    }
                 }
                 // Reinitialize with new theme
                 setTimeout(initializeLoadingParticles, 100);
@@ -498,16 +611,41 @@
                 const input = event.target.value.trim();
                 if (!input) return; // Don't process empty input
 
+                // Check if user typed malachite:// protocol
+                if (input.toLowerCase().startsWith("malachite://")) {
+                    // Handle known malachite:// URLs
+                    if (input.toLowerCase() === "malachite://home") {
+                        showHomepage();
+                        return;
+                    }
+                    
+                    if (input.toLowerCase() === "malachite://settings") {
+                        showSettingsPage();
+                        return;
+                    }
+                    
+                    // For any other malachite:// URL, show 404 page
+                    show404Page();
+                    return;
+                }
+
                 try {
                     // Show loading state
                     proxyIframe.style.opacity = '0.7';
                     
-                    // Encode the URL using Chemical.js Ultraviolet service
+                    // Get the latest search engine URL from localStorage
+                    const searchEngineUrl = localStorage.getItem('searchEngineSelectUrl') || "https://www.duckduckgo.com/?q=%s";
+                    const proxyBackend = localStorage.getItem('proxyBackendSelect') || "uv";
+                    
+                    // Encode the URL using Chemical.js with selected backend
                     const encodedUrl = await chemical.encode(input, {
-                        service: "uv",
+                        service: proxyBackend,
                         autoHttps: true,
                         searchEngine: searchEngineUrl
                     });
+
+                    // Update current tab with the new URL
+                    updateCurrentTab(encodedUrl, input);
 
                     // Store encoded URL for persistence
                     sessionStorage.setItem("encodedUrl", encodedUrl);
@@ -635,16 +773,6 @@
 
         // ===== SEARCH ENGINE CONFIGURATION =====
         
-        // Load user's preferred search engine from settings
-        window.addEventListener('load', function() {
-            const savedSearchEngineUrl = localStorage.getItem('searchEngineSelectUrl') || "https://www.google.com/search?q=%s";
-            const searchInput = document.getElementById('proxySearch');
-            
-            if (searchInput) {
-                searchInput.setAttribute('data-search-engine', savedSearchEngineUrl);
-            }
-        });
-
         // ===== LOADING SCREEN MANAGEMENT =====
         
         // Hide loading screen when iframe loads (but only if both Chemical.js and iframe are ready)
@@ -656,6 +784,33 @@
             
             // Restore full opacity
             this.style.opacity = '1';
+            
+            // Update current tab with the loaded URL
+            if (activeTabId) {
+                const currentUrl = this.src;
+                updateCurrentTab(currentUrl);
+                
+                // Try to get the page title from the iframe
+                try {
+                    const iframeTitle = this.contentDocument?.title || this.contentWindow?.document?.title;
+                    if (iframeTitle && iframeTitle !== 'about:blank') {
+                        const tab = tabs.find(t => t.id === activeTabId);
+                        if (tab) {
+                            tab.title = iframeTitle;
+                            const tabElement = document.querySelector(`[data-tab-id="${activeTabId}"]`);
+                            if (tabElement) {
+                                const titleElement = tabElement.querySelector('.tab-title');
+                                if (titleElement) {
+                                    titleElement.textContent = iframeTitle;
+                                }
+                            }
+                        }
+                    }
+                } catch (error) {
+                    // Cross-origin restrictions might prevent accessing iframe content
+                    console.log('Could not access iframe title due to cross-origin restrictions');
+                }
+            }
             
             // Mark iframe as loaded
             iframeHasLoaded = true;
@@ -744,6 +899,602 @@
                 navbar.style.display = 'flex';
             }
         }
+        
+        // ===== TAB MANAGEMENT =====
+        
+        // Tab state management
+        let tabs = [];
+        let activeTabId = null;
+        let nextTabId = 1;
+        
+        // Initialize tabs
+        function initializeTabs() {
+            console.log('Initializing tabs...');
+            console.log('Current tabs array:', tabs);
+            
+            // Create initial tab if none exist
+            if (tabs.length === 0) {
+                console.log('No tabs exist, creating initial tab...');
+                addNewTab();
+                showHomepage(); // Show homepage for initial tab
+            }
+            
+            // Update tab display
+            updateTabDisplay();
+            
+            // Set up iframe event listeners
+            setupIframeListeners();
+            
+            console.log('Tabs initialization complete. Total tabs:', tabs.length);
+        }
+        
+        // Add a new tab
+        function addNewTab(url = null, title = "New Tab") {
+            console.log('Adding new tab with title:', title, 'URL:', url);
+            
+            const tabId = 'tab-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+            
+            tabs.push({
+                id: tabId,
+                url: url || "about:blank",
+                title: title,
+                favicon: null
+            });
+            
+            activeTabId = tabId;
+            
+            // Create tab element
+            const tabElement = document.createElement('div');
+            tabElement.className = 'tab';
+            tabElement.setAttribute('data-tab-id', tabId);
+            tabElement.innerHTML = `
+                <span class="tab-title">${title}</span>
+                <button class="tab-close" onclick="closeTab('${tabId}')">×</button>
+            `;
+            
+            tabElement.addEventListener('click', () => switchTab(tabId));
+            
+            // Insert into tabs container
+            const tabsContainer = document.getElementById('tabs-container');
+            if (tabsContainer) {
+                tabsContainer.appendChild(tabElement);
+                console.log('Tab element added to DOM');
+            } else {
+                console.error('Tabs container not found!');
+            }
+            
+            // Update iframe and show homepage for new tabs
+            const iframe = document.getElementById('proxyIframe');
+            if (iframe) {
+                if (url && url !== "about:blank" && url !== null && url !== "malachite://home") {
+                    // If a specific URL is provided (but not malachite://home), load it and hide homepage
+                    iframe.src = url;
+                    hideHomepage();
+                    console.log('Loading specific URL:', url);
+                    
+                    // Update search bar with the URL
+                    const searchInput = document.getElementById('proxySearch');
+                    if (searchInput) {
+                        searchInput.value = url;
+                    }
+                } else {
+                    // For new tabs (no URL, about:blank, or malachite://home), show homepage
+                    showHomepage();
+                    console.log('Showing homepage for new tab');
+                }
+            }
+            
+            updateTabDisplay();
+            console.log('New tab created with ID:', tabId);
+            return tabId;
+        }
+        
+        // Switch to a specific tab
+        function switchTab(tabId) {
+            const tab = tabs.find(t => t.id === tabId);
+            if (!tab) return;
+            
+            console.log('Switching to tab:', tabId, 'URL:', tab.url);
+            activeTabId = tabId;
+            
+            // Update iframe
+            const iframe = document.getElementById('proxyIframe');
+            if (iframe) {
+                if (tab.url && tab.url !== "about:blank" && tab.url !== "malachite://home") {
+                    // If tab has a real URL, load it and hide homepage
+                    iframe.src = tab.url;
+                    hideHomepage();
+                    console.log('Loading tab URL:', tab.url);
+                    
+                    // Update search bar with the URL
+                    const searchInput = document.getElementById('proxySearch');
+                    if (searchInput) {
+                        searchInput.value = tab.url;
+                    }
+                } else {
+                    // If tab is blank or homepage, show homepage
+                    showHomepage();
+                    console.log('Showing homepage for tab');
+                }
+            }
+            
+            updateTabDisplay();
+        }
+        
+        // Close a tab
+        function closeTab(tabId) {
+            const tabIndex = tabs.findIndex(t => t.id === tabId);
+            if (tabIndex === -1) return;
+            
+            // Don't allow closing the last tab if it's the only one
+            if (tabs.length === 1) {
+                console.log('Cannot close the last tab - creating a new home tab');
+                // Create a new home tab to replace the one being closed
+                const newTabId = addNewTab("malachite://home", "Home");
+                // Close the original tab
+                tabs.splice(tabIndex, 1);
+                const tabElement = document.querySelector(`[data-tab-id="${tabId}"]`);
+                if (tabElement) {
+                    tabElement.remove();
+                }
+                // Switch to the new tab
+                switchTab(newTabId);
+                updateTabDisplay();
+                return;
+            }
+            
+            // Remove tab from array
+            tabs.splice(tabIndex, 1);
+            
+            // Remove tab element from DOM
+            const tabElement = document.querySelector(`[data-tab-id="${tabId}"]`);
+            if (tabElement) {
+                tabElement.remove();
+            }
+            
+            // If we closed the active tab, switch to another tab
+            if (activeTabId === tabId) {
+                if (tabs.length > 0) {
+                    // Switch to the next tab, or the previous one if we closed the last tab
+                    const newTabIndex = tabIndex >= tabs.length ? tabIndex - 1 : tabIndex;
+                    switchTab(tabs[newTabIndex].id);
+                } else {
+                    // This shouldn't happen now, but just in case, create a new home tab
+                    addNewTab("malachite://home", "Home");
+                }
+            }
+            
+            updateTabDisplay();
+        }
+        
+        // Update tab display
+        function updateTabDisplay() {
+            // Update active tab styling
+            document.querySelectorAll('.tab').forEach(tabElement => {
+                const tabId = tabElement.getAttribute('data-tab-id');
+                if (tabId === activeTabId) {
+                    tabElement.classList.add('active');
+                } else {
+                    tabElement.classList.remove('active');
+                }
+            });
+            
+            // Always show tab bar - don't hide it
+            const tabBar = document.getElementById('tab-bar');
+            if (tabBar) {
+                tabBar.style.display = 'flex';
+            }
+        }
+        
+        // Update current tab with new URL and title
+        function updateCurrentTab(url, title) {
+            const currentTab = tabs.find(t => t.id === activeTabId);
+            if (currentTab) {
+                currentTab.url = url;
+                currentTab.title = title;
+                
+                // Update tab element
+                const tabElement = document.querySelector(`[data-tab-id="${activeTabId}"]`);
+                if (tabElement) {
+                    const titleElement = tabElement.querySelector('.tab-title');
+                    if (titleElement) {
+                        titleElement.textContent = title;
+                    }
+                }
+                
+                // Hide homepage when updating with a real URL (but not malachite://home)
+                if (url && url !== "about:blank" && url !== "malachite://home") {
+                    hideHomepage();
+                }
+            }
+        }
+        
+        // Initialize tabs when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOMContentLoaded event fired - initializing tabs');
+            initializeTabs();
+            
+            // Handle Enter key in homepage search
+            const homepageSearch = document.getElementById('homepage-search');
+            if (homepageSearch) {
+                homepageSearch.addEventListener('keypress', (event) => {
+                    if (event.key === 'Enter') {
+                        searchFromHomepage();
+                    }
+                });
+            }
+        });
+        
+        // Fallback initialization
+        window.addEventListener('load', () => {
+            console.log('Window load event fired - checking tabs');
+            if (tabs.length === 0) {
+                console.log('No tabs found on window load, initializing...');
+                initializeTabs();
+            }
+        });
+        
+        // Immediate initialization if DOM is already ready
+        if (document.readyState === 'loading') {
+            console.log('Document still loading, waiting for DOMContentLoaded');
+        } else {
+            console.log('Document already ready, initializing tabs immediately');
+            initializeTabs();
+        }
+        
+        // ===== HOMEPAGE FUNCTIONALITY =====
+        
+        // Show homepage
+        function showHomepage() {
+            const iframe = document.getElementById('proxyIframe');
+            
+            if (iframe) {
+                // Load the separate malachite home page
+                iframe.src = '/malachite-home.html';
+                
+                // Update current tab title to show "Home" and search bar to show "malachite://home"
+                if (activeTabId) {
+                    updateCurrentTab("malachite://home", "Home");
+                    
+                    // Update search bar to show malachite://home
+                    const searchInput = document.getElementById('proxySearch');
+                    if (searchInput) {
+                        searchInput.value = "malachite://home";
+                    }
+                }
+                
+                // Show iframe and hide homepage overlay
+                iframe.style.display = 'block';
+                const homepage = document.getElementById('homepage-overlay');
+                if (homepage) {
+                    homepage.style.display = 'none';
+                }
+            }
+        }
+        
+        // Show 404 page
+        function show404Page() {
+            const iframe = document.getElementById('proxyIframe');
+            
+            if (iframe) {
+                // Get the malachite:// URL that caused the 404
+                const searchInput = document.getElementById('proxySearch');
+                const malachiteUrl = searchInput ? searchInput.value.trim() : 'malachite://unknown';
+                
+                console.log('404 Page - Malachite URL:', malachiteUrl); // Debug log
+                
+                // Load the proxy-specific 404 page with the URL as a parameter
+                iframe.src = `/404-proxy.html?url=${encodeURIComponent(malachiteUrl)}`;
+                
+                // Update current tab title to show "404" and search bar to show the malachite:// URL
+                if (activeTabId) {
+                    updateCurrentTab("malachite://404", "404 - Malachite Protocol Error");
+                    
+                    // Keep the malachite:// URL in the search bar with a delay to ensure it persists
+                    if (searchInput && malachiteUrl) {
+                        setTimeout(() => {
+                            searchInput.value = malachiteUrl;
+                            console.log('404 Page - Set search input to:', malachiteUrl); // Debug log
+                        }, 100);
+                    }
+                }
+                
+                // Show iframe and hide homepage
+                iframe.style.display = 'block';
+                const homepage = document.getElementById('homepage-overlay');
+                if (homepage) {
+                    homepage.style.display = 'none';
+                }
+            }
+        }
+        
+        // Show settings page
+        function showSettingsPage() {
+            const iframe = document.getElementById('proxyIframe');
+            
+            if (iframe) {
+                // Load the proxy settings page
+                iframe.src = '/settings-proxy.html';
+                
+                // Update current tab title to show "Settings" and search bar to show the malachite:// URL
+                if (activeTabId) {
+                    updateCurrentTab("malachite://settings", "Settings");
+                    
+                    // Keep the malachite://settings URL in the search bar
+                    const searchInput = document.getElementById('proxySearch');
+                    if (searchInput) {
+                        searchInput.value = "malachite://settings";
+                    }
+                }
+                
+                // Show iframe and hide homepage
+                iframe.style.display = 'block';
+                const homepage = document.getElementById('homepage-overlay');
+                if (homepage) {
+                    homepage.style.display = 'none';
+                }
+                
+                // Set a flag to remember we're on settings page
+                localStorage.setItem('currentProxyPage', 'malachite://settings');
+            }
+        }
+        
+        // Open current proxied URL in about:blank tab
+        function openInNewTab() {
+            const iframe = document.getElementById('proxyIframe');
+            const searchInput = document.getElementById('proxySearch');
+            
+            if (iframe && iframe.src && iframe.src !== 'about:blank') {
+                // Get the current URL from the iframe
+                const currentUrl = iframe.src;
+                
+                // Don't open special pages (home, settings, 404) in new tab
+                if (currentUrl.includes('malachite-home.html') || 
+                    currentUrl.includes('settings-proxy.html') || 
+                    currentUrl.includes('404-proxy.html')) {
+                    console.log('Cannot open special page in new tab');
+                    return;
+                }
+                
+                // Open in about:blank (same as settings launchab function)
+                const tab = window.open('about:blank', '_blank');
+                const iframe_new = tab.document.createElement('iframe');
+                const stl = iframe_new.style;
+                stl.border = stl.outline = 'none';
+                stl.width = '100vw';
+                stl.height = '100vh';
+                stl.position = 'fixed';
+                stl.left = stl.right = stl.top = stl.bottom = '0';
+                iframe_new.src = currentUrl;
+                tab.document.body.appendChild(iframe_new);
+                
+            } else if (searchInput && searchInput.value && !searchInput.value.startsWith('malachite://')) {
+                // If iframe is not loaded but we have a URL in search bar, try to open that
+                const tab = window.open('about:blank', '_blank');
+                const iframe_new = tab.document.createElement('iframe');
+                const stl = iframe_new.style;
+                stl.border = stl.outline = 'none';
+                stl.width = '100vw';
+                stl.height = '100vh';
+                stl.position = 'fixed';
+                stl.left = stl.right = stl.top = stl.bottom = '0';
+                iframe_new.src = searchInput.value;
+                tab.document.body.appendChild(iframe_new);
+            } else {
+                console.log('No valid URL to open in new tab');
+            }
+        }
+        
+        // Apply cloak to proxy page
+        function applyCloakToProxy(option) {
+            console.log('Applying cloak to proxy page:', option);
+            
+            // Try to apply cloak using chemical library
+            if (typeof chemical !== 'undefined' && chemical.setStore) {
+                console.log('Chemical library found, applying cloak to proxy...');
+                if (option === 'Google') {
+                    chemical.setStore('title', 'Google');
+                    chemical.setStore('icon', 'img/google.ico');
+                } else if (option === 'Gmail') {
+                    chemical.setStore('title', 'Gmail');
+                    chemical.setStore('icon', 'img/gmail.ico');
+                } else if (option === 'Google Drive') {
+                    chemical.setStore('title', 'My Drive - Google Drive');
+                    chemical.setStore('icon', 'img/drive.png');
+                } else if (option === 'Schoology') {
+                    chemical.setStore('title', 'Home | Schoology');
+                    chemical.setStore('icon', 'img/schoology.ico');
+                } else if (option === 'iReady') {
+                    chemical.setStore('title', 'i-Ready Dashboard');
+                    chemical.setStore('icon', 'img/iready.ico');
+                } else if (option === 'Clever') {
+                    chemical.setStore('title', 'Clever | Portal');
+                    chemical.setStore('icon', 'img/clever.ico');
+                } else {
+                    chemical.setStore('title', 'Malachite');
+                    chemical.setStore('icon', 'img/favicon.ico');
+                }
+                console.log('Cloak applied to proxy via chemical library');
+            } else {
+                console.log('Chemical library not available for proxy page');
+            }
+        }
+        
+        // Hide homepage (no longer needed since we use iframe)
+        function hideHomepage() {
+            // This function is kept for compatibility but no longer needed
+            // The iframe is always visible when showing the home page
+        }
+        
+        // Search from homepage
+        async function searchFromHomepage() {
+            // Get the search input from the iframe content
+            const iframe = document.getElementById('proxyIframe');
+            if (!iframe || !iframe.contentDocument) return;
+            
+            const searchInput = iframe.contentDocument.getElementById('search');
+            if (!searchInput) return;
+            
+            const input = searchInput.value.trim();
+            if (!input) return;
+            
+            try {
+                // Get the latest search engine URL and proxy backend from localStorage
+                const searchEngineUrl = localStorage.getItem('searchEngineSelectUrl') || "https://www.duckduckgo.com/?q=%s";
+                const proxyBackend = localStorage.getItem('proxyBackendSelect') || "uv";
+                
+                // Encode the URL using Chemical.js with selected backend
+                const encodedUrl = await chemical.encode(input, {
+                    service: proxyBackend,
+                    autoHttps: true,
+                    searchEngine: searchEngineUrl
+                });
+                
+                // Update current tab with the new URL
+                updateCurrentTab(encodedUrl, input);
+                
+                // Load the URL in the iframe
+                iframe.src = encodedUrl;
+                
+            } catch (error) {
+                console.error('Error encoding URL from homepage:', error);
+            }
+        }
+        
+        // Open quick link
+        async function openQuickLink(url) {
+            try {
+                const proxyBackend = localStorage.getItem('proxyBackendSelect') || "uv";
+                
+                // Encode the URL
+                const encodedUrl = await chemical.encode(url, {
+                    service: proxyBackend,
+                    autoHttps: true
+                });
+                
+                // Update current tab
+                updateCurrentTab(encodedUrl, getDomainFromUrl(url));
+                
+                // Hide homepage and show iframe
+                hideHomepage();
+                
+                // Load the URL in the iframe
+                const iframe = document.getElementById('proxyIframe');
+                iframe.src = encodedUrl;
+                
+            } catch (error) {
+                console.error('Error opening quick link:', error);
+            }
+        }
+        
+        // Get domain from URL
+        function getDomainFromUrl(url) {
+            try {
+                const domain = new URL(url).hostname.replace('www.', '');
+                return domain.charAt(0).toUpperCase() + domain.slice(1);
+            } catch {
+                return 'Unknown Site';
+            }
+        }
+        
+        // Set up iframe event listeners
+        function setupIframeListeners() {
+            const iframe = document.getElementById('proxyIframe');
+            if (iframe) {
+                // Show loading screen initially
+                iframe.style.opacity = '0';
+                
+                // Handle iframe load events
+                iframe.addEventListener('load', () => {
+                    // Hide loading screen
+                    const loadingScreen = document.querySelector('.loading-screen');
+                    if (loadingScreen) {
+                        loadingScreen.style.opacity = '0';
+                        setTimeout(() => {
+                            loadingScreen.style.visibility = 'hidden';
+                        }, 500);
+                    }
+                    
+                    // Show iframe
+                    iframe.style.opacity = '1';
+                    iframe.classList.add('loaded');
+                    
+                    // Update tab title from iframe (but not for 404 pages)
+                    if (!iframe.src.includes('404-proxy.html')) {
+                        try {
+                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                            const iframeTitle = iframeDoc.title;
+                            if (iframeTitle && iframeTitle !== '') {
+                                updateCurrentTab(iframe.src, iframeTitle);
+                            }
+                        } catch (e) {
+                            // Cross-origin restrictions, can't access iframe content
+                            console.log('Cannot access iframe content due to CORS');
+                        }
+                    }
+                });
+                
+                // Handle iframe errors
+                iframe.addEventListener('error', () => {
+                    console.error('Iframe failed to load');
+                    // Hide loading screen even on error
+                    const loadingScreen = document.querySelector('.loading-screen');
+                    if (loadingScreen) {
+                        loadingScreen.style.opacity = '0';
+                        setTimeout(() => {
+                            loadingScreen.style.visibility = 'hidden';
+                        }, 500);
+                    }
+                });
+            }
+        }
+        
+        // Handle messages from iframe (for 404 page navigation and theme changes)
+        window.addEventListener('message', function(event) {
+            if (event.data && event.data.type) {
+                switch (event.data.type) {
+                    case 'malachite-navigate':
+                        if (event.data.url === 'malachite://home') {
+                            showHomepage();
+                        } else if (event.data.url === 'malachite://back') {
+                            // Go back to the previous page or homepage
+                            const searchInput = document.getElementById('proxySearch');
+                            if (searchInput && searchInput.value.trim() !== 'malachite://settings') {
+                                // If there was a previous URL, go back to it
+                                showHomepage();
+                            } else {
+                                // Otherwise go to homepage
+                                showHomepage();
+                            }
+                        }
+                        break;
+                    case 'theme-change':
+                        // Handle theme changes from settings page
+                        if (event.data.theme) {
+                            console.log('Theme change received from settings:', event.data.theme);
+                            // Apply theme to proxy page
+                            document.body.classList.remove('theme-moss', 'theme-midnight', 'theme-rose', 'theme-noir');
+                            document.body.classList.add('theme-' + event.data.theme);
+                            localStorage.setItem('siteTheme', event.data.theme);
+                            
+                            // Reinitialize particles with new theme
+                            setTimeout(() => {
+                                if (typeof initializeParticles === 'function') {
+                                    initializeParticles();
+                                }
+                            }, 100);
+                        }
+                        break;
+                    case 'apply-cloak':
+                        // Handle tab cloaking from settings page
+                        if (event.data.option) {
+                            console.log('Cloak change received from settings:', event.data.option);
+                            applyCloakToProxy(event.data.option);
+                        }
+                        break;
+                }
+            }
+        });
     </script>
     
     <!-- External Scripts -->
@@ -878,12 +1629,19 @@
 			console.log('ParticlesJS available:', typeof particlesJS !== 'undefined');
 			console.log('Config available:', !!config);
 			
+			// Ensure pJSDom is properly initialized
+			if (typeof pJSDom === 'undefined' || pJSDom === null) {
+				window.pJSDom = [];
+			}
+			
 			if (typeof particlesJS !== 'undefined' && config) {
 				try {
 					particlesJS('particles-js', config);
 					console.log('Particles initialized successfully for theme:', currentTheme);
 				} catch (error) {
 					console.error('Error initializing particles:', error);
+					// Fallback: create simple particles manually
+					createSimpleParticles();
 				}
 			} else {
 				console.log('ParticlesJS not available or config not found');
@@ -952,14 +1710,246 @@
 		window.addEventListener('storage', function(e) {
 			if (e.key === 'siteTheme') {
 				// Clean up existing particles
-				if (typeof pJSDom !== 'undefined' && pJSDom.length > 0) {
-					pJSDom[0].pJS.fn.vendors.destroypJS();
-					pJSDom = [];
+				if (typeof pJSDom !== 'undefined' && pJSDom && pJSDom.length > 0) {
+					if (pJSDom[0] && pJSDom[0].pJS && pJSDom[0].pJS.fn && pJSDom[0].pJS.fn.vendors) {
+						try {
+							pJSDom[0].pJS.fn.vendors.destroypJS();
+						} catch (error) {
+							console.error('Error destroying particles:', error);
+						}
+					}
 				}
+				// Reset pJSDom array properly
+				window.pJSDom = [];
 				// Reinitialize with new theme
 				setTimeout(initializeParticles, 100);
 			}
 		});
+	</script>
+	
+	<script>
+		        // Welcome back tracking functionality
+        function checkWelcomeBack() {
+            const lastVisit = localStorage.getItem('lastVisit');
+            const currentTime = Date.now();
+            const userName = localStorage.getItem('userName');
+            
+            // Update last visit time when user returns to proxy
+            // This prevents the "offline" status when user is actually on the proxy page
+            if (userName) {
+                localStorage.setItem('lastVisit', currentTime.toString());
+            }
+        }
+        
+        // Restore correct URL when returning to proxy
+        function restoreProxyURL() {
+            const currentPage = localStorage.getItem('currentProxyPage');
+            const searchInput = document.getElementById('proxySearch');
+            
+            if (currentPage && searchInput) {
+                // Check if we're currently on a special page
+                const iframe = document.getElementById('proxyIframe');
+                if (iframe && iframe.src) {
+                    if (iframe.src.includes('settings-proxy.html') && currentPage === 'malachite://settings') {
+                        searchInput.value = "malachite://settings";
+                    } else if (iframe.src.includes('404-proxy.html')) {
+                        // For 404 pages, keep the malachite URL that caused the 404
+                        const urlParams = new URLSearchParams(window.location.search);
+                        const malachiteUrl = urlParams.get('url') || 'malachite://unknown';
+                        searchInput.value = malachiteUrl;
+                    }
+                }
+            }
+        }
+		
+		// Track when user leaves the site
+		function trackSiteLeave() {
+			localStorage.setItem('lastVisit', Date.now().toString());
+		}
+		
+		// Listen for when user leaves the site
+		window.addEventListener('beforeunload', trackSiteLeave);
+		window.addEventListener('pagehide', trackSiteLeave);
+		
+		        // Check welcome back when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            // Small delay to ensure everything is ready
+            setTimeout(() => {
+                checkWelcomeBack();
+                restoreProxyURL();
+                initializeHomepage();
+            }, 100);
+        });
+        
+        // Restore URL when page becomes visible again
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) {
+                setTimeout(() => {
+                    restoreProxyURL();
+                }, 100);
+            }
+        });
+        
+        // Initialize homepage functionality
+        function initializeHomepage() {
+            // Initialize clock and greeting
+            updateProxyClock();
+            updateProxyGreeting();
+            
+            // Start clock updates
+            setInterval(updateProxyClock, 1000);
+            
+            // Initialize latency and FPS
+            initializeProxyLatency();
+            initializeProxyFPS();
+            
+            // Trigger slide-in animations
+            triggerProxySlideInAnimations();
+            
+            // Set random placeholder
+            setRandomProxyPlaceholder();
+            
+            // Add event listener for Enter key on homepage search
+            const homepageSearch = document.getElementById('homepage-search');
+            if (homepageSearch) {
+                homepageSearch.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        searchFromHomepage();
+                    }
+                });
+            }
+        }
+        
+        // Clock functionality
+        function updateProxyClock() {
+            const now = new Date();
+            const timeElement = document.getElementById('proxy-main-time');
+            const dateElement = document.getElementById('proxy-main-date');
+            
+            if (timeElement) {
+                timeElement.textContent = now.toLocaleTimeString('en-US', { 
+                    hour12: false, 
+                    hour: '2-digit', 
+                    minute: '2-digit', 
+                    second: '2-digit' 
+                });
+            }
+            
+            if (dateElement) {
+                dateElement.textContent = now.toLocaleDateString('en-US', { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                });
+            }
+        }
+        
+        // Greeting functionality
+        function updateProxyGreeting() {
+            const greetingElement = document.getElementById('proxy-main-greeting');
+            if (!greetingElement) return;
+            
+            const userName = localStorage.getItem('userName') || 'there';
+            const hour = new Date().getHours();
+            let greeting = '';
+            
+            if (hour < 12) {
+                greeting = `Good morning, ${userName}!`;
+            } else if (hour < 18) {
+                greeting = `Good afternoon, ${userName}!`;
+            } else {
+                greeting = `Good evening, ${userName}!`;
+            }
+            
+            greetingElement.textContent = greeting;
+        }
+        
+        // Latency functionality
+        function initializeProxyLatency() {
+            const latencySpan = document.getElementById("proxy-latency-value");
+            if (!latencySpan) return;
+            
+            async function checkLatency() {
+                const url = window.location.href;
+                const start = performance.now();
+                
+                try {
+                    await fetch(url, { method: "HEAD", cache: "no-store" });
+                    const end = performance.now();
+                    const latency = Math.round(end - start);
+                    latencySpan.textContent = `${latency} ms`;
+                } catch (e) {
+                    latencySpan.textContent = "offline";
+                }
+            }
+            
+            setInterval(checkLatency, 1000);
+            checkLatency();
+        }
+        
+        // FPS functionality
+        function initializeProxyFPS() {
+            const fpsSpan = document.getElementById("proxy-fps-value");
+            if (!fpsSpan) return;
+            
+            let lastTime = performance.now();
+            let frameCount = 0;
+            let fps = 0;
+            
+            function updateFPS() {
+                const now = performance.now();
+                frameCount++;
+                
+                if (now - lastTime >= 1000) {
+                    fps = frameCount;
+                    fpsSpan.textContent = fps;
+                    frameCount = 0;
+                    lastTime = now;
+                }
+                
+                requestAnimationFrame(updateFPS);
+            }
+            
+            requestAnimationFrame(updateFPS);
+        }
+        
+        // Slide-in animations
+        function triggerProxySlideInAnimations() {
+            const slideElements = document.querySelectorAll('.slide-in-element');
+            slideElements.forEach((element, index) => {
+                setTimeout(() => {
+                    element.classList.add('animate');
+                }, index * 200);
+            });
+        }
+        
+        // Random placeholder
+        function setRandomProxyPlaceholder() {
+            const placeholderTexts = [
+                "Search or Enter a URL...",
+                "teacher i swear im doing my work",
+                "hello there",
+                "Better than doge!",
+                "phoenix on top!"
+            ];
+            
+            const randomPlaceholder = placeholderTexts[Math.floor(Math.random() * placeholderTexts.length)];
+            const searchInput = document.getElementById('homepage-search');
+            if (searchInput) {
+                searchInput.placeholder = randomPlaceholder;
+            }
+        }
+        
+        // Listen for messages from iframe content (for search functionality)
+        window.addEventListener('message', function(event) {
+            if (event.data && event.data.type === 'malachite-search') {
+                const input = event.data.query;
+                if (input && input.trim()) {
+                    searchFromHomepage();
+                }
+            }
+        });
 	</script>
 </body>
 </html>

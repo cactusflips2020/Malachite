@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link rel="icon" href="img/favicon.ico">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/transitions.css">
+    <script src="/chemical.js"></script>
+    <script src="/chemical.components.js"></script>
+    <script src="/chemical.cloaking.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div id="particles-js"></div>
+    <div class="logo-above-title slide-in-element" style="opacity: 0; transform: translateY(-30px);">
+        <div style="text-align: center; margin-bottom: 2px;">
+            <span id="main-time" style="font-size: 5.5em; font-weight: bold; line-height: 1;"></span>
+        </div>
+        <span id="main-date" style="font-size: 1em; display: block; margin-bottom: 5px;"></span>
+        <span id="main-greeting" style="font-size: 1.1em; font-style: italic; display: block; margin-bottom: 20px;"></span>
+    </div>
+    <input
+        autofocus
+        spellcheck="false"
+        autocomplete="off"
+        id="search"
+        data-auto-https
+        data-search-engine="https://www.google.com/search?q=%s"
+        placeholder="Search or Enter a URL"
+        is="chemical-input"
+        class="slide-in-element"
+        style="opacity: 0; transform: translateY(-30px);"
+    />
+    <div id="latency-fps-widget" class="widget-container slide-in-element" style="opacity: 0; transform: translateY(-30px);">
+        Ping: <span id="latency-value">Fetching Ping...</span> | 
+        FPS: <span id="fps-value">0</span>
+    </div>
+    <script src="js/particles.min.js"></script>
+    <script src="js/clock.js"></script>
+    <script>
+        // Apply theme from localStorage
+        function applyTheme() {
+            const theme = localStorage.getItem('siteTheme') || 'moss';
+            document.body.className = `theme-${theme}`;
+        }
+        
+        // Slide-in animation function
+        function triggerSlideInAnimations() {
+            const slideElements = document.querySelectorAll('.slide-in-element');
+            slideElements.forEach((element, index) => {
+                setTimeout(() => {
+                    element.classList.add('animate');
+                }, index * 200); // Stagger the animations by 200ms each
+            });
+        }
+        
+        // Set random placeholder
+        const placeholderTexts = [
+            "Search or Enter a URL...",
+            "teacher i swear im doing my work",
+            "hello there",
+            "Better than doge!",
+            "phoenix on top!"
+        ];
+        const randomPlaceholder = placeholderTexts[Math.floor(Math.random() * placeholderTexts.length)];
+        
+        // Handle search submission
+        function handleSearch() {
+            const searchInput = document.getElementById('search');
+            const input = searchInput.value.trim();
+            
+            if (input) {
+                // Send message to parent proxy page
+                if (window.parent && window.parent !== window) {
+                    window.parent.postMessage({
+                        type: 'malachite-search',
+                        query: input
+                    }, '*');
+                }
+            }
+        }
+        
+        // Clock functionality
+        function updateClock() {
+            const now = new Date();
+            const timeElement = document.getElementById('main-time');
+            const dateElement = document.getElementById('main-date');
+            
+            if (timeElement) {
+                timeElement.textContent = now.toLocaleTimeString('en-US', { 
+                    hour12: false, 
+                    hour: '2-digit', 
+                    minute: '2-digit', 
+                    second: '2-digit' 
+                });
+            }
+            
+            if (dateElement) {
+                dateElement.textContent = now.toLocaleDateString('en-US', { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                });
+            }
+        }
+        
+        // Greeting functionality
+        function updateGreeting() {
+            const greetingElement = document.getElementById('main-greeting');
+            if (!greetingElement) return;
+            
+            const userName = localStorage.getItem('userName') || 'there';
+            const hour = new Date().getHours();
+            let greeting = '';
+            
+            if (hour < 12) {
+                greeting = `Good morning, ${userName}!`;
+            } else if (hour < 18) {
+                greeting = `Good afternoon, ${userName}!`;
+            } else {
+                greeting = `Good evening, ${userName}!`;
+            }
+            
+            greetingElement.textContent = greeting;
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            applyTheme();
+            document.getElementById('search').placeholder = randomPlaceholder;
+            triggerSlideInAnimations();
+            
+            // Initialize clock and greeting
+            updateClock();
+            updateGreeting();
+            
+            // Start clock updates
+            setInterval(updateClock, 1000);
+            
+            // Add event listener for Enter key on search
+            const searchInput = document.getElementById('search');
+            if (searchInput) {
+                searchInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        handleSearch();
+                    }
+                });
+            }
+            
+            // Listen for theme changes
+            window.addEventListener('storage', function(e) {
+                if (e.key === 'siteTheme') {
+                    applyTheme();
+                }
+            });
+        });
+        
+        // Latency
+        const latencySpan = document.getElementById("latency-value");
+        async function checkLatency() {
+            const url = window.location.href;
+            const start = performance.now();
+            try {
+                await fetch(url, { method: "HEAD", cache: "no-store" });
+                const end = performance.now();
+                const latency = Math.round(end - start);
+                latencySpan.textContent = `${latency} ms`;
+            } catch (e) {
+                latencySpan.textContent = "offline";
+            }
+        }
+        setInterval(checkLatency, 1000);
+        checkLatency();
+        
+        // FPS
+        const fpsSpan = document.getElementById("fps-value");
+        let lastTime = performance.now();
+        let frameCount = 0;
+        let fps = 0;
+        function updateFPS() {
+            const now = performance.now();
+            frameCount++;
+            if (now - lastTime >= 1000) {
+                fps = frameCount;
+                fpsSpan.textContent = fps;
+                frameCount = 0;
+                lastTime = now;
+            }
+            requestAnimationFrame(updateFPS);
+        }
+        requestAnimationFrame(updateFPS);
+    </script>
+</body>
+</html> 

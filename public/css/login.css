@@ -52,51 +52,7 @@ html, body {
     position: relative;
 }
 
-/* Gradient background with frosted glass effect */
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: 
-        radial-gradient(circle at 20% 80%, rgba(0, 116, 205, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(0, 95, 163, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 40% 40%, rgba(0, 116, 205, 0.05) 0%, transparent 50%),
-        linear-gradient(45deg, #f9f9f8 0%, #f1f4f4 50%, #e8ecec 100%);
-    animation: gradient-move 20s ease-in-out infinite alternate;
-    z-index: -1;
-}
 
-/* Frosted glass overlay */
-body::after {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(249, 249, 248, 0.3);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    z-index: -1;
-}
-
-@keyframes gradient-move {
-    0% {
-        background-position: 0% 0%;
-        transform: scale(1);
-    }
-    50% {
-        background-position: 100% 100%;
-        transform: scale(1.1);
-    }
-    100% {
-        background-position: 0% 0%;
-        transform: scale(1);
-    }
-}
 
 /* Ensure body content fits */
 body {

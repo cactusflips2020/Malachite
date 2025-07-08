@@ -136,11 +136,15 @@ class PageTransitionManager {
             // Wait for transition to complete
             await this.waitForTransition();
             
+            // Get the latest search engine URL and proxy backend from localStorage
+            const searchEngineUrl = localStorage.getItem('searchEngineSelectUrl') || "https://www.duckduckgo.com/?q=%s";
+            const proxyBackend = localStorage.getItem('proxyBackendSelect') || "uv";
+            
             // Encode URL
             const encodedUrl = await chemical.encode(input, {
-                service: "uv",
+                service: proxyBackend,
                 autoHttps: true,
-                searchEngine: "https://www.google.com/search?q=%s"
+                searchEngine: searchEngineUrl
             });
 
             sessionStorage.setItem("encodedUrl", encodedUrl);

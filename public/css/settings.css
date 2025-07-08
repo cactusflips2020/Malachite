@@ -31,51 +31,7 @@ body, .navbar, .settings-container, .setting-card {
     z-index: 1;
 }
 
-/* Gradient background with frosted glass effect */
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: 
-        radial-gradient(circle at 20% 80%, rgba(178, 194, 168, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(148, 226, 213, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 40% 40%, rgba(166, 227, 161, 0.08) 0%, transparent 50%),
-        linear-gradient(45deg, #232b23 0%, #202620 50%, #1e2e1e 100%);
-    animation: gradient-move 45s ease-in-out infinite alternate;
-    z-index: -1;
-}
 
-/* Frosted glass overlay */
-body::after {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(35, 43, 35, 0.3);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    z-index: -1;
-}
-
-@keyframes gradient-move {
-    0% {
-        background-position: 0% 0%;
-        transform: scale(1);
-    }
-    50% {
-        background-position: 100% 100%;
-        transform: scale(1.05);
-    }
-    100% {
-        background-position: 0% 0%;
-        transform: scale(1);
-    }
-}
 
 html {
     height: 100%;
@@ -209,7 +165,7 @@ select:focus, .setting-button:focus {
     display: none;
     align-items: center;
     justify-content: center;
-    z-index: 1000;
+    z-index: 9999;
     background: rgba(30, 46, 30, 0.6);
     opacity: 0;
     transition: opacity 0.25s ease;
@@ -223,7 +179,7 @@ select:focus, .setting-button:focus {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.1);
-    z-index: 1;
+    z-index: -1;
 }
 
 .keybind-modal.show {
@@ -243,7 +199,7 @@ select:focus, .setting-button:focus {
     opacity: 0;
     animation-fill-mode: forwards;
     position: relative;
-    z-index: 3;
+    z-index: 10000;
 }
 
 .keybind-title {
@@ -374,31 +330,14 @@ select:focus, .setting-button:focus {
     left: 0;
     width: 100vw;
     height: 100vh;
+    backdrop-filter: blur(10px);
     display: none;
     align-items: center;
     justify-content: center;
-    z-index: 1000;
+    z-index: 9999;
+    background: rgba(30, 46, 30, 0.6);
     opacity: 0;
     transition: opacity 0.25s ease;
-}
-
-#particles-js {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-}
-
-#credentials-particles-js,
-#keybind-particles-js {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
 }
 
 .credentials-modal::before {
@@ -409,7 +348,7 @@ select:focus, .setting-button:focus {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.1);
-    z-index: 2;
+    z-index: -1;
 }
 
 .credentials-modal.show {
@@ -429,7 +368,7 @@ select:focus, .setting-button:focus {
     opacity: 0;
     animation-fill-mode: forwards;
     position: relative;
-    z-index: 3;
+    z-index: 10000;
 }
 
 .credentials-modal-content h2 {
@@ -493,57 +432,32 @@ select:focus, .setting-button:focus {
 
 /* Default background (moss theme) */
 .credentials-modal, .keybind-modal, .change-name-modal {
-    background: radial-gradient(circle at 20% 80%, rgba(178, 194, 168, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(148, 226, 213, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(166, 227, 161, 0.08) 0%, transparent 50%),
-                linear-gradient(45deg, #232b23 0%, #202620 50%, #1e2e1e 100%) !important;
-    background-size: 400% 400% !important;
-    animation: gradient-move 45s ease-in-out infinite alternate !important;
+    background: #232b23 !important;
 }
 
-/* Theme-specific animated gradient backgrounds */
+/* Theme-specific solid backgrounds */
 body.theme-moss .credentials-modal,
 body.theme-moss .keybind-modal,
 body.theme-moss .change-name-modal {
-    background: radial-gradient(circle at 20% 80%, rgba(178, 194, 168, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(148, 226, 213, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(166, 227, 161, 0.08) 0%, transparent 50%),
-                linear-gradient(45deg, #232b23 0%, #202620 50%, #1e2e1e 100%) !important;
-    background-size: 400% 400% !important;
-    animation: gradient-move 45s ease-in-out infinite alternate !important;
+    background: #232b23 !important;
 }
 
 body.theme-midnight .credentials-modal,
 body.theme-midnight .keybind-modal,
 body.theme-midnight .change-name-modal {
-    background: radial-gradient(circle at 20% 80%, rgba(184, 199, 224, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(129, 161, 193, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(94, 129, 172, 0.08) 0%, transparent 50%),
-                linear-gradient(45deg, #181c24 0%, #151a22 50%, #232a36 100%) !important;
-    background-size: 400% 400% !important;
-    animation: gradient-move 45s ease-in-out infinite alternate !important;
+    background: #181c24 !important;
 }
 
 body.theme-rose .credentials-modal,
 body.theme-rose .keybind-modal,
 body.theme-rose .change-name-modal {
-    background: radial-gradient(circle at 20% 80%, rgba(235, 188, 186, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(243, 139, 168, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(245, 194, 231, 0.08) 0%, transparent 50%),
-                linear-gradient(45deg, #2d1b1b 0%, #2a1a1a 50%, #3d1f1f 100%) !important;
-    background-size: 400% 400% !important;
-    animation: gradient-move 45s ease-in-out infinite alternate !important;
+    background: #2a1a1f !important;
 }
 
 body.theme-noir .credentials-modal,
 body.theme-noir .keybind-modal,
 body.theme-noir .change-name-modal {
-    background: radial-gradient(circle at 20% 80%, rgba(224, 224, 224, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(192, 192, 192, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(160, 160, 160, 0.08) 0%, transparent 50%),
-                linear-gradient(45deg, #1a1a1a 0%, #181818 50%, #222222 100%) !important;
-    background-size: 400% 400% !important;
-    animation: gradient-move 45s ease-in-out infinite alternate !important;
+    background: #181818 !important;
 }
 
 /* ===== THEME-SPECIFIC DROPDOWN STYLING ===== */
@@ -728,50 +642,47 @@ body.theme-noir select option {
     left: 0;
     width: 100vw;
     height: 100vh;
-    display: flex;
+    backdrop-filter: blur(10px);
+    display: none;
     align-items: center;
     justify-content: center;
-    z-index: 1000;
+    z-index: 9999;
+    background: rgba(30, 46, 30, 0.6);
     opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.25s ease, visibility 0.25s ease;
-    background: 
-        radial-gradient(circle at 20% 80%, rgba(178, 194, 168, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(148, 226, 213, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 40% 40%, rgba(166, 227, 161, 0.08) 0%, transparent 50%),
-        linear-gradient(45deg, #232b23 0%, #202620 50%, #1e2e1e 100%);
-    background-size: 400% 400%;
-    animation: gradient-move 45s ease-in-out infinite alternate;
+    transition: opacity 0.25s ease;
 }
 
-#change-name-particles-js {
+.change-name-modal::before {
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1;
-    pointer-events: none;
+    background: rgba(0, 0, 0, 0.1);
+    z-index: -1;
 }
+
 .change-name-modal.show {
+    display: flex;
     opacity: 1;
-    visibility: visible;
 }
+
 .change-name-modal-content {
-    background: var(--bg-color, #2e362e);
-    color: var(--text-color, #b2c2a8);
-    padding: 32px 28px 24px 28px;
-    border-radius: 12px;
+    background-color: #2e362e;
+    padding: 30px;
+    border-radius: 10px;
+    color: #b2c2a8;
+    width: 300px;
     box-shadow: 0 0 20px #000;
-    border: 1px solid var(--accent-color, #b2c2a8);
-    min-width: 300px;
-    max-width: 90vw;
-    width: 350px;
-    position: relative;
-    z-index: 2;
+    border: 1px solid #384438;
     animation: modalSlideIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1);
-    opacity: 1;
+    opacity: 0;
+    animation-fill-mode: forwards;
+    position: relative;
+    z-index: 10000;
 }
+
 .change-name-modal-content h2 {
     font-size: 1.3em;
     margin: 0 auto 10px auto;

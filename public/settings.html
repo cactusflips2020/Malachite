@@ -43,8 +43,17 @@ add proxy switcher n panic key
                 <div class="setting-title">Select Transport</div>
                 <div class="setting-description">Select the transport you want the proxy to use.</div>
                 <select id="transport-select">
-                    <option value="libcurl">Libcurl</option>
+                    <option value="libcurl">Libcurl (Default)</option>
                     <option value="epoxy">Epoxy</option>
+                </select>
+            </div>
+
+            <div class="setting-card">
+                <div class="setting-title">Proxy Backend</div>
+                <div class="setting-description">Choose which proxy backend to use.</div>
+                <select id="proxy-backend-select">
+                    <option value="uv">Ultraviolet (Default)</option>
+                    <option value="rh">Rammerhead</option>
                 </select>
             </div>
 
@@ -66,14 +75,21 @@ add proxy switcher n panic key
                     <option value="Google">Google</option>
                     <option value="Gmail">Gmail</option>
                     <option value="Google Drive">Google Drive</option>
+                    <option value="Schoology">Schoology</option>
+                    <option value="iReady">iReady</option>
+                    <option value="Clever">Clever</option>
                 </select>
             </div>
             <div class="setting-card">
                 <div class="setting-title">Select Search Engine</div>
                 <div class="setting-description">Choose which search engine to use.</div>
                 <select id="searchengine-select">
-                    <option value="duckduckgo">DuckDuckGo</option>
+                    <option value="duckduckgo">DuckDuckGo (Default)</option>
                     <option value="google">Google</option>
+                    <option value="bing">Bing</option>
+                    <option value="brave">Brave Search</option>
+                    <option value="startpage">Startpage</option>
+                    <option value="ecosia">Ecosia</option>
                     <option value="yahoo">Yahoo</option>
                 </select>
             </div>
@@ -108,17 +124,17 @@ add proxy switcher n panic key
                 </select>
             </div>
             <div class="setting-card">
+                <div class="setting-title">Log Out</div>
+                <div class="setting-description">Signs you out of Malachite.</div>
+                <button class="setting-button" onclick="signOut()" style="background-color: #d20f39;">Log out of Malachite</button>
+            </div>
+            <div class="setting-card">
                 <div class="setting-title">Info</div>
                 <div class="setting-title" style="font-weight: normal; font-size: medium;">Malachite | Version 1.0.0</div>
                 <div class="setting-title" style="font-weight: normal; font-size: medium;">
                     Github page: <a href="https://github.com/cactusflips2020/Malachite" target="_blank">https://github.com/cactusflips2020/Malachite</a>
                 </div> 
                 <div class="setting-title" style="font-weight: normal; font-size: medium;">More coming soon...</div>               
-            </div>
-            <div class="setting-card">
-                <div class="setting-title">Log Out</div>
-                <div class="setting-description">Signs you out of Malachite.</div>
-                <button class="setting-button" onclick="signOut()" style="background-color: #d20f39;">Log out of Malachite</button>
             </div>
         </div>
         <div id="keybind-modal" class="keybind-modal" style="display:none;">

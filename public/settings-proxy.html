@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <link rel="icon" href="/img/favicon.ico">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/transitions.css">
+    <link rel="stylesheet" href="/css/settings.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        /* ===== MODAL THEME STYLING ===== */
+        
+        /* Theme-specific modal backgrounds */
+        body.theme-moss .keybind-modal,
+        body.theme-moss .change-name-modal {
+            background: #232b23 !important;
+        }
+
+        body.theme-midnight .keybind-modal,
+        body.theme-midnight .change-name-modal {
+            background: #181c24 !important;
+        }
+
+        body.theme-rose .keybind-modal,
+        body.theme-rose .change-name-modal {
+            background: #2a1a1f !important;
+        }
+
+        body.theme-noir .keybind-modal,
+        body.theme-noir .change-name-modal {
+            background: #181818 !important;
+        }
+
+        /* Theme-specific modal content styling */
+        body.theme-moss .keybind-content,
+        body.theme-moss .change-name-modal-content {
+            background-color: #2e362e !important;
+            color: #b2c2a8 !important;
+            border: 1px solid #384438 !important;
+        }
+
+        body.theme-midnight .keybind-content,
+        body.theme-midnight .change-name-modal-content {
+            background-color: #2a3442 !important;
+            color: #b8c7e0 !important;
+            border: 1px solid #3a4a5a !important;
+        }
+
+        body.theme-rose .keybind-content,
+        body.theme-rose .change-name-modal-content {
+            background-color: #6e3844 !important;
+            color: #e0b8c7 !important;
+            border: 1px solid #8a4a5a !important;
+        }
+
+        body.theme-noir .keybind-content,
+        body.theme-noir .change-name-modal-content {
+            background-color: #444 !important;
+            color: #e0e0e0 !important;
+            border: 1px solid #555 !important;
+        }
+
+        /* Theme-specific modal input styling */
+        body.theme-moss .keybind-url,
+        body.theme-moss .change-name-modal-content input {
+            background: #384438 !important;
+            color: #b2c2a8 !important;
+            border: 1px solid #232b23 !important;
+        }
+
+        body.theme-moss .keybind-url:focus,
+        body.theme-moss .change-name-modal-content input:focus {
+            border: 2px solid #b2c2a8 !important;
+            box-shadow: 0 0 10px rgba(178, 194, 168, 0.3) !important;
+        }
+
+        body.theme-midnight .keybind-url,
+        body.theme-midnight .change-name-modal-content input {
+            background: #2a3442 !important;
+            color: #b8c7e0 !important;
+            border: 1px solid #181c24 !important;
+        }
+
+        body.theme-midnight .keybind-url:focus,
+        body.theme-midnight .change-name-modal-content input:focus {
+            border: 2px solid #b8c7e0 !important;
+            box-shadow: 0 0 10px rgba(184, 199, 224, 0.3) !important;
+        }
+
+        body.theme-rose .keybind-url,
+        body.theme-rose .change-name-modal-content input {
+            background: #6e3844 !important;
+            color: #e0b8c7 !important;
+            border: 1px solid #2a1a1f !important;
+        }
+
+        body.theme-rose .keybind-url:focus,
+        body.theme-rose .change-name-modal-content input:focus {
+            border: 2px solid #e0b8c7 !important;
+            box-shadow: 0 0 10px rgba(224, 184, 199, 0.3) !important;
+        }
+
+        body.theme-noir .keybind-url,
+        body.theme-noir .change-name-modal-content input {
+            background: #444 !important;
+            color: #e0e0e0 !important;
+            border: 1px solid #181818 !important;
+        }
+
+        body.theme-noir .keybind-url:focus,
+        body.theme-noir .change-name-modal-content input:focus {
+            border: 2px solid #e0e0e0 !important;
+            box-shadow: 0 0 10px rgba(224, 224, 224, 0.3) !important;
+        }
+
+        /* Theme-specific modal button styling */
+        body.theme-moss .keybind-buttons button,
+        body.theme-moss .change-name-buttons button {
+            background: #384438 !important;
+            color: #b2c2a8 !important;
+            border: 1px solid #232b23 !important;
+        }
+
+        body.theme-moss .keybind-buttons button:hover,
+        body.theme-moss .change-name-buttons button:hover {
+            background: #4a5a4a !important;
+            transform: translateY(-1px) !important;
+        }
+
+        body.theme-midnight .keybind-buttons button,
+        body.theme-midnight .change-name-buttons button {
+            background: #2a3442 !important;
+            color: #b8c7e0 !important;
+            border: 1px solid #181c24 !important;
+        }
+
+        body.theme-midnight .keybind-buttons button:hover,
+        body.theme-midnight .change-name-buttons button:hover {
+            background: #3a4a5a !important;
+            transform: translateY(-1px) !important;
+        }
+
+        body.theme-rose .keybind-buttons button,
+        body.theme-rose .change-name-buttons button {
+            background: #6e3844 !important;
+            color: #e0b8c7 !important;
+            border: 1px solid #2a1a1f !important;
+        }
+
+        body.theme-rose .keybind-buttons button:hover,
+        body.theme-rose .change-name-buttons button:hover {
+            background: #8a4a5a !important;
+            transform: translateY(-1px) !important;
+        }
+
+        body.theme-noir .keybind-buttons button,
+        body.theme-noir .change-name-buttons button {
+            background: #444 !important;
+            color: #e0e0e0 !important;
+            border: 1px solid #181818 !important;
+        }
+
+        body.theme-noir .keybind-buttons button:hover,
+        body.theme-noir .change-name-buttons button:hover {
+            background: #555 !important;
+            transform: translateY(-1px) !important;
+        }
+
+        /* Fix keybind box spacing */
+        .keybind-box {
+            margin: 15px 0;
+            padding: 12px;
+        }
+
+        /* Ensure particle containers fill entire modal background */
+        #keybind-particles-js,
+        #change-name-particles-js {
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            z-index: 1 !important;
+        }
+
+        /* Ensure modal content is above particles */
+        .keybind-content,
+        .change-name-modal-content {
+            position: relative !important;
+            z-index: 2 !important;
+        }
+
+        /* Fix reset button colors to match main settings */
+        .keybind-buttons button:nth-child(2),
+        .credentials-buttons button:nth-child(2) {
+            background-color: #d20f39 !important;
+            transition: all 0.2s;
+        }
+
+        .keybind-buttons button:nth-child(2):hover,
+        .credentials-buttons button:nth-child(2):hover {
+            background-color: #b91c3a !important;
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+    </div>
+    <div class="settings-container">
+        <div class="setting-card">
+            <div class="setting-title">Select Transport</div>
+            <div class="setting-description">Select the transport you want the proxy to use.</div>
+            <select id="transport-select" onchange="changeTransport()">
+                <option value="libcurl">Libcurl (Default)</option>
+                <option value="epoxy">Epoxy</option>
+            </select>
+        </div>
+
+        <div class="setting-card">
+            <div class="setting-title">Proxy Backend</div>
+            <div class="setting-description">Choose which proxy backend to use.</div>
+            <select id="proxy-backend-select" onchange="changeProxyBackend()">
+                <option value="uv">Ultraviolet (Default)</option>
+                <option value="rh">Rammerhead</option>
+            </select>
+        </div>
+
+        <div class="setting-card">
+            <div class="setting-title">Select Search Engine</div>
+            <div class="setting-description">Choose which search engine to use.</div>
+            <select id="searchengine-select" onchange="changeSearchEngine()">
+                <option value="duckduckgo">DuckDuckGo (Default)</option>
+                <option value="google">Google</option>
+                <option value="bing">Bing</option>
+                <option value="brave">Brave Search</option>
+                <option value="startpage">Startpage</option>
+                <option value="ecosia">Ecosia</option>
+                <option value="yahoo">Yahoo</option>
+            </select>
+        </div>
+
+        <div class="setting-card">
+            <div class="setting-title">Leave Confirmation</div> 
+            <div class="setting-description">Shows a popup when you or another software attempt to close the page.</div> 
+            <button class="setting-button" id="leaveconfirmbutton" onclick="leaveconfirmation()">Toggle Leave Confirmation</button>  
+        </div>
+
+        <div class="setting-card">
+            <div class="setting-title">Panic Key</div>
+            <div class="setting-description">Choose a key that redirects you to a website when pressed.</div>
+            <button class="setting-button" onclick="openKeybindModal()">Open Panic Key Settings</button>
+        </div>         
+
+        <div class="setting-card">
+            <div class="setting-title">Change Display Name</div>
+            <div class="setting-description">Change the name displayed in your greeting.</div>
+            <button class="setting-button" onclick="openChangeNameModal()">Change Display Name</button>
+        </div>
+
+        <div class="setting-card">
+            <div class="setting-title">Change Credentials</div>
+            <div class="setting-description">Change your proxy username and password.</div>
+            <button class="setting-button" onclick="openCredentialsModal()">Change Credentials</button>
+        </div>
+
+        <div class="setting-card">
+            <div class="setting-title">Theme</div>
+            <div class="setting-description">Choose your preferred site theme.</div>
+            <select id="theme-select" onchange="changeTheme()">
+                <option value="moss">Moss (Default)</option>
+                <option value="midnight">Midnight</option>
+                <option value="rose">Rose</option>
+                <option value="noir">Noir</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Keybind Modal -->
+    <div id="keybind-modal" class="keybind-modal" style="display:none;">
+        <div id="keybind-particles-js"></div>
+        <div class="keybind-content">
+            <div class="keybind-title">Select Panic Key</div>
+            <div class="keybind-description">Click the box and press a key. Press Escape to unbind.</div>
+            <br>
+            
+            <div id="keybind-display" class="keybind-box">No key bound</div>
+    
+            <div class="keybind-description" style="margin-top: 10px;">Custom Panic URL</div>
+            <input id="keybind-url" class="keybind-url" placeholder="https://www.google.com" />
+    
+            <div class="keybind-buttons">
+                <button id="applykeybindbutton" onclick="applyKeybind()">Apply</button>
+                <button id="resetkeybindbutton" onclick="resetKeybind()">Reset</button>
+                <button onclick="closeKeybindModal()">Cancel</button>
+            </div>
+        </div>
+    </div>   
+
+
+
+    <!-- Change Name Modal -->
+    <div class="change-name-modal" id="change-name-modal">
+        <div id="change-name-particles-js"></div>
+        <div class="change-name-modal-content">
+          <h2>Change Display Name</h2>
+          <p>Enter your new display name (max 20 characters):</p>
+          <input type="text" id="change-name-input" placeholder="Enter your new name" maxlength="20" />
+          <div class="change-name-buttons">
+            <button id="applychangenamebutton" onclick="applyChangeName()">Apply</button>
+            <button onclick="closeChangeNameModal()">Cancel</button>
+          </div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div id="change-name-notification" class="change-name-notification">
+        <span>Changes saved!</span>
+    </div>
+
+    <script src="/chemical.js"></script>
+    <script src="/chemical.components.js"></script>
+    <script src="/chemical.cloaking.js"></script>
+    <script src="/js/particles.min.js"></script>
+    <script src="/js/settings.js"></script>
+    <script>
+        // Global function to ensure it's available for onchange events
+        window.changeTheme = function() {
+            // This will be overridden by the actual function definition below
+            console.log('changeTheme called - function not yet defined');
+        };
+
+        // Get the current theme
+        function getCurrentTheme() {
+            return localStorage.getItem('siteTheme') || 'moss';
+        }
+
+
+
+        // Apply theme immediately when script loads
+        (function() {
+            const theme = getCurrentTheme();
+            document.body.className = `theme-${theme}`;
+            
+            // Apply theme-specific scrollbar colors
+            const root = document.documentElement;
+            if (theme === 'moss') {
+                root.style.setProperty('--scrollbar-track', '#1a1f1a');
+                root.style.setProperty('--scrollbar-thumb', '#384438');
+                root.style.setProperty('--scrollbar-thumb-hover', '#4a5a4a');
+            } else if (theme === 'midnight') {
+                root.style.setProperty('--scrollbar-track', '#151a22');
+                root.style.setProperty('--scrollbar-thumb', '#2a3442');
+                root.style.setProperty('--scrollbar-thumb-hover', '#3a4452');
+            } else if (theme === 'rose') {
+                root.style.setProperty('--scrollbar-track', '#1a1114');
+                root.style.setProperty('--scrollbar-thumb', '#6e3844');
+                root.style.setProperty('--scrollbar-thumb-hover', '#8e4854');
+            } else if (theme === 'noir') {
+                root.style.setProperty('--scrollbar-track', '#1a1f1a');
+                root.style.setProperty('--scrollbar-thumb', '#384438');
+                root.style.setProperty('--scrollbar-thumb-hover', '#4a5a4a');
+            }
+            
+            // Set the theme select dropdown value
+            const themeSelect = document.getElementById('theme-select');
+            if (themeSelect) {
+                themeSelect.value = theme;
+            }
+        })();
+
+
+
+
+
+        // Load theme setting
+        function loadThemeSetting() {
+            const savedTheme = localStorage.getItem('siteTheme') || 'moss';
+            const themeSelect = document.getElementById('theme-select');
+            if (themeSelect) {
+                themeSelect.value = savedTheme;
+            }
+            
+            console.log('Theme dropdown set to:', savedTheme);
+        }
+
+
+
+        // Tab cloaking functions
+        function changeCloak() {
+            const selectedCloakOption = document.getElementById('cloak-select').value;
+            localStorage.setItem('tabCloak', selectedCloakOption);
+            applyCloak(selectedCloakOption);
+            console.log(`Saved cloak option: ${selectedCloakOption}`);
+            showNotification('Changes saved');
+        }
+
+        function applyCloak(option) {
+            console.log('Applying cloak:', option);
+            
+            // Try to apply cloak using chemical library
+            if (typeof chemical !== 'undefined' && chemical.setStore) {
+                console.log('Chemical library found, applying cloak...');
+                if (option === 'Google') {
+                    chemical.setStore('title', 'Google');
+                    chemical.setStore('icon', 'img/google.ico');
+                } else if (option === 'Gmail') {
+                    chemical.setStore('title', 'Gmail');
+                    chemical.setStore('icon', 'img/gmail.ico');
+                } else if (option === 'Google Drive') {
+                    chemical.setStore('title', 'My Drive - Google Drive');
+                    chemical.setStore('icon', 'img/drive.png');
+                } else if (option === 'Schoology') {
+                    chemical.setStore('title', 'Home | Schoology');
+                    chemical.setStore('icon', 'img/schoology.ico');
+                } else if (option === 'iReady') {
+                    chemical.setStore('title', 'i-Ready Dashboard');
+                    chemical.setStore('icon', 'img/iready.ico');
+                } else if (option === 'Clever') {
+                    chemical.setStore('title', 'Clever | Portal');
+                    chemical.setStore('icon', 'img/clever.ico');
+                } else {
+                    chemical.setStore('title', 'Malachite');
+                    chemical.setStore('icon', 'img/favicon.ico');
+                }
+                console.log('Cloak applied via chemical library');
+            } else {
+                console.log('Chemical library not available, trying direct DOM manipulation...');
+                // Fallback: direct DOM manipulation
+                try {
+                    if (option === 'Google') {
+                        document.title = 'Google';
+                        const link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+                        link.type = 'image/x-icon';
+                        link.rel = 'shortcut icon';
+                        link.href = '/img/google.ico';
+                        document.getElementsByTagName('head')[0].appendChild(link);
+                    } else if (option === 'Gmail') {
+                        document.title = 'Gmail';
+                        const link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+                        link.type = 'image/x-icon';
+                        link.rel = 'shortcut icon';
+                        link.href = '/img/gmail.ico';
+                        document.getElementsByTagName('head')[0].appendChild(link);
+                    } else if (option === 'Google Drive') {
+                        document.title = 'My Drive - Google Drive';
+                        const link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+                        link.type = 'image/x-icon';
+                        link.rel = 'shortcut icon';
+                        link.href = '/img/drive.png';
+                        document.getElementsByTagName('head')[0].appendChild(link);
+                    } else if (option === 'Schoology') {
+                        document.title = 'Home | Schoology';
+                        const link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+                        link.type = 'image/x-icon';
+                        link.rel = 'shortcut icon';
+                        link.href = '/img/schoology.ico';
+                        document.getElementsByTagName('head')[0].appendChild(link);
+                    } else if (option === 'iReady') {
+                        document.title = 'i-Ready Dashboard';
+                        const link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+                        link.type = 'image/x-icon';
+                        link.rel = 'shortcut icon';
+                        link.href = '/img/iready.ico';
+                        document.getElementsByTagName('head')[0].appendChild(link);
+                    } else if (option === 'Clever') {
+                        document.title = 'Clever | Portal';
+                        const link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+                        link.type = 'image/x-icon';
+                        link.rel = 'shortcut icon';
+                        link.href = '/img/clever.ico';
+                        document.getElementsByTagName('head')[0].appendChild(link);
+                    } else {
+                        document.title = 'Malachite';
+                        const link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+                        link.type = 'image/x-icon';
+                        link.rel = 'shortcut icon';
+                        link.href = '/img/favicon.ico';
+                        document.getElementsByTagName('head')[0].appendChild(link);
+                    }
+                    console.log('Cloak applied via direct DOM manipulation');
+                } catch (error) {
+                    console.error('Error applying cloak:', error);
+                }
+            }
+            
+            // Send message to parent to apply cloak to proxy page
+            if (window.parent && window.parent !== window) {
+                window.parent.postMessage({
+                    type: 'apply-cloak',
+                    option: option
+                }, '*');
+            }
+        }
+
+        function loadCloakSetting() {
+            const savedCloakOption = localStorage.getItem('tabCloak');
+            if (savedCloakOption) {
+                const selectElement = document.getElementById('cloak-select');
+                if (selectElement) {
+                    selectElement.value = savedCloakOption;
+                    applyCloak(savedCloakOption);
+                }
+            } else {
+                const selectElement = document.getElementById('cloak-select');
+                if (selectElement) {
+                    selectElement.value = 'Default';
+                    applyCloak('Default');
+                }
+            }
+        }
+
+        // Theme change function
+        window.changeTheme = function() {
+            try {
+                const themeSelect = document.getElementById('theme-select');
+                if (!themeSelect) {
+                    console.error('Theme select element not found');
+                    return;
+                }
+                
+                const selectedTheme = themeSelect.value;
+                console.log(`Theme changed to: ${selectedTheme}`);
+                
+                // Apply the theme
+                document.body.classList.remove('theme-moss', 'theme-midnight', 'theme-rose', 'theme-noir');
+                document.body.classList.add('theme-' + selectedTheme);
+                localStorage.setItem('siteTheme', selectedTheme);
+                
+                // Apply theme-specific scrollbar colors
+                const root = document.documentElement;
+                if (selectedTheme === 'moss') {
+                    root.style.setProperty('--scrollbar-track', '#1a1f1a');
+                    root.style.setProperty('--scrollbar-thumb', '#384438');
+                    root.style.setProperty('--scrollbar-thumb-hover', '#4a5a4a');
+                } else if (selectedTheme === 'midnight') {
+                    root.style.setProperty('--scrollbar-track', '#151a22');
+                    root.style.setProperty('--scrollbar-thumb', '#2a3442');
+                    root.style.setProperty('--scrollbar-thumb-hover', '#3a4452');
+                } else if (selectedTheme === 'rose') {
+                    root.style.setProperty('--scrollbar-track', '#1a1114');
+                    root.style.setProperty('--scrollbar-thumb', '#6e3844');
+                    root.style.setProperty('--scrollbar-thumb-hover', '#8e4854');
+                } else if (selectedTheme === 'noir') {
+                    root.style.setProperty('--scrollbar-track', '#1a1f1a');
+                    root.style.setProperty('--scrollbar-thumb', '#384438');
+                    root.style.setProperty('--scrollbar-thumb-hover', '#4a5a4a');
+                }
+                
+                // Update existing notifications to match new theme
+                if (typeof updateNotificationThemes === 'function') {
+                    updateNotificationThemes(selectedTheme);
+                }
+                
+                // Send message to parent to update theme
+                if (window.parent && window.parent !== window) {
+                    window.parent.postMessage({
+                        type: 'theme-change',
+                        theme: selectedTheme
+                    }, '*');
+                }
+                
+                if (typeof showNotification === 'function') {
+                    showNotification('Theme changed');
+                }
+                console.log('Theme change completed successfully');
+            } catch (error) {
+                console.error('Error in changeTheme function:', error);
+                if (typeof showNotification === 'function') {
+                    showNotification('Theme change error - check console');
+                }
+            }
+        }
+
+        // Load saved values function
+        function loadSavedValues() {
+            // Load transport setting
+            const savedTransport = localStorage.getItem('transportSelect');
+            if (savedTransport) {
+                const transportSelect = document.getElementById('transport-select');
+                if (transportSelect) {
+                    transportSelect.value = savedTransport;
+                    applyTransport(savedTransport);
+                }
+            }
+            
+            // Load cloak setting
+            loadCloakSetting();
+            
+            // Load search engine setting
+            const savedSearchEngine = localStorage.getItem('searchEngineSelect');
+            if (savedSearchEngine) {
+                const searchEngineSelect = document.getElementById('searchengine-select');
+                if (searchEngineSelect) {
+                    searchEngineSelect.value = savedSearchEngine;
+                    applySearchEngine(savedSearchEngine);
+                }
+            }
+            
+            // Load proxy backend setting
+            const savedProxyBackend = localStorage.getItem('proxyBackendSelect');
+            if (savedProxyBackend) {
+                const proxyBackendSelect = document.getElementById('proxy-backend-select');
+                if (proxyBackendSelect) {
+                    proxyBackendSelect.value = savedProxyBackend;
+                    applyProxyBackend(savedProxyBackend);
+                }
+            }
+            
+            // Load theme setting
+            const savedTheme = localStorage.getItem('siteTheme');
+            if (savedTheme) {
+                const themeSelect = document.getElementById('theme-select');
+                if (themeSelect) {
+                    themeSelect.value = savedTheme;
+                }
+            }
+            
+            // Load leave confirmation setting
+            const leaveConfirmation = localStorage.getItem('leaveConfirmation');
+            if (leaveConfirmation === 'true') {
+                const leaveConfirmButton = document.getElementById('leaveconfirmbutton');
+                if (leaveConfirmButton) {
+                    leaveConfirmButton.textContent = 'Disable Leave Confirmation';
+                }
+            }
+        }
+
+        // Transport change function
+        function changeTransport() {
+            const selectedTransport = document.getElementById('transport-select').value;
+            console.log(`Transport changed to: ${selectedTransport}`);
+            localStorage.setItem('transportSelect', selectedTransport);
+            applyTransport(selectedTransport);
+            
+            // Send message to parent
+            if (window.parent && window.parent !== window) {
+                window.parent.postMessage({
+                    type: 'transport-change',
+                    transport: selectedTransport
+                }, '*');
+            }
+            
+            showNotification('Changes saved');
+        }
+
+        function applyTransport(transport) {
+            // Apply transport setting logic here
+            console.log('Applying transport:', transport);
+        }
+
+        // Proxy backend change function
+        function changeProxyBackend() {
+            const selectedBackend = document.getElementById('proxy-backend-select').value;
+            console.log(`Proxy backend changed to: ${selectedBackend}`);
+            localStorage.setItem('proxyBackendSelect', selectedBackend);
+            applyProxyBackend(selectedBackend);
+            
+            // Send message to parent
+            if (window.parent && window.parent !== window) {
+                window.parent.postMessage({
+                    type: 'proxy-backend-change',
+                    backend: selectedBackend
+                }, '*');
+            }
+            
+            showNotification('Changes saved');
+        }
+
+        function applyProxyBackend(backend) {
+            // Apply proxy backend setting logic here
+            console.log('Applying proxy backend:', backend);
+        }
+
+        // Search engine change function
+        function changeSearchEngine() {
+            const selectedEngine = document.getElementById('searchengine-select').value;
+            console.log(`Search engine changed to: ${selectedEngine}`);
+            localStorage.setItem('searchEngineSelect', selectedEngine);
+            applySearchEngine(selectedEngine);
+            
+            // Send message to parent
+            if (window.parent && window.parent !== window) {
+                window.parent.postMessage({
+                    type: 'search-engine-change',
+                    engine: selectedEngine
+                }, '*');
+            }
+            
+            showNotification('Changes saved');
+        }
+
+        function applySearchEngine(engine) {
+            // Apply search engine setting logic here
+            console.log('Applying search engine:', engine);
+        }
+
+        // Leave confirmation function
+        function leaveconfirmation() {
+            const button = document.getElementById('leaveconfirmbutton');
+            const currentState = localStorage.getItem('leaveConfirmation') === 'true';
+            const newState = !currentState;
+            
+            localStorage.setItem('leaveConfirmation', newState.toString());
+            
+            // Update button appearance
+            updateLeaveConfirmButton();
+            
+            showNotification('Changes saved');
+            
+            // Send message to parent
+            if (window.parent && window.parent !== window) {
+                window.parent.postMessage({
+                    type: 'leave-confirmation-change',
+                    enabled: newState
+                }, '*');
+            }
+        }
+        
+        // Function to update leave confirmation button appearance
+        function updateLeaveConfirmButton() {
+            const button = document.getElementById('leaveconfirmbutton');
+            const isLeaveConfirmationEnabled = localStorage.getItem('leaveConfirmation') === 'true';
+            
+            if (button) {
+                if (isLeaveConfirmationEnabled) {
+                    button.textContent = 'Leave Confirmation: ON';
+                } else {
+                    button.textContent = 'Leave Confirmation: OFF';
+                }
+            }
+        }
+
+        let notifications = [];
+
+        // Notification function
+        function showNotification(message) {
+            // Play notification sound
+            let audio = new Audio("/audio/notification.mp3");
+            audio.play().catch(error => console.warn("Audio play failed:", error));
+
+            let notification = document.createElement("div");
+            const theme = localStorage.getItem('siteTheme') || 'moss';
+            notification.className = "notification theme-" + theme;
+            notification.innerText = message;
+            
+            // Set background, text, and border color directly for each theme
+            if (theme === 'moss') {
+                notification.style.background = '#384438';
+                notification.style.color = '#b2c2a8';
+                notification.style.border = '1.5px solid #232b23';
+            } else if (theme === 'midnight') {
+                notification.style.background = '#2a3442';
+                notification.style.color = '#b8c7e0';
+                notification.style.border = '1.5px solid #181c24';
+            } else if (theme === 'rose') {
+                notification.style.background = '#6e3844';
+                notification.style.color = '#e0b8c7';
+                notification.style.border = '1.5px solid #2a1a1f';
+            } else if (theme === 'noir') {
+                notification.style.background = '#444';
+                notification.style.color = '#e0e0e0';
+                notification.style.border = '1.5px solid #181818';
+            }
+
+            // Style the notification
+            Object.assign(notification.style, {
+                position: "fixed",
+                bottom: "20px",
+                right: "20px",
+                padding: "10px 15px",
+                borderRadius: "5px",
+                boxShadow: "0 2px 10px rgba(0,0,0,0.3)",
+                zIndex: "1000",
+                fontSize: "14px",
+                opacity: "1",
+                transition: "opacity 0.5s ease-in-out, transform 0.3s ease-in-out",
+            });
+
+            document.body.appendChild(notification);
+            notifications.push(notification);
+
+            // Adjust position of all notifications
+            notifications.forEach((notif, index) => {
+                notif.style.bottom = `${20 + (notifications.length - 1 - index) * 50}px`;
+            });
+
+            // If more than 3 notifications, remove the top (oldest) one
+            if (notifications.length > 3) {
+                let oldest = notifications.shift();
+                oldest.style.opacity = "0";
+                oldest.style.transform = "translateY(-20px)";
+                setTimeout(() => oldest.remove(), 500);
+            }
+
+            // Remove this notification after 3 seconds
+            setTimeout(() => {
+                if (notifications.includes(notification)) {
+                    notifications = notifications.filter(n => n !== notification);
+                    notification.style.opacity = "0";
+                    notification.style.transform = "translateY(-20px)";
+                    setTimeout(() => notification.remove(), 500);
+                }
+            }, 3000);
+        }
+
+        // Initialize particles.js for modals
+        function initParticles() {
+            try {
+                if (typeof particlesJS !== 'undefined') {
+                    // Check if containers exist before initializing
+                    const keybindContainer = document.getElementById('keybind-particles-js');
+                    const changeNameContainer = document.getElementById('change-name-particles-js');
+                    
+                    // Initialize particles for keybind modal only if container exists
+                    if (keybindContainer) {
+                        particlesJS('keybind-particles-js', {
+                            particles: {
+                                number: { value: 50, density: { enable: true, value_area: 800 } },
+                                color: { value: "#b2c2a8" },
+                                shape: { type: "circle" },
+                                opacity: { value: 0.5, random: false },
+                                size: { value: 3, random: true },
+                                line_linked: {
+                                    enable: true,
+                                    distance: 150,
+                                    color: "#b2c2a8",
+                                    opacity: 0.4,
+                                    width: 1
+                                },
+                                move: {
+                                    enable: true,
+                                    speed: 2,
+                                    direction: "none",
+                                    random: false,
+                                    straight: false,
+                                    out_mode: "out",
+                                    bounce: false
+                                }
+                            },
+                            interactivity: {
+                                detect_on: "canvas",
+                                events: {
+                                    onhover: { enable: true, mode: "repulse" },
+                                    onclick: { enable: true, mode: "push" },
+                                    resize: true
+                                }
+                            },
+                            retina_detect: true
+                        });
+                    }
+
+                    // Initialize particles for change name modal only if container exists
+                    if (changeNameContainer) {
+                        particlesJS('change-name-particles-js', {
+                            particles: {
+                                number: { value: 50, density: { enable: true, value_area: 800 } },
+                                color: { value: "#b2c2a8" },
+                                shape: { type: "circle" },
+                                opacity: { value: 0.5, random: false },
+                                size: { value: 3, random: true },
+                                line_linked: {
+                                    enable: true,
+                                    distance: 150,
+                                    color: "#b2c2a8",
+                                    opacity: 0.4,
+                                    width: 1
+                                },
+                                move: {
+                                    enable: true,
+                                    speed: 2,
+                                    direction: "none",
+                                    random: false,
+                                    straight: false,
+                                    out_mode: "out",
+                                    bounce: false
+                                }
+                            },
+                            interactivity: {
+                                detect_on: "canvas",
+                                events: {
+                                    onhover: { enable: true, mode: "repulse" },
+                                    onclick: { enable: true, mode: "push" },
+                                    resize: true
+                                }
+                            },
+                            retina_detect: true
+                        });
+                    }
+                }
+            } catch (error) {
+                console.warn('Particles initialization error:', error);
+            }
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load saved values and theme
+            loadSavedValues();
+            loadThemeSetting();
+            initParticles();
+            
+            // Update leave confirmation button
+            updateLeaveConfirmButton();
+        });
+
+        // Function to update existing notifications to match new theme
+        function updateNotificationThemes(theme) {
+            const existingNotifications = document.querySelectorAll('.notification');
+            existingNotifications.forEach(notification => {
+                notification.className = 'notification theme-' + theme;
+                
+                // Update inline styles to match new theme
+                if (theme === 'moss') {
+                    notification.style.background = '#384438';
+                    notification.style.color = '#b2c2a8';
+                    notification.style.border = '1.5px solid #232b23';
+                } else if (theme === 'midnight') {
+                    notification.style.background = '#2a3442';
+                    notification.style.color = '#b8c7e0';
+                    notification.style.border = '1.5px solid #181c24';
+                } else if (theme === 'rose') {
+                    notification.style.background = '#6e3844';
+                    notification.style.color = '#e0b8c7';
+                    notification.style.border = '1.5px solid #2a1a1f';
+                } else if (theme === 'noir') {
+                    notification.style.background = '#444';
+                    notification.style.color = '#e0e0e0';
+                    notification.style.border = '1.5px solid #181818';
+                }
+            });
+        }
+
+        // Listen for theme changes from parent
+        window.addEventListener('message', function(event) {
+            if (event.data.type === 'theme-change') {
+                const theme = event.data.theme;
+                document.body.classList.remove('theme-moss', 'theme-midnight', 'theme-rose', 'theme-noir');
+                document.body.classList.add('theme-' + theme);
+                localStorage.setItem('siteTheme', theme);
+                
+                // Apply theme-specific scrollbar colors
+                const root = document.documentElement;
+                if (theme === 'moss') {
+                    root.style.setProperty('--scrollbar-track', '#1a1f1a');
+                    root.style.setProperty('--scrollbar-thumb', '#384438');
+                    root.style.setProperty('--scrollbar-thumb-hover', '#4a5a4a');
+                } else if (theme === 'midnight') {
+                    root.style.setProperty('--scrollbar-track', '#151a22');
+                    root.style.setProperty('--scrollbar-thumb', '#2a3442');
+                    root.style.setProperty('--scrollbar-thumb-hover', '#3a4452');
+                } else if (theme === 'rose') {
+                    root.style.setProperty('--scrollbar-track', '#1a1114');
+                    root.style.setProperty('--scrollbar-thumb', '#6e3844');
+                    root.style.setProperty('--scrollbar-thumb-hover', '#8e4854');
+                } else if (theme === 'noir') {
+                    root.style.setProperty('--scrollbar-track', '#1a1f1a');
+                    root.style.setProperty('--scrollbar-thumb', '#384438');
+                    root.style.setProperty('--scrollbar-thumb-hover', '#4a5a4a');
+                }
+                
+                // Update existing notifications to match new theme
+                updateNotificationThemes(theme);
+                
+                const themeSelect = document.getElementById('theme-select');
+                if (themeSelect) {
+                    themeSelect.value = theme;
+                }
+            }
+        });
+
+        // ===== MODAL FUNCTIONS =====
+        
+        // Keybind Modal Functions
+        function openKeybindModal() {
+            console.log('Opening keybind modal...');
+            const modal = document.getElementById('keybind-modal');
+            modal.style.display = 'flex';
+            modal.classList.add('show');
+            loadKeybindSetting();
+            
+            // Initialize particles for keybind modal with full background coverage
+            const currentTheme = getCurrentTheme();
+            setTimeout(() => {
+                const particleConfigs = {
+                    moss: {
+                        particles: {
+                            number: { value: 80, density: { enable: true, value_area: 800 } },
+                            color: { value: ['#b2c2a8', '#94e2d5', '#a6e3a1', '#89dceb'] },
+                            shape: { type: 'circle' },
+                            opacity: { value: 0.3, random: true, anim: { enable: false, speed: 1, opacity_min: 0.1, sync: false } },
+                            size: { value: 2, random: true, anim: { enable: false, speed: 2, size_min: 1, sync: false } },
+                            line_linked: { enable: true, distance: 150, color: '#b2c2a8', opacity: 0.2, width: 0.5 },
+                            move: { enable: true, speed: 1.5, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
+                        },
+                        interactivity: {
+                            detect_on: 'canvas',
+                            events: {
+                                onhover: { enable: false, mode: 'repulse' },
+                                onclick: { enable: false, mode: 'push' },
+                                resize: true
+                            },
+                            modes: {
+                                grab: { distance: 140, line_linked: { opacity: 1 } },
+                                bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
+                                repulse: { distance: 150, duration: 0.4 },
+                                push: { particles_nb: 4 },
+                                remove: { particles_nb: 2 }
+                            }
+                        },
+                        retina_detect: true
+                    },
+                    midnight: {
+                        particles: {
+                            number: { value: 100, density: { enable: true, value_area: 800 } },
+                            color: { value: ['#b8c7e0', '#81a1c1', '#5e81ac', '#88c0d0'] },
+                            shape: { type: 'circle' },
+                            opacity: { value: 0.4, random: true, anim: { enable: false, speed: 1.5, opacity_min: 0.2, sync: false } },
+                            size: { value: 2.5, random: true, anim: { enable: false, speed: 3, size_min: 1, sync: false } },
+                            line_linked: { enable: true, distance: 140, color: '#b8c7e0', opacity: 0.25, width: 0.5 },
+                            move: { enable: true, speed: 2, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
+                        },
+                        interactivity: {
+                            detect_on: 'canvas',
+                            events: {
+                                onhover: { enable: false, mode: 'grab' },
+                                onclick: { enable: false, mode: 'push' },
+                                resize: true
+                            },
+                            modes: {
+                                grab: { distance: 140, line_linked: { opacity: 1 } },
+                                bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
+                                repulse: { distance: 200, duration: 0.4 },
+                                push: { particles_nb: 4 },
+                                remove: { particles_nb: 2 }
+                            }
+                        },
+                        retina_detect: true
+                    },
+                    rose: {
+                        particles: {
+                            number: { value: 70, density: { enable: true, value_area: 800 } },
+                            color: { value: ['#e0b8c7', '#f38ba8', '#eba0ac', '#f5c2e7'] },
+                            shape: { type: 'circle' },
+                            opacity: { value: 0.35, random: true, anim: { enable: false, speed: 1.2, opacity_min: 0.2, sync: false } },
+                            size: { value: 2.2, random: true, anim: { enable: false, speed: 2.5, size_min: 1, sync: false } },
+                            line_linked: { enable: true, distance: 160, color: '#e0b8c7', opacity: 0.2, width: 0.5 },
+                            move: { enable: true, speed: 1.8, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
+                        },
+                        interactivity: {
+                            detect_on: 'canvas',
+                            events: {
+                                onhover: { enable: false, mode: 'bubble' },
+                                onclick: { enable: false, mode: 'push' },
+                                resize: true
+                            },
+                            modes: {
+                                grab: { distance: 140, line_linked: { opacity: 1 } },
+                                bubble: { distance: 200, size: 40, duration: 2, opacity: 8, speed: 3 },
+                                repulse: { distance: 200, duration: 0.4 },
+                                push: { particles_nb: 4 },
+                                remove: { particles_nb: 2 }
+                            }
+                        },
+                        retina_detect: true
+                    },
+                    noir: {
+                        particles: {
+                            number: { value: 60, density: { enable: true, value_area: 800 } },
+                            color: { value: ['#e0e0e0', '#c0c0c0', '#a0a0a0', '#808080'] },
+                            shape: { type: 'circle' },
+                            opacity: { value: 0.25, random: true, anim: { enable: false, speed: 1, opacity_min: 0.1, sync: false } },
+                            size: { value: 1.8, random: true, anim: { enable: false, speed: 3, size_min: 1, sync: false } },
+                            line_linked: { enable: true, distance: 180, color: '#e0e0e0', opacity: 0.15, width: 0.5 },
+                            move: { enable: true, speed: 1.2, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
+                        },
+                        interactivity: {
+                            detect_on: 'canvas',
+                            events: {
+                                onhover: { enable: false, mode: 'repulse' },
+                                onclick: { enable: false, mode: 'push' },
+                                resize: true
+                            },
+                            modes: {
+                                grab: { distance: 140, line_linked: { opacity: 1 } },
+                                bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
+                                repulse: { distance: 180, duration: 0.4 },
+                                push: { particles_nb: 4 },
+                                remove: { particles_nb: 2 }
+                            }
+                        },
+                        retina_detect: true
+                    }
+                };
+                
+                // Clean up any previous particles
+                if (typeof pJSDom !== 'undefined' && pJSDom.length > 0) {
+                    for (let i = pJSDom.length - 1; i >= 0; i--) {
+                        if (pJSDom[i].pJS && pJSDom[i].pJS.canvas && pJSDom[i].pJS.canvas.el && 
+                            pJSDom[i].pJS.canvas.el.id === 'keybind-particles-js') {
+                            pJSDom[i].pJS.fn.vendors.destroypJS();
+                            pJSDom.splice(i, 1);
+                            break;
+                        }
+                    }
+                }
+                
+                // Initialize particles
+                if (typeof particlesJS !== 'undefined') {
+                    particlesJS('keybind-particles-js', particleConfigs[currentTheme]);
+                }
+            }, 50);
+        }
+        
+        function closeKeybindModal() {
+            const modal = document.getElementById('keybind-modal');
+            modal.classList.remove('show');
+            modal.style.display = 'none';
+            
+            // Clean up particles
+            if (typeof pJSDom !== 'undefined' && pJSDom.length > 0) {
+                for (let i = pJSDom.length - 1; i >= 0; i--) {
+                    if (pJSDom[i].pJS && pJSDom[i].pJS.canvas && pJSDom[i].pJS.canvas.el && 
+                        pJSDom[i].pJS.canvas.el.id === 'keybind-particles-js') {
+                        pJSDom[i].pJS.fn.vendors.destroypJS();
+                        pJSDom.splice(i, 1);
+                        break;
+                    }
+                }
+            }
+        }
+        
+        function loadKeybindSetting() {
+            const savedKey = localStorage.getItem('redirectKey');
+            const savedUrl = localStorage.getItem('redirectUrl');
+            const keybindDisplay = document.getElementById('keybind-display');
+            const keybindUrl = document.getElementById('keybind-url');
+            
+            if (savedKey) {
+                keybindDisplay.textContent = `Key: ${savedKey}`;
+            } else {
+                keybindDisplay.textContent = 'No key bound';
+            }
+            
+            if (savedUrl) {
+                keybindUrl.value = savedUrl;
+            } else {
+                keybindUrl.value = 'https://www.google.com';
+            }
+            
+            // Add keydown event listener for key binding
+            keybindDisplay.addEventListener('click', function() {
+                keybindDisplay.textContent = 'Press a key...';
+                keybindDisplay.style.borderColor = '#b2c2a8';
+                
+                function handleKeydown(e) {
+                    e.preventDefault();
+                    if (e.key === 'Escape') {
+                        keybindDisplay.textContent = 'No key bound';
+                        keybindDisplay.style.borderColor = '#384438';
+                        document.removeEventListener('keydown', handleKeydown);
+                        return;
+                    }
+                    
+                    keybindDisplay.textContent = `Key: ${e.key}`;
+                    keybindDisplay.style.borderColor = '#384438';
+                    document.removeEventListener('keydown', handleKeydown);
+                }
+                
+                document.addEventListener('keydown', handleKeydown);
+            });
+        }
+        
+        function applyKeybind() {
+            const keybindDisplay = document.getElementById('keybind-display');
+            const keybindUrl = document.getElementById('keybind-url');
+            
+            if (keybindDisplay.textContent !== 'No key bound') {
+                const key = keybindDisplay.textContent.replace('Key: ', '');
+                localStorage.setItem('redirectKey', key);
+                localStorage.setItem('redirectUrl', keybindUrl.value);
+                showNotification('Changes saved');
+                closeKeybindModal();
+            } else {
+                alert('Please bind a key first!');
+            }
+        }
+        
+        function resetKeybind() {
+            localStorage.removeItem('redirectKey');
+            localStorage.removeItem('redirectUrl');
+            document.getElementById('keybind-display').textContent = 'No key bound';
+            document.getElementById('keybind-url').value = 'https://www.google.com';
+            showNotification('Changes saved');
+        }
+        
+        // Change Name Modal Functions
+        function openChangeNameModal() {
+            console.log('Opening change name modal...');
+            const modal = document.getElementById('change-name-modal');
+            modal.style.display = 'flex';
+            modal.classList.add('show');
+            const currentName = localStorage.getItem('userName') || '';
+            document.getElementById('change-name-input').value = currentName;
+            
+            // Initialize particles for change name modal with full background coverage
+            const currentTheme = getCurrentTheme();
+            setTimeout(() => {
+                const particleConfigs = {
+                    moss: {
+                        particles: {
+                            number: { value: 80, density: { enable: true, value_area: 800 } },
+                            color: { value: ['#b2c2a8', '#94e2d5', '#a6e3a1', '#89dceb'] },
+                            shape: { type: 'circle' },
+                            opacity: { value: 0.3, random: true, anim: { enable: false, speed: 1, opacity_min: 0.1, sync: false } },
+                            size: { value: 2, random: true, anim: { enable: false, speed: 2, size_min: 1, sync: false } },
+                            line_linked: { enable: true, distance: 150, color: '#b2c2a8', opacity: 0.2, width: 0.5 },
+                            move: { enable: true, speed: 1.5, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
+                        },
+                        interactivity: {
+                            detect_on: 'canvas',
+                            events: {
+                                onhover: { enable: false, mode: 'repulse' },
+                                onclick: { enable: false, mode: 'push' },
+                                resize: true
+                            },
+                            modes: {
+                                grab: { distance: 140, line_linked: { opacity: 1 } },
+                                bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
+                                repulse: { distance: 150, duration: 0.4 },
+                                push: { particles_nb: 4 },
+                                remove: { particles_nb: 2 }
+                            }
+                        },
+                        retina_detect: true
+                    },
+                    midnight: {
+                        particles: {
+                            number: { value: 100, density: { enable: true, value_area: 800 } },
+                            color: { value: ['#b8c7e0', '#81a1c1', '#5e81ac', '#88c0d0'] },
+                            shape: { type: 'circle' },
+                            opacity: { value: 0.4, random: true, anim: { enable: false, speed: 1.5, opacity_min: 0.2, sync: false } },
+                            size: { value: 2.5, random: true, anim: { enable: false, speed: 4, size_min: 1, sync: false } },
+                            line_linked: { enable: true, distance: 140, color: '#b8c7e0', opacity: 0.25, width: 0.5 },
+                            move: { enable: true, speed: 2, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
+                        },
+                        interactivity: {
+                            detect_on: 'canvas',
+                            events: {
+                                onhover: { enable: false, mode: 'grab' },
+                                onclick: { enable: false, mode: 'push' },
+                                resize: true
+                            },
+                            modes: {
+                                grab: { distance: 140, line_linked: { opacity: 1 } },
+                                bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
+                                repulse: { distance: 200, duration: 0.4 },
+                                push: { particles_nb: 4 },
+                                remove: { particles_nb: 2 }
+                            }
+                        },
+                        retina_detect: true
+                    },
+                    rose: {
+                        particles: {
+                            number: { value: 70, density: { enable: true, value_area: 800 } },
+                            color: { value: ['#e0b8c7', '#f38ba8', '#eba0ac', '#f5c2e7'] },
+                            shape: { type: 'circle' },
+                            opacity: { value: 0.35, random: true, anim: { enable: false, speed: 1.2, opacity_min: 0.2, sync: false } },
+                            size: { value: 2.2, random: true, anim: { enable: false, speed: 2.5, size_min: 1, sync: false } },
+                            line_linked: { enable: true, distance: 160, color: '#e0b8c7', opacity: 0.2, width: 0.5 },
+                            move: { enable: true, speed: 1.8, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
+                        },
+                        interactivity: {
+                            detect_on: 'canvas',
+                            events: {
+                                onhover: { enable: false, mode: 'bubble' },
+                                onclick: { enable: false, mode: 'push' },
+                                resize: true
+                            },
+                            modes: {
+                                grab: { distance: 140, line_linked: { opacity: 1 } },
+                                bubble: { distance: 200, size: 40, duration: 2, opacity: 8, speed: 3 },
+                                repulse: { distance: 200, duration: 0.4 },
+                                push: { particles_nb: 4 },
+                                remove: { particles_nb: 2 }
+                            }
+                        },
+                        retina_detect: true
+                    },
+                    noir: {
+                        particles: {
+                            number: { value: 60, density: { enable: true, value_area: 800 } },
+                            color: { value: ['#e0e0e0', '#c0c0c0', '#a0a0a0', '#808080'] },
+                            shape: { type: 'circle' },
+                            opacity: { value: 0.25, random: true, anim: { enable: false, speed: 1, opacity_min: 0.1, sync: false } },
+                            size: { value: 1.8, random: true, anim: { enable: false, speed: 3, size_min: 1, sync: false } },
+                            line_linked: { enable: true, distance: 180, color: '#e0e0e0', opacity: 0.15, width: 0.5 },
+                            move: { enable: true, speed: 1.2, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
+                        },
+                        interactivity: {
+                            detect_on: 'canvas',
+                            events: {
+                                onhover: { enable: false, mode: 'repulse' },
+                                onclick: { enable: false, mode: 'push' },
+                                resize: true
+                            },
+                            modes: {
+                                grab: { distance: 140, line_linked: { opacity: 1 } },
+                                bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
+                                repulse: { distance: 180, duration: 0.4 },
+                                push: { particles_nb: 4 },
+                                remove: { particles_nb: 2 }
+                            }
+                        },
+                        retina_detect: true
+                    }
+                };
+                
+                // Clean up any previous particles
+                if (typeof pJSDom !== 'undefined' && pJSDom.length > 0) {
+                    for (let i = pJSDom.length - 1; i >= 0; i--) {
+                        if (pJSDom[i].pJS && pJSDom[i].pJS.canvas && pJSDom[i].pJS.canvas.el && 
+                            pJSDom[i].pJS.canvas.el.id === 'change-name-particles-js') {
+                            pJSDom[i].pJS.fn.vendors.destroypJS();
+                            pJSDom.splice(i, 1);
+                            break;
+                        }
+                    }
+                }
+                
+                // Initialize particles
+                if (typeof particlesJS !== 'undefined') {
+                    particlesJS('change-name-particles-js', particleConfigs[currentTheme]);
+                }
+            }, 50);
+        }
+        
+        function closeChangeNameModal() {
+            const modal = document.getElementById('change-name-modal');
+            modal.classList.remove('show');
+            modal.style.display = 'none';
+            document.getElementById('change-name-input').value = '';
+            
+            // Clean up particles
+            if (typeof pJSDom !== 'undefined' && pJSDom.length > 0) {
+                for (let i = pJSDom.length - 1; i >= 0; i--) {
+                    if (pJSDom[i].pJS && pJSDom[i].pJS.canvas && pJSDom[i].pJS.canvas.el && 
+                        pJSDom[i].pJS.canvas.el.id === 'change-name-particles-js') {
+                        pJSDom[i].pJS.fn.vendors.destroypJS();
+                        pJSDom.splice(i, 1);
+                        break;
+                    }
+                }
+            }
+        }
+        
+        function applyChangeName() {
+            const newName = document.getElementById('change-name-input').value.trim();
+            if (newName) {
+                localStorage.setItem('userName', newName);
+                showNotification('Changes saved');
+                closeChangeNameModal();
+            } else {
+                alert('Please enter a name!');
+            }
+        }
+
+        // Load settings on page load
+        window.addEventListener('load', function() {
+            // Theme is already loaded in DOMContentLoaded
+        });
+
+    </script>
+</body>
+</html> 

@@ -157,6 +157,59 @@ window.addEventListener("load", function() {
   document.body.classList.add('theme-' + savedTheme);
 })();
 
+// Listen for theme changes from other pages
+window.addEventListener('message', function(event) {
+    if (event.data.type === 'theme-change') {
+        const theme = event.data.theme;
+        console.log('Apps.js: Received theme change message:', theme);
+        document.body.classList.remove('theme-moss', 'theme-midnight', 'theme-solarized', 'theme-rose', 'theme-noir');
+        document.body.classList.add('theme-' + theme);
+        
+        // Update existing notifications to match new theme
+        updateNotificationThemes(theme);
+    }
+});
+
+// Listen for storage changes (when theme is changed in another tab/window)
+window.addEventListener('storage', function(event) {
+    if (event.key === 'siteTheme') {
+        const theme = event.newValue || 'moss';
+        console.log('Apps.js: Theme changed in storage:', theme);
+        document.body.classList.remove('theme-moss', 'theme-midnight', 'theme-solarized', 'theme-rose', 'theme-noir');
+        document.body.classList.add('theme-' + theme);
+        
+        // Update existing notifications to match new theme
+        updateNotificationThemes(theme);
+    }
+});
+
+// Function to update existing notifications to match new theme
+function updateNotificationThemes(theme) {
+    const notifications = document.querySelectorAll('.notification');
+    notifications.forEach(notification => {
+        notification.className = 'notification theme-' + theme;
+        
+        // Update inline styles to match new theme
+        if (theme === 'moss') {
+            notification.style.background = '#384438';
+            notification.style.color = '#b2c2a8';
+            notification.style.border = '1.5px solid #232b23';
+        } else if (theme === 'midnight') {
+            notification.style.background = '#2a3442';
+            notification.style.color = '#b8c7e0';
+            notification.style.border = '1.5px solid #181c24';
+        } else if (theme === 'rose') {
+            notification.style.background = '#6e3844';
+            notification.style.color = '#e0b8c7';
+            notification.style.border = '1.5px solid #2a1a1f';
+        } else if (theme === 'noir') {
+            notification.style.background = '#444';
+            notification.style.color = '#e0e0e0';
+            notification.style.border = '1.5px solid #181818';
+        }
+    });
+}
+
 // Modal functions for adding custom apps
 function openAddAppModal() {
     document.getElementById('add-app-modal').style.display = 'flex';

@@ -21,25 +21,29 @@ function changeCloak() {
 
 // Function to apply the cloaking based on the selected option
 function applyCloak(option) {
-    console.log(`Applying cloak: ${option}`);  // Debugging line to check what option is being applied
-    switch(option) {
-        case 'Google':
-            chemical.setStore("title", "Google");
-            chemical.setStore("icon", "../img/google.ico");
-            break;
-        case 'Gmail':
-            chemical.setStore("title", "Inbox (236) - s372126@student.roundrockisd.org - Gmail");
-            chemical.setStore("icon", "../img/gmail.ico");
-            break;
-        case 'Google Drive':
-            chemical.setStore("title", "My Drive - Google Drive");
-            chemical.setStore("icon", "../img/drive.png");
-            break;
-        case 'Default':
-        default:
-            chemical.setStore("title", "Malachite");
-            // Don't set icon for Default - let main.js handle theme favicon
-            break;
+    if (typeof chemical !== 'undefined' && chemical.setStore) {
+        if (option === 'Google') {
+            chemical.setStore('title', 'Google');
+            chemical.setStore('icon', 'img/google.ico');
+        } else if (option === 'Gmail') {
+            chemical.setStore('title', 'Gmail');
+            chemical.setStore('icon', 'img/gmail.ico');
+        } else if (option === 'Google Drive') {
+            chemical.setStore('title', 'My Drive - Google Drive');
+            chemical.setStore('icon', 'img/drive.png');
+        } else if (option === 'Schoology') {
+            chemical.setStore('title', 'Home | Schoology');
+            chemical.setStore('icon', 'img/schoology.ico');
+        } else if (option === 'iReady') {
+            chemical.setStore('title', 'i-Ready Dashboard');
+            chemical.setStore('icon', 'img/iready.ico');
+        } else if (option === 'Clever') {
+            chemical.setStore('title', 'Clever | Portal');
+            chemical.setStore('icon', 'img/clever.ico');
+        } else {
+            chemical.setStore('title', 'Malachite');
+            chemical.setStore('icon', 'img/favicon.ico');
+        }
     }
 }
 
@@ -168,9 +172,17 @@ function loadSavedValues() {
     if (themeSelect) {
         themeSelect.value = savedTheme;
     }
+
+    // Load proxy backend setting
+    const savedProxyBackend = localStorage.getItem('proxyBackendSelect');
+    if (savedProxyBackend) {
+        const proxyBackendSelect = document.getElementById('proxy-backend-select');
+        if (proxyBackendSelect) {
+            proxyBackendSelect.value = savedProxyBackend;
+            applyProxyBackend(savedProxyBackend);
+        }
+    }
 }
-
-
 
 function autoab() {
     // Check if 'autoab' is active in localStorage
@@ -194,6 +206,14 @@ function autoab() {
 function updateButtonState() {
     let button = document.getElementById('autoabbutton'); // Get the specific button by ID
     let isActive = localStorage.getItem('autoab') === 'true';
+    
+    if (button) {
+        if (isActive) {
+            button.textContent = 'Automatic About:Blank: ON';
+        } else {
+            button.textContent = 'Automatic About:Blank: OFF';
+        }
+    }
 }
 
 // On page load, check authentication and update button state
@@ -244,6 +264,22 @@ function applySearchEngine(option) {
         console.log("Using DuckDuckGo search");
         localStorage.setItem('searchEngineSelect', 'duckduckgo');  // Save the selected option to localStorage
         localStorage.setItem('searchEngineSelectUrl', 'https://www.duckduckgo.com/?q=%s');
+    } else if (option === 'bing') {
+        console.log("Using Bing search");
+        localStorage.setItem('searchEngineSelect', 'bing');  // Save the selected option to localStorage
+        localStorage.setItem('searchEngineSelectUrl', 'https://www.bing.com/search?q=%s');
+    } else if (option === 'brave') {
+        console.log("Using Brave Search");
+        localStorage.setItem('searchEngineSelect', 'brave');  // Save the selected option to localStorage
+        localStorage.setItem('searchEngineSelectUrl', 'https://search.brave.com/search?q=%s');
+    } else if (option === 'startpage') {
+        console.log("Using Startpage search");
+        localStorage.setItem('searchEngineSelect', 'startpage');  // Save the selected option to localStorage
+        localStorage.setItem('searchEngineSelectUrl', 'https://www.startpage.com/sp/search?query=%s');
+    } else if (option === 'ecosia') {
+        console.log("Using Ecosia search");
+        localStorage.setItem('searchEngineSelect', 'ecosia');  // Save the selected option to localStorage
+        localStorage.setItem('searchEngineSelectUrl', 'https://www.ecosia.org/search?q=%s');
     } else if (option === 'yahoo') {
         console.log("Using Yahoo search");
         localStorage.setItem('searchEngineSelect', 'yahoo');  // Save the selected option to localStorage
@@ -262,10 +298,10 @@ function loadSearchEngineSetting() {
             applySearchEngine(savedSearchEngineOption); // Apply the saved option
         }
     } else {
-        // If no saved option, fallback to 'google' by default
+        // If no saved option, fallback to 'duckduckgo' by default
         const selectElement = document.getElementById('searchengine-select');
         if (selectElement) {
-            selectElement.value = 'duckduckgo'; // Set default to Google
+            selectElement.value = 'duckduckgo'; // Set default to DuckDuckGo
             applySearchEngine('duckduckgo'); // Apply the default value
         }
     }
@@ -282,10 +318,15 @@ function loadThemeSetting() {
         selectElement.value = savedTheme;
         console.log(`Theme dropdown set to: ${savedTheme}`);
     }
+    
+    // Actually apply the saved theme to the page
+    applyTheme(savedTheme);
+    console.log(`Loaded and applied theme: ${savedTheme}`);
 }
 
-// Load the theme setting on page load
-window.addEventListener('load', loadThemeSetting);
+// Load the theme setting immediately and on page load
+loadThemeSetting(); // Load immediately
+window.addEventListener('load', loadThemeSetting); // Also load on full page load as backup
 
 function leaveconfirmation() {
     let button = document.getElementById('leaveconfirmbutton');
@@ -304,10 +345,19 @@ function leaveconfirmation() {
 function updateLeaveConfirmButton() {
     let button = document.getElementById('leaveconfirmbutton');
     let isLeaveConfirmationEnabled = localStorage.getItem('leaveConfirmation') === 'true';
+    
+    if (button) {
+        if (isLeaveConfirmationEnabled) {
+            button.textContent = 'Leave Confirmation: ON';
+        } else {
+            button.textContent = 'Leave Confirmation: OFF';
+        }
+    }
 }
 
 // Ensure the button has the correct color when the settings page loads
-window.addEventListener('load', updateLeaveConfirmButton);
+updateLeaveConfirmButton(); // Load immediately
+window.addEventListener('load', updateLeaveConfirmButton); // Also load on full page load as backup
 
 let notifications = [];
 
@@ -384,6 +434,9 @@ function showNotification(message) {
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Setting up basic dropdowns');
     
+    // Load theme immediately when DOM is ready
+    loadThemeSetting();
+    
     // Basic dropdown event listeners
     document.getElementById("transport-select")?.addEventListener("change", function() {
         const value = this.value;
@@ -409,14 +462,56 @@ document.addEventListener('DOMContentLoaded', function() {
         showNotification('Changes saved');
     });
     
+    document.getElementById("proxy-backend-select")?.addEventListener("change", function() {
+        const value = this.value;
+        applyProxyBackend(value);
+        showNotification('Changes saved');
+    });
+    
     document.getElementById("theme-select")?.addEventListener("change", function() {
         const value = this.value;
         applyTheme(value);
         showNotification('Changes saved');
     });
     
+    // Listen for theme changes from other pages
+    window.addEventListener('message', function(event) {
+        if (event.data.type === 'theme-change') {
+            const theme = event.data.theme;
+            console.log('Settings.js: Received theme change message:', theme);
+            applyTheme(theme);
+            
+            // Update theme selector to match
+            const themeSelect = document.getElementById('theme-select');
+            if (themeSelect) {
+                themeSelect.value = theme;
+            }
+        }
+    });
+    
+    // Listen for storage changes (when theme is changed in another tab/window)
+    window.addEventListener('storage', function(event) {
+        if (event.key === 'siteTheme') {
+            const theme = event.newValue || 'moss';
+            console.log('Settings.js: Theme changed in storage:', theme);
+            applyTheme(theme);
+            
+            // Update theme selector to match
+            const themeSelect = document.getElementById('theme-select');
+            if (themeSelect) {
+                themeSelect.value = theme;
+            }
+        }
+    });
+    
     // Load saved values
     loadSavedValues();
+    
+    // Update leave confirmation button
+    updateLeaveConfirmButton();
+    
+    // Update automatic about:blank button
+    updateButtonState();
 });
 
 let selectedKey = localStorage.getItem("redirectKey");
@@ -588,8 +683,6 @@ function resetKeybind() {
     // Close the modal
     closeKeybindModal();
 }
-
-
 
 function openCredentialsModal() {
     console.log('Opening credentials modal...');
@@ -1037,32 +1130,25 @@ function resetCredentials() {
 })();
 
 function changeTheme() {
-    const selectedTheme = document.getElementById('theme-select').value;
-    console.log(`Theme changed to: ${selectedTheme}`);
-    
-    // TEMPORARILY DISABLE THEME CHANGE TO TEST DROPDOWNS
-    console.log('Theme change temporarily disabled for testing');
-    showNotification('Theme change temporarily disabled');
-    
-    /*
-    // Debug: Check dropdowns before theme change
-    console.log('Dropdowns before theme change:');
-    console.log('Transport select:', document.getElementById('transport-select'));
-    console.log('Cloak select:', document.getElementById('cloak-select'));
-    console.log('Search engine select:', document.getElementById('searchengine-select'));
-    console.log('Theme select:', document.getElementById('theme-select'));
-    
-    applyTheme(selectedTheme); // Apply the selected theme
-    
-    // Debug: Check dropdowns after theme change
-    setTimeout(() => {
-        console.log('Dropdowns after theme change:');
-        console.log('Transport select:', document.getElementById('transport-select'));
-        console.log('Cloak select:', document.getElementById('cloak-select'));
-        console.log('Search engine select:', document.getElementById('searchengine-select'));
-        console.log('Theme select:', document.getElementById('theme-select'));
-    }, 100);
-    */
+    try {
+        const selectedTheme = document.getElementById('theme-select').value;
+        console.log(`Theme changed to: ${selectedTheme}`);
+        
+        // Apply the selected theme
+        applyTheme(selectedTheme);
+        
+        // Debug: Check dropdowns after theme change
+        setTimeout(() => {
+            console.log('Dropdowns after theme change:');
+            console.log('Transport select:', document.getElementById('transport-select'));
+            console.log('Cloak select:', document.getElementById('cloak-select'));
+            console.log('Search engine select:', document.getElementById('searchengine-select'));
+            console.log('Theme select:', document.getElementById('theme-select'));
+        }, 100);
+    } catch (error) {
+        console.error('Error changing theme:', error);
+        showNotification('Error changing theme');
+    }
 }
 
 function updateThemeModals() {
@@ -1128,12 +1214,18 @@ function updateThemeModals() {
 
 // Function to apply the theme
 function applyTheme(theme) {
-    console.log(`Settings.js: Applying theme: ${theme}`);  // Debugging line to check which theme is being applied
-    document.body.classList.remove('theme-moss', 'theme-midnight', 'theme-solarized', 'theme-rose', 'theme-noir');
-    document.body.classList.add('theme-' + theme);
-    localStorage.setItem('siteTheme', theme);
-    // Update theme classes for modals/popups
-    updateThemeModals();
+    try {
+        console.log(`Settings.js: Applying theme: ${theme}`);  // Debugging line to check which theme is being applied
+        document.body.classList.remove('theme-moss', 'theme-midnight', 'theme-rose', 'theme-noir');
+        document.body.classList.add('theme-' + theme);
+        localStorage.setItem('siteTheme', theme);
+        // Update theme classes for modals/popups
+        updateThemeModals();
+        console.log(`Theme ${theme} applied successfully`);
+    } catch (error) {
+        console.error('Error applying theme:', error);
+        throw error;
+    }
 }
 
 // Change Name Modal Logic
@@ -1427,3 +1519,32 @@ document.addEventListener('DOMContentLoaded', function() {
         if (e.key === 'Enter') applyChangeName();
     });
 });
+
+// Function to apply the selected proxy backend
+function applyProxyBackend(option) {
+    console.log(`Applying proxy backend: ${option}`);
+    localStorage.setItem('proxyBackendSelect', option);
+}
+
+// Function to load the saved proxy backend setting from localStorage on page load
+function loadProxyBackendSetting() {
+    const savedProxyBackendOption = localStorage.getItem('proxyBackendSelect');
+
+    if (savedProxyBackendOption) {
+        const selectElement = document.getElementById('proxy-backend-select');
+        if (selectElement) {
+            selectElement.value = savedProxyBackendOption;
+            applyProxyBackend(savedProxyBackendOption);
+        }
+    } else {
+        // If no saved option, fallback to 'uv'
+        const selectElement = document.getElementById('proxy-backend-select');
+        if (selectElement) {
+            selectElement.value = 'uv';
+            applyProxyBackend('uv');
+        }
+    }
+}
+
+// Load the setting on page load
+window.addEventListener('load', loadProxyBackendSetting);

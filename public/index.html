@@ -284,35 +284,15 @@ document.addEventListener('keydown', (event) => {
 				// Get current theme for background
 				const currentTheme = localStorage.getItem('siteTheme') || 'moss';
 				
-				// Theme-specific background gradients
+				// Theme-specific background colors
 				const themeBackgrounds = {
-					moss: `
-						radial-gradient(circle at 20% 80%, rgba(178, 194, 168, 0.08) 0%, transparent 50%),
-						radial-gradient(circle at 80% 20%, rgba(148, 226, 213, 0.08) 0%, transparent 50%),
-						radial-gradient(circle at 40% 40%, rgba(166, 227, 161, 0.08) 0%, transparent 50%),
-						linear-gradient(45deg, #232b23 0%, #202620 50%, #1e2e1e 100%)
-					`,
-					midnight: `
-						radial-gradient(circle at 20% 80%, rgba(184, 199, 224, 0.08) 0%, transparent 50%),
-						radial-gradient(circle at 80% 20%, rgba(129, 161, 193, 0.08) 0%, transparent 50%),
-						radial-gradient(circle at 40% 40%, rgba(94, 129, 172, 0.08) 0%, transparent 50%),
-						linear-gradient(45deg, #181c24 0%, #151a22 50%, #232a36 100%)
-					`,
-					rose: `
-						radial-gradient(circle at 20% 80%, rgba(235, 188, 186, 0.08) 0%, transparent 50%),
-						radial-gradient(circle at 80% 20%, rgba(243, 139, 168, 0.08) 0%, transparent 50%),
-						radial-gradient(circle at 40% 40%, rgba(245, 194, 231, 0.08) 0%, transparent 50%),
-						linear-gradient(45deg, #2d1b1b 0%, #2a1a1a 50%, #3d1f1f 100%)
-					`,
-					noir: `
-						radial-gradient(circle at 20% 80%, rgba(224, 224, 224, 0.08) 0%, transparent 50%),
-						radial-gradient(circle at 80% 20%, rgba(192, 192, 192, 0.08) 0%, transparent 50%),
-						radial-gradient(circle at 40% 40%, rgba(160, 160, 160, 0.08) 0%, transparent 50%),
-						linear-gradient(45deg, #1a1a1a 0%, #181818 50%, #222222 100%)
-					`
+					moss: '#232b23',
+					midnight: '#181c24',
+					rose: '#2d1b1b',
+					noir: '#1a1a1a'
 				};
 				
-				const backgroundGradient = themeBackgrounds[currentTheme] || themeBackgrounds.moss;
+				const backgroundColor = themeBackgrounds[currentTheme] || themeBackgrounds.moss;
 				
 				overlay.style.cssText = `
 					position: fixed;
@@ -326,9 +306,7 @@ document.addEventListener('keydown', (event) => {
 					z-index: 1000;
 					opacity: 0;
 					transition: opacity 0.25s ease;
-					background: ${backgroundGradient};
-					background-size: 400% 400%;
-					animation: gradient-move 45s ease-in-out infinite alternate;
+					background: ${backgroundColor};
 				`;
 				
 				// Create particles container
@@ -422,21 +400,6 @@ document.addEventListener('keydown', (event) => {
 						to {
 							opacity: 1;
 							transform: translateY(0) scale(1);
-						}
-					}
-					
-					@keyframes gradient-move {
-						0% {
-							background-position: 0% 0%;
-							transform: scale(1);
-						}
-						50% {
-							background-position: 100% 100%;
-							transform: scale(1.05);
-						}
-						100% {
-							background-position: 0% 0%;
-							transform: scale(1);
 						}
 					}
 					
@@ -843,38 +806,8 @@ document.addEventListener('keydown', (event) => {
 				overlay.id = 'changeNameOverlay';
 				overlay.className = 'change-name-modal';
 				
-				// Get current theme for background
+				// Get current theme for styling
 				const currentTheme = localStorage.getItem('siteTheme') || 'moss';
-				
-				// Theme-specific background gradients
-				const themeBackgrounds = {
-					moss: `
-						radial-gradient(circle at 20% 80%, rgba(178, 194, 168, 0.08) 0%, transparent 50%),
-						radial-gradient(circle at 80% 20%, rgba(148, 226, 213, 0.08) 0%, transparent 50%),
-						radial-gradient(circle at 40% 40%, rgba(166, 227, 161, 0.08) 0%, transparent 50%),
-						linear-gradient(45deg, #232b23 0%, #202620 50%, #1e2e1e 100%)
-					`,
-					midnight: `
-						radial-gradient(circle at 20% 80%, rgba(184, 199, 224, 0.08) 0%, transparent 50%),
-						radial-gradient(circle at 80% 20%, rgba(129, 161, 193, 0.08) 0%, transparent 50%),
-						radial-gradient(circle at 40% 40%, rgba(94, 129, 172, 0.08) 0%, transparent 50%),
-						linear-gradient(45deg, #181c24 0%, #151a22 50%, #232a36 100%)
-					`,
-					rose: `
-						radial-gradient(circle at 20% 80%, rgba(235, 188, 186, 0.08) 0%, transparent 50%),
-						radial-gradient(circle at 80% 20%, rgba(243, 139, 168, 0.08) 0%, transparent 50%),
-						radial-gradient(circle at 40% 40%, rgba(245, 194, 231, 0.08) 0%, transparent 50%),
-						linear-gradient(45deg, #2d1b1b 0%, #2a1a1a 50%, #3d1f1f 100%)
-					`,
-					noir: `
-						radial-gradient(circle at 20% 80%, rgba(224, 224, 224, 0.08) 0%, transparent 50%),
-						radial-gradient(circle at 80% 20%, rgba(192, 192, 192, 0.08) 0%, transparent 50%),
-						radial-gradient(circle at 40% 40%, rgba(160, 160, 160, 0.08) 0%, transparent 50%),
-						linear-gradient(45deg, #1a1a1a 0%, #181818 50%, #222222 100%)
-					`
-				};
-				
-				const backgroundGradient = themeBackgrounds[currentTheme] || themeBackgrounds.moss;
 				
 				overlay.style.cssText = `
 					position: fixed;
@@ -888,23 +821,10 @@ document.addEventListener('keydown', (event) => {
 					z-index: 1000;
 					opacity: 0;
 					transition: opacity 0.25s ease;
-					background: ${backgroundGradient};
-					background-size: 400% 400%;
-					animation: gradient-move 45s ease-in-out infinite alternate;
+					background: rgba(0, 0, 0, 0);
 				`;
 				
-				// Create particles container
-				const particlesContainer = document.createElement('div');
-				particlesContainer.id = 'change-name-particles-js';
-				particlesContainer.style.cssText = `
-					position: absolute;
-					top: 0;
-					left: 0;
-					width: 100%;
-					height: 100%;
-					z-index: 1;
-					pointer-events: none;
-				`;
+
 				
 				// Add light overlay
 				const overlayBefore = document.createElement('div');
@@ -980,7 +900,6 @@ document.addEventListener('keydown', (event) => {
 					</div>
 				`;
 				
-				overlay.appendChild(particlesContainer);
 				overlay.appendChild(overlayBefore);
 				overlay.appendChild(modalContent);
 				document.body.appendChild(overlay);
