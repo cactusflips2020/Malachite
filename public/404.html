@@ -59,8 +59,7 @@
 			}
 
 			.home-button {
-				background-color: #1a1f1a;
-				color: var(--text-primary);
+				width: auto;
 				padding: 15px 35px;
 				border: none;
 				border-radius: 8px;
@@ -71,48 +70,41 @@
 				display: inline-block;
 				transition: all 0.4s ease;
 				font-family: 'Montserrat', sans-serif;
+				background: #384438;
 			}
 
 			.home-button:hover {
-				background-color: #2a352a;
+				filter: brightness(1.2);
 				transform: scale(1.01);
 			}
 
-			/* Theme-specific navbar colors */
-			body.theme-moss .home-button {
-				background-color: #1a1f1a;
+			.home-button:focus {
+				outline: none;
+				border: 2px solid #b2c2a8;
+				box-shadow: 0 0 10px rgba(178, 194, 168, 0.3);
 			}
 
-			body.theme-moss .home-button:hover {
-				background-color: #2a352a;
+			/* Theme-specific styling for home button */
+			body.theme-moss .home-button {
+				background: #384438;
+				color: #b2c2a8;
 			}
 
 			body.theme-midnight .home-button {
-				background-color: #151a22;
-			}
-
-			body.theme-midnight .home-button:hover {
-				background-color: #2a3442;
+				background: #151a22;
+				color: #b8c7e0;
+				border: 1.5px solid #2a3442;
 			}
 
 			body.theme-rose .home-button {
-				background-color: #1a1114;
-			}
-
-			body.theme-rose .home-button:hover {
-				background-color: #3a232b;
+				background: #3a232b;
+				color: #e0b8c7;
 			}
 
 			body.theme-noir .home-button {
-				background-color: #1a1f1a;
-			}
-
-			body.theme-noir .home-button:hover {
-				background-color: #2a352a;
-			}
-
-			.home-button:active {
-				transform: translateY(0);
+				background: #111;
+				color: #e0e0e0;
+				border: 1.5px solid #444;
 			}
 
 
@@ -167,5 +159,58 @@
 			</a>
 		</div>
 		<script src="js/main.js" defer></script>
+		<!-- Welcome Back Overlay -->
+		<div id="welcomeBackOverlay" class="welcome-back-overlay">
+			<div class="welcome-back-content">
+				<div class="welcome-back-icon">
+					<i class="fa-solid fa-hand-wave"></i>
+				</div>
+				<div class="welcome-back-title" id="welcomeBackTitle">Welcome Back!</div>
+				<div class="welcome-back-message" id="welcomeBackMessage">Great to see you again!</div>
+			</div>
+		</div>
+		<script>
+			// Slide-in animation function (optional, if you want to use it)
+			function triggerSlideInAnimations() {
+				const slideElements = document.querySelectorAll('.slide-in-element');
+				slideElements.forEach((element, index) => {
+					setTimeout(() => {
+						element.classList.add('animate');
+					}, index * 200); // Stagger the animations by 200ms each
+				});
+			}
+
+			// Welcome back overlay functionality
+			function checkWelcomeBack() {
+				const lastVisit = localStorage.getItem('lastVisit');
+				const currentTime = Date.now();
+				const userName = localStorage.getItem('userName');
+				if (userName && lastVisit && (currentTime - parseInt(lastVisit)) > 30000) {
+					showWelcomeBackOverlay();
+				}
+			}
+			function trackSiteLeave() {
+				localStorage.setItem('lastVisit', Date.now().toString());
+			}
+			window.addEventListener('beforeunload', trackSiteLeave);
+			window.addEventListener('pagehide', trackSiteLeave);
+			function showWelcomeBackOverlay() {
+				const overlay = document.getElementById('welcomeBackOverlay');
+				const title = document.getElementById('welcomeBackTitle');
+				const message = document.getElementById('welcomeBackMessage');
+				const userName = localStorage.getItem('userName');
+				title.textContent = `Welcome Back, ${userName}!`;
+				message.textContent = 'Great to see you again!';
+				overlay.classList.add('show');
+				setTimeout(() => {
+					overlay.classList.remove('show');
+				}, 3000);
+			}
+			document.addEventListener('DOMContentLoaded', () => {
+				setTimeout(() => {
+					checkWelcomeBack();
+				}, 100);
+			});
+		</script>
 	</body>
 </html>
