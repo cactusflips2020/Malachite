@@ -25,6 +25,27 @@ body {
     pointer-events: none;
 }
 
+/* Modal particle containers - ensure they fill the entire modal background */
+#keybind-particles-js,
+#credentials-particles-js,
+#change-name-particles-js {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    z-index: 1 !important;
+    pointer-events: none !important;
+}
+
+/* Ensure modal content is above particles */
+.keybind-content,
+.credentials-modal-content,
+.change-name-modal-content {
+    position: relative !important;
+    z-index: 2 !important;
+}
+
 /* Ensure main content stays above particles */
 body, .navbar, .settings-container, .setting-card {
     position: relative;
@@ -134,7 +155,7 @@ select option {
     color: #b2c2a8;
     margin-bottom: 10px;
 }
-.transport-select:hover, .proxy-backend-select:hover, .searchengine-select:hover, .cloak-select:hover, .theme-select:hover, .setting-button:hover, select:hover {
+.setting-button:hover, select:hover {
     filter: brightness(1.2);
     transform: scale(1.01);
 }
@@ -461,112 +482,6 @@ body.theme-noir .change-name-modal {
 }
 
 /* ===== THEME-SPECIFIC DROPDOWN STYLING ===== */
-
-/* Moss theme dropdowns */
-body.theme-moss .transport-select,
-body.theme-moss .cloak-select,
-body.theme-moss .searchengine-select,
-body.theme-moss .theme-select {
-    background: #384438;
-    color: #b2c2a8;
-    border: 1px solid #232b23;
-}
-
-body.theme-moss .transport-select:focus,
-body.theme-moss .cloak-select:focus,
-body.theme-moss .searchengine-select:focus,
-body.theme-moss .theme-select:focus {
-    border: 2px solid #b2c2a8;
-    box-shadow: 0 0 10px rgba(178, 194, 168, 0.3);
-}
-
-body.theme-moss .transport-select option,
-body.theme-moss .cloak-select option,
-body.theme-moss .searchengine-select option,
-body.theme-moss .theme-select option {
-    background: #384438;
-    color: #b2c2a8;
-}
-
-/* Midnight theme dropdowns */
-body.theme-midnight .transport-select,
-body.theme-midnight .cloak-select,
-body.theme-midnight .searchengine-select,
-body.theme-midnight .theme-select {
-    background: #2a3442;
-    color: #b8c7e0;
-    border: 1px solid #181c24;
-}
-
-body.theme-midnight .transport-select:focus,
-body.theme-midnight .cloak-select:focus,
-body.theme-midnight .searchengine-select:focus,
-body.theme-midnight .theme-select:focus {
-    border: 2px solid #b8c7e0;
-    box-shadow: 0 0 10px rgba(184, 199, 224, 0.3);
-}
-
-body.theme-midnight .transport-select option,
-body.theme-midnight .cloak-select option,
-body.theme-midnight .searchengine-select option,
-body.theme-midnight .theme-select option {
-    background: #2a3442;
-    color: #b8c7e0;
-}
-
-/* Rose theme dropdowns */
-body.theme-rose .transport-select,
-body.theme-rose .cloak-select,
-body.theme-rose .searchengine-select,
-body.theme-rose .theme-select {
-    background: #6e3844;
-    color: #e0b8c7;
-    border: 1px solid #2a1a1f;
-}
-
-body.theme-rose .transport-select:focus,
-body.theme-rose .cloak-select:focus,
-body.theme-rose .searchengine-select:focus,
-body.theme-rose .theme-select:focus {
-    border: 2px solid #e0b8c7;
-    box-shadow: 0 0 10px rgba(224, 184, 199, 0.3);
-}
-
-body.theme-rose .transport-select option,
-body.theme-rose .cloak-select option,
-body.theme-rose .searchengine-select option,
-body.theme-rose .theme-select option {
-    background: #6e3844;
-    color: #e0b8c7;
-}
-
-/* Noir theme dropdowns */
-body.theme-noir .transport-select,
-body.theme-noir .cloak-select,
-body.theme-noir .searchengine-select,
-body.theme-noir .theme-select {
-    background: #444;
-    color: #e0e0e0;
-    border: 1px solid #181818;
-}
-
-body.theme-noir .transport-select:focus,
-body.theme-noir .cloak-select:focus,
-body.theme-noir .searchengine-select:focus,
-body.theme-noir .theme-select:focus {
-    border: 2px solid #e0e0e0;
-    box-shadow: 0 0 10px rgba(224, 224, 224, 0.3);
-}
-
-body.theme-noir .transport-select option,
-body.theme-noir .cloak-select option,
-body.theme-noir .searchengine-select option,
-body.theme-noir .theme-select option {
-    background: #444;
-    color: #e0e0e0;
-}
-
-/* ===== THEME-SPECIFIC DROPDOWN STYLING (SIMPLE) ===== */
 
 /* Moss theme dropdowns */
 body.theme-moss select {

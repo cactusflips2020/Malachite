@@ -40,18 +40,21 @@
 				<span id="main-date" style="font-size: 1em; display: block; margin-bottom: 5px;"></span>
 				<span id="main-greeting" style="font-size: 1.1em; font-style: italic; display: block; margin-bottom: 20px;"></span>
 			</div>
-			<input
-				autofocus
-				spellcheck="false"
-				autocomplete="off"
-				id="search"
-				data-auto-https
-				data-search-engine="https://www.google.com/search?q=%s"
-				placeholder="Search or Enter a URL"
-				is="chemical-input"
-				class="slide-in-element"
-				style="opacity: 0; transform: translateY(-30px);"
-			/>
+			<div class="search-container slide-in-element" style="opacity: 0; transform: translateY(-30px);">
+				<input
+					autofocus
+					spellcheck="false"
+					autocomplete="off"
+					id="search"
+					data-auto-https
+					data-search-engine="https://www.google.com/search?q=%s"
+					placeholder="Search or Enter a URL"
+					is="chemical-input"
+				/>
+				<button id="search-button" onclick="performSearch()" title="Search">
+					<i class="fa-solid fa-search"></i>
+				</button>
+			</div>
   
 			<div id="latency-fps-widget" class="widget-container slide-in-element" style="opacity: 0; transform: translateY(-30px);">
 				Ping: <span id="latency-value">Fetching Ping...</span> | 
@@ -101,6 +104,31 @@ const placeholderTexts = [
   
   // Set the randomly selected placeholder
   document.getElementById('search').placeholder = randomPlaceholder;
+	  </script>
+	  
+	  <script>
+		  // Search button functionality
+		  function performSearch() {
+			  const searchInput = document.getElementById('search');
+			  const query = searchInput.value.trim();
+			  
+			  if (query) {
+				  // Use the chemical-input functionality to handle the search
+				  const event = new Event('keypress');
+				  event.key = 'Enter';
+				  searchInput.dispatchEvent(event);
+			  }
+		  }
+		  
+		  // Add Enter key listener to search input
+		  document.addEventListener('DOMContentLoaded', function() {
+			  const searchInput = document.getElementById('search');
+			  searchInput.addEventListener('keypress', function(event) {
+				  if (event.key === 'Enter') {
+					  performSearch();
+				  }
+			  });
+		  });
 	  </script>
 		<script>
 			let sequence = [];

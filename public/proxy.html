@@ -229,6 +229,9 @@
             <button onclick="chemical.componentAction('reload', 'proxyIframe')">
                 <i class="fa-solid fa-rotate-right"></i>
             </button>
+            <button onclick="goHome()" title="Home">
+                <i class="fa-solid fa-home"></i>
+            </button>
             <button onclick="openInNewTab()" title="Open in New Tab">
                 <i class="fa-solid fa-external-link-alt"></i>
             </button>
@@ -1150,7 +1153,7 @@
             
             if (iframe) {
                 // Load the separate malachite home page
-                iframe.src = '/malachite-home.html';
+                iframe.src = '/home-proxy.html';
                 
                 // Update current tab title to show "Home" and search bar to show "malachite://home"
                 if (activeTabId) {
@@ -1239,6 +1242,37 @@
             }
         }
         
+        // Go to home page
+        function goHome() {
+            const iframe = document.getElementById('proxyIframe');
+            
+            if (iframe) {
+                // Load the home page
+                iframe.src = '/home-proxy.html';
+                
+                // Update current tab title to show "Home" and search bar to show the malachite:// URL
+                if (activeTabId) {
+                    updateCurrentTab("malachite://home", "Home");
+                    
+                    // Keep the malachite://home URL in the search bar
+                    const searchInput = document.getElementById('proxySearch');
+                    if (searchInput) {
+                        searchInput.value = "malachite://home";
+                    }
+                }
+                
+                // Show iframe and hide homepage overlay
+                iframe.style.display = 'block';
+                const homepage = document.getElementById('homepage-overlay');
+                if (homepage) {
+                    homepage.style.display = 'none';
+                }
+                
+                // Set a flag to remember we're on home page
+                localStorage.setItem('currentProxyPage', 'malachite://home');
+            }
+        }
+        
         // Open current proxied URL in about:blank tab
         function openInNewTab() {
             const iframe = document.getElementById('proxyIframe');
@@ -1249,7 +1283,7 @@
                 const currentUrl = iframe.src;
                 
                 // Don't open special pages (home, settings, 404) in new tab
-                if (currentUrl.includes('malachite-home.html') || 
+                if (currentUrl.includes('home-proxy.html') || 
                     currentUrl.includes('settings-proxy.html') || 
                     currentUrl.includes('404-proxy.html')) {
                     console.log('Cannot open special page in new tab');
@@ -1950,6 +1984,8 @@
                 }
             }
         });
+
+
 	</script>
 </body>
 </html>

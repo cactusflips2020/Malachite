@@ -26,7 +26,7 @@ async function onIframeLoad() {
         const iframeUrl = iframe.src;
         
         // Don't update search input for 404 pages, settings pages, or homepage
-        if (iframeUrl.includes('404-proxy.html') || iframeUrl.includes('settings-proxy.html') || iframeUrl.includes('malachite-home.html')) {
+        if (iframeUrl.includes('404-proxy.html') || iframeUrl.includes('settings-proxy.html') || iframeUrl.includes('home-proxy.html')) {
             console.log('Special page detected (404, settings, or homepage), not updating search input');
             
             // For settings page, ensure the search bar shows malachite://settings
@@ -38,7 +38,7 @@ async function onIframeLoad() {
             }
             
             // For homepage, ensure the search bar shows malachite://home
-            if (iframeUrl.includes('malachite-home.html')) {
+            if (iframeUrl.includes('home-proxy.html')) {
                 const searchInput = document.getElementById('proxySearch');
                 if (searchInput) {
                     searchInput.value = "malachite://home";

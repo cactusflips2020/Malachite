@@ -193,16 +193,47 @@
         }
 
         /* Fix reset button colors to match main settings */
-        .keybind-buttons button:nth-child(2),
-        .credentials-buttons button:nth-child(2) {
+        .keybind-buttons button:nth-child(2) {
             background-color: #d20f39 !important;
             transition: all 0.2s;
         }
 
-        .keybind-buttons button:nth-child(2):hover,
-        .credentials-buttons button:nth-child(2):hover {
+        .keybind-buttons button:nth-child(2):hover {
             background-color: #b91c3a !important;
             transform: translateY(-1px);
+        }
+
+        /* Theme-specific reset button styling to ensure consistency */
+        body.theme-moss .keybind-buttons button:nth-child(2) {
+            background-color: #d20f39 !important;
+        }
+
+        body.theme-midnight .keybind-buttons button:nth-child(2) {
+            background-color: #d20f39 !important;
+        }
+
+        body.theme-rose .keybind-buttons button:nth-child(2) {
+            background-color: #d20f39 !important;
+        }
+
+        body.theme-noir .keybind-buttons button:nth-child(2) {
+            background-color: #d20f39 !important;
+        }
+
+        body.theme-moss .keybind-buttons button:nth-child(2):hover {
+            background-color: #b91c3a !important;
+        }
+
+        body.theme-midnight .keybind-buttons button:nth-child(2):hover {
+            background-color: #b91c3a !important;
+        }
+
+        body.theme-rose .keybind-buttons button:nth-child(2):hover {
+            background-color: #b91c3a !important;
+        }
+
+        body.theme-noir .keybind-buttons button:nth-child(2):hover {
+            background-color: #b91c3a !important;
         }
     </style>
 </head>
@@ -258,12 +289,6 @@
             <div class="setting-title">Change Display Name</div>
             <div class="setting-description">Change the name displayed in your greeting.</div>
             <button class="setting-button" onclick="openChangeNameModal()">Change Display Name</button>
-        </div>
-
-        <div class="setting-card">
-            <div class="setting-title">Change Credentials</div>
-            <div class="setting-description">Change your proxy username and password.</div>
-            <button class="setting-button" onclick="openCredentialsModal()">Change Credentials</button>
         </div>
 
         <div class="setting-card">

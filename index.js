@@ -12,8 +12,7 @@ const [app, listen] = new ChemicalServer();
 const port = process.env.PORT || 3000;
 
 // Version and links
-const version = "1.0.0";
-const discord = "https://discord.gg/your-server";
+const version = "1.1.0";
 
 // Server start time for uptime tracking
 const startTime = Date.now();

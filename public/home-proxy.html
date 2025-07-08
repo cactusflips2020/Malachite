@@ -21,18 +21,21 @@
         <span id="main-date" style="font-size: 1em; display: block; margin-bottom: 5px;"></span>
         <span id="main-greeting" style="font-size: 1.1em; font-style: italic; display: block; margin-bottom: 20px;"></span>
     </div>
-    <input
-        autofocus
-        spellcheck="false"
-        autocomplete="off"
-        id="search"
-        data-auto-https
-        data-search-engine="https://www.google.com/search?q=%s"
-        placeholder="Search or Enter a URL"
-        is="chemical-input"
-        class="slide-in-element"
-        style="opacity: 0; transform: translateY(-30px);"
-    />
+    <div class="search-container slide-in-element" style="opacity: 0; transform: translateY(-30px);">
+        <input
+            autofocus
+            spellcheck="false"
+            autocomplete="off"
+            id="search"
+            data-auto-https
+            data-search-engine="https://www.google.com/search?q=%s"
+            placeholder="Search or Enter a URL"
+            is="chemical-input"
+        />
+        <button id="search-button" onclick="handleSearch()">
+            <i class="fa-solid fa-search"></i>
+        </button>
+    </div>
     <div id="latency-fps-widget" class="widget-container slide-in-element" style="opacity: 0; transform: translateY(-30px);">
         Ping: <span id="latency-value">Fetching Ping...</span> | 
         FPS: <span id="fps-value">0</span>

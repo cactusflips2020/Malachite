@@ -5,7 +5,7 @@ const build = new ChemicalBuild({
     default: "uv",
     uv: true,
     scramjet: false,
-    rh: false,
+    rh: true,
 });
 
 build.write();

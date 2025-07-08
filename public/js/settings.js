@@ -10,14 +10,7 @@ if (!localStorage.getItem('password')) localStorage.setItem('password', DEFAULT_
 let tempUsername = localStorage.getItem('username') || DEFAULT_USERNAME;
 let tempPassword = localStorage.getItem('password') || DEFAULT_PASSWORD;
 
-// Function to change the tab cloaking based on the selected option
-function changeCloak() {
-    const selectedCloakOption = document.getElementById('cloak-select').value;
-    localStorage.setItem('tabCloak', selectedCloakOption);  // Save the selected option to localStorage
-    applyCloak(selectedCloakOption);  // Apply the cloaking option
-    console.log(`Saved cloak option: ${selectedCloakOption}`);  // Debugging line
-    showNotification('Changes saved');
-}
+
 
 // Function to apply the cloaking based on the selected option
 function applyCloak(option) {
@@ -88,15 +81,7 @@ function launchab() {
     window.parent.window.location.replace(localStorage.getItem('redirectUrl') || 'https://www.google.com/')
 }
 
-// Function to change the transport based on the selected option
-function changeTransport() {
-    console.log('changeTransport function called');
-    const selectedTransportOption = document.getElementById('transport-select').value;
-    localStorage.setItem('transportSelect', selectedTransportOption);  // Save the selected option to localStorage
-    applyTransport(selectedTransportOption);  // Apply the transport option
-    console.log(`Saved transport option: ${selectedTransportOption}`);  // Debugging line
-    showNotification('Changes saved');
-}
+
 
 // Function to apply the transport based on the selected option
 function applyTransport(option) {
