@@ -95,7 +95,9 @@ listen(port, () => {
     console.log(); // Empty line for spacing
     
     // Server Status Box
-    console.log(createBorder('SERVER STATUS', 'green'));
+    console.log(chalk.green('╔══════════════════════════════════════════════════════════════╗'));
+    console.log(chalk.green('║                        Server Status                         ║'));
+    console.log(chalk.green('╚══════════════════════════════════════════════════════════════╝'));
     console.log(createStatusLine('🌍 Port', port.toString(), 'success'));
     console.log(createStatusLine('📦 Version', version, 'info'));
     console.log(createStatusLine('🔗 URL', `http://localhost:${port}`, 'info'));
@@ -104,7 +106,9 @@ listen(port, () => {
     console.log(); // Empty line for spacing
     
     // System Information Box
-    console.log(createBorder('SYSTEM INFORMATION', 'blue'));
+    console.log(chalk.blue('╔══════════════════════════════════════════════════════════════╗'));
+    console.log(chalk.blue('║                      System Information                      ║'));
+    console.log(chalk.blue('╚══════════════════════════════════════════════════════════════╝'));
     console.log(createStatusLine('⚡ Node.js', sysInfo.nodeVersion, 'success'));
     console.log(createStatusLine('💻 Platform', `${sysInfo.platform} (${sysInfo.arch})`, 'info'));
     console.log(createStatusLine('🧠 Memory', `${sysInfo.memUsage}MB / ${sysInfo.memTotal}MB`, 'warning'));
@@ -112,12 +116,16 @@ listen(port, () => {
     
     console.log(); // Empty line for spacing
     
-    // Quick Actions Box
-    console.log(createBorder('QUICK ACTIONS', 'yellow'));
-    console.log(chalk.yellow('  ⌨️  Press ') + chalk.bold(chalk.red('C')) + chalk.yellow(' to shutdown server'));
-    console.log(chalk.yellow('  📊 Press ') + chalk.bold(chalk.green('S')) + chalk.yellow(' to show stats'));
-    
-    console.log(); // Empty line for spacing
+    // Quick Actions Box - only show if TTY is available
+    if (process.stdin.isTTY) {
+        console.log(chalk.yellow('╔══════════════════════════════════════════════════════════════╗'));
+        console.log(chalk.yellow('║                        QUICK ACTIONS                         ║'));
+        console.log(chalk.yellow('╚══════════════════════════════════════════════════════════════╝'));
+        console.log(chalk.yellow('  ⌨️  Press ') + chalk.bold(chalk.red('C')) + chalk.yellow(' to shutdown server'));
+        console.log(chalk.yellow('  📊 Press ') + chalk.bold(chalk.green('S')) + chalk.yellow(' to show stats'));
+        
+        console.log(); // Empty line for spacing
+    }
     
     // Animated loading indicator
     const loadingFrames = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
@@ -144,13 +152,15 @@ function shutdown() {
     
     // Shutdown animation
     console.log(chalk.red('╔══════════════════════════════════════════════════════════════╗'));
-    console.log(chalk.red('║                    🛑 SHUTTING DOWN 🛑                        ║'));
+    console.log(chalk.red('║                          SHUTTING DOWN                       ║'));
     console.log(chalk.red('╚══════════════════════════════════════════════════════════════╝'));
     
     console.log(); // Empty line for spacing
     
     // Shutdown info box
-    console.log(createBorder('SHUTDOWN INFORMATION', 'red'));
+    console.log(chalk.red('╔══════════════════════════════════════════════════════════════╗'));
+    console.log(chalk.red('║                      SHUTDOWN INFORMATION                    ║'));
+    console.log(chalk.red('╚══════════════════════════════════════════════════════════════╝'));
     console.log(createStatusLine('🕒 Shutdown Time', new Date().toLocaleString(), 'error'));
     console.log(createStatusLine('⏱️  Total Uptime', formatUptime(), 'warning'));
     console.log(createStatusLine('📊 Final Memory', `${Math.round(process.memoryUsage().heapUsed / 1024 / 1024)}MB`, 'info'));
@@ -189,6 +199,6 @@ if (process.stdin.isTTY) {
         }
     });
 } else {
-    console.log(chalk.yellow('⚠️  No TTY detected. Enhanced keyboard controls unavailable.'));
+    console.log(chalk.yellow('⚠️  No TTY detected. Keyboard controls unavailable.'));
 }
 
