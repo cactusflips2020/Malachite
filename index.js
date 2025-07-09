@@ -78,14 +78,18 @@ function shutdown() {
 process.on('SIGINT', () => shutdown());
 process.on('SIGTERM', () => shutdown());
 
-// Handle keyboard input for 'C' key shutdown
-process.stdin.setRawMode(true);
-process.stdin.resume();
-process.stdin.setEncoding('utf8');
+// Handle keyboard input for 'C' key shutdown (only if TTY)
+if (process.stdin.isTTY) {
+    process.stdin.setRawMode(true);
+    process.stdin.resume();
+    process.stdin.setEncoding('utf8');
 
-process.stdin.on('data', (key) => {
-    if (key === 'c' || key === 'C') {
-        shutdown();
-    }
-});
+    process.stdin.on('data', (key) => {
+        if (key === 'c' || key === 'C') {
+            shutdown();
+        }
+    });
+} else {
+    console.log(chalk.yellow('⚠️  No TTY detected. Keyboard shutdown unavailable.'));
+}
 
