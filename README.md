@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="/public/img/mosslogo.png" alt="Malachite Logo" width="200"/>
+  <img src="/public/img/logo.png" alt="Malachite Logo" width="200"/>
   <h1>Malachite v1.1.0</h1>
 </div>
 
