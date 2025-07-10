@@ -1,36 +1,24 @@
-// ===== PROXY PAGE FUNCTIONALITY =====
 
-// ===== LOADING SCREEN MANAGEMENT =====
-
-
-
-// Hide loading screen when page loads
 window.addEventListener('load', function() {
     setTimeout(function() {
         const loadingScreen = document.querySelector('.loading-screen');
         
-        loadingScreen.style.opacity = '0'; // Fade out loading screen
+        loadingScreen.style.opacity = '0';
         
         setTimeout(function() {
-            loadingScreen.style.visibility = 'hidden'; // Hide completely after fade
-        }, 500); // Wait for fade animation to complete
-    }, 1500); // Show loading screen for a bit longer for better UX
+            loadingScreen.style.visibility = 'hidden';
+        }, 500);
+    }, 1500);
 });
 
-// ===== IFRAME URL SYNC =====
-
-// Update search bar with decoded URL when iframe loads
 async function onIframeLoad() {
     const iframe = document.getElementById('proxyIframe');
     const proxySearchInput = document.getElementById('proxySearch');
   
     if (iframe && proxySearchInput) {
-        // Use iframe.src instead of contentWindow.location.href to avoid cross-origin issues
         const iframeUrl = iframe.src;
         
-        // Don't update search input for 404 pages, settings pages, or homepage
         if (iframeUrl.includes('404-proxy.html') || iframeUrl.includes('settings-proxy.html') || iframeUrl.includes('home-proxy.html')) {
-            // For settings page, ensure the search bar shows malachite://settings
             if (iframeUrl.includes('settings-proxy.html')) {
                 const searchInput = document.getElementById('proxySearch');
                 if (searchInput) {
@@ -38,7 +26,6 @@ async function onIframeLoad() {
                 }
             }
             
-            // For homepage, ensure the search bar shows malachite://home
             if (iframeUrl.includes('home-proxy.html')) {
                 const searchInput = document.getElementById('proxySearch');
                 if (searchInput) {
@@ -51,11 +38,9 @@ async function onIframeLoad() {
         const proxyBackend = localStorage.getItem('proxyBackendSelect') || "uv";
   
         try {
-            // Try to decode the URL based on the current proxy backend
             let decodedUrl;
             
             if (proxyBackend === "rh" && typeof chemical !== 'undefined' && chemical.decode) {
-                // For Rammerhead, try to decode with service parameter
                 try {
                     decodedUrl = await chemical.decode(iframeUrl, {
                         service: "rh"
@@ -64,37 +49,29 @@ async function onIframeLoad() {
                     decodedUrl = iframeUrl;
                 }
             } else if (typeof chemical !== 'undefined' && chemical.decode) {
-                // For Ultraviolet, use normal decode
                 decodedUrl = await chemical.decode(iframeUrl);
-            } else {
-                // Fallback to original URL if chemical.decode is not available
+            } else {    
                 decodedUrl = iframeUrl;
             }
             
             proxySearchInput.value = decodedUrl;
         } catch (error) {
             console.error('Error decoding URL:', error);
-            // Fallback to original URL on error
             proxySearchInput.value = iframeUrl;
         }
     }
 }
   
-// Attach load event to iframe
 const iframe = document.getElementById('proxyIframe');
 if (iframe) {
     iframe.onload = function() {
-        // Call the original onIframeLoad function
         onIframeLoad();
         
-        // Show devtools only after iframe has loaded
         if (typeof window.showDevTools === 'function') {
-            // Clear the interval that was hiding devtools
             if (typeof window.clearHideInterval === 'function') {
                 window.clearHideInterval();
             }
             
-            // Show devtools after a short delay to ensure everything is ready
             setTimeout(function() {
                 window.showDevTools();
             }, 1000);
@@ -102,15 +79,11 @@ if (iframe) {
     };
 }
 
-// ===== BREATHING ANIMATION PERSISTENCE =====
-
-// Maintain breathing background animation state across page reloads
 (function() {
     const body = document.body;
     const ANIMATION_NAME = 'breathing-bg';
     const ANIMATION_DURATION = 14; // seconds
     
-    // Restore animation progress from localStorage
     let progress = parseFloat(localStorage.getItem('breathingBgProgress') || '0');
     if (!isNaN(progress)) {
         body.style.animationDelay = `-${progress}s`;
@@ -118,94 +91,59 @@ if (iframe) {
         if (loading) loading.style.animationDelay = `-${progress}s`;
     }
     
-    // Update progress every 100ms
     setInterval(() => {
         const start = performance.timing.navigationStart;
         const now = Date.now();
         let elapsed = ((now - start) / 1000 + progress) % ANIMATION_DURATION;
         
-        // Only update if animation is running
         if (getComputedStyle(body).animationName !== ANIMATION_NAME) return;
         localStorage.setItem('breathingBgProgress', elapsed.toFixed(2));
     }, 100);
 })();
 
-// ===== THEME INITIALIZATION =====
-
-// Function to apply theme-specific scrollbar colors
 function applyThemeScrollbarColors(theme) {
-    const root = document.documentElement;
-    
-    if (theme === 'moss') {
-        root.style.setProperty('--scrollbar-track', '#1a1f1a');
-        root.style.setProperty('--scrollbar-thumb', '#384438');
-        root.style.setProperty('--scrollbar-thumb-hover', '#4a5a4a');
-    } else if (theme === 'midnight') {
-        root.style.setProperty('--scrollbar-track', '#151a22');
-        root.style.setProperty('--scrollbar-thumb', '#2a3442');
-        root.style.setProperty('--scrollbar-thumb-hover', '#3a4452');
-    } else if (theme === 'rose') {
-        root.style.setProperty('--scrollbar-track', '#1a1114');
-        root.style.setProperty('--scrollbar-thumb', '#6e3844');
-        root.style.setProperty('--scrollbar-thumb-hover', '#8e4854');
-    } else if (theme === 'noir') {
-        root.style.setProperty('--scrollbar-track', '#1a1f1a');
-        root.style.setProperty('--scrollbar-thumb', '#384438');
-        root.style.setProperty('--scrollbar-thumb-hover', '#4a5a4a');
-    }
-    
-    // Force a repaint to ensure the scrollbar updates
     const tabsContainer = document.getElementById('tabs-container');
     if (tabsContainer) {
         tabsContainer.style.display = 'none';
-        tabsContainer.offsetHeight; // Force reflow
+        tabsContainer.offsetHeight;
         tabsContainer.style.display = '';
     }
 }
 
-// Apply saved theme on page load
 (function() {
     const savedTheme = localStorage.getItem('siteTheme') || 'moss';
     document.body.classList.remove('theme-moss', 'theme-midnight', 'theme-solarized', 'theme-rose', 'theme-noir');
     document.body.classList.add('theme-' + savedTheme);
     
-    // Apply theme-specific scrollbar colors
     applyThemeScrollbarColors(savedTheme);
 })();
 
-// Listen for theme changes from settings page
 window.addEventListener('message', function(event) {
     if (event.data.type === 'theme-change') {
         const theme = event.data.theme;
-        document.body.classList.remove('theme-moss', 'theme-midnight', 'theme-solarized', 'theme-rose', 'theme-noir');
+        document.body.classList.remove('theme-moss', 'theme-midnight', 'theme-solarized', 'theme-rose', 'theme-noir', 'theme-ocean', 'theme-sunset', 'theme-solar');
         document.body.classList.add('theme-' + theme);
         localStorage.setItem('siteTheme', theme);
         
-        // Apply theme-specific scrollbar colors
         applyThemeScrollbarColors(theme);
     }
 });
 
-// Listen for storage changes (when theme is changed in another tab/window)
 window.addEventListener('storage', function(event) {
     if (event.key === 'siteTheme') {
         const theme = event.newValue || 'moss';
-        document.body.classList.remove('theme-moss', 'theme-midnight', 'theme-solarized', 'theme-rose', 'theme-noir');
+        document.body.classList.remove('theme-moss', 'theme-midnight', 'theme-solarized', 'theme-rose', 'theme-noir', 'theme-ocean', 'theme-sunset', 'theme-solar');
         document.body.classList.add('theme-' + theme);
         
-        // Apply theme-specific scrollbar colors
         applyThemeScrollbarColors(theme);
     }
 });
 
-// Manual theme testing function (can be called from browser console)
 window.testScrollbarTheme = function(theme) {
-    document.body.classList.remove('theme-moss', 'theme-midnight', 'theme-solarized', 'theme-rose', 'theme-noir');
+    document.body.classList.remove('theme-moss', 'theme-midnight', 'theme-solarized', 'theme-rose', 'theme-noir', 'theme-ocean', 'theme-sunset', 'theme-solar');
     document.body.classList.add('theme-' + theme);
     applyThemeScrollbarColors(theme);
 };
-
-// ===== CUSTOM BUTTONS FUNCTIONALITY =====
 
 const customButtonsContainer = document.getElementById('custom-buttons-container');
 
@@ -221,7 +159,6 @@ function renderCustomButtons() {
     if (!customButtonsContainer) return;
     customButtonsContainer.innerHTML = '';
 
-    // Render each custom button
     const buttons = getCustomButtons();
     buttons.forEach((btn, idx) => {
         const card = document.createElement('div');
@@ -238,7 +175,6 @@ function renderCustomButtons() {
         customButtonsContainer.appendChild(card);
     });
 
-    // Add the "+" add button card
     const addCard = document.createElement('div');
     addCard.className = 'add-button-card';
     addCard.innerHTML = `
@@ -251,7 +187,6 @@ function renderCustomButtons() {
 
 window.renderCustomButtons = renderCustomButtons;
 
-// Modal logic
 function openAddButtonModal() {
     document.getElementById('add-button-modal').style.display = 'flex';
 }
@@ -294,16 +229,12 @@ function deleteCustomButton(idx, event) {
 }
 window.deleteCustomButton = deleteCustomButton;
 
-// Render on load
 if (customButtonsContainer) {
     document.addEventListener('DOMContentLoaded', renderCustomButtons);
-    // Also render after slide-in animation
     setTimeout(renderCustomButtons, 1000);
 }
 
-// ===== HIDE DEFAULT ERUDA LAUNCHER ICON =====
 function hideErudaLauncher() {
-    // Hide Eruda launcher button if present
     const erudaLauncher = document.querySelector('.eruda-launcher');
     if (erudaLauncher) {
         erudaLauncher.style.display = 'none';
@@ -311,7 +242,6 @@ function hideErudaLauncher() {
         erudaLauncher.style.opacity = '0';
         erudaLauncher.style.pointerEvents = 'none';
     }
-    // Hide any other Eruda elements that look like launchers
     const altButtons = document.querySelectorAll('[class*="eruda"], [id*="eruda"]');
     altButtons.forEach(btn => {
         if (btn.classList.contains('eruda-launcher')) return;
@@ -324,7 +254,6 @@ function hideErudaLauncher() {
     });
 }
 
-// ===== ERUDA DEVTOOLS TOGGLE BUTTON =====
 let devToolsLoaded = false;
 window.toggleErudaDevtools = function() {
     const proxyIframe = document.getElementById('proxyIframe');
@@ -355,13 +284,12 @@ window.toggleErudaDevtools = function() {
             alert('Cannot access iframe content. Make sure you are on a proxied site.');
         }
     } else {
-        // For main page Eruda
         if (typeof eruda !== 'undefined') {
             if (eruda._isShow) {
                 eruda.hide();
             } else {
                 eruda.show();
-                eruda.get('entryBtn').hide(); // Hide entry button when showing
+                eruda.get('entryBtn').hide();
             }
         } else {
             alert('Eruda devtools not loaded!');

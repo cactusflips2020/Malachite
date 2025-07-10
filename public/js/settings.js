@@ -31,7 +31,7 @@ function applyCloak(option) {
             chemical.setStore('icon', 'img/clever.ico');
         } else {
             chemical.setStore('title', 'Malachite');
-            chemical.setStore('icon', 'img/favicon.ico');
+            chemical.setStore('icon', 'img/favicon.svg');
         }
     }
 }
@@ -287,24 +287,10 @@ function showNotification(message) {
     let notification = document.createElement("div");
     const theme = localStorage.getItem('siteTheme') || 'moss';
     notification.className = "notification theme-" + theme;
-    notification.innerText = message;
-    if (theme === 'moss') {
-        notification.style.background = '#384438';
-        notification.style.color = '#b2c2a8';
-        notification.style.border = '1.5px solid #232b23';
-    } else if (theme === 'midnight') {
-        notification.style.background = '#2a3442';
-        notification.style.color = '#b8c7e0';
-        notification.style.border = '1.5px solid #181c24';
-    } else if (theme === 'rose') {
-        notification.style.background = '#6e3844';
-        notification.style.color = '#e0b8c7';
-        notification.style.border = '1.5px solid #2a1a1f';
-    } else if (theme === 'noir') {
-        notification.style.background = '#444';
-        notification.style.color = '#e0e0e0';
-        notification.style.border = '1.5px solid #181818';
-    }
+    notification.innerText = message;  
+        notification.style.background = 'var(--bg-secondary)';
+        notification.style.color = 'var(--text-primary)';
+        notification.style.border = '1.5px solid var(--border-primary)';
 
     Object.assign(notification.style, {
         position: "fixed",
@@ -559,8 +545,35 @@ function openCredentialsModal() {
     
     setTimeout(() => {
         if (typeof particlesJS !== 'undefined') {
-            const config = particleConfigs[currentTheme] || particleConfigs.moss;
-            particlesJS('credentials-particles-js', config);
+            const getParticleColors = () => {
+                const style = getComputedStyle(document.documentElement);
+                const colors = [
+                    style.getPropertyValue('--particle-color-1').trim(),
+                    style.getPropertyValue('--particle-color-2').trim(),
+                    style.getPropertyValue('--particle-color-3').trim(),
+                    style.getPropertyValue('--particle-color-4').trim()
+                ];
+                
+                return colors.map(color => color || '#b2c2a8');
+            };
+            
+            const getParticleOpacity = () => {
+                const style = getComputedStyle(document.documentElement);
+                return parseFloat(style.getPropertyValue('--particle-opacity').trim()) || 0.3;
+            };
+            
+            const getLineOpacity = () => {
+                const style = getComputedStyle(document.documentElement);
+                return parseFloat(style.getPropertyValue('--particle-line-opacity').trim()) || 0.2;
+            };
+            
+            const getLineColor = () => {
+                const style = getComputedStyle(document.documentElement);
+                const color = style.getPropertyValue('--particle-line-color').trim();
+                return color || '#b2c2a8';
+            };
+            
+            particlesJS('credentials-particles-js', particleConfig);
         } else {
             createSimpleParticles();
         }
@@ -570,14 +583,13 @@ function openCredentialsModal() {
 function createSimpleParticles() {
     const container = document.getElementById('credentials-particles-js');
     if (container) {
-        const currentTheme = localStorage.getItem('siteTheme') || 'moss';
-        const themeColors = {
-            moss: ['#b2c2a8', '#94e2d5', '#a6e3a1', '#89dceb'],
-            midnight: ['#b8c7e0', '#81a1c1', '#5e81ac', '#88c0d0'],
-            rose: ['#e0b8c7', '#f38ba8', '#eba0ac', '#f5c2e7'],
-            noir: ['#e0e0e0', '#c0c0c0', '#a0a0a0', '#808080']
-        };
-        const colors = themeColors[currentTheme] || themeColors.moss;
+        const style = getComputedStyle(document.documentElement);
+        const colors = [
+            style.getPropertyValue('--particle-color-1').trim() || '#b2c2a8',
+            style.getPropertyValue('--particle-color-2').trim() || '#94e2d5',
+            style.getPropertyValue('--particle-color-3').trim() || '#a6e3a1',
+            style.getPropertyValue('--particle-color-4').trim() || '#89dceb'
+        ];
         
         for (let i = 0; i < 50; i++) {
             const particle = document.createElement('div');
@@ -588,7 +600,7 @@ function createSimpleParticles() {
             particle.style.borderRadius = '50%';
             particle.style.left = Math.random() * 100 + '%';
             particle.style.top = Math.random() * 100 + '%';
-            particle.style.opacity = '0.3';
+            particle.style.opacity = style.getPropertyValue('--particle-opacity').trim() || '0.3';
             particle.style.pointerEvents = 'none';
             particle.style.zIndex = '1';
             container.appendChild(particle);
@@ -597,121 +609,37 @@ function createSimpleParticles() {
 }
 
 function initializeKeybindParticles(theme) {
-    const keybindParticleConfigs = {
-        moss: {
-            particles: {
-                number: { value: 35, density: { enable: true, value_area: 800 } },
-                color: { value: ['#b2c2a8', '#94e2d5', '#a6e3a1', '#89dceb'] },
-                shape: { type: 'circle' },
-                opacity: { value: 0.25, random: true, anim: { enable: false, speed: 1, opacity_min: 0.1, sync: false } },
-                size: { value: 1.8, random: true, anim: { enable: false, speed: 2, size_min: 1, sync: false } },
-                line_linked: { enable: true, distance: 180, color: '#b2c2a8', opacity: 0.15, width: 0.5 },
-                move: { enable: true, speed: 1.2, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
-            },
-            interactivity: {
-                detect_on: 'canvas',
-                events: {
-                    onhover: { enable: false, mode: 'repulse' },
-                    onclick: { enable: false, mode: 'push' },
-                    resize: true
-                },
-                modes: {
-                    grab: { distance: 140, line_linked: { opacity: 1 } },
-                    bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
-                    repulse: { distance: 150, duration: 0.4 },
-                    push: { particles_nb: 4 },
-                    remove: { particles_nb: 2 }
-                }
-            },
-            retina_detect: true
-        },
-        midnight: {
-            particles: {
-                number: { value: 40, density: { enable: true, value_area: 800 } },
-                color: { value: ['#b8c7e0', '#81a1c1', '#5e81ac', '#88c0d0'] },
-                shape: { type: 'circle' },
-                opacity: { value: 0.3, random: true, anim: { enable: false, speed: 1.5, opacity_min: 0.2, sync: false } },
-                size: { value: 2, random: true, anim: { enable: false, speed: 3, size_min: 1, sync: false } },
-                line_linked: { enable: true, distance: 160, color: '#b8c7e0', opacity: 0.2, width: 0.5 },
-                move: { enable: true, speed: 1.5, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
-            },
-            interactivity: {
-                detect_on: 'canvas',
-                events: {
-                    onhover: { enable: false, mode: 'grab' },
-                    onclick: { enable: false, mode: 'push' },
-                    resize: true
-                },
-                modes: {
-                    grab: { distance: 140, line_linked: { opacity: 1 } },
-                    bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
-                    repulse: { distance: 200, duration: 0.4 },
-                    push: { particles_nb: 4 },
-                    remove: { particles_nb: 2 }
-                }
-            },
-            retina_detect: true
-        },
-        rose: {
-            particles: {
-                number: { value: 30, density: { enable: true, value_area: 800 } },
-                color: { value: ['#e0b8c7', '#f38ba8', '#eba0ac', '#f5c2e7'] },
-                shape: { type: 'circle' },
-                opacity: { value: 0.28, random: true, anim: { enable: false, speed: 1.2, opacity_min: 0.15, sync: false } },
-                size: { value: 1.9, random: true, anim: { enable: false, speed: 2.2, size_min: 1, sync: false } },
-                line_linked: { enable: true, distance: 200, color: '#e0b8c7', opacity: 0.18, width: 0.5 },
-                move: { enable: true, speed: 1.4, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
-            },
-            interactivity: {
-                detect_on: 'canvas',
-                events: {
-                    onhover: { enable: false, mode: 'bubble' },
-                    onclick: { enable: false, mode: 'push' },
-                    resize: true
-                },
-                modes: {
-                    grab: { distance: 140, line_linked: { opacity: 1 } },
-                    bubble: { distance: 200, size: 40, duration: 2, opacity: 8, speed: 3 },
-                    repulse: { distance: 200, duration: 0.4 },
-                    push: { particles_nb: 4 },
-                    remove: { particles_nb: 2 }
-                }
-            },
-            retina_detect: true
-        },
-        noir: {
-            particles: {
-                number: { value: 25, density: { enable: true, value_area: 800 } },
-                color: { value: ['#e0e0e0', '#c0c0c0', '#a0a0a0', '#808080'] },
-                shape: { type: 'circle' },
-                opacity: { value: 0.2, random: true, anim: { enable: false, speed: 1, opacity_min: 0.1, sync: false } },
-                size: { value: 1.6, random: true, anim: { enable: false, speed: 2.5, size_min: 1, sync: false } },
-                line_linked: { enable: true, distance: 220, color: '#e0e0e0', opacity: 0.12, width: 0.5 },
-                move: { enable: true, speed: 1, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
-            },
-            interactivity: {
-                detect_on: 'canvas',
-                events: {
-                    onhover: { enable: false, mode: 'repulse' },
-                    onclick: { enable: false, mode: 'push' },
-                    resize: true
-                },
-                modes: {
-                    grab: { distance: 140, line_linked: { opacity: 1 } },
-                    bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
-                    repulse: { distance: 180, duration: 0.4 },
-                    push: { particles_nb: 4 },
-                    remove: { particles_nb: 2 }
-                }
-            },
-            retina_detect: true
-        }
+    const getParticleColors = () => {
+        const style = getComputedStyle(document.documentElement);
+        const colors = [
+            style.getPropertyValue('--particle-color-1').trim(),
+            style.getPropertyValue('--particle-color-2').trim(),
+            style.getPropertyValue('--particle-color-3').trim(),
+            style.getPropertyValue('--particle-color-4').trim()
+        ];
+        
+        return colors.map(color => color || '#b2c2a8');
+    };
+    
+    const getParticleOpacity = () => {
+        const style = getComputedStyle(document.documentElement);
+        return parseFloat(style.getPropertyValue('--particle-opacity').trim()) || 0.3;
+    };
+    
+    const getLineOpacity = () => {
+        const style = getComputedStyle(document.documentElement);
+        return parseFloat(style.getPropertyValue('--particle-line-opacity').trim()) || 0.2;
+    };
+    
+    const getLineColor = () => {
+        const style = getComputedStyle(document.documentElement);
+        const color = style.getPropertyValue('--particle-line-color').trim();
+        return color || '#b2c2a8';
     };
     
     setTimeout(() => {
         if (typeof particlesJS !== 'undefined') {
-            const config = keybindParticleConfigs[theme] || keybindParticleConfigs.moss;
-            particlesJS('keybind-particles-js', config);
+            particlesJS('keybind-particles-js', particleConfig);
         } else {
             createSimpleKeybindParticles(theme);
         }
@@ -721,13 +649,13 @@ function initializeKeybindParticles(theme) {
 function createSimpleKeybindParticles(theme) {
     const container = document.getElementById('keybind-particles-js');
     if (container) {
-        const themeColors = {
-            moss: ['#b2c2a8', '#94e2d5', '#a6e3a1', '#89dceb'],
-            midnight: ['#b8c7e0', '#81a1c1', '#5e81ac', '#88c0d0'],
-            rose: ['#e0b8c7', '#f38ba8', '#eba0ac', '#f5c2e7'],
-            noir: ['#e0e0e0', '#c0c0c0', '#a0a0a0', '#808080']
-        };
-        const colors = themeColors[theme] || themeColors.moss;
+        const style = getComputedStyle(document.documentElement);
+        const colors = [
+            style.getPropertyValue('--particle-color-1').trim() || '#b2c2a8',
+            style.getPropertyValue('--particle-color-2').trim() || '#94e2d5',
+            style.getPropertyValue('--particle-color-3').trim() || '#a6e3a1',
+            style.getPropertyValue('--particle-color-4').trim() || '#89dceb'
+        ];
         
         for (let i = 0; i < 40; i++) {
             const particle = document.createElement('div');
@@ -738,7 +666,7 @@ function createSimpleKeybindParticles(theme) {
             particle.style.borderRadius = '50%';
             particle.style.left = Math.random() * 100 + '%';
             particle.style.top = Math.random() * 100 + '%';
-            particle.style.opacity = '0.25';
+            particle.style.opacity = style.getPropertyValue('--particle-opacity').trim() || '0.3';
             particle.style.pointerEvents = 'none';
             particle.style.zIndex = '1';
             container.appendChild(particle);
@@ -853,23 +781,9 @@ function updateThemeModals() {
     const notifications = document.querySelectorAll('.notification');
     notifications.forEach(n => {
         n.className = 'notification theme-' + theme;
-        if (theme === 'moss') {
-            n.style.background = '#384438';
-            n.style.color = '#b2c2a8';
-            n.style.border = '1.5px solid #232b23';
-        } else if (theme === 'midnight') {
-            n.style.background = '#2a3442';
-            n.style.color = '#b8c7e0';
-            n.style.border = '1.5px solid #181c24';
-        } else if (theme === 'rose') {
-            n.style.background = '#6e3844';
-            n.style.color = '#e0b8c7';
-            n.style.border = '1.5px solid #2a1a1f';
-        } else if (theme === 'noir') {
-            n.style.background = '#444';
-            n.style.color = '#e0e0e0';
-            n.style.border = '1.5px solid #181818';
-        }
+        n.style.background = 'var(--bg-secondary)';
+        n.style.color = 'var(--text-primary)';
+        n.style.border = '1.5px solid var(--border-primary)';
     });
     const keybindModal = document.getElementById('keybind-modal');
     if (keybindModal) {
@@ -905,7 +819,7 @@ function updateThemeModals() {
 
 function applyTheme(theme) {
     try {
-        document.body.classList.remove('theme-moss', 'theme-midnight', 'theme-rose', 'theme-noir');
+        document.body.classList.remove('theme-moss', 'theme-midnight', 'theme-rose', 'theme-noir', 'theme-ocean', 'theme-sunset', 'theme-solar');
         document.body.classList.add('theme-' + theme);
         localStorage.setItem('siteTheme', theme);
         updateThemeModals();
@@ -926,61 +840,9 @@ function openChangeNameModal() {
 
     setTimeout(() => {
         const currentTheme = localStorage.getItem('siteTheme') || 'moss';
-        const themeBackgrounds = {
-            moss: `
-                radial-gradient(circle at 20% 80%, rgba(178, 194, 168, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(148, 226, 213, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(166, 227, 161, 0.08) 0%, transparent 50%),
-                linear-gradient(45deg, #232b23 0%, #202620 50%, #1e2e1e 100%)
-            `,
-            midnight: `
-                radial-gradient(circle at 20% 80%, rgba(184, 199, 224, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(129, 161, 193, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(94, 129, 172, 0.08) 0%, transparent 50%),
-                linear-gradient(45deg, #181c24 0%, #151a22 50%, #232a36 100%)
-            `,
-            rose: `
-                radial-gradient(circle at 20% 80%, rgba(235, 188, 186, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(243, 139, 168, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(245, 194, 231, 0.08) 0%, transparent 50%),
-                linear-gradient(45deg, #2d1b1b 0%, #2a1a1a 50%, #3d1f1f 100%)
-            `,
-            noir: `
-                radial-gradient(circle at 20% 80%, rgba(224, 224, 224, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(192, 192, 192, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(160, 160, 160, 0.08) 0%, transparent 50%),
-                linear-gradient(45deg, #1a1a1a 0%, #181818 50%, #222222 100%)
-            `
-        };
-        const themeColors = {
-            moss: {
-                bg: '#2e362e',
-                text: '#b2c2a8',
-                accent: '#b2c2a8',
-                border: '#384438',
-                inputBg: '#384438'
-            },
-            midnight: {
-                bg: '#2a3442',
-                text: '#b8c7e0',
-                accent: '#b8c7e0',
-                border: '#3b4252',
-                inputBg: '#3b4252'
-            },
-            rose: {
-                bg: '#6e3844',
-                text: '#e0b8c7',
-                accent: '#e0b8c7',
-                border: '#8b4d5a',
-                inputBg: '#8b4d5a'
-            },
-            noir: {
-                bg: '#444',
-                text: '#e0e0e0',
-                accent: '#e0e0e0',
-                border: '#555',
-                inputBg: '#555'
-            }
+        modal.style.background = 'var(--modal-overlay)';
+        const getComputedStyle = (property) => {
+            return getComputedStyle(document.documentElement).getPropertyValue(property).trim();
         };
         
         modal.style.background = themeBackgrounds[currentTheme] || themeBackgrounds.moss;
@@ -989,31 +851,30 @@ function openChangeNameModal() {
         
         const content = modal.querySelector('.change-name-modal-content');
         if (content) {
-            const c = themeColors[currentTheme] || themeColors.moss;
-            content.style.backgroundColor = c.bg;
-            content.style.borderColor = c.border;
-            content.style.color = c.text;
+            content.style.backgroundColor = 'var(--modal-bg)';
+            content.style.borderColor = 'var(--modal-border)';
+            content.style.color = 'var(--text-primary)';
             
             const h2 = content.querySelector('h2');
             const p = content.querySelector('p');
-            if (h2) h2.style.color = c.text;
-            if (p) p.style.color = c.text;
+            if (h2) h2.style.color = 'var(--text-primary)';
+            if (p) p.style.color = 'var(--text-primary)';
             
             if (input) {
-                input.style.backgroundColor = c.inputBg;
-                input.style.borderColor = c.accent;
-                input.style.color = c.text;
+                input.style.backgroundColor = 'var(--input-bg)';
+                input.style.borderColor = 'var(--input-border)';
+                input.style.color = 'var(--input-text)';
             }
             
             const buttons = content.querySelectorAll('button');
             if (buttons.length > 0) {
-                buttons[0].style.backgroundColor = c.accent;
-                buttons[0].style.borderColor = c.accent;
-                buttons[0].style.color = c.bg;
+                buttons[0].style.backgroundColor = 'var(--btn-primary)';
+                buttons[0].style.borderColor = 'var(--btn-primary)';
+                buttons[0].style.color = 'var(--btn-text)';
                 if (buttons[1]) {
                     buttons[1].style.backgroundColor = 'transparent';
-                    buttons[1].style.borderColor = c.accent;
-                    buttons[1].style.color = c.text;
+                    buttons[1].style.borderColor = 'var(--btn-secondary)';
+                    buttons[1].style.color = 'var(--text-primary)';
                 }
             }
         }
@@ -1021,117 +882,7 @@ function openChangeNameModal() {
 
     setTimeout(() => {
         const currentTheme = localStorage.getItem('siteTheme') || 'moss';
-        const particleConfigs = {
-            moss: {
-                particles: {
-                    number: { value: 40, density: { enable: true, value_area: 800 } },
-                    color: { value: ['#b2c2a8', '#94e2d5', '#a6e3a1', '#89dceb'] },
-                    shape: { type: 'circle' },
-                    opacity: { value: 0.3, random: true, anim: { enable: false, speed: 1, opacity_min: 0.1, sync: false } },
-                    size: { value: 2, random: true, anim: { enable: false, speed: 2, size_min: 1, sync: false } },
-                    line_linked: { enable: true, distance: 200, color: '#b2c2a8', opacity: 0.2, width: 0.5 },
-                    move: { enable: true, speed: 1.5, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
-                },
-                interactivity: {
-                    detect_on: 'canvas',
-                    events: {
-                        onhover: { enable: false, mode: 'repulse' },
-                        onclick: { enable: false, mode: 'push' },
-                        resize: true
-                    },
-                    modes: {
-                        grab: { distance: 140, line_linked: { opacity: 1 } },
-                        bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
-                        repulse: { distance: 150, duration: 0.4 },
-                        push: { particles_nb: 4 },
-                        remove: { particles_nb: 2 }
-                    }
-                },
-                retina_detect: true
-            },
-            midnight: {
-                particles: {
-                    number: { value: 50, density: { enable: true, value_area: 800 } },
-                    color: { value: ['#b8c7e0', '#81a1c1', '#5e81ac', '#88c0d0'] },
-                    shape: { type: 'circle' },
-                    opacity: { value: 0.4, random: true, anim: { enable: false, speed: 1.5, opacity_min: 0.2, sync: false } },
-                    size: { value: 2.5, random: true, anim: { enable: false, speed: 4, size_min: 1, sync: false } },
-                    line_linked: { enable: true, distance: 180, color: '#b8c7e0', opacity: 0.25, width: 0.5 },
-                    move: { enable: true, speed: 2, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
-                },
-                interactivity: {
-                    detect_on: 'canvas',
-                    events: {
-                        onhover: { enable: false, mode: 'grab' },
-                        onclick: { enable: false, mode: 'push' },
-                        resize: true
-                    },
-                    modes: {
-                        grab: { distance: 140, line_linked: { opacity: 1 } },
-                        bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
-                        repulse: { distance: 200, duration: 0.4 },
-                        push: { particles_nb: 4 },
-                        remove: { particles_nb: 2 }
-                    }
-                },
-                retina_detect: true
-            },
-            rose: {
-                particles: {
-                    number: { value: 35, density: { enable: true, value_area: 800 } },
-                    color: { value: ['#e0b8c7', '#f38ba8', '#eba0ac', '#f5c2e7'] },
-                    shape: { type: 'circle' },
-                    opacity: { value: 0.35, random: true, anim: { enable: false, speed: 1.2, opacity_min: 0.2, sync: false } },
-                    size: { value: 2.2, random: true, anim: { enable: false, speed: 2.5, size_min: 1, sync: false } },
-                    line_linked: { enable: true, distance: 220, color: '#e0b8c7', opacity: 0.2, width: 0.5 },
-                    move: { enable: true, speed: 1.8, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
-                },
-                interactivity: {
-                    detect_on: 'canvas',
-                    events: {
-                        onhover: { enable: false, mode: 'bubble' },
-                        onclick: { enable: false, mode: 'push' },
-                        resize: true
-                    },
-                    modes: {
-                        grab: { distance: 140, line_linked: { opacity: 1 } },
-                        bubble: { distance: 200, size: 40, duration: 2, opacity: 8, speed: 3 },
-                        repulse: { distance: 200, duration: 0.4 },
-                        push: { particles_nb: 4 },
-                        remove: { particles_nb: 2 }
-                    }
-                },
-                retina_detect: true
-            },
-            noir: {
-                particles: {
-                    number: { value: 30, density: { enable: true, value_area: 800 } },
-                    color: { value: ['#e0e0e0', '#c0c0c0', '#a0a0a0', '#808080'] },
-                    shape: { type: 'circle' },
-                    opacity: { value: 0.25, random: true, anim: { enable: false, speed: 1, opacity_min: 0.1, sync: false } },
-                    size: { value: 1.8, random: true, anim: { enable: false, speed: 3, size_min: 1, sync: false } },
-                    line_linked: { enable: true, distance: 250, color: '#e0e0e0', opacity: 0.15, width: 0.5 },
-                    move: { enable: true, speed: 1.2, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
-                },
-                interactivity: {
-                    detect_on: 'canvas',
-                    events: {
-                        onhover: { enable: false, mode: 'repulse' },
-                        onclick: { enable: false, mode: 'push' },
-                        resize: true
-                    },
-                    modes: {
-                        grab: { distance: 140, line_linked: { opacity: 1 } },
-                        bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
-                        repulse: { distance: 180, duration: 0.4 },
-                        push: { particles_nb: 4 },
-                        remove: { particles_nb: 2 }
-                    }
-                },
-                retina_detect: true
-            }
-        };
-        if (typeof pJSDom !== 'undefined' && pJSDom.length > 0) {
+        if (typeof particlesJS !== 'undefined' && pJSDom.length > 0) {
             for (let i = pJSDom.length - 1; i >= 0; i--) {
                 if (pJSDom[i].pJS && pJSDom[i].pJS.canvas && pJSDom[i].pJS.canvas.el && 
                     pJSDom[i].pJS.canvas.el.id === 'change-name-particles-js') {
@@ -1142,7 +893,7 @@ function openChangeNameModal() {
             }
         }
         if (typeof particlesJS !== 'undefined') {
-            particlesJS('change-name-particles-js', particleConfigs[currentTheme]);
+            particlesJS('change-name-particles-js', getParticleConfig());
         }
     }, 50);
 }
@@ -1173,7 +924,7 @@ function applyChangeName() {
         
         showNotification('Changes saved');
     } else {
-        input.style.borderColor = '#ff4444';
+        input.style.borderColor = 'var(--error-color, #ff4444)';
         setTimeout(() => {
             input.style.borderColor = '';
         }, 1000);

@@ -22,10 +22,7 @@ const urlsToCache = [
   '/js/settings.js',
   '/js/particles.min.js',
   '/img/logo.svg',
-  '/img/mossfavicon.ico',
-  '/img/midnightfavicon.ico',
-  '/img/rosefavicon.ico',
-  '/img/noirfavicon.ico'
+  '/img/favicon.svg'
 ];
 
 self.addEventListener('install', event => {

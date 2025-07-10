@@ -4,28 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title is="chemical-title" data-title-store>Malachite</title>
-    <link rel="icon" is="chemical-icon" data-icon-store href="img/favicon.ico">
+    <link rel="icon" is="chemical-icon" data-icon-store href="img/favicon.svg">
     <link rel="stylesheet" href="css/proxy.css">
     <link rel="stylesheet" href="css/transitions.css">
     
 
     
-    <!-- Chemical.js Proxy Framework -->
     <script src="/chemical.js"></script>
     <script src="/chemical.components.js"></script>
     <script src="/chemical.cloaking.js"></script>
     
-    <!-- Font Awesome Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     
-    <!-- Eruda DevTools for debugging -->
     <script src="//cdn.jsdelivr.net/npm/eruda"></script>
     <script>
-        // Initialize Eruda but keep it hidden initially
         eruda.init();
-        eruda.get('entryBtn').hide(); // Hide the entry button using Eruda's API
+        eruda.get('entryBtn').hide();
         
-        // Function to show devtools when proxy is loaded
         function showDevTools() {
             console.log('Showing Eruda devtools after proxy load...');
             const erudaButton = document.querySelector('.eruda-launcher');
@@ -38,7 +33,6 @@
                 console.log('Eruda button should now be visible');
             } else {
                 console.log('Eruda button not found, trying alternative selector...');
-                // Try alternative selectors
                 const alternativeButtons = document.querySelectorAll('[class*="eruda"], [id*="eruda"]');
                 console.log('Found alternative eruda elements:', alternativeButtons.length);
                 alternativeButtons.forEach(btn => {
@@ -51,7 +45,6 @@
             }
         }
         
-        // Function to hide devtools initially
         function hideDevTools() {
             const erudaButton = document.querySelector('.eruda-launcher');
             if (erudaButton) {
@@ -61,7 +54,6 @@
                 erudaButton.style.pointerEvents = 'none';
             }
             
-            // Also hide any other eruda elements
             const alternativeButtons = document.querySelectorAll('[class*="eruda"], [id*="eruda"]');
             alternativeButtons.forEach(btn => {
                 btn.style.display = 'none';
@@ -71,13 +63,10 @@
             });
         }
         
-        // Hide devtools initially
         hideDevTools();
         
-        // Keep hiding the button periodically until proxy loads
         const hideInterval = setInterval(hideDevTools, 500);
         
-        // Make showDevTools function globally available for proxypage.js
         window.showDevTools = showDevTools;
         window.hideDevTools = hideDevTools;
         window.clearHideInterval = function() {
@@ -90,77 +79,23 @@
             document.body.classList.remove('theme-moss', 'theme-midnight', 'theme-solarized', 'theme-rose', 'theme-noir');
             document.body.classList.add('theme-' + theme);
             
-            // Apply theme-specific scrollbar colors
             const root = document.documentElement;
-            if (theme === 'moss') {
-                root.style.setProperty('--scrollbar-track', '#1a1f1a');
-                root.style.setProperty('--scrollbar-thumb', '#384438');
-                root.style.setProperty('--scrollbar-thumb-hover', '#4a5a4a');
-            } else if (theme === 'midnight') {
-                root.style.setProperty('--scrollbar-track', '#151a22');
-                root.style.setProperty('--scrollbar-thumb', '#2a3442');
-                root.style.setProperty('--scrollbar-thumb-hover', '#3a4452');
-            } else if (theme === 'rose') {
-                root.style.setProperty('--scrollbar-track', '#1a1114');
-                root.style.setProperty('--scrollbar-thumb', '#6e3844');
-                root.style.setProperty('--scrollbar-thumb-hover', '#8e4854');
-            } else if (theme === 'noir') {
-                root.style.setProperty('--scrollbar-track', '#1a1f1a');
-                root.style.setProperty('--scrollbar-thumb', '#384438');
-                root.style.setProperty('--scrollbar-thumb-hover', '#4a5a4a');
-            }
             
-            // Force a repaint to ensure the scrollbar updates
-            const tabsContainer = document.getElementById('tabs-container');
-            if (tabsContainer) {
-                console.log('Found tabs container, forcing repaint...');
-                tabsContainer.style.display = 'none';
-                tabsContainer.offsetHeight; // Force reflow
-                tabsContainer.style.display = '';
-                
-                // Also try forcing the scrollbar to update by temporarily changing overflow
-                tabsContainer.style.overflowX = 'hidden';
-                setTimeout(() => {
-                    tabsContainer.style.overflowX = 'auto';
-                }, 10);
-            } else {
-                console.log('Tabs container not found!');
-            }
-            
-            // Log current CSS variable values
             console.log('Current CSS variables:');
             console.log('--scrollbar-track:', getComputedStyle(root).getPropertyValue('--scrollbar-track'));
             console.log('--scrollbar-thumb:', getComputedStyle(root).getPropertyValue('--scrollbar-thumb'));
             console.log('--scrollbar-thumb-hover:', getComputedStyle(root).getPropertyValue('--scrollbar-thumb-hover'));
             
-            // Check if scrollbar elements exist and their computed styles
             setTimeout(() => {
                 const scrollbarTrack = document.querySelector('#tabs-container::-webkit-scrollbar-track');
                 const scrollbarThumb = document.querySelector('#tabs-container::-webkit-scrollbar-thumb');
                 console.log('Scrollbar elements found:', { track: scrollbarTrack, thumb: scrollbarThumb });
-                
-                // Try to directly set styles on the scrollbar elements
-                const style = document.createElement('style');
-                style.textContent = `
-                    #tabs-container::-webkit-scrollbar-track {
-                        background: ${getComputedStyle(root).getPropertyValue('--scrollbar-track')} !important;
-                    }
-                    #tabs-container::-webkit-scrollbar-thumb {
-                        background: ${getComputedStyle(root).getPropertyValue('--scrollbar-thumb')} !important;
-                    }
-                    #tabs-container::-webkit-scrollbar-thumb:hover {
-                        background: ${getComputedStyle(root).getPropertyValue('--scrollbar-thumb-hover')} !important;
-                    }
-                `;
-                document.head.appendChild(style);
-                console.log('Added inline styles for scrollbar');
             }, 100);
         };
     </script>
 </head>
 <body>
     <script>
-        // Redirect to index if user is logged in but has no name set
         (function() {
             const isLoggedIn = localStorage.getItem('isLoggedIn');
             const userName = localStorage.getItem('userName');
@@ -170,7 +105,6 @@
         })();
     </script>
     <div id="particles-js"></div>
-    <!-- Loading Screen - Shows while proxy initializes -->
     <div class="loading-screen">
         <div id="loading-particles-js"></div>
         <svg class="loading-logo" viewBox="0 0 300 255" fill="currentColor">
@@ -187,9 +121,7 @@ l367 -630 747 -3 746 -2 363 622 c199 343 366 630 372 638 6 11 -85 177 -361
     </div>
     </div>
     
-    <!-- Navigation Bar -->
     <div id="navbar">
-        <!-- Logo and Home Link -->
         <a href="index.html" id="logo-container">
             <svg id="logo" class="svg-logo" xmlns="http://www.w3.org/2000/svg" width="100" height="85" viewBox="0 0 300 255" preserveAspectRatio="xMidYMid meet">
                 <g transform="translate(0,255) scale(0.1,-0.1)" fill="currentColor" stroke="none">
@@ -199,7 +131,6 @@ l367 -630 747 -3 746 -2 363 622 c199 343 366 630 372 638 6 11 -85 177 -361
             <span id="logo-text">Malachite</span>
         </a>
         
-        <!-- URL Search Input -->
         <input
             autofocus
             spellcheck="false"
@@ -209,7 +140,6 @@ l367 -630 747 -3 746 -2 363 622 c199 343 366 630 372 638 6 11 -85 177 -361
             is="chemical-input"
         />
         
-        <!-- Navigation Controls -->
         <section id="controls">
             <button onclick="chemical.componentAction('back', 'proxyIframe')">
                 <i class="fa-solid fa-arrow-left"></i>
@@ -238,7 +168,6 @@ l367 -630 747 -3 746 -2 363 622 c199 343 366 630 372 638 6 11 -85 177 -361
         </section>
     </div>
     
-    <!-- Proxy Iframe - Displays the proxied website -->
     <iframe 
         id="proxyIframe" 
         src="about:blank"
@@ -249,17 +178,14 @@ l367 -630 747 -3 746 -2 363 622 c199 343 366 630 372 638 6 11 -85 177 -361
         sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox allow-presentation allow-top-navigation"
     ></iframe>
     
-    <!-- Tab Bar -->
     <div id="tab-bar">
         <div id="tabs-container">
-            <!-- Tabs will be dynamically added here -->
         </div>
         <button id="add-tab-btn" class="add-tab" onclick="addNewTab()">
             <i class="fa-solid fa-plus"></i>
         </button>
     </div>
     
-    <!-- Homepage Overlay -->
     <div id="homepage-overlay" class="homepage-overlay">
         <div class="logo-above-title slide-in-element" style="opacity: 0; transform: translateY(-30px);">
             <div style="text-align: center; margin-bottom: 2px;">
@@ -286,13 +212,10 @@ l367 -630 747 -3 746 -2 363 622 c199 343 366 630 372 638 6 11 -85 177 -361
             Ping: <span id="proxy-latency-value">Fetching Ping...</span> | 
             FPS: <span id="proxy-fps-value">0</span>
         </div>
-        <!-- Custom Buttons Container: always visible under FPS/Ping widget -->
-        <div id="custom-buttons-container" class="custom-buttons-container slide-in-element" style="opacity: 0; transform: translateY(-30px);">
-            <!-- Custom buttons will be dynamically added here -->
+            <div id="custom-buttons-container" class="custom-buttons-container slide-in-element" style="opacity: 0; transform: translateY(-30px);">
         </div>
     </div>
     
-    <!-- Add Custom Button Modal -->
     <div id="add-button-modal" class="add-button-modal">
         <div class="add-button-modal-content">
             <div class="add-button-modal-header">
@@ -320,7 +243,6 @@ l367 -630 747 -3 746 -2 363 622 c199 343 366 630 372 638 6 11 -85 177 -361
         </div>
     </div>
     
-    <!-- Manage Custom Buttons Modal -->
     <div id="manage-buttons-modal" class="manage-buttons-modal">
         <div class="manage-buttons-modal-content">
             <div class="manage-buttons-modal-header">
@@ -329,25 +251,19 @@ l367 -630 747 -3 746 -2 363 622 c199 343 366 630 372 638 6 11 -85 177 -361
             </div>
             <div class="manage-buttons-modal-body">
                 <div id="custom-buttons-list">
-                    <!-- Custom buttons will be listed here -->
                 </div>
             </div>
         </div>
     </div>
 
 
-    <!-- Main JavaScript -->
     <script>
-        // ===== LOADING SCREEN FUNCTIONALITY =====
-        
-        // Array of loading messages to display randomly
         const loadingMessages = [
             "Loading Proxy...",
             "Connecting to Server...",
             "Initializing Proxy..."
         ];
 
-        // Display random loading message on page load
         document.addEventListener('DOMContentLoaded', function() {
             const loadingTextElement = document.getElementById('loadingText');
             if (loadingTextElement) {
@@ -356,229 +272,36 @@ l367 -630 747 -3 746 -2 363 622 c199 343 366 630 372 638 6 11 -85 177 -361
             }
         });
 
-        // ===== LOADING SCREEN PARTICLES =====
-        
-        // Theme-based particle configurations for loading screen
-        const loadingParticleConfigs = {
-            moss: {
-                particles: {
-                    number: { value: 30, density: { enable: true, value_area: 800 } },
-                    color: { value: ['#b2c2a8', '#94e2d5', '#a6e3a1', '#89dceb'] },
-                    shape: { type: 'circle' },
-                    opacity: { value: 0.4, random: true, anim: { enable: false, speed: 1, opacity_min: 0.2, sync: false } },
-                    size: { value: 2.5, random: true, anim: { enable: false, speed: 2, size_min: 1, sync: false } },
-                    line_linked: { enable: true, distance: 180, color: '#b2c2a8', opacity: 0.3, width: 0.5 },
-                    move: { enable: true, speed: 2, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
-                },
-                interactivity: {
-                    detect_on: 'canvas',
-                    events: {
-                        onhover: { enable: false, mode: 'repulse' },
-                        onclick: { enable: false, mode: 'push' },
-                        resize: true
-                    },
-                    modes: {
-                        grab: { distance: 140, line_linked: { opacity: 1 } },
-                        bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
-                        repulse: { distance: 150, duration: 0.4 },
-                        push: { particles_nb: 4 },
-                        remove: { particles_nb: 2 }
-                    }
-                },
-                retina_detect: true
-            },
-            midnight: {
-                particles: {
-                    number: { value: 35, density: { enable: true, value_area: 800 } },
-                    color: { value: ['#b8c7e0', '#81a1c1', '#5e81ac', '#88c0d0'] },
-                    shape: { type: 'circle' },
-                    opacity: { value: 0.5, random: true, anim: { enable: false, speed: 1.5, opacity_min: 0.3, sync: false } },
-                    size: { value: 3, random: true, anim: { enable: false, speed: 4, size_min: 1, sync: false } },
-                    line_linked: { enable: true, distance: 160, color: '#b8c7e0', opacity: 0.35, width: 0.5 },
-                    move: { enable: true, speed: 2.5, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
-                },
-                interactivity: {
-                    detect_on: 'canvas',
-                    events: {
-                        onhover: { enable: false, mode: 'grab' },
-                        onclick: { enable: false, mode: 'push' },
-                        resize: true
-                    },
-                    modes: {
-                        grab: { distance: 140, line_linked: { opacity: 1 } },
-                        bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
-                        repulse: { distance: 200, duration: 0.4 },
-                        push: { particles_nb: 4 },
-                        remove: { particles_nb: 2 }
-                    }
-                },
-                retina_detect: true
-            },
-            rose: {
-                particles: {
-                    number: { value: 25, density: { enable: true, value_area: 800 } },
-                    color: { value: ['#e0b8c7', '#f38ba8', '#eba0ac', '#f5c2e7'] },
-                    shape: { type: 'circle' },
-                    opacity: { value: 0.45, random: true, anim: { enable: false, speed: 1.2, opacity_min: 0.3, sync: false } },
-                    size: { value: 2.8, random: true, anim: { enable: false, speed: 2.5, size_min: 1, sync: false } },
-                    line_linked: { enable: true, distance: 200, color: '#e0b8c7', opacity: 0.3, width: 0.5 },
-                    move: { enable: true, speed: 2.2, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
-                },
-                interactivity: {
-                    detect_on: 'canvas',
-                    events: {
-                        onhover: { enable: false, mode: 'bubble' },
-                        onclick: { enable: false, mode: 'push' },
-                        resize: true
-                    },
-                    modes: {
-                        grab: { distance: 140, line_linked: { opacity: 1 } },
-                        bubble: { distance: 200, size: 40, duration: 2, opacity: 8, speed: 3 },
-                        repulse: { distance: 200, duration: 0.4 },
-                        push: { particles_nb: 4 },
-                        remove: { particles_nb: 2 }
-                    }
-                },
-                retina_detect: true
-            },
-            noir: {
-                particles: {
-                    number: { value: 20, density: { enable: true, value_area: 800 } },
-                    color: { value: ['#e0e0e0', '#c0c0c0', '#a0a0a0', '#808080'] },
-                    shape: { type: 'circle' },
-                    opacity: { value: 0.35, random: true, anim: { enable: false, speed: 1, opacity_min: 0.2, sync: false } },
-                    size: { value: 2.2, random: true, anim: { enable: false, speed: 3, size_min: 1, sync: false } },
-                    line_linked: { enable: true, distance: 220, color: '#e0e0e0', opacity: 0.25, width: 0.5 },
-                    move: { enable: true, speed: 1.8, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
-                },
-                interactivity: {
-                    detect_on: 'canvas',
-                    events: {
-                        onhover: { enable: false, mode: 'repulse' },
-                        onclick: { enable: false, mode: 'push' },
-                        resize: true
-                    },
-                    modes: {
-                        grab: { distance: 140, line_linked: { opacity: 1 } },
-                        bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
-                        repulse: { distance: 180, duration: 0.4 },
-                        push: { particles_nb: 4 },
-                        remove: { particles_nb: 2 }
-                    }
-                },
-                retina_detect: true
-            }
-        };
-
-        // Function to initialize loading particles with current theme
         function initializeLoadingParticles() {
-            const currentTheme = localStorage.getItem('siteTheme') || 'moss';
-            const config = loadingParticleConfigs[currentTheme];
-            
-            console.log('Initializing loading particles for theme:', currentTheme);
-            console.log('ParticlesJS available:', typeof particlesJS !== 'undefined');
-            console.log('Loading particles container exists:', !!document.getElementById('loading-particles-js'));
-            
+            const config = getLoadingParticleConfig();
             if (typeof particlesJS !== 'undefined' && config) {
-                try {
-                    particlesJS('loading-particles-js', config);
-                    console.log('Loading particles initialized successfully for theme:', currentTheme);
-                } catch (error) {
-                    console.error('Error initializing loading particles:', error);
-                    createSimpleLoadingParticles();
-                }
-            } else {
-                console.log('ParticlesJS not available or config not found for loading screen');
-                createSimpleLoadingParticles();
+                particlesJS('loading-particles-js', config);
             }
         }
-
-        // Fallback function for loading particles
-        function createSimpleLoadingParticles() {
-            const container = document.getElementById('loading-particles-js');
-            if (!container) {
-                console.log('Loading particles container not found');
-                return;
-            }
-            
-            console.log('Creating simple loading particles as fallback');
-            container.innerHTML = '';
-            
-            // Create simple animated dots for loading screen
-            for (let i = 0; i < 15; i++) {
-                const particle = document.createElement('div');
-                particle.style.cssText = `
-                    position: absolute;
-                    width: 3px;
-                    height: 3px;
-                    background: #b2c2a8;
-                    border-radius: 50%;
-                    opacity: 0.4;
-                    animation: loading-float 4s ease-in-out infinite;
-                    animation-delay: ${i * 0.2}s;
-                `;
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.top = Math.random() * 100 + '%';
-                container.appendChild(particle);
-            }
-            
-            // Add CSS animation
-            if (!document.querySelector('#loading-particles-style')) {
-                const style = document.createElement('style');
-                style.id = 'loading-particles-style';
-                style.textContent = `
-                    @keyframes loading-float {
-                        0%, 100% { transform: translateY(0px) translateX(0px); opacity: 0.4; }
-                        50% { transform: translateY(-15px) translateX(8px); opacity: 0.8; }
-                    }
-                `;
-                document.head.appendChild(style);
-            }
-        }
-
-        // Initialize loading particles on page load with multiple attempts
         window.addEventListener('load', function() {
             setTimeout(initializeLoadingParticles, 100);
             setTimeout(initializeLoadingParticles, 500);
             setTimeout(initializeLoadingParticles, 1000);
         });
-
-        // Also try on DOMContentLoaded
         document.addEventListener('DOMContentLoaded', function() {
             setTimeout(initializeLoadingParticles, 100);
             setTimeout(initializeLoadingParticles, 500);
         });
-
-        // Reinitialize loading particles when theme changes
         window.addEventListener('storage', function(e) {
             if (e.key === 'siteTheme') {
-                // Clean up existing loading particles
-                if (typeof pJSDom !== 'undefined' && pJSDom && pJSDom.length > 1) {
-                    if (pJSDom[1] && pJSDom[1].pJS && pJSDom[1].pJS.fn && pJSDom[1].pJS.fn.vendors) {
-                        try {
-                            pJSDom[1].pJS.fn.vendors.destroypJS();
-                            pJSDom.splice(1, 1);
-                        } catch (error) {
-                            console.error('Error destroying loading particles:', error);
-                        }
-                    }
+                if (typeof pJSDom !== 'undefined' && pJSDom.length > 0) {
+                    pJSDom[0].pJS.fn.vendors.destroypJS();
+                    pJSDom = [];
                 }
-                // Reinitialize with new theme
                 setTimeout(initializeLoadingParticles, 100);
             }
         });
 
-        // ===== URL SEARCH FUNCTIONALITY =====
-        
-        // Preload iframe for faster loading
         const proxyIframe = document.getElementById("proxyIframe");
         
-        // Optimize iframe loading
         function optimizeIframeLoading() {
-            // Set high priority for iframe
             proxyIframe.setAttribute('importance', 'high');
             
-            // Preload common domains
             const commonDomains = [
                 'https://www.google.com',
                 'https://www.youtube.com',
@@ -588,7 +311,6 @@ l367 -630 747 -3 746 -2 363 622 c199 343 366 630 372 638 6 11 -85 177 -361
                 'https://www.discord.com'
             ];
             
-            // Preload DNS for common domains
             commonDomains.forEach(domain => {
                 const link = document.createElement('link');
                 link.rel = 'dns-prefetch';
@@ -597,17 +319,14 @@ l367 -630 747 -3 746 -2 363 622 c199 343 366 630 372 638 6 11 -85 177 -361
             });
         }
         
-        // Handle Enter key press in search bar with optimized loading
         document.getElementById("proxySearch").addEventListener("keypress", async function(event) {
             if (event.key === "Enter") {
                 event.preventDefault();
                 
                 const input = event.target.value.trim();
-                if (!input) return; // Don't process empty input
+                if (!input) return;
 
-                // Check if user typed malachite:// protocol
                 if (input.toLowerCase().startsWith("malachite://")) {
-                    // Handle known malachite:// URLs
                     if (input.toLowerCase() === "malachite://home") {
                         showHomepage();
                         return;
@@ -618,7 +337,6 @@ l367 -630 747 -3 746 -2 363 622 c199 343 366 630 372 638 6 11 -85 177 -361
                         return;
                     }
                     
-                    // For any other malachite:// URL, show 404 page
                     show404Page();
                     return;
                 }
@@ -1310,11 +1028,9 @@ l367 -630 747 -3 746 -2 363 622 c199 343 366 630 372 638 6 11 -85 177 -361
             }
         }
         
-        // Apply cloak to proxy page
         function applyCloakToProxy(option) {
             console.log('Applying cloak to proxy page:', option);
             
-            // Try to apply cloak using chemical library
             if (typeof chemical !== 'undefined' && chemical.setStore) {
                 console.log('Chemical library found, applying cloak to proxy...');
                 if (option === 'Google') {
@@ -1337,7 +1053,7 @@ l367 -630 747 -3 746 -2 363 622 c199 343 366 630 372 638 6 11 -85 177 -361
                     chemical.setStore('icon', 'img/clever.ico');
                 } else {
                     chemical.setStore('title', 'Malachite');
-                    chemical.setStore('icon', 'img/favicon.ico');
+                    chemical.setStore('icon', 'img/favicon.svg');
                 }
                 console.log('Cloak applied to proxy via chemical library');
             } else {
@@ -1345,15 +1061,10 @@ l367 -630 747 -3 746 -2 363 622 c199 343 366 630 372 638 6 11 -85 177 -361
             }
         }
         
-        // Hide homepage (no longer needed since we use iframe)
         function hideHomepage() {
-            // This function is kept for compatibility but no longer needed
-            // The iframe is always visible when showing the home page
         }
         
-        // Search from homepage
         async function searchFromHomepage() {
-            // Get the search input from the iframe content
             const iframe = document.getElementById('proxyIframe');
             if (!iframe || !iframe.contentDocument) return;
             
@@ -1364,21 +1075,17 @@ l367 -630 747 -3 746 -2 363 622 c199 343 366 630 372 638 6 11 -85 177 -361
             if (!input) return;
             
             try {
-                // Get the latest search engine URL and proxy backend from localStorage
                 const searchEngineUrl = localStorage.getItem('searchEngineSelectUrl') || "https://www.duckduckgo.com/?q=%s";
                 const proxyBackend = localStorage.getItem('proxyBackendSelect') || "uv";
                 
-                // Encode the URL using Chemical.js with selected backend
                 const encodedUrl = await chemical.encode(input, {
                     service: proxyBackend,
                     autoHttps: true,
                     searchEngine: searchEngineUrl
                 });
                 
-                // Update current tab with the new URL
                 updateCurrentTab(encodedUrl, input);
                 
-                // Load the URL in the iframe
                 iframe.src = encodedUrl;
                 
             } catch (error) {
@@ -1386,24 +1093,19 @@ l367 -630 747 -3 746 -2 363 622 c199 343 366 630 372 638 6 11 -85 177 -361
             }
         }
         
-        // Open quick link
         async function openQuickLink(url) {
             try {
                 const proxyBackend = localStorage.getItem('proxyBackendSelect') || "uv";
-                
-                // Encode the URL
+
                 const encodedUrl = await chemical.encode(url, {
                     service: proxyBackend,
                     autoHttps: true
                 });
                 
-                // Update current tab
                 updateCurrentTab(encodedUrl, getDomainFromUrl(url));
                 
-                // Hide homepage and show iframe
                 hideHomepage();
                 
-                // Load the URL in the iframe
                 const iframe = document.getElementById('proxyIframe');
                 iframe.src = encodedUrl;
                 
@@ -1412,7 +1114,6 @@ l367 -630 747 -3 746 -2 363 622 c199 343 366 630 372 638 6 11 -85 177 -361
             }
         }
         
-        // Get domain from URL
         function getDomainFromUrl(url) {
             try {
                 const domain = new URL(url).hostname.replace('www.', '');
@@ -1422,16 +1123,12 @@ l367 -630 747 -3 746 -2 363 622 c199 343 366 630 372 638 6 11 -85 177 -361
             }
         }
         
-        // Set up iframe event listeners
         function setupIframeListeners() {
             const iframe = document.getElementById('proxyIframe');
             if (iframe) {
-                // Show loading screen initially
                 iframe.style.opacity = '0';
                 
-                // Handle iframe load events
                 iframe.addEventListener('load', () => {
-                    // Hide loading screen
                     const loadingScreen = document.querySelector('.loading-screen');
                     if (loadingScreen) {
                         loadingScreen.style.opacity = '0';
@@ -1440,11 +1137,9 @@ l367 -630 747 -3 746 -2 363 622 c199 343 366 630 372 638 6 11 -85 177 -361
                         }, 500);
                     }
                     
-                    // Show iframe
                     iframe.style.opacity = '1';
                     iframe.classList.add('loaded');
                     
-                    // Update tab title from iframe (but not for 404 pages)
                     if (!iframe.src.includes('404-proxy.html')) {
                         try {
                             const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
@@ -1453,16 +1148,13 @@ l367 -630 747 -3 746 -2 363 622 c199 343 366 630 372 638 6 11 -85 177 -361
                                 updateCurrentTab(iframe.src, iframeTitle);
                             }
                         } catch (e) {
-                            // Cross-origin restrictions, can't access iframe content
                             console.log('Cannot access iframe content due to CORS');
                         }
                     }
                 });
                 
-                // Handle iframe errors
                 iframe.addEventListener('error', () => {
                     console.error('Iframe failed to load');
-                    // Hide loading screen even on error
                     const loadingScreen = document.querySelector('.loading-screen');
                     if (loadingScreen) {
                         loadingScreen.style.opacity = '0';
@@ -1473,8 +1165,7 @@ l367 -630 747 -3 746 -2 363 622 c199 343 366 630 372 638 6 11 -85 177 -361
                 });
             }
         }
-        
-        // Handle messages from iframe (for 404 page navigation and theme changes)
+
         window.addEventListener('message', function(event) {
             if (event.data && event.data.type) {
                 switch (event.data.type) {
@@ -1482,27 +1173,21 @@ l367 -630 747 -3 746 -2 363 622 c199 343 366 630 372 638 6 11 -85 177 -361
                         if (event.data.url === 'malachite://home') {
                             showHomepage();
                         } else if (event.data.url === 'malachite://back') {
-                            // Go back to the previous page or homepage
                             const searchInput = document.getElementById('proxySearch');
                             if (searchInput && searchInput.value.trim() !== 'malachite://settings') {
-                                // If there was a previous URL, go back to it
                                 showHomepage();
                             } else {
-                                // Otherwise go to homepage
                                 showHomepage();
                             }
                         }
                         break;
                     case 'theme-change':
-                        // Handle theme changes from settings page
                         if (event.data.theme) {
                             console.log('Theme change received from settings:', event.data.theme);
-                            // Apply theme to proxy page
                             document.body.classList.remove('theme-moss', 'theme-midnight', 'theme-rose', 'theme-noir');
                             document.body.classList.add('theme-' + event.data.theme);
                             localStorage.setItem('siteTheme', event.data.theme);
                             
-                            // Reinitialize particles with new theme
                             setTimeout(() => {
                                 if (typeof initializeParticles === 'function') {
                                     initializeParticles();
@@ -1511,7 +1196,6 @@ l367 -630 747 -3 746 -2 363 622 c199 343 366 630 372 638 6 11 -85 177 -361
                         }
                         break;
                     case 'apply-cloak':
-                        // Handle tab cloaking from settings page
                         if (event.data.option) {
                             console.log('Cloak change received from settings:', event.data.option);
                             applyCloakToProxy(event.data.option);
@@ -1522,130 +1206,17 @@ l367 -630 747 -3 746 -2 363 622 c199 343 366 630 372 638 6 11 -85 177 -361
         });
     </script>
     
-    <!-- External Scripts -->
     		<script src="js/particles.min.js"></script>
+		<script src="js/particle-configs.js"></script>
 		<script src="js/main.js" defer></script>
 		<script src="js/proxypage.js"></script>
 		<script src="js/transitions.js" defer></script>
     <script>
-        // Test if particles.js loaded
         console.log('Particles.js loaded:', typeof particlesJS !== 'undefined');
         console.log('Particles container exists:', !!document.getElementById('particles-js'));
     </script>	
 	<script>
-		// Theme-based particle configurations
-		const particleConfigs = {
-			moss: {
-				particles: {
-					number: { value: 40, density: { enable: true, value_area: 800 } },
-					color: { value: ['#b2c2a8', '#94e2d5', '#a6e3a1', '#89dceb'] },
-					shape: { type: 'circle' },
-					opacity: { value: 0.3, random: true, anim: { enable: false, speed: 1, opacity_min: 0.1, sync: false } },
-					size: { value: 2, random: true, anim: { enable: false, speed: 2, size_min: 1, sync: false } },
-					line_linked: { enable: true, distance: 200, color: '#b2c2a8', opacity: 0.2, width: 0.5 },
-					move: { enable: true, speed: 1.5, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
-				},
-				interactivity: {
-					detect_on: 'canvas',
-					events: {
-						onhover: { enable: false, mode: 'repulse' },
-						onclick: { enable: false, mode: 'push' },
-						resize: true
-					},
-					modes: {
-						grab: { distance: 140, line_linked: { opacity: 1 } },
-						bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
-						repulse: { distance: 150, duration: 0.4 },
-						push: { particles_nb: 4 },
-						remove: { particles_nb: 2 }
-					}
-				},
-				retina_detect: true
-			},
-			midnight: {
-				particles: {
-					number: { value: 50, density: { enable: true, value_area: 800 } },
-					color: { value: ['#b8c7e0', '#81a1c1', '#5e81ac', '#88c0d0'] },
-					shape: { type: 'circle' },
-					opacity: { value: 0.4, random: true, anim: { enable: false, speed: 1.5, opacity_min: 0.2, sync: false } },
-					size: { value: 2.5, random: true, anim: { enable: false, speed: 4, size_min: 1, sync: false } },
-					line_linked: { enable: true, distance: 180, color: '#b8c7e0', opacity: 0.25, width: 0.5 },
-					move: { enable: true, speed: 2, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
-				},
-				interactivity: {
-					detect_on: 'canvas',
-					events: {
-						onhover: { enable: false, mode: 'grab' },
-						onclick: { enable: false, mode: 'push' },
-						resize: true
-					},
-					modes: {
-						grab: { distance: 140, line_linked: { opacity: 1 } },
-						bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
-						repulse: { distance: 200, duration: 0.4 },
-						push: { particles_nb: 4 },
-						remove: { particles_nb: 2 }
-					}
-				},
-				retina_detect: true
-			},
-			rose: {
-				particles: {
-					number: { value: 35, density: { enable: true, value_area: 800 } },
-					color: { value: ['#e0b8c7', '#f38ba8', '#eba0ac', '#f5c2e7'] },
-					shape: { type: 'circle' },
-					opacity: { value: 0.35, random: true, anim: { enable: false, speed: 1.2, opacity_min: 0.2, sync: false } },
-					size: { value: 2.2, random: true, anim: { enable: false, speed: 2.5, size_min: 1, sync: false } },
-					line_linked: { enable: true, distance: 220, color: '#e0b8c7', opacity: 0.2, width: 0.5 },
-					move: { enable: true, speed: 1.8, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
-				},
-				interactivity: {
-					detect_on: 'canvas',
-					events: {
-						onhover: { enable: false, mode: 'bubble' },
-						onclick: { enable: false, mode: 'push' },
-						resize: true
-					},
-					modes: {
-						grab: { distance: 140, line_linked: { opacity: 1 } },
-						bubble: { distance: 200, size: 40, duration: 2, opacity: 8, speed: 3 },
-						repulse: { distance: 200, duration: 0.4 },
-						push: { particles_nb: 4 },
-						remove: { particles_nb: 2 }
-					}
-				},
-				retina_detect: true
-			},
-			noir: {
-				particles: {
-					number: { value: 30, density: { enable: true, value_area: 800 } },
-					color: { value: ['#e0e0e0', '#c0c0c0', '#a0a0a0', '#808080'] },
-					shape: { type: 'circle' },
-					opacity: { value: 0.25, random: true, anim: { enable: false, speed: 1, opacity_min: 0.1, sync: false } },
-					size: { value: 1.8, random: true, anim: { enable: false, speed: 3, size_min: 1, sync: false } },
-					line_linked: { enable: true, distance: 250, color: '#e0e0e0', opacity: 0.15, width: 0.5 },
-					move: { enable: true, speed: 1.2, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
-				},
-				interactivity: {
-					detect_on: 'canvas',
-					events: {
-						onhover: { enable: false, mode: 'repulse' },
-						onclick: { enable: false, mode: 'push' },
-						resize: true
-					},
-					modes: {
-						grab: { distance: 140, line_linked: { opacity: 1 } },
-						bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
-						repulse: { distance: 180, duration: 0.4 },
-						push: { particles_nb: 4 },
-						remove: { particles_nb: 2 }
-					}
-				},
-				retina_detect: true
-			}
-		};
 
-		// Function to initialize particles with current theme
 		function initializeParticles() {
 			const currentTheme = localStorage.getItem('siteTheme') || 'moss';
 			const config = particleConfigs[currentTheme];
@@ -1654,7 +1225,6 @@ l367 -630 747 -3 746 -2 363 622 c199 343 366 630 372 638 6 11 -85 177 -361
 			console.log('ParticlesJS available:', typeof particlesJS !== 'undefined');
 			console.log('Config available:', !!config);
 			
-			// Ensure pJSDom is properly initialized
 			if (typeof pJSDom === 'undefined' || pJSDom === null) {
 				window.pJSDom = [];
 			}
@@ -1665,17 +1235,14 @@ l367 -630 747 -3 746 -2 363 622 c199 343 366 630 372 638 6 11 -85 177 -361
 					console.log('Particles initialized successfully for theme:', currentTheme);
 				} catch (error) {
 					console.error('Error initializing particles:', error);
-					// Fallback: create simple particles manually
 					createSimpleParticles();
 				}
 			} else {
 				console.log('ParticlesJS not available or config not found');
-				// Fallback: create simple particles manually
 				createSimpleParticles();
 			}
 		}
 
-		// Fallback function to create simple particles
 		function createSimpleParticles() {
 			const container = document.getElementById('particles-js');
 			if (!container) {
@@ -1686,7 +1253,6 @@ l367 -630 747 -3 746 -2 363 622 c199 343 366 630 372 638 6 11 -85 177 -361
 			console.log('Creating simple particles as fallback');
 			container.innerHTML = '';
 			
-			// Create simple animated dots
 			for (let i = 0; i < 20; i++) {
 				const particle = document.createElement('div');
 				particle.style.cssText = `
@@ -1704,7 +1270,6 @@ l367 -630 747 -3 746 -2 363 622 c199 343 366 630 372 638 6 11 -85 177 -361
 				container.appendChild(particle);
 			}
 			
-			// Add CSS animation
 			if (!document.querySelector('#simple-particles-style')) {
 				const style = document.createElement('style');
 				style.id = 'simple-particles-style';
@@ -1718,23 +1283,19 @@ l367 -630 747 -3 746 -2 363 622 c199 343 366 630 372 638 6 11 -85 177 -361
 			}
 		}
 
-		// Initialize particles on page load with multiple attempts
 		window.addEventListener('load', function() {
 			setTimeout(initializeParticles, 100);
 			setTimeout(initializeParticles, 500);
 			setTimeout(initializeParticles, 1000);
 		});
 
-		// Also try on DOMContentLoaded
 		document.addEventListener('DOMContentLoaded', function() {
 			setTimeout(initializeParticles, 100);
 			setTimeout(initializeParticles, 500);
 		});
 
-		// Reinitialize particles when theme changes
 		window.addEventListener('storage', function(e) {
 			if (e.key === 'siteTheme') {
-				// Clean up existing particles
 				if (typeof pJSDom !== 'undefined' && pJSDom && pJSDom.length > 0) {
 					if (pJSDom[0] && pJSDom[0].pJS && pJSDom[0].pJS.fn && pJSDom[0].pJS.fn.vendors) {
 						try {
@@ -1744,41 +1305,33 @@ l367 -630 747 -3 746 -2 363 622 c199 343 366 630 372 638 6 11 -85 177 -361
 						}
 					}
 				}
-				// Reset pJSDom array properly
 				window.pJSDom = [];
-				// Reinitialize with new theme
 				setTimeout(initializeParticles, 100);
 			}
 		});
 	</script>
 	
 	<script>
-		        // Welcome back tracking functionality
         function checkWelcomeBack() {
             const lastVisit = localStorage.getItem('lastVisit');
             const currentTime = Date.now();
             const userName = localStorage.getItem('userName');
             
-            // Update last visit time when user returns to proxy
-            // This prevents the "offline" status when user is actually on the proxy page
             if (userName) {
                 localStorage.setItem('lastVisit', currentTime.toString());
             }
         }
         
-        // Restore correct URL when returning to proxy
         function restoreProxyURL() {
             const currentPage = localStorage.getItem('currentProxyPage');
             const searchInput = document.getElementById('proxySearch');
             
             if (currentPage && searchInput) {
-                // Check if we're currently on a special page
                 const iframe = document.getElementById('proxyIframe');
                 if (iframe && iframe.src) {
                     if (iframe.src.includes('settings-proxy.html') && currentPage === 'malachite://settings') {
                         searchInput.value = "malachite://settings";
                     } else if (iframe.src.includes('404-proxy.html')) {
-                        // For 404 pages, keep the malachite URL that caused the 404
                         const urlParams = new URLSearchParams(window.location.search);
                         const malachiteUrl = urlParams.get('url') || 'malachite://unknown';
                         searchInput.value = malachiteUrl;
@@ -1787,18 +1340,14 @@ l367 -630 747 -3 746 -2 363 622 c199 343 366 630 372 638 6 11 -85 177 -361
             }
         }
 		
-		// Track when user leaves the site
 		function trackSiteLeave() {
 			localStorage.setItem('lastVisit', Date.now().toString());
 		}
 		
-		// Listen for when user leaves the site
 		window.addEventListener('beforeunload', trackSiteLeave);
 		window.addEventListener('pagehide', trackSiteLeave);
 		
-		        // Check welcome back when page loads
         document.addEventListener('DOMContentLoaded', () => {
-            // Small delay to ensure everything is ready
             setTimeout(() => {
                 checkWelcomeBack();
                 restoreProxyURL();
@@ -1806,7 +1355,6 @@ l367 -630 747 -3 746 -2 363 622 c199 343 366 630 372 638 6 11 -85 177 -361
             }, 100);
         });
         
-        // Restore URL when page becomes visible again
         document.addEventListener('visibilitychange', () => {
             if (!document.hidden) {
                 setTimeout(() => {
@@ -1815,26 +1363,19 @@ l367 -630 747 -3 746 -2 363 622 c199 343 366 630 372 638 6 11 -85 177 -361
             }
         });
         
-        // Initialize homepage functionality
         function initializeHomepage() {
-            // Initialize clock and greeting
             updateProxyClock();
             updateProxyGreeting();
             
-            // Start clock updates
             setInterval(updateProxyClock, 1000);
             
-            // Initialize latency and FPS
             initializeProxyLatency();
             initializeProxyFPS();
             
-            // Trigger slide-in animations
             triggerProxySlideInAnimations();
             
-            // Set random placeholder
             setRandomProxyPlaceholder();
             
-            // Add event listener for Enter key on homepage search
             const homepageSearch = document.getElementById('homepage-search');
             if (homepageSearch) {
                 homepageSearch.addEventListener('keypress', function(e) {
@@ -1845,7 +1386,6 @@ l367 -630 747 -3 746 -2 363 622 c199 343 366 630 372 638 6 11 -85 177 -361
             }
         }
         
-        // Clock functionality
         function updateProxyClock() {
             const now = new Date();
             const timeElement = document.getElementById('proxy-main-time');
@@ -1870,7 +1410,6 @@ l367 -630 747 -3 746 -2 363 622 c199 343 366 630 372 638 6 11 -85 177 -361
             }
         }
         
-        // Greeting functionality
         function updateProxyGreeting() {
             const greetingElement = document.getElementById('proxy-main-greeting');
             if (!greetingElement) return;
@@ -1890,7 +1429,6 @@ l367 -630 747 -3 746 -2 363 622 c199 343 366 630 372 638 6 11 -85 177 -361
             greetingElement.textContent = greeting;
         }
         
-        // Latency functionality
         function initializeProxyLatency() {
             const latencySpan = document.getElementById("proxy-latency-value");
             if (!latencySpan) return;
@@ -1913,7 +1451,6 @@ l367 -630 747 -3 746 -2 363 622 c199 343 366 630 372 638 6 11 -85 177 -361
             checkLatency();
         }
         
-        // FPS functionality
         function initializeProxyFPS() {
             const fpsSpan = document.getElementById("proxy-fps-value");
             if (!fpsSpan) return;
@@ -1939,7 +1476,6 @@ l367 -630 747 -3 746 -2 363 622 c199 343 366 630 372 638 6 11 -85 177 -361
             requestAnimationFrame(updateFPS);
         }
         
-        // Slide-in animations
         function triggerProxySlideInAnimations() {
             const slideElements = document.querySelectorAll('.slide-in-element');
             slideElements.forEach((element, index) => {
@@ -1949,7 +1485,6 @@ l367 -630 747 -3 746 -2 363 622 c199 343 366 630 372 638 6 11 -85 177 -361
             });
         }
         
-        // Random placeholder
         function setRandomProxyPlaceholder() {
             const placeholderTexts = [
                 "Search or Enter a URL...",
@@ -1966,7 +1501,6 @@ l367 -630 747 -3 746 -2 363 622 c199 343 366 630 372 638 6 11 -85 177 -361
             }
         }
         
-        // Listen for messages from iframe content (for search functionality)
         window.addEventListener('message', function(event) {
             if (event.data && event.data.type === 'malachite-search') {
                 const input = event.data.query;

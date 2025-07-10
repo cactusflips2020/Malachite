@@ -1,4 +1,3 @@
-// Define the games data in JSON format
 let gamesData = [
     { "name": "Diep.io", "image": "/img/games/diep.webp", "link": "https://www.diep.io" },
     { "name": "Roblox", "image": "/img/games/roblox.jpg", "link": "https://educationbluesky.com/" },
@@ -24,7 +23,6 @@ let gamesData = [
     { "name": "Deadshot.io", "image": "/img/games/deadshot-io.png", "link": "https://deadshot.io" },
 ];
 
-// Load custom games from localStorage
 function loadCustomGames() {
     const customGames = localStorage.getItem('customGames');
     if (customGames) {
@@ -35,9 +33,8 @@ function loadCustomGames() {
 
 async function renderGames(filteredGames = gamesData) {
     const gamesContainer = document.getElementById("games-container");
-    gamesContainer.innerHTML = ""; // Clear previous cards
+    gamesContainer.innerHTML = "";
     
-    // Add the "Add Custom Game" card first
     const addCard = document.createElement("div");
     addCard.classList.add("game-card", "add-card");
     addCard.innerHTML = `
@@ -63,7 +60,6 @@ async function renderGames(filteredGames = gamesData) {
         gameName.textContent = game.name;
         gameCard.appendChild(gameName);
 
-        // Check if this is a custom game (not in the original gamesData)
         const originalGames = [
             { "name": "Diep.io", "image": "/img/games/diep.webp", "link": "https://www.diep.io" },
             { "name": "Roblox", "image": "/img/games/roblox.jpg", "link": "https://educationbluesky.com/" },
@@ -94,13 +90,12 @@ async function renderGames(filteredGames = gamesData) {
         );
 
         if (isCustomGame) {
-            // Add delete button for custom games
             const deleteBtn = document.createElement("button");
             deleteBtn.classList.add("delete-game-btn");
             deleteBtn.innerHTML = '<i class="fa-solid fa-trash"></i>';
             deleteBtn.title = "Delete Game";
             deleteBtn.addEventListener("click", (e) => {
-                e.stopPropagation(); // Prevent opening the game
+                e.stopPropagation();
                 deleteCustomGame(game);
             });
             gameCard.appendChild(deleteBtn);
@@ -137,7 +132,6 @@ window.addEventListener("load", function() {
         return;
     }
     
-    // Check if user has a name set
     const userName = localStorage.getItem('userName');
     if (!userName) {
         window.location.href = '/index.html';
@@ -147,24 +141,18 @@ window.addEventListener("load", function() {
     renderGames();
 });
 
-// Persist breathing background animation state
 (function() {
   const body = document.body;
   const ANIMATION_NAME = 'breathing-bg';
   const ANIMATION_DURATION = 14; // seconds
-  // On load, set animation delay to match saved progress
   let progress = parseFloat(localStorage.getItem('breathingBgProgress') || '0');
   if (!isNaN(progress)) {
     body.style.animationDelay = `-${progress}s`;
   }
-  // Update progress every 100ms
   setInterval(() => {
-    // Get computed animation time
     const start = performance.timing.navigationStart;
     const now = Date.now();
-    // Estimate progress based on elapsed time and animation duration
     let elapsed = ((now - start) / 1000 + progress) % ANIMATION_DURATION;
-    // If the animation is paused or not running, skip
     if (getComputedStyle(body).animationName !== ANIMATION_NAME) return;
     localStorage.setItem('breathingBgProgress', elapsed.toFixed(2));
   }, 100);
@@ -172,18 +160,24 @@ window.addEventListener("load", function() {
 
 (function() {
   const savedTheme = localStorage.getItem('siteTheme') || 'moss';
-      document.body.classList.remove('theme-moss', 'theme-midnight', 'theme-solarized', 'theme-rose', 'theme-noir');
+              document.body.classList.remove('theme-moss', 'theme-midnight', 'theme-solarized', 'theme-rose', 'theme-noir', 'theme-ocean', 'theme-sunset', 'theme-solar');
   document.body.classList.add('theme-' + savedTheme);
 })();
 
-// Modal functions for adding custom games
 function openAddGameModal() {
-    document.getElementById('add-game-modal').style.display = 'flex';
+    const modal = document.getElementById('add-game-modal');
+    modal.style.display = 'flex';
+    modal.classList.add('show');
 }
 
 function closeAddGameModal() {
-    document.getElementById('add-game-modal').style.display = 'none';
-    // Clear form fields
+    const modal = document.getElementById('add-game-modal');
+    modal.style.animation = 'modalFadeOut 0.3s ease-out';
+    modal.classList.remove('show');
+    setTimeout(() => {
+        modal.style.display = 'none';
+        modal.style.animation = '';
+    }, 300);
     document.getElementById('game-name').value = '';
     document.getElementById('game-link').value = '';
     document.getElementById('game-image').value = '';
@@ -211,48 +205,38 @@ function addCustomGame() {
 
     const newGame = { name, link, image };
     
-    // Add to current games array
     gamesData.push(newGame);
     
-    // Save to localStorage
     const customGames = JSON.parse(localStorage.getItem('customGames') || '[]');
     customGames.push(newGame);
     localStorage.setItem('customGames', JSON.stringify(customGames));
     
-    // Close modal and re-render
     closeAddGameModal();
     renderGames();
     
-    // Show success notification
     showNotification('Custom game added successfully!');
 }
 
 function deleteCustomGame(gameToDelete) {
-    // Confirm deletion
     if (!confirm(`Are you sure you want to delete "${gameToDelete.name}"?`)) {
         return;
     }
     
-    // Remove from current games array
     gamesData = gamesData.filter(game => 
         !(game.name === gameToDelete.name && game.link === gameToDelete.link)
     );
     
-    // Remove from localStorage
     const customGames = JSON.parse(localStorage.getItem('customGames') || '[]');
     const updatedCustomGames = customGames.filter(game => 
         !(game.name === gameToDelete.name && game.link === gameToDelete.link)
     );
     localStorage.setItem('customGames', JSON.stringify(updatedCustomGames));
     
-    // Re-render the games
     renderGames();
     
-    // Show success notification
     showNotification('Custom game deleted successfully!');
 }
 
-// Close modal when clicking outside
 window.addEventListener('click', function(event) {
     const modal = document.getElementById('add-game-modal');
     if (event.target === modal) {
@@ -260,37 +244,18 @@ window.addEventListener('click', function(event) {
     }
 });
 
-// Load custom games on page load
 loadCustomGames();
 
-// Notification function
 function showNotification(message) {
-    // Create notification element
     let notification = document.createElement("div");
     const theme = localStorage.getItem('siteTheme') || 'moss';
     notification.className = "notification theme-" + theme;
     notification.innerText = message;
     
-    // Set theme-specific styling
-    if (theme === 'moss') {
-        notification.style.background = '#384438';
-        notification.style.color = '#b2c2a8';
-        notification.style.border = '1.5px solid #232b23';
-    } else if (theme === 'midnight') {
-        notification.style.background = '#2a3442';
-        notification.style.color = '#b8c7e0';
-        notification.style.border = '1.5px solid #181c24';
-    } else if (theme === 'rose') {
-        notification.style.background = '#6e3844';
-        notification.style.color = '#e0b8c7';
-        notification.style.border = '1.5px solid #2a1a1f';
-    } else if (theme === 'noir') {
-        notification.style.background = '#444';
-        notification.style.color = '#e0e0e0';
-        notification.style.border = '1.5px solid #181818';
-    }
+    notification.style.background = 'var(--notification-bg)';
+    notification.style.color = 'var(--notification-text)';
+    notification.style.border = '1.5px solid var(--notification-border)';
 
-    // Style the notification
     Object.assign(notification.style, {
         position: "fixed",
         bottom: "20px",
@@ -306,7 +271,6 @@ function showNotification(message) {
 
     document.body.appendChild(notification);
 
-    // Remove notification after 3 seconds
     setTimeout(() => {
         notification.style.opacity = "0";
         notification.style.transform = "translateY(-20px)";

@@ -189,32 +189,8 @@
 /* SVG Logo theming - Simple color changes */
 .svg-logo {
     transition: all 0.3s ease;
-}
-
-/* Moss Theme */
-body.theme-moss .svg-logo {
-    color: var(--logo-color);
-    padding: 4px;
-    border-radius: 0;
-}
-
-/* Midnight Theme */
-body.theme-midnight .svg-logo {
-    color: var(--logo-color);
-    padding: 4px;
-    border-radius: 0;
-}
-
-/* Rose Theme */
-body.theme-rose .svg-logo {
-    color: var(--logo-color);
-    padding: 4px;
-    border-radius: 0;
-}
-
-/* Noir Theme */
-body.theme-noir .svg-logo {
-    color: var(--logo-color);
+    height: 40px !important;
+    width: 40px !important;
     padding: 4px;
     border-radius: 0;
 }
@@ -386,811 +362,6 @@ body.apps-page {
     padding-top: 0;
 }
 
-/* Gradient background with frosted glass effect */
-
-
-
-
-
-
-
-
-body.theme-moss {
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-}
-
-
-
-
-body.theme-moss .setting-card,
-body.theme-moss .apps-container,
-body.theme-moss .games-container {
-    background: var(--bg-tertiary);
-    color: var(--text-primary);
-    border: 2px solid var(--border-secondary);
-}
-body.theme-moss .setting-title,
-body.theme-moss .setting-description,
-body.theme-moss .logo-container a,
-body.theme-moss .nav-links a {
-    color: var(--text-primary) !important;
-}
-body.theme-moss .setting-button,
-body.theme-moss .transport-select,
-body.theme-moss .searchengine-select,
-body.theme-moss .cloak-select,
-body.theme-moss .theme-select {
-    background: var(--input-bg);
-    color: var(--text-primary);
-    border: none;
-}
-body.theme-moss .navbar,
-body.theme-moss #navbar {
-    background: transparent !important;
-    backdrop-filter: blur(15px) !important;
-    -webkit-backdrop-filter: blur(15px) !important;
-    border: none !important;
-    border-bottom: 1px solid var(--border-primary) !important;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
-}
-body.theme-moss #latency-fps-widget,
-body.theme-moss #clock-widget {
-    background: var(--input-bg);
-    color: var(--text-primary);
-    border: 1.5px solid var(--bg-primary);
-}
-body.theme-moss #search,
-body.theme-moss #search-input,
-body.theme-moss #proxySearch {
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    border: 1.5px solid var(--input-bg);
-}
-body.theme-moss #search::placeholder,
-body.theme-moss #search-input::placeholder,
-body.theme-moss #proxySearch::placeholder {
-    color: var(--text-muted);
-}
-
-body.theme-moss #search-button {
-    background: var(--input-bg);
-    color: var(--text-primary);
-    border: 1px solid var(--input-bg);
-}
-
-body.theme-moss #search-button:hover {
-    background: var(--search-hover);
-    color: var(--text-accent);
-}
-body.theme-moss .setting-button,
-body.theme-moss .transport-select,
-body.theme-moss .proxy-backend-select,
-body.theme-moss .searchengine-select,
-body.theme-moss .cloak-select,
-body.theme-moss .theme-select {
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    border: 1.5px solid var(--input-bg);
-}
-body.theme-moss .app-card,
-body.theme-moss .game-card {
-    background-color: var(--bg-tertiary);
-    border: 2px solid var(--border-secondary);
-    box-shadow: 0 2px 8px var(--bg-primary)40;
-    color: var(--text-primary);
-}
-body.theme-moss .app-card:hover,
-body.theme-moss .game-card:hover {
-    border: 2px solid var(--text-primary);
-    background-color: var(--input-bg);
-    color: var(--text-primary);
-}
-body.theme-moss .apps-container,
-body.theme-moss .games-container {
-    border: 2px solid var(--border-secondary);
-}
-body.theme-moss .loading-screen {
-    background-color: var(--bg-primary);
-    border: 2px solid var(--border-secondary);
-}
-body.theme-moss .loading-text {
-    color: var(--text-primary);
-}
-body.theme-moss .loading-wheel {
-    border: 8px solid var(--border-secondary);
-    border-top: 8px solid var(--text-primary);
-}
-body.theme-moss .app-card:hover .app-name,
-body.theme-moss .game-card:hover .game-name {
-    color: var(--text-primary);
-}
-body.theme-moss #navbar #logo-text {
-    color: var(--text-primary);
-}
-body.theme-moss #navbar #proxySearch {
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    border: 1.5px solid var(--input-bg);
-}
-body.theme-moss #navbar #proxySearch::placeholder {
-    color: var(--text-muted);
-}
-body.theme-moss #navbar #controls button {
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    border: 1.5px solid var(--input-bg);
-}
-body.theme-moss #navbar #controls button:hover {
-    background: var(--input-bg);
-    color: #fff;
-}
-body.theme-moss .notification,
-body.theme-moss .keybind-modal,
-body.theme-moss .keybind-content {
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    border: 1.5px solid var(--input-bg);
-    box-shadow: 0 2px 10px var(--bg-primary)80;
-}
-body.theme-moss .keybind-buttons button {
-    background: var(--input-bg);
-    color: var(--text-primary);
-    border: 1.5px solid var(--bg-primary);
-}
-body.theme-moss .keybind-buttons button:hover {
-    background: var(--text-primary);
-    color: var(--bg-primary);
-}
-body.theme-moss .keybind-title,
-body.theme-moss .keybind-description {
-    color: var(--text-primary);
-}
-body.theme-moss .keybind-box {
-    background: var(--bg-tertiary);
-    color: var(--text-primary);
-    border: 1.5px solid var(--input-bg);
-}
-body.theme-moss .keybind-url {
-    background: var(--bg-tertiary);
-    color: var(--text-primary);
-    border: 1.5px solid var(--input-bg);
-}
-body.theme-moss .keybind-url::placeholder {
-    color: var(--text-muted);
-}
-body.theme-moss .credentials-modal,
-body.theme-moss .credentials-modal-content {
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    border: 1.5px solid var(--input-bg);
-}
-body.theme-moss .credentials-modal input {
-    background: var(--bg-tertiary);
-    color: var(--text-primary);
-    border: 1.5px solid var(--input-bg);
-}
-body.theme-moss .credentials-modal input::placeholder {
-    color: var(--text-muted);
-}
-body.theme-moss .credentials-buttons button {
-    background: var(--input-bg);
-    color: var(--text-primary);
-    border: 1.5px solid var(--bg-primary);
-}
-body.theme-moss .credentials-buttons button:hover {
-    background: var(--text-primary);
-    color: var(--bg-primary);
-}
-
-/* Welcome back overlay theme styles */
-body.theme-moss .welcome-back-content {
-    background: var(--bg-overlay);
-    border: 2px solid var(--text-primary);
-}
-
-body.theme-moss .welcome-back-icon,
-body.theme-moss .welcome-back-title {
-    color: var(--text-primary);
-}
-
-body.theme-moss .welcome-back-message {
-    color: var(--text-secondary);
-}
-
-body.theme-midnight {
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-}
-
-
-
-
-body.theme-midnight .setting-card,
-body.theme-midnight .apps-container,
-body.theme-midnight .games-container {
-    background: var(--bg-tertiary);
-    color: var(--text-primary);
-    border: 2px solid var(--input-bg);
-}
-body.theme-midnight .setting-title,
-body.theme-midnight .setting-description,
-body.theme-midnight .logo-container a,
-body.theme-midnight .nav-links a {
-    color: var(--text-primary) !important;
-}
-body.theme-midnight .setting-button,
-body.theme-midnight .transport-select,
-body.theme-midnight .proxy-backend-select,
-body.theme-midnight .searchengine-select,
-body.theme-midnight .cloak-select,
-body.theme-midnight .theme-select {
-    background: var(--bg-tertiary);
-    color: var(--text-primary);
-    border: none;
-}
-body.theme-midnight .navbar,
-body.theme-midnight #navbar {
-    background: transparent !important;
-    backdrop-filter: blur(15px) !important;
-    -webkit-backdrop-filter: blur(15px) !important;
-    border: none !important;
-    border-bottom: 1px solid var(--border-primary) !important;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
-}
-body.theme-midnight #latency-fps-widget,
-body.theme-midnight #clock-widget {
-    background: var(--bg-tertiary);
-    color: var(--text-primary);
-    border: 1.5px solid var(--bg-primary);
-}
-body.theme-midnight #search,
-body.theme-midnight #search-input,
-body.theme-midnight #proxySearch {
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    border: 1.5px solid var(--input-bg);
-}
-body.theme-midnight #search::placeholder,
-body.theme-midnight #search-input::placeholder,
-body.theme-midnight #proxySearch::placeholder {
-    color: var(--text-muted);
-}
-
-body.theme-midnight #search-button {
-    background: var(--input-bg);
-    color: var(--text-primary);
-    border: 1px solid var(--input-bg);
-}
-
-body.theme-midnight #search-button:hover {
-    background: var(--search-hover);
-    color: #d4e4f0;
-}
-body.theme-midnight .setting-button,
-body.theme-midnight .transport-select,
-body.theme-midnight .proxy-backend-select,
-body.theme-midnight .searchengine-select,
-body.theme-midnight .cloak-select,
-body.theme-midnight .theme-select {
-    background: var(--bg-secondary);
-    color: var(--text-primary);
-    border: 1.5px solid var(--input-bg);
-}
-body.theme-midnight .app-card,
-body.theme-midnight .game-card {
-    background-color: var(--bg-tertiary);
-    border: 2px solid var(--input-bg);
-    box-shadow: 0 2px 8px var(--bg-primary)40;
-    color: var(--text-primary);
-}
-body.theme-midnight .app-card:hover,
-body.theme-midnight .game-card:hover {
-    border: 2px solid var(--text-primary);
-    background-color: var(--input-bg);
-    color: var(--text-primary);
-}
-body.theme-midnight .app-card:hover .app-name,
-body.theme-midnight .game-card:hover .game-name {
-    color: var(--text-primary);
-}
-body.theme-midnight #navbar #logo-text {
-    color: var(--text-primary);
-}
-body.theme-midnight #navbar #proxySearch {
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    border: 1.5px solid var(--input-bg);
-}
-body.theme-midnight #navbar #proxySearch::placeholder {
-    color: var(--text-muted);
-}
-body.theme-midnight #navbar #controls button {
-    background: var(--bg-secondary);
-    color: var(--text-primary);
-    border: 1.5px solid var(--input-bg);
-}
-body.theme-midnight #navbar #controls button:hover {
-    background: var(--input-bg);
-    color: #fff;
-}
-body.theme-midnight .notification,
-body.theme-midnight .keybind-modal,
-body.theme-midnight .keybind-content {
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    border: 1.5px solid var(--input-bg);
-    box-shadow: 0 2px 10px var(--bg-primary)80;
-}
-body.theme-midnight .keybind-buttons button {
-    background: var(--input-bg);
-    color: var(--text-primary);
-    border: 1.5px solid var(--bg-primary);
-}
-body.theme-midnight .keybind-buttons button:hover {
-    background: var(--text-primary);
-    color: var(--bg-primary);
-}
-body.theme-midnight .keybind-title,
-body.theme-midnight .keybind-description {
-    color: var(--text-primary);
-}
-body.theme-midnight .keybind-box {
-    background: #232b33;
-    color: var(--text-primary);
-    border: 1.5px solid var(--input-bg);
-}
-body.theme-midnight .keybind-url {
-    background: #232b33;
-    color: var(--text-primary);
-    border: 1.5px solid var(--input-bg);
-}
-body.theme-midnight .keybind-url::placeholder {
-    color: var(--text-muted);
-}
-body.theme-midnight .credentials-modal,
-body.theme-midnight .credentials-modal-content {
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    border: 1.5px solid var(--input-bg);
-}
-body.theme-midnight .credentials-modal input {
-    background: #232b33;
-    color: var(--text-primary);
-    border: 1.5px solid var(--input-bg);
-}
-body.theme-midnight .credentials-modal input::placeholder {
-    color: var(--text-muted);
-}
-body.theme-midnight .credentials-buttons button {
-    background: var(--input-bg);
-    color: var(--text-primary);
-    border: 1.5px solid var(--bg-primary);
-}
-body.theme-midnight .credentials-buttons button:hover {
-    background: var(--text-primary);
-    color: var(--bg-primary);
-}
-
-body.theme-midnight .welcome-back-content {
-    background: var(--bg-overlay);
-    border: 2px solid var(--text-primary);
-}
-
-body.theme-midnight .welcome-back-icon,
-body.theme-midnight .welcome-back-title {
-    color: var(--text-primary);
-}
-
-body.theme-midnight .welcome-back-message {
-    color: #a3b3d0;
-}
-
-body.theme-rose {
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-}
-
-
-
-
-body.theme-rose .setting-card,
-body.theme-rose .apps-container,
-body.theme-rose .games-container {
-    background: #3a232b;
-    color: var(--text-primary);
-    border: 2px solid var(--input-bg);
-}
-body.theme-rose .setting-title,
-body.theme-rose .setting-description,
-body.theme-rose .logo-container a,
-body.theme-rose .nav-links a {
-    color: var(--text-primary) !important;
-}
-body.theme-rose .setting-button,
-body.theme-rose .transport-select,
-body.theme-rose .proxy-backend-select,
-body.theme-rose .searchengine-select,
-body.theme-rose .cloak-select,
-body.theme-rose .theme-select {
-    background: #3a232b;
-    color: var(--text-primary);
-    border: none;
-}
-body.theme-rose .navbar,
-body.theme-rose #navbar {
-    background: transparent !important;
-    backdrop-filter: blur(15px) !important;
-    -webkit-backdrop-filter: blur(15px) !important;
-    border: none !important;
-    border-bottom: 1px solid var(--border-primary) !important;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
-}
-body.theme-rose #latency-fps-widget,
-body.theme-rose #clock-widget {
-    background: #3a232b;
-    color: var(--text-primary);
-    border: 1.5px solid var(--bg-primary);
-}
-body.theme-rose #search,
-body.theme-rose #search-input,
-body.theme-rose #proxySearch {
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    border: 1.5px solid var(--input-bg);
-}
-body.theme-rose #search::placeholder,
-body.theme-rose #search-input::placeholder,
-body.theme-rose #proxySearch::placeholder {
-    color: #a87e8e;
-}
-
-body.theme-rose #search-button {
-    background: var(--input-bg);
-    color: var(--text-primary);
-    border: 1px solid var(--input-bg);
-}
-
-body.theme-rose #search-button:hover {
-    background: var(--search-hover);
-    color: var(--text-accent);
-}
-body.theme-rose .setting-button,
-body.theme-rose .transport-select,
-body.theme-rose .proxy-backend-select,
-body.theme-rose .searchengine-select,
-body.theme-rose .cloak-select,
-body.theme-rose .theme-select {
-    background: var(--bg-secondary);
-    color: var(--text-primary);
-    border: 1.5px solid var(--input-bg);
-}
-body.theme-rose .app-card,
-body.theme-rose .game-card {
-    background-color: #3a232b;
-    border: 2px solid var(--input-bg);
-    box-shadow: 0 2px 8px var(--bg-primary)40;
-    color: var(--text-primary);
-}
-body.theme-rose .app-card:hover,
-body.theme-rose .game-card:hover {
-    border: 2px solid var(--text-primary);
-    background-color: var(--input-bg);
-    color: var(--text-primary);
-}
-body.theme-rose .app-card:hover .app-name,
-body.theme-rose .game-card:hover .game-name {
-    color: var(--text-primary);
-}
-body.theme-rose #navbar #logo-text {
-    color: var(--text-primary);
-}
-body.theme-rose #navbar #proxySearch {
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    border: 1.5px solid var(--input-bg);
-}
-body.theme-rose #navbar #proxySearch::placeholder {
-    color: #a87e8e;
-}
-body.theme-rose #navbar #controls button {
-    background: var(--bg-secondary);
-    color: var(--text-primary);
-    border: 1.5px solid var(--input-bg);
-}
-body.theme-rose #navbar #controls button:hover {
-    background: var(--input-bg);
-    color: #fff;
-}
-body.theme-rose .notification,
-body.theme-rose .keybind-modal,
-body.theme-rose .keybind-content {
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    border: 1.5px solid var(--input-bg);
-    box-shadow: 0 2px 10px var(--bg-primary)80;
-}
-body.theme-rose .keybind-buttons button {
-    background: var(--input-bg);
-    color: var(--text-primary);
-    border: 1.5px solid var(--bg-primary);
-}
-body.theme-rose .keybind-buttons button:hover {
-    background: var(--text-primary);
-    color: var(--bg-primary);
-}
-body.theme-rose .keybind-title,
-body.theme-rose .keybind-description {
-    color: var(--text-primary);
-}
-body.theme-rose .keybind-box {
-    background: #3a2230;
-    color: var(--text-primary);
-    border: 1.5px solid var(--input-bg);
-}
-body.theme-rose .keybind-url {
-    background: #3a2230;
-    color: var(--text-primary);
-    border: 1.5px solid var(--input-bg);
-}
-body.theme-rose .keybind-url::placeholder {
-    color: #a87e8e;
-}
-body.theme-rose .credentials-modal,
-body.theme-rose .credentials-modal-content {
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    border: 1.5px solid var(--input-bg);
-}
-body.theme-rose .credentials-modal input {
-    background: #3a2230;
-    color: var(--text-primary);
-    border: 1.5px solid var(--input-bg);
-}
-body.theme-rose .credentials-modal input::placeholder {
-    color: #a87e8e;
-}
-body.theme-rose .credentials-buttons button {
-    background: var(--input-bg);
-    color: var(--text-primary);
-    border: 1.5px solid var(--bg-primary);
-}
-body.theme-rose .credentials-buttons button:hover {
-    background: var(--text-primary);
-    color: var(--bg-primary);
-}
-
-body.theme-rose .welcome-back-content {
-    background: rgba(45, 27, 27, 0.95);
-    border: 2px solid var(--text-primary);
-}
-
-body.theme-rose .welcome-back-icon,
-body.theme-rose .welcome-back-title {
-    color: var(--text-primary);
-}
-
-body.theme-rose .welcome-back-message {
-    color: #d4a5a3;
-}
-
-body.theme-rose .loading-screen {
-    background-color: var(--bg-primary);
-    border: 2px solid var(--input-bg);
-}
-body.theme-rose .loading-text {
-    color: var(--text-primary);
-}
-body.theme-rose .loading-wheel {
-    border: 8px solid var(--input-bg);
-    border-top: 8px solid var(--text-primary);
-}
-
-body.theme-noir {
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-}
-
-
-
-
-body.theme-noir .setting-card,
-body.theme-noir .apps-container,
-body.theme-noir .games-container {
-    background: #232323;
-    color: var(--text-primary);
-    border: 2px solid var(--input-bg);
-}
-body.theme-noir .setting-title,
-body.theme-noir .setting-description,
-body.theme-noir .logo-container a,
-body.theme-noir .nav-links a {
-    color: var(--text-primary) !important;
-}
-body.theme-noir .setting-button,
-body.theme-noir .transport-select,
-body.theme-noir .proxy-backend-select,
-body.theme-noir .searchengine-select,
-body.theme-noir .cloak-select,
-body.theme-noir .theme-select {
-    background: #232323;
-    color: var(--text-primary);
-    border: none;
-}
-body.theme-noir .navbar,
-body.theme-noir #navbar {
-    background: transparent !important;
-    backdrop-filter: blur(15px) !important;
-    -webkit-backdrop-filter: blur(15px) !important;
-    border: none !important;
-    border-bottom: 1px solid var(--border-primary) !important;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
-}
-body.theme-noir #latency-fps-widget,
-body.theme-noir #clock-widget {
-    background: #232323;
-    color: var(--text-primary);
-    border: 1.5px solid var(--bg-primary);
-}
-body.theme-noir #search,
-body.theme-noir #search-input,
-body.theme-noir #proxySearch {
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    border: 1.5px solid var(--input-bg);
-}
-body.theme-noir #search::placeholder,
-body.theme-noir #search-input::placeholder,
-body.theme-noir #proxySearch::placeholder {
-    color: #7e7e7e;
-}
-body.theme-noir .setting-button,
-body.theme-noir .transport-select,
-body.theme-noir .proxy-backend-select,
-body.theme-noir .searchengine-select,
-body.theme-noir .cloak-select,
-body.theme-noir .theme-select {
-    background: #111;
-    color: var(--text-primary);
-    border: 1.5px solid var(--input-bg);
-}
-body.theme-noir .app-card,
-body.theme-noir .game-card {
-    background-color: #232323;
-    border: 2px solid var(--input-bg);
-    box-shadow: 0 2px 8px var(--bg-primary)40;
-    color: var(--text-primary);
-}
-body.theme-noir .app-card:hover,
-body.theme-noir .game-card:hover {
-    border: 2px solid var(--text-primary);
-    background-color: var(--input-bg);
-    color: var(--text-primary);
-}
-body.theme-noir .app-card:hover .app-name,
-body.theme-noir .game-card:hover .game-name {
-    color: var(--text-primary);
-}
-body.theme-noir #navbar #logo-text {
-    color: var(--text-primary);
-}
-body.theme-noir #navbar #proxySearch {
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    border: 1.5px solid var(--input-bg);
-}
-body.theme-noir #navbar #proxySearch::placeholder {
-    color: #888;
-}
-body.theme-noir #navbar #controls button {
-    background: #111;
-    color: var(--text-primary);
-    border: 1.5px solid var(--input-bg);
-}
-body.theme-noir #navbar #controls button:hover {
-    background: var(--input-bg);
-    color: #fff;
-}
-body.theme-noir .notification,
-body.theme-noir .keybind-modal,
-body.theme-noir .keybind-content {
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    border: 1.5px solid var(--input-bg);
-    box-shadow: 0 2px 10px var(--bg-primary)80;
-}
-body.theme-noir .keybind-buttons button {
-    background: var(--input-bg);
-    color: var(--text-primary);
-    border: 1.5px solid var(--bg-primary);
-}
-body.theme-noir .keybind-buttons button:hover {
-    background: var(--text-primary);
-    color: var(--bg-primary);
-}
-body.theme-noir .keybind-title,
-body.theme-noir .keybind-description {
-    color: var(--text-primary);
-}
-body.theme-noir .keybind-box {
-    background: #232323;
-    color: var(--text-primary);
-    border: 1.5px solid var(--input-bg);
-}
-body.theme-noir .keybind-url {
-    background: #232323;
-    color: var(--text-primary);
-    border: 1.5px solid var(--input-bg);
-}
-body.theme-noir .keybind-url::placeholder {
-    color: #888;
-}
-body.theme-noir .credentials-modal,
-body.theme-noir .credentials-modal-content {
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    border: 1.5px solid var(--input-bg);
-}
-body.theme-noir .credentials-modal input {
-    background: #232323;
-    color: var(--text-primary);
-    border: 1.5px solid var(--input-bg);
-}
-body.theme-noir .credentials-modal input::placeholder {
-    color: #888;
-}
-body.theme-noir .credentials-buttons button {
-    background: var(--input-bg);
-    color: var(--text-primary);
-    border: 1.5px solid var(--bg-primary);
-}
-body.theme-noir .credentials-buttons button:hover {
-    background: var(--text-primary);
-    color: var(--bg-primary);
-}
-
-body.theme-noir .welcome-back-content {
-    background: var(--bg-overlay);
-    border: 2px solid var(--text-primary);
-}
-
-body.theme-noir .welcome-back-icon,
-body.theme-noir .welcome-back-title {
-    color: var(--text-primary);
-}
-
-body.theme-noir .welcome-back-message {
-    color: #c0c0c0;
-}
-
-body.theme-noir .loading-screen {
-    background-color: var(--bg-primary);
-    border: 2px solid var(--input-bg);
-}
-body.theme-noir .loading-text {
-    color: var(--text-primary);
-}
-body.theme-noir .loading-wheel {
-    border: 8px solid var(--input-bg);
-    border-top: 8px solid var(--text-primary);
-}
-
-body.theme-noir #search-button {
-    background: var(--input-bg);
-    color: var(--text-primary);
-    border: 1px solid var(--input-bg);
-}
-
-body.theme-noir #search-button:hover {
-    background: var(--search-hover);
-    color: var(--text-accent);
-}
-
-/* Forest Theme */
-
-
-
-
 *,
 *::before,
 *::after {
@@ -1209,19 +380,34 @@ body.theme-noir #search-button:hover {
 }
 
 #search {
-    background: var(--bg-tertiary);
-    color: var(--text-primary);
+    background: var(--search-bg);
+    color: var(--search-text);
     font-size: inherit;
     font-family: inherit;
     border: 1px solid var(--input-bg);
+    border-right: 1px solid var(--search-separator);
     outline: none;
     padding: 1rem 1rem;
     border-radius: 16px 0 0 16px;
     width: 100%;
-    transition: background 0.2s, border 0.2s, color 0.2s;
+    transition: background 0.3s, border 0.3s, color 0.3s;
     box-sizing: border-box;
     flex: 1;
     height: 100%;
+}
+#search::placeholder {
+    color: var(--search-placeholder);
+}
+#search:focus, #search:hover {
+    border: 1px solid var(--search-hover-border);
+    border-right: 1px solid var(--search-separator);
+    outline: none;
+    background: var(--search-hover-bg);
+}
+#search:focus::placeholder,
+#search:hover::placeholder {
+    color: var(--search-placeholder);
+    opacity: 1;
 }
 
 #search-button {
@@ -1233,7 +419,7 @@ body.theme-noir #search-button:hover {
     padding: 0 1.5rem;
     border-radius: 0 16px 16px 0;
     cursor: pointer;
-    transition: background 0.2s, border 0.2s, color 0.2s;
+    transition: background 0.3s, border 0.3s, color 0.3s;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1246,148 +432,32 @@ body.theme-noir #search-button:hover {
 
 /* Default (Moss) */
 #search:hover, #search:focus {
-    background: #323a32;
-    border-color: #6a7a6a;
-    color: #c2d2b8;
+    background: var(--search-hover-bg);
+    border-color: var(--search-hover-border);
 }
 #search-button:hover, #search-button:focus {
-    background: #465246;
-    border-color: #6a7a6a;
-    color: #c2d2b8;
+    outline: none;
+    background: var(--search-hover-bg);
+    border-color: var(--search-hover-border);
+    color: var(--search-hover-text);
     position: relative;
     top: 0;
     transform: none;
-}
-
-body.theme-moss #search:hover, body.theme-moss #search:focus {
-    background: var(--bg-primary);
-    border-color: #5a6a5a;
-    color: #c2d2b8;
-}
-body.theme-moss #search-button:hover, body.theme-moss #search-button:focus {
-    background: var(--input-bg);
-    border-color: #5a6a5a;
-    color: #c2d2b8;
-    position: relative;
-    top: 0;
-    transform: none;
-}
-
-/* Moss theme shared hover effects */
-body.theme-moss .search-container:hover #search,
-body.theme-moss .search-container:focus-within #search {
-    background: var(--bg-primary);
-    border-color: #5a6a5a;
-    color: #c2d2b8;
-}
-
-body.theme-moss .search-container:hover #search-button,
-body.theme-moss .search-container:focus-within #search-button {
-    background: var(--input-bg);
-    border-color: #5a6a5a;
-    color: #c2d2b8;
-}
-
-body.theme-midnight #search:hover, body.theme-midnight #search:focus {
-    background: var(--bg-tertiary);
-    border-color: #3a4a5a;
-    color: #c7d0e0;
-}
-body.theme-midnight #search-button:hover, body.theme-midnight #search-button:focus {
-    background: var(--input-bg);
-    border-color: #3a4a5a;
-    color: #c7d0e0;
-    position: relative;
-    top: 0;
-    transform: none;
-}
-
-/* Midnight theme shared hover effects */
-body.theme-midnight .search-container:hover #search,
-body.theme-midnight .search-container:focus-within #search {
-    background: var(--bg-tertiary);
-    border-color: #3a4a5a;
-    color: #c7d0e0;
-}
-
-body.theme-midnight .search-container:hover #search-button,
-body.theme-midnight .search-container:focus-within #search-button {
-    background: var(--input-bg);
-    border-color: #3a4a5a;
-    color: #c7d0e0;
-}
-
-body.theme-rose #search:hover, body.theme-rose #search:focus {
-    background: #3a232b;
-    border-color: #a86e84;
-    color: var(--text-accent);
-}
-body.theme-rose #search-button:hover, body.theme-rose #search-button:focus {
-    background: var(--input-bg);
-    border-color: #a86e84;
-    color: var(--text-accent);
-    position: relative;
-    top: 0;
-    transform: none;
-}
-
-/* Rose theme shared hover effects */
-body.theme-rose .search-container:hover #search,
-body.theme-rose .search-container:focus-within #search {
-    background: #3a232b;
-    border-color: #a86e84;
-    color: var(--text-accent);
-}
-
-body.theme-rose .search-container:hover #search-button,
-body.theme-rose .search-container:focus-within #search-button {
-    background: var(--input-bg);
-    border-color: #a86e84;
-    color: var(--text-accent);
-}
-
-body.theme-noir #search:hover, body.theme-noir #search:focus {
-    background: #232323;
-    border-color: #666;
-    color: var(--text-accent);
-}
-body.theme-noir #search-button:hover, body.theme-noir #search-button:focus {
-    background: var(--input-bg);
-    border-color: #666;
-    color: var(--text-accent);
-    position: relative;
-    top: 0;
-    transform: none;
-}
-
-/* Noir theme shared hover effects */
-body.theme-noir .search-container:hover #search,
-body.theme-noir .search-container:focus-within #search {
-    background: #232323;
-    border-color: #666;
-    color: var(--text-accent);
-}
-
-body.theme-noir .search-container:hover #search-button,
-body.theme-noir .search-container:focus-within #search-button {
-    background: var(--input-bg);
-    border-color: #666;
-    color: var(--text-accent);
 }
 
 /* Shared hover effects for search container */
 .search-container:hover #search,
 .search-container:focus-within #search {
-    background: #323a32;
-    border-color: #6a7a6a;
-    color: #c2d2b8;
+    background: var(--search-hover-bg);
+    border-color: var(--search-hover-border);
+    color: var(--search-hover-text);
 }
 
 .search-container:hover #search-button,
 .search-container:focus-within #search-button {
-    background: #465246;
-    border-color: #6a7a6a;
-    color: #c2d2b8;
+    background: var(--search-hover-bg);
+    border-color: var(--search-hover-border);
+    color: var(--search-hover-text);
 }
 
 h1 {
@@ -1476,19 +546,19 @@ a {
 }
 .theme-select:focus, .theme-select:hover {
     border: 1.5px solid var(--text-primary);
-    box-shadow: 0 2px 8px var(--bg-primary)60;
-    background: #202620;
+    box-shadow: 0 2px 8px var(--shadow-color);
+    background: var(--search-hover-bg);
 }
 
 .reset-btn {
     background: #d20f39 !important;
-    color: #fff !important;
+    color: white !important;
     border: 1.5px solid #a00 !important;
     transition: background 0.2s;
 }
 .reset-btn:hover {
     background: #a00 !important;
-    color: #fff !important;
+    color: white !important;
 }
 
 /* Custom scrollbar styling - Theme-specific only */
@@ -1525,43 +595,3 @@ a {
     scrollbar-width: thin;
     scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
 }
-
-/* Theme-specific scrollbar colors */
-
-/* Moss Theme */
-body.theme-moss {
-    --scrollbar-track: var(--bg-secondary);
-    --scrollbar-thumb: var(--input-bg);
-    --scrollbar-thumb-hover: var(--search-hover);
-}
-
-/* Midnight Theme */
-body.theme-midnight {
-    --scrollbar-track: var(--bg-secondary);
-    --scrollbar-thumb: var(--input-bg);
-    --scrollbar-thumb-hover: var(--search-hover);
-}
-
-/* Rose Theme */
-body.theme-rose {
-    --scrollbar-track: var(--bg-secondary);
-    --scrollbar-thumb: var(--input-bg);
-    --scrollbar-thumb-hover: var(--search-hover);
-}
-
-/* Classic Theme */
-body.theme-noir {
-    --scrollbar-track: var(--bg-secondary);
-    --scrollbar-thumb: var(--input-bg);
-    --scrollbar-thumb-hover: var(--search-hover);
-}
-
-/* New Theme Scrollbar Colors */
-
-
-
-/* ===== RESPONSIVE DESIGN ===== */
-
-
-
-

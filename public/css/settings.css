@@ -10,6 +10,8 @@ body {
     overflow-y: auto;
     overflow-x: hidden;
     position: relative;
+    background: var(--bg-primary);
+    color: var(--text-primary);
 }
 
 #particles-js {
@@ -18,7 +20,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1;
+    z-index: 0;
     pointer-events: none;
 }
 
@@ -49,127 +51,6 @@ body {
 .navbar, .settings-container, .setting-card {
     position: relative;
     z-index: 1;
-}
-
-/* Theme-specific sidebar styles */
-body.theme-moss .settings-sidebar {
-    background: transparent;
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border-right: 1px solid var(--border-primary);
-}
-
-body.theme-moss .tab-item.active {
-    background: rgba(81, 105, 83, 0.2);
-    border-left-color: var(--btn-primary);
-}
-
-body.theme-midnight .settings-sidebar {
-    background: transparent;
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border-right: 1px solid var(--border-primary);
-}
-
-body.theme-midnight .tab-item.active {
-    background: rgba(91, 124, 138, 0.2);
-    border-left-color: var(--btn-primary);
-}
-
-body.theme-rose .settings-sidebar {
-    background: transparent;
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border-right: 1px solid var(--border-primary);
-}
-
-body.theme-rose .tab-item.active {
-    background: rgba(194, 24, 91, 0.2);
-    border-left-color: var(--btn-primary);
-}
-
-body.theme-noir .settings-sidebar {
-    background: transparent;
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border-right: 1px solid var(--border-primary);
-}
-
-body.theme-noir .tab-item.active {
-    background: rgba(255, 255, 255, 0.1);
-    border-left-color: var(--btn-primary);
-}
-
-body.theme-moss .tab-item {
-    color: var(--text-primary);
-}
-
-body.theme-moss .tab-item:hover {
-    background: var(--border-primary);
-    color: var(--text-accent);
-}
-
-body.theme-midnight .tab-item {
-    color: var(--text-primary);
-}
-
-body.theme-midnight .tab-item:hover {
-    background: var(--border-primary);
-    color: var(--text-accent);
-}
-
-body.theme-rose .tab-item {
-    color: var(--text-primary);
-}
-
-body.theme-rose .tab-item:hover {
-    background: var(--border-primary);
-    color: var(--text-accent);
-}
-
-body.theme-noir .tab-item {
-    color: var(--text-primary);
-}
-
-body.theme-noir .tab-item:hover {
-    background: var(--border-primary);
-    color: var(--text-accent);
-}
-
-body.theme-moss .sidebar-footer {
-    border-top: 1px solid var(--border-primary);
-}
-
-body.theme-midnight .sidebar-footer {
-    border-top: 1px solid var(--border-primary);
-}
-
-body.theme-rose .sidebar-footer {
-    border-top: 1px solid var(--border-primary);
-}
-
-body.theme-noir .sidebar-footer {
-    border-top: 1px solid var(--border-primary);
-}
-
-body.theme-moss .setting-card {
-    background: var(--bg-primary);
-    border: 1px solid var(--border-primary);
-}
-
-body.theme-midnight .setting-card {
-    background: var(--bg-primary);
-    border: 1px solid var(--border-primary);
-}
-
-body.theme-rose .setting-card {
-    background: var(--bg-primary);
-    border: 1px solid var(--border-primary);
-}
-
-body.theme-noir .setting-card {
-    background: var(--bg-primary);
-    border: 1px solid var(--border-primary);
 }
 
 
@@ -225,7 +106,7 @@ html {
 }
 
 .tab-item.active {
-    background: rgba(81, 105, 83, 0.2);
+    background: var(--sidebar-active-bg, rgba(81, 105, 83, 0.2));
     color: var(--text-primary);
     border-left-color: var(--btn-primary);
 }
@@ -267,7 +148,7 @@ html {
 .sidebar-logout-btn:hover {
     background: #b91c3a;
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(210, 15, 57, 0.3);
+    box-shadow: 0 4px 12px var(--shadow-color, rgba(210, 15, 57, 0.3));
 }
 
 .sidebar-logout-btn i {
@@ -333,7 +214,7 @@ html {
 
 .setting-card:hover {
     transform: translateY(-5px); /* Slight lift effect */
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3); /* Enhanced shadow effect on hover */
+    box-shadow: 0 6px 16px var(--shadow-color);
 }
 
 /* Title and description styling for settings */
@@ -505,7 +386,7 @@ select:focus, .setting-button:focus {
     border-radius: 10px;
     color: var(--text-primary);
     width: 300px;
-    box-shadow: 0 0 20px #000;
+    box-shadow: 0 0 20px var(--shadow-color);
     border: 1px solid var(--input-bg);
     animation: modalSlideIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1);
     opacity: 0;
@@ -581,7 +462,7 @@ select:focus, .setting-button:focus {
 }
 
 .keybind-buttons button:hover {
-    background-color: #94e2d5;
+    background-color: var(--btn-primary-hover);
     transform: translateY(-1px);
 }
 
@@ -674,7 +555,7 @@ select:focus, .setting-button:focus {
     border-radius: 10px;
     color: var(--text-primary);
     width: 300px;
-    box-shadow: 0 0 20px #000;
+    box-shadow: 0 0 20px var(--shadow-color);
     border: 1px solid var(--input-bg);
     animation: modalSlideIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1);
     opacity: 0;
@@ -740,108 +621,6 @@ select:focus, .setting-button:focus {
     filter: none !important;
 }
 
-/* ===== THEME-SPECIFIC MODAL BACKGROUNDS ===== */
-
-/* Default background (moss theme) */
-.credentials-modal, .keybind-modal, .change-name-modal {
-    background: var(--bg-primary) !important;
-}
-
-/* Theme-specific solid backgrounds */
-body.theme-moss .credentials-modal,
-body.theme-moss .keybind-modal,
-body.theme-moss .change-name-modal {
-    background: var(--bg-primary) !important;
-}
-
-body.theme-midnight .credentials-modal,
-body.theme-midnight .keybind-modal,
-body.theme-midnight .change-name-modal {
-    background: var(--bg-primary) !important;
-}
-
-body.theme-rose .credentials-modal,
-body.theme-rose .keybind-modal,
-body.theme-rose .change-name-modal {
-    background: var(--bg-primary) !important;
-}
-
-body.theme-noir .credentials-modal,
-body.theme-noir .keybind-modal,
-body.theme-noir .change-name-modal {
-    background: var(--bg-primary) !important;
-}
-
-/* ===== THEME-SPECIFIC DROPDOWN STYLING ===== */
-
-/* Moss theme dropdowns */
-body.theme-moss select {
-    background: var(--input-bg);
-    color: var(--text-primary);
-    border: 1px solid var(--bg-primary);
-}
-
-body.theme-moss select:focus {
-    border: 2px solid var(--text-primary);
-    box-shadow: 0 0 10px rgba(178, 194, 168, 0.3);
-}
-
-body.theme-moss select option {
-    background: var(--input-bg);
-    color: var(--text-primary);
-}
-
-/* Midnight theme dropdowns */
-body.theme-midnight select {
-    background: var(--input-bg);
-    color: var(--text-primary);
-    border: 1px solid var(--bg-primary);
-}
-
-body.theme-midnight select:focus {
-    border: 2px solid var(--text-primary);
-    box-shadow: 0 0 10px rgba(184, 199, 224, 0.3);
-}
-
-body.theme-midnight select option {
-    background: var(--input-bg);
-    color: var(--text-primary);
-}
-
-/* Rose theme dropdowns */
-body.theme-rose select {
-    background: var(--input-bg);
-    color: var(--text-primary);
-    border: 1px solid var(--bg-primary);
-}
-
-body.theme-rose select:focus {
-    border: 2px solid var(--text-primary);
-    box-shadow: 0 0 10px rgba(224, 184, 199, 0.3);
-}
-
-body.theme-rose select option {
-    background: var(--input-bg);
-    color: var(--text-primary);
-}
-
-/* Noir theme dropdowns */
-body.theme-noir select {
-    background: var(--input-bg);
-    color: var(--text-primary);
-    border: 1px solid var(--bg-primary);
-}
-
-body.theme-noir select:focus {
-    border: 2px solid var(--text-primary);
-    box-shadow: 0 0 10px rgba(224, 224, 224, 0.3);
-}
-
-body.theme-noir select option {
-    background: var(--input-bg);
-    color: var(--text-primary);
-}
-
 .change-name-modal {
     position: fixed;
     top: 0;
@@ -880,7 +659,7 @@ body.theme-noir select option {
     border-radius: 10px;
     color: var(--text-primary);
     width: 300px;
-    box-shadow: 0 0 20px #000;
+    box-shadow: 0 0 20px var(--shadow-color);
     border: 1px solid var(--input-bg);
     animation: modalSlideIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1);
     opacity: 0;
@@ -954,7 +733,7 @@ body.theme-noir select option {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     font-weight: 500;
     font-size: 14px;
-    z-index: 2000;
+    z-index: 3000;
     opacity: 0;
     transform: translateX(100%);
     transition: all 0.3s ease;

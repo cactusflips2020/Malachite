@@ -1,4 +1,4 @@
-// Define the apps data in JSON format
+
 let appsData = [
     { "name": "Discord", "image": "/img/apps/discord.jpg", "link": "https://discord.com/app" },
     { "name": "Tiktok", "image": "/img/apps/tiktok.png", "link": "https://tiktok.com" },
@@ -14,7 +14,8 @@ let appsData = [
     { "name": "WebRetro", "image": "/img/apps/webretro.png", "link": "https://binbashbanana.github.io/webretro/" },
 ];
 
-// Load custom apps from localStorage
+const appsContainer = document.getElementById('apps-container');
+
 function loadCustomApps() {
     const customApps = localStorage.getItem('customApps');
     if (customApps) {
@@ -23,10 +24,8 @@ function loadCustomApps() {
     }
 }
 async function renderApps(filteredApps = appsData) {
-    const appsContainer = document.getElementById("apps-container");
-    appsContainer.innerHTML = ""; // Clear previous cards
+    appsContainer.innerHTML = "";
 
-    // Add the "Add Custom App" card first
     const addCard = document.createElement("div");
     addCard.classList.add("app-card", "add-card");
     addCard.innerHTML = `
@@ -37,8 +36,7 @@ async function renderApps(filteredApps = appsData) {
     `;
     addCard.addEventListener("click", openAddAppModal);
     appsContainer.appendChild(addCard);
-
-    // Render regular apps
+    
     filteredApps.forEach(app => {
         const appCard = document.createElement("div");
         appCard.classList.add("app-card");
@@ -53,7 +51,6 @@ async function renderApps(filteredApps = appsData) {
         appName.textContent = app.name;
         appCard.appendChild(appName);
 
-        // Check if this is a custom app (not in the original appsData)
         const originalApps = [
             { "name": "Discord", "image": "/img/apps/discord.jpg", "link": "https://discord.com/app" },
             { "name": "Tiktok", "image": "/img/apps/tiktok.png", "link": "https://tiktok.com" },
@@ -74,13 +71,12 @@ async function renderApps(filteredApps = appsData) {
         );
 
         if (isCustomApp) {
-            // Add delete button for custom apps
             const deleteBtn = document.createElement("button");
             deleteBtn.classList.add("delete-app-btn");
             deleteBtn.innerHTML = '<i class="fa-solid fa-trash"></i>';
             deleteBtn.title = "Delete App";
             deleteBtn.addEventListener("click", (e) => {
-                e.stopPropagation(); // Prevent opening the app
+                e.stopPropagation();
                 deleteCustomApp(app);
             });
             appCard.appendChild(deleteBtn);
@@ -117,35 +113,28 @@ window.addEventListener("load", function() {
         return;
     }
     
-    // Check if user has a name set
     const userName = localStorage.getItem('userName');
     if (!userName) {
         window.location.href = '/index.html';
         return;
     }
     
-    loadCustomApps(); // Load custom apps before rendering
+    loadCustomApps();
     renderApps();
 });
 
-// Persist breathing background animation state
 (function() {
   const body = document.body;
   const ANIMATION_NAME = 'breathing-bg';
   const ANIMATION_DURATION = 14; // seconds
-  // On load, set animation delay to match saved progress
   let progress = parseFloat(localStorage.getItem('breathingBgProgress') || '0');
   if (!isNaN(progress)) {
     body.style.animationDelay = `-${progress}s`;
   }
-  // Update progress every 100ms
   setInterval(() => {
-    // Get computed animation time
     const start = performance.timing.navigationStart;
     const now = Date.now();
-    // Estimate progress based on elapsed time and animation duration
     let elapsed = ((now - start) / 1000 + progress) % ANIMATION_DURATION;
-    // If the animation is paused or not running, skip
     if (getComputedStyle(body).animationName !== ANIMATION_NAME) return;
     localStorage.setItem('breathingBgProgress', elapsed.toFixed(2));
   }, 100);
@@ -153,69 +142,55 @@ window.addEventListener("load", function() {
 
 (function() {
   const savedTheme = localStorage.getItem('siteTheme') || 'moss';
-      document.body.classList.remove('theme-moss', 'theme-midnight', 'theme-solarized', 'theme-rose', 'theme-noir');
+      document.body.classList.remove('theme-moss', 'theme-midnight', 'theme-solarized', 'theme-rose', 'theme-noir', 'theme-ocean', 'theme-sunset', 'theme-solar');
   document.body.classList.add('theme-' + savedTheme);
 })();
 
-// Listen for theme changes from other pages
 window.addEventListener('message', function(event) {
     if (event.data.type === 'theme-change') {
         const theme = event.data.theme;
-        document.body.classList.remove('theme-moss', 'theme-midnight', 'theme-solarized', 'theme-rose', 'theme-noir');
+        document.body.classList.remove('theme-moss', 'theme-midnight', 'theme-solarized', 'theme-rose', 'theme-noir', 'theme-ocean', 'theme-sunset', 'theme-solar');
         document.body.classList.add('theme-' + theme);
         
-        // Update existing notifications to match new theme
         updateNotificationThemes(theme);
     }
 });
 
-// Listen for storage changes (when theme is changed in another tab/window)
 window.addEventListener('storage', function(event) {
     if (event.key === 'siteTheme') {
         const theme = event.newValue || 'moss';
-        document.body.classList.remove('theme-moss', 'theme-midnight', 'theme-solarized', 'theme-rose', 'theme-noir');
+        document.body.classList.remove('theme-moss', 'theme-midnight', 'theme-solarized', 'theme-rose', 'theme-noir', 'theme-ocean', 'theme-sunset', 'theme-solar');
         document.body.classList.add('theme-' + theme);
         
-        // Update existing notifications to match new theme
         updateNotificationThemes(theme);
     }
 });
 
-// Function to update existing notifications to match new theme
 function updateNotificationThemes(theme) {
     const notifications = document.querySelectorAll('.notification');
     notifications.forEach(notification => {
         notification.className = 'notification theme-' + theme;
         
-        // Update inline styles to match new theme
-        if (theme === 'moss') {
-            notification.style.background = '#384438';
-            notification.style.color = '#b2c2a8';
-            notification.style.border = '1.5px solid #232b23';
-        } else if (theme === 'midnight') {
-            notification.style.background = '#2a3442';
-            notification.style.color = '#b8c7e0';
-            notification.style.border = '1.5px solid #181c24';
-        } else if (theme === 'rose') {
-            notification.style.background = '#6e3844';
-            notification.style.color = '#e0b8c7';
-            notification.style.border = '1.5px solid #2a1a1f';
-        } else if (theme === 'noir') {
-            notification.style.background = '#444';
-            notification.style.color = '#e0e0e0';
-            notification.style.border = '1.5px solid #181818';
-        }
+        notification.style.background = 'var(--notification-bg)';
+        notification.style.color = 'var(--notification-text)';
+        notification.style.border = '1.5px solid var(--notification-border)';
     });
 }
 
-// Modal functions for adding custom apps
 function openAddAppModal() {
-    document.getElementById('add-app-modal').style.display = 'flex';
+    const modal = document.getElementById('add-app-modal');
+    modal.style.display = 'flex';
+    modal.classList.add('show');
 }
 
 function closeAddAppModal() {
-    document.getElementById('add-app-modal').style.display = 'none';
-    // Clear form fields
+    const modal = document.getElementById('add-app-modal');
+    modal.style.animation = 'modalFadeOut 0.3s ease-out';
+    modal.classList.remove('show');
+    setTimeout(() => {
+        modal.style.display = 'none';
+        modal.style.animation = '';
+    }, 300);
     document.getElementById('app-name').value = '';
     document.getElementById('app-link').value = '';
     document.getElementById('app-image').value = '';
@@ -243,55 +218,53 @@ function addCustomApp() {
 
     const newApp = { name, link, image };
     
-    // Add to current apps array
     appsData.push(newApp);
     
-    // Save to localStorage
     const customApps = JSON.parse(localStorage.getItem('customApps') || '[]');
     customApps.push(newApp);
     localStorage.setItem('customApps', JSON.stringify(customApps));
     
-    // Close modal and re-render
     closeAddAppModal();
     renderApps();
     
-    // Show success notification
     showNotification('Custom app added successfully!');
 }
 
 function deleteCustomApp(appToDelete) {
-    // Confirm deletion
     if (!confirm(`Are you sure you want to delete "${appToDelete.name}"?`)) {
         return;
     }
     
-    // Remove from current apps array
     appsData = appsData.filter(app => 
         !(app.name === appToDelete.name && app.link === appToDelete.link)
     );
     
-    // Remove from localStorage
     const customApps = JSON.parse(localStorage.getItem('customApps') || '[]');
     const updatedCustomApps = customApps.filter(app => 
         !(app.name === appToDelete.name && app.link === appToDelete.link)
     );
     localStorage.setItem('customApps', JSON.stringify(updatedCustomApps));
     
-    // Re-render the apps
     renderApps();
     
-    // Show success notification
     showNotification('Custom app deleted successfully!');
 }
 
-// Manage apps modal functions
 function openManageAppsModal() {
-    document.getElementById('manage-apps-modal').style.display = 'flex';
+    const modal = document.getElementById('manage-apps-modal');
+    modal.style.display = 'flex';
+    modal.classList.add('show');
     loadCustomAppsList();
 }
 
 function closeManageAppsModal() {
-    document.getElementById('manage-apps-modal').style.display = 'none';
+    const modal = document.getElementById('manage-apps-modal');
+    modal.style.animation = 'modalFadeOut 0.3s ease-out';
+    modal.classList.remove('show');
+    setTimeout(() => {
+        modal.style.display = 'none';
+        modal.style.animation = '';
+    }, 300);
 }
 
 function loadCustomAppsList() {
@@ -325,34 +298,27 @@ function loadCustomAppsList() {
 }
 
 function deleteCustomAppFromModal(appName, appLink) {
-    // Confirm deletion
     if (!confirm(`Are you sure you want to delete "${appName}"?`)) {
         return;
     }
     
-    // Remove from current apps array
     appsData = appsData.filter(app => 
         !(app.name === appName && app.link === appLink)
     );
     
-    // Remove from localStorage
     const customApps = JSON.parse(localStorage.getItem('customApps') || '[]');
     const updatedCustomApps = customApps.filter(app => 
         !(app.name === appName && app.link === appLink)
     );
     localStorage.setItem('customApps', JSON.stringify(updatedCustomApps));
     
-    // Reload the custom apps list
     loadCustomAppsList();
     
-    // Re-render the main apps grid
     renderApps();
     
-    // Show success notification
     showNotification('Custom app deleted successfully!');
 }
 
-// Close modal when clicking outside
 window.addEventListener('click', function(event) {
     const addModal = document.getElementById('add-app-modal');
     const manageModal = document.getElementById('manage-apps-modal');
@@ -368,34 +334,16 @@ window.addEventListener('click', function(event) {
 
 
 
-// Notification function
 function showNotification(message) {
-    // Create notification element
     let notification = document.createElement("div");
     const theme = localStorage.getItem('siteTheme') || 'moss';
     notification.className = "notification theme-" + theme;
     notification.innerText = message;
     
-    // Set theme-specific styling
-    if (theme === 'moss') {
-        notification.style.background = '#384438';
-        notification.style.color = '#b2c2a8';
-        notification.style.border = '1.5px solid #232b23';
-    } else if (theme === 'midnight') {
-        notification.style.background = '#2a3442';
-        notification.style.color = '#b8c7e0';
-        notification.style.border = '1.5px solid #181c24';
-    } else if (theme === 'rose') {
-        notification.style.background = '#6e3844';
-        notification.style.color = '#e0b8c7';
-        notification.style.border = '1.5px solid #2a1a1f';
-    } else if (theme === 'noir') {
-        notification.style.background = '#444';
-        notification.style.color = '#e0e0e0';
-        notification.style.border = '1.5px solid #181818';
-    }
+    notification.style.background = 'var(--notification-bg)';
+    notification.style.color = 'var(--notification-text)';
+    notification.style.border = '1.5px solid var(--notification-border)';
 
-    // Style the notification
     Object.assign(notification.style, {
         position: "fixed",
         bottom: "20px",
@@ -411,7 +359,6 @@ function showNotification(message) {
 
     document.body.appendChild(notification);
 
-    // Remove notification after 3 seconds
     setTimeout(() => {
         notification.style.opacity = "0";
         notification.style.transform = "translateY(-20px)";

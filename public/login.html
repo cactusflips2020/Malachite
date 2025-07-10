@@ -15,18 +15,15 @@
 </head>
 <body>
     <div id="particles-js"></div>
-    <!-- Top banner (clickable to redirect) -->
     <a href="https://www.powerschool.com/personalized-learning-cloud/schoology-learning/" target="_blank" class="top-banner-link">
       <div class="top-banner">
         <img src="https://asset-cdn.schoology.com/sites/all/themes/schoology_theme/images_front/sgylogo.svg" alt="PowerSchool Schoology Learning Logo" class="top-logo">
       </div>
     </a>
 
-    <!-- Login Wrapper -->
     <div class="login-wrapper">
       <div class="login-box">
   
-        <!-- Login Content -->
         <div class="login-content clearfix">
           <h3 class="sign-in-header">Sign in to Schoology</h3>
           <h3 class="forgot-header">Forgot Password</h3>
@@ -76,7 +73,6 @@
             </div>
           </form>
           
-          <!-- Forgot Password Form -->
           <form id="forgot-password-form" style="display: none;">
             <div>
               <div class="form-item">
@@ -97,23 +93,20 @@
             </div>
           </form>
         </div>
-      </div> <!-- End of login-box -->
+      </div>
       
-      <!-- Divider -->
       <div class="divider-container">
         <div class="divider-line"></div>
         <span class="divider-text">or</span>
         <div class="divider-line"></div>
       </div>
       
-      <!-- QR Code Section -->
       <div class="qr-section">
         <img src="https://app.schoology.com/sites/all/themes/schoology_theme/images/qr-scan-sample.png" alt="QR Code" class="qr-image">
         <button type="button" class="qr-button">Scan QR Code</button>
       </div>
-    </div> <!-- End of login-wrapper -->
+    </div>
   
-    <!-- Modern Footer -->
     <footer class="modern-footer">
       <div class="modern-footer-container">
         <div class="modern-footer-links">
@@ -128,155 +121,8 @@
         </div>
       </div>
     </footer>
-  
-    <script src="js/particles.min.js"></script>
     <script src="js/login.js"></script>
-    <script src="js/transitions.js" defer></script>
     <script>
-        // Theme-based particle configurations
-        const particleConfigs = {
-            moss: {
-                particles: {
-                    number: { value: 40, density: { enable: true, value_area: 800 } },
-                    color: { value: ['#b2c2a8', '#94e2d5', '#a6e3a1', '#89dceb'] },
-                    shape: { type: 'circle' },
-                    opacity: { value: 0.3, random: true, anim: { enable: false, speed: 1, opacity_min: 0.1, sync: false } },
-                    size: { value: 2, random: true, anim: { enable: false, speed: 2, size_min: 1, sync: false } },
-                    line_linked: { enable: true, distance: 200, color: '#b2c2a8', opacity: 0.2, width: 0.5 },
-                    move: { enable: true, speed: 1.5, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
-                },
-                interactivity: {
-                    detect_on: 'canvas',
-                    events: {
-                        onhover: { enable: false, mode: 'repulse' },
-                        onclick: { enable: false, mode: 'push' },
-                        resize: true
-                    },
-                    modes: {
-                        grab: { distance: 140, line_linked: { opacity: 1 } },
-                        bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
-                        repulse: { distance: 150, duration: 0.4 },
-                        push: { particles_nb: 4 },
-                        remove: { particles_nb: 2 }
-                    }
-                },
-                retina_detect: true
-            },
-            midnight: {
-                particles: {
-                    number: { value: 50, density: { enable: true, value_area: 800 } },
-                    color: { value: ['#b8c7e0', '#81a1c1', '#5e81ac', '#88c0d0'] },
-                    shape: { type: 'circle' },
-                    opacity: { value: 0.4, random: true, anim: { enable: false, speed: 1.5, opacity_min: 0.2, sync: false } },
-                    size: { value: 2.5, random: true, anim: { enable: false, speed: 4, size_min: 1, sync: false } },
-                    line_linked: { enable: true, distance: 180, color: '#b8c7e0', opacity: 0.25, width: 0.5 },
-                    move: { enable: true, speed: 2, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
-                },
-                interactivity: {
-                    detect_on: 'canvas',
-                    events: {
-                        onhover: { enable: false, mode: 'grab' },
-                        onclick: { enable: false, mode: 'push' },
-                        resize: true
-                    },
-                    modes: {
-                        grab: { distance: 140, line_linked: { opacity: 1 } },
-                        bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
-                        repulse: { distance: 200, duration: 0.4 },
-                        push: { particles_nb: 4 },
-                        remove: { particles_nb: 2 }
-                    }
-                },
-                retina_detect: true
-            },
-            rose: {
-                particles: {
-                    number: { value: 35, density: { enable: true, value_area: 800 } },
-                    color: { value: ['#e0b8c7', '#f38ba8', '#eba0ac', '#f5c2e7'] },
-                    shape: { type: 'circle' },
-                    opacity: { value: 0.35, random: true, anim: { enable: false, speed: 1.2, opacity_min: 0.2, sync: false } },
-                    size: { value: 2.2, random: true, anim: { enable: false, speed: 2.5, size_min: 1, sync: false } },
-                    line_linked: { enable: true, distance: 220, color: '#e0b8c7', opacity: 0.2, width: 0.5 },
-                    move: { enable: true, speed: 1.8, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
-                },
-                interactivity: {
-                    detect_on: 'canvas',
-                    events: {
-                        onhover: { enable: false, mode: 'bubble' },
-                        onclick: { enable: false, mode: 'push' },
-                        resize: true
-                    },
-                    modes: {
-                        grab: { distance: 140, line_linked: { opacity: 1 } },
-                        bubble: { distance: 200, size: 40, duration: 2, opacity: 8, speed: 3 },
-                        repulse: { distance: 200, duration: 0.4 },
-                        push: { particles_nb: 4 },
-                        remove: { particles_nb: 2 }
-                    }
-                },
-                retina_detect: true
-            },
-            noir: {
-                particles: {
-                    number: { value: 30, density: { enable: true, value_area: 800 } },
-                    color: { value: ['#e0e0e0', '#c0c0c0', '#a0a0a0', '#808080'] },
-                    shape: { type: 'circle' },
-                    opacity: { value: 0.25, random: true, anim: { enable: false, speed: 1, opacity_min: 0.1, sync: false } },
-                    size: { value: 1.8, random: true, anim: { enable: false, speed: 3, size_min: 1, sync: false } },
-                    line_linked: { enable: true, distance: 250, color: '#e0e0e0', opacity: 0.15, width: 0.5 },
-                    move: { enable: true, speed: 1.2, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
-                },
-                interactivity: {
-                    detect_on: 'canvas',
-                    events: {
-                        onhover: { enable: false, mode: 'repulse' },
-                        onclick: { enable: false, mode: 'push' },
-                        resize: true
-                    },
-                    modes: {
-                        grab: { distance: 140, line_linked: { opacity: 1 } },
-                        bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
-                        repulse: { distance: 180, duration: 0.4 },
-                        push: { particles_nb: 4 },
-                        remove: { particles_nb: 2 }
-                    }
-                },
-                retina_detect: true
-            }
-        };
-
-        // Function to initialize particles with current theme
-        function initializeParticles() {
-            const currentTheme = localStorage.getItem('siteTheme') || 'moss';
-            const config = particleConfigs[currentTheme];
-            
-            console.log('Initializing particles for theme:', currentTheme);
-            if (typeof particlesJS !== 'undefined' && config) {
-                particlesJS('particles-js', config);
-                console.log('Particles initialized successfully for theme:', currentTheme);
-            } else {
-                console.log('ParticlesJS not available or config not found');
-            }
-        }
-
-        // Initialize particles on page load
-        window.addEventListener('load', initializeParticles);
-
-        // Reinitialize particles when theme changes
-        window.addEventListener('storage', function(e) {
-            if (e.key === 'siteTheme') {
-                // Clean up existing particles
-                if (typeof pJSDom !== 'undefined' && pJSDom.length > 0) {
-                    pJSDom[0].pJS.fn.vendors.destroypJS();
-                    pJSDom = [];
-                }
-                // Reinitialize with new theme
-                setTimeout(initializeParticles, 100);
-            }
-        });
-    </script>
-    <script>
-      // Show/hide school field functionality
       document.addEventListener('DOMContentLoaded', function() {
         const schoolWrapper = document.getElementById('edit-school-wrapper');
         const ssoLoginLink = document.querySelector('.sso-login-link');
@@ -298,7 +144,6 @@
           });
         }
         
-        // Clear school field functionality
         const clearSchoolField = document.getElementById('clear-school-field');
         if (clearSchoolField) {
           clearSchoolField.addEventListener('click', function() {

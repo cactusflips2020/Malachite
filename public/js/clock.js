@@ -6,10 +6,8 @@ function updateClock() {
     document.getElementById("time").textContent = `${hours}:${minutes}:${seconds} (CST)`;
 }
 
-// Run clock instantly on page load
 updateClock();
 
-// Update clock every second
 setInterval(updateClock, 1000);
 
 function updateGreeting() {
@@ -29,5 +27,4 @@ function updateGreeting() {
     document.getElementById("greeting").textContent = greetingText;
 }
 
-// Run function immediately on page load
 updateGreeting();

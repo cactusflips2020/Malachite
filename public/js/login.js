@@ -1,9 +1,7 @@
-// Check if user is already logged in and redirect
 if (localStorage.getItem('isLoggedIn') === 'true') {
     window.location.href = 'index.html';
 }
 
-// Handle login form submission
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('s-user-login-form');
     const forgotForm = document.getElementById('forgot-password-form');
@@ -24,13 +22,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 window.location.href = 'index.html';
             }
             else {
-                // Check if we're in SSO mode (school field is visible)
                 const schoolWrapper = document.getElementById('edit-school-wrapper');
                 if (schoolWrapper && schoolWrapper.style.display === 'block') {
                     return false;
                 }
                 
-                // Create error message element if it doesn't exist
                 let errorElement = document.getElementById('error-message');
                 if (!errorElement) {
                     errorElement = document.createElement('div');
@@ -47,14 +43,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     errorElement.style.borderRadius = '4px';
                     errorElement.style.clear = 'both';
                     
-                    // Insert error message after the form
                     form.parentNode.insertBefore(errorElement, form.nextSibling);
                 }
                 
                 errorElement.textContent = 'Invalid username or password';
                 errorElement.style.display = 'block';
                 
-                // Auto-hide error message after 3 seconds
                 setTimeout(function() {
                     if (errorElement) {
                         errorElement.style.display = 'none';
@@ -62,30 +56,26 @@ document.addEventListener('DOMContentLoaded', function() {
                 }, 3000);
             }
             
-            return false; // Prevent form submission
+            return false;
         });
     } else {
-        console.error('Form not found!'); // Debug log
+        console.error('Form not found!'); 
     }
     
-    // Forgot password form submission
     if (forgotForm) {
         forgotForm.addEventListener('submit', function(event) {
             event.preventDefault();
             event.stopPropagation();
             
-            // Reset password to default values
             localStorage.setItem('username', 'malachite');
             localStorage.setItem('password', 'malachiteontop');
             
-            // Clear the email field
             document.getElementById('forgot-email').value = '';
             
             return false;
         });
     }
     
-    // Forgot password link functionality
     const forgotPasswordLink = document.getElementById('forgot-password-link');
     const backToLoginLink = document.getElementById('back-to-login-link');
     const signInHeader = document.querySelector('.sign-in-header');
@@ -99,7 +89,6 @@ document.addEventListener('DOMContentLoaded', function() {
             signInHeader.style.display = 'none';
             forgotHeader.style.display = 'block';
             
-            // Hide error message when switching to forgot password
             const errorElement = document.getElementById('error-message');
             if (errorElement) {
                 errorElement.style.display = 'none';
@@ -115,7 +104,6 @@ document.addEventListener('DOMContentLoaded', function() {
             forgotHeader.style.display = 'none';
             signInHeader.style.display = 'block';
             
-            // Hide any success/error messages
             const successElement = document.getElementById('success-message');
             if (successElement) {
                 successElement.style.display = 'none';
@@ -123,7 +111,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Show/hide school field functionality
     const schoolWrapper = document.getElementById('edit-school-wrapper');
     const ssoLoginLink = document.querySelector('.sso-login-link');
     const regularLoginLink = document.querySelector('.regular-login-link');
@@ -150,7 +137,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Clear school field functionality
     const clearSchoolField = document.getElementById('clear-school-field');
     if (clearSchoolField) {
         clearSchoolField.addEventListener('click', function() {

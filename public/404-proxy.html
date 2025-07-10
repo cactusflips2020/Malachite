@@ -4,37 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>404</title>
-    <link rel="icon" href="/img/favicon.ico">
+    <link rel="icon" href="/img/favicon.svg">
     <link rel="stylesheet" href="/css/proxy.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
-        :root, body.theme-moss {
-            --bg-color: #232b23;
-            --text-color: #b2c2a8;
-            --accent-color: #b2c2a8;
-        }
-        body.theme-midnight {
-            --bg-color: #181c24;
-            --text-color: #b8c7e0;
-            --accent-color: #81a1c1;
-        }
-        body.theme-rose {
-            --bg-color: #2d1b1b;
-            --text-color: #f5c2e7;
-            --accent-color: #f38ba8;
-        }
-        body.theme-noir {
-            --bg-color: #1a1a1a;
-            --text-color: #e0e0e0;
-            --accent-color: #c0c0c0;
-        }
-
         body {
             margin: 0;
             padding: 0;
             font-family: 'Montserrat', sans-serif;
-            background: var(--bg-color, #232b23);
-            color: var(--text-color, #b2c2a8);
+            background: var(--bg-primary);
+            color: var(--text-primary);
             height: 100vh;
             display: flex;
             flex-direction: column;
@@ -57,22 +36,22 @@
             font-size: 4rem;
             margin-bottom: 15px;
             opacity: 0.6;
-            color: var(--accent-color, #b2c2a8);
+            color: var(--btn-primary);
         }
 
         .error-code {
             font-size: 3.5rem;
             font-weight: 700;
             margin: 0 0 8px 0;
-            color: var(--accent-color, #b2c2a8);
-            text-shadow: 0 0 20px rgba(178, 194, 168, 0.3);
+            color: var(--btn-primary);
+            text-shadow: 0 0 20px var(--btn-primary-hover, transparent);
         }
 
         .error-title {
             font-size: 1.8rem;
             font-weight: 600;
             margin: 0 0 15px 0;
-            color: var(--text-color, #b2c2a8);
+            color: var(--text-primary);
         }
 
         .error-message {
@@ -84,8 +63,8 @@
         }
 
         .error-details {
-            background: rgba(178, 194, 168, 0.1);
-            border: 1px solid var(--accent-color, #b2c2a8);
+            background: var(--card-hover, rgba(0,0,0,0.1));
+            border: 1px solid var(--btn-primary);
             border-radius: 8px;
             padding: 15px;
             margin: 15px 0;
@@ -104,8 +83,8 @@
         }
 
         .btn {
-            background-color: var(--accent-color, #b2c2a8);
-            color: var(--bg-color, #232b23);
+            background-color: var(--btn-primary);
+            color: var(--bg-primary);
             padding: 10px 20px;
             border: none;
             border-radius: 6px;
@@ -122,18 +101,18 @@
 
         .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(178, 194, 168, 0.3);
+            box-shadow: 0 5px 15px var(--btn-primary-hover, transparent);
         }
 
         .btn-secondary {
             background-color: transparent;
-            color: var(--accent-color, #b2c2a8);
-            border: 1px solid var(--accent-color, #b2c2a8);
+            color: var(--btn-primary);
+            border: 1px solid var(--btn-primary);
         }
 
         .btn-secondary:hover {
-            background-color: var(--accent-color, #b2c2a8);
-            color: var(--bg-color, #232b23);
+            background-color: var(--btn-primary);
+            color: var(--bg-primary);
         }
 
         @media (max-width: 768px) {
@@ -203,20 +182,16 @@
     </div>
 
     <script>
-        // Get the current theme
         function getCurrentTheme() {
             return localStorage.getItem('siteTheme') || 'moss';
         }
 
-        // Apply theme to body
         function applyTheme() {
             const theme = getCurrentTheme();
             document.body.className = `theme-${theme}`;
         }
 
-        // Get the malachite:// URL that caused the 404
         function getMalachiteUrl() {
-            // Try to get from URL parameters first
             const urlParams = new URLSearchParams(window.location.search);
             const malachiteUrl = urlParams.get('url');
             
@@ -224,13 +199,11 @@
                 return malachiteUrl;
             }
             
-            // Fallback to referrer or default
             return document.referrer.includes('malachite://') ? 
                    new URL(document.referrer).href : 
                    'malachite://unknown';
         }
 
-        // Update error details
         function updateErrorDetails() {
             const malachiteUrl = getMalachiteUrl();
             const errorDetails = document.getElementById('errorDetails');
@@ -244,16 +217,13 @@
             }
         }
 
-        // Navigation functions
         function goHome() {
-            // Send message to parent to navigate to home
             if (window.parent && window.parent !== window) {
                 window.parent.postMessage({
                     type: 'malachite-navigate',
                     url: 'malachite://home'
                 }, '*');
             } else {
-                // Fallback for direct access
                 window.location.href = '/proxy.html';
             }
         }
@@ -266,12 +236,10 @@
             }
         }
 
-        // Initialize page
         document.addEventListener('DOMContentLoaded', function() {
             applyTheme();
             updateErrorDetails();
             
-            // Listen for theme changes
             window.addEventListener('storage', function(e) {
                 if (e.key === 'siteTheme') {
                     applyTheme();

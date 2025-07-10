@@ -1,8 +1,3 @@
-// ===== MALACHITE MAIN FUNCTIONALITY =====
-
-// ===== AUTO ABOUT:BLANK FUNCTIONALITY =====
-
-// Check for auto about:blank on page load
 window.addEventListener('load', function() {
     if (localStorage.getItem('autoab') === 'true') {
         runAutoABFunction();
@@ -13,7 +8,6 @@ function runAutoABFunction() {
     launchab();
 }
 
-// Launch about:blank cloak
 function launchab() {
     const tab = window.open('about:blank', '_blank');
     const iframe = tab.document.createElement('iframe');
@@ -28,9 +22,6 @@ function launchab() {
     window.parent.window.location.replace('https://classroom.google.com/');
 }
 
-// ===== AUTHENTICATION CHECK =====
-
-// Redirect to login if not authenticated, or to home if no name set
 window.onload = function() {
     const isLoggedIn = localStorage.getItem('isLoggedIn');
     
@@ -39,25 +30,17 @@ window.onload = function() {
             window.location.href = '/login.html';
         }
     } else {
-        // Check if user has a name set
         const userName = localStorage.getItem('userName');
         const currentPath = window.location.pathname;
         
-        // If logged in but no name set, redirect to home page (except if already on home)
         if (!userName && currentPath !== '/index.html' && currentPath !== '/') {
             window.location.href = '/index.html';
         }
     }
 };
 
-// ===== SEARCH ENGINE CONFIGURATION =====
-
-// Get user's preferred search engine
 const searchEngineUrl = localStorage.getItem('searchEngineSelectUrl') || "https://www.duckduckgo.com/?q=%s";
 
-// ===== PAGE PROTECTION =====
-
-// Leave confirmation dialog
 window.addEventListener('beforeunload', function (event) {
     let isLeaveConfirmationEnabled = localStorage.getItem('leaveConfirmation') === 'true';
     
@@ -67,7 +50,6 @@ window.addEventListener('beforeunload', function (event) {
     }
 });
 
-// Panic key functionality
 window.addEventListener("keydown", (e) => {
     const savedKey = localStorage.getItem("redirectKey");
     const redirectUrl = localStorage.getItem("redirectUrl") || "https://www.google.com";
@@ -76,35 +58,26 @@ window.addEventListener("keydown", (e) => {
     }
 });
 
-// ===== BREATHING ANIMATION PERSISTENCE =====
-
-// Maintain breathing background animation state across page reloads
 (function() {
     const body = document.body;
     const ANIMATION_NAME = 'breathing-bg';
-    const ANIMATION_DURATION = 14; // seconds
+    const ANIMATION_DURATION = 14;
     
-    // Restore animation progress from localStorage
     let progress = parseFloat(localStorage.getItem('breathingBgProgress') || '0');
     if (!isNaN(progress)) {
         body.style.animationDelay = `-${progress}s`;
     }
     
-    // Update progress every 100ms
     setInterval(() => {
         const start = performance.timing.navigationStart;
         const now = Date.now();
         let elapsed = ((now - start) / 1000 + progress) % ANIMATION_DURATION;
         
-        // Only update if animation is running
         if (getComputedStyle(body).animationName !== ANIMATION_NAME) return;
         localStorage.setItem('breathingBgProgress', elapsed.toFixed(2));
     }, 100);
 })();
 
-// ===== LOGO ANIMATION =====
-
-// Add spin animation to logo on hover
 document.addEventListener('DOMContentLoaded', function() {
     let logo = document.querySelector('.logo-container svg');
     let proxyLogo = document.querySelector('#logo.svg-logo');
@@ -132,9 +105,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// ===== THEME INITIALIZATION =====
-
-// Function to sync theme selector with current theme
 function syncThemeSelector() {
     const savedTheme = localStorage.getItem('siteTheme') || 'moss';
     const themeSelector = document.getElementById('theme-select');
@@ -143,30 +113,21 @@ function syncThemeSelector() {
     }
 }
 
-    // Apply saved theme on page load
 (function() {
     const savedTheme = localStorage.getItem('siteTheme') || 'moss';
-    document.body.classList.remove('theme-moss', 'theme-midnight', 'theme-solarized', 'theme-rose', 'theme-noir');
+            document.body.classList.remove('theme-moss', 'theme-midnight', 'theme-solarized', 'theme-rose', 'theme-noir', 'theme-ocean', 'theme-sunset', 'theme-solar');
     document.body.classList.add('theme-' + savedTheme);
     
-    // Also update theme selector if it exists (for settings page)
     syncThemeSelector();
 })();
 
-// Sync theme selector when DOM is loaded
 document.addEventListener('DOMContentLoaded', syncThemeSelector);
 
-// ===== LOGO AND FAVICON MANAGEMENT =====
-
-// Update logo and favicon based on current theme
 function updateLogoAndFavicon(theme) {
-    // Use single logo for all themes
     const logoPath = 'img/logo.svg';
     
-    // Use single favicon for all themes
     const faviconPath = 'img/favicon.svg';
-    
-    // Update all logo images on the page to use single logo
+
     const logoImgs = Array.from(document.querySelectorAll('.logo-container img, .logo-container a img, .logo-above-title img, #logo-container img, #logo'));
     if (logoImgs.length > 0) {
         logoImgs.forEach(img => { 
@@ -175,7 +136,6 @@ function updateLogoAndFavicon(theme) {
         });
     }
     
-    // Update favicon and title if using default tab cloak
     let tabCloak = localStorage.getItem('tabCloak') || 'Default';
     if (typeof chemical !== 'undefined' && chemical.setStore) {
         if (tabCloak === 'Default' || !tabCloak) {
@@ -185,12 +145,10 @@ function updateLogoAndFavicon(theme) {
     }
 }
 
-// Get current theme from localStorage
 function getCurrentTheme() {
     return (localStorage.getItem('siteTheme') || 'moss');
 }
 
-// Initialize favicon and logo with multiple attempts for reliability
 function initializeFavicon() {
     let tabCloak = localStorage.getItem('tabCloak') || 'Default';
     let theme = getCurrentTheme();
@@ -200,7 +158,6 @@ function initializeFavicon() {
         if (tabCloak === 'Default' || !tabCloak) {
             chemical.setStore('icon', faviconPath);
         }
-        // Only set title if tab cloak is Default to avoid conflicts
         if (tabCloak === 'Default' || !tabCloak) {
             chemical.setStore('title', 'Malachite');
         }
@@ -208,9 +165,6 @@ function initializeFavicon() {
     updateLogoAndFavicon(theme);
 }
 
-// ===== FAVICON INITIALIZATION =====
-
-// Multiple initialization attempts to ensure favicon loads
 window.addEventListener('DOMContentLoaded', function() {
     initializeFavicon();
     setTimeout(initializeFavicon, 100);
@@ -222,16 +176,12 @@ window.addEventListener('load', function() {
     setTimeout(initializeFavicon, 200);
 });
 
-// ===== THEME AND CLOAK CHANGE HANDLERS =====
-
-// Update favicon when theme or cloak changes
 window.addEventListener('storage', function(e) {
     if (e.key === 'siteTheme' || e.key === 'tabCloak') {
         initializeFavicon();
     }
 });
 
-// Override localStorage.setItem to catch theme/cloak changes
 (function() {
     const origSetItem = localStorage.setItem;
     localStorage.setItem = function(key, value) {
