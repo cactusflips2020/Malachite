@@ -595,3 +595,7 @@ a {
     scrollbar-width: thin;
     scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
 }
+
+.theme-fade {
+    transition: background 0.4s ease, color 0.4s ease;
+}

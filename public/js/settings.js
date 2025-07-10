@@ -817,15 +817,19 @@ function updateThemeModals() {
     }
 }
 
+// Apply custom theme if selected on load
 function applyTheme(theme) {
     try {
+        document.body.classList.add('theme-fade');
         document.body.classList.remove('theme-moss', 'theme-midnight', 'theme-rose', 'theme-noir', 'theme-ocean', 'theme-sunset', 'theme-solar');
         document.body.classList.add('theme-' + theme);
         localStorage.setItem('siteTheme', theme);
         updateThemeModals();
+        setTimeout(() => {
+            document.body.classList.remove('theme-fade');
+        }, 400);
     } catch (error) {
         console.error('Error applying theme:', error);
-        throw error;
     }
 }
 
