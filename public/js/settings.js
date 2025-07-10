@@ -1,18 +1,14 @@
-// Default credentials - moved to top to avoid hoisting issues
 const DEFAULT_USERNAME = "malachite";
 const DEFAULT_PASSWORD = "malachiteontop";
 
-// Set initial values if not already set
 if (!localStorage.getItem('username')) localStorage.setItem('username', DEFAULT_USERNAME);
 if (!localStorage.getItem('password')) localStorage.setItem('password', DEFAULT_PASSWORD);
 
-// Temporary credential variables
 let tempUsername = localStorage.getItem('username') || DEFAULT_USERNAME;
 let tempPassword = localStorage.getItem('password') || DEFAULT_PASSWORD;
 
 
 
-// Function to apply the cloaking based on the selected option
 function applyCloak(option) {
     if (typeof chemical !== 'undefined' && chemical.setStore) {
         if (option === 'Google') {
@@ -40,27 +36,24 @@ function applyCloak(option) {
     }
 }
 
-// Function to load the saved tab cloaking setting from localStorage on page load
 function loadCloakSetting() {
     const savedCloakOption = localStorage.getItem('tabCloak');
 
     if (savedCloakOption) {
         const selectElement = document.getElementById('cloak-select');
         if (selectElement) {
-            selectElement.value = savedCloakOption; // Set the saved value to the select dropdown
-            applyCloak(savedCloakOption); // Apply the saved option
+            selectElement.value = savedCloakOption;
+            applyCloak(savedCloakOption);
         }
     } else {
-        // If no saved option, fallback to 'Default'
         const selectElement = document.getElementById('cloak-select');
         if (selectElement) {
-            selectElement.value = 'Default'; // Default fallback
-            applyCloak('Default'); // Apply the default value
+            selectElement.value = 'Default';
+            applyCloak('Default');
         }
     }
 }
 
-// Load the setting on page load
 window.addEventListener('load', loadCloakSetting);
 
 function launchab() {
@@ -79,40 +72,33 @@ function launchab() {
 
 
 
-// Function to apply the transport based on the selected option
 function applyTransport(option) {
-    // Only set transport to valid options (either 'epoxy' or 'libcurl')
     if (option === 'epoxy') {
         chemical.setTransport("epoxy");
     } else {
-        // Default to 'libcurl' if 'epoxy' is not selected
         chemical.setTransport("libcurl");
     }
 }
 
-// Function to load the saved setting from localStorage on page load
 function loadTransportSetting() {
     const savedTransportOption = localStorage.getItem('transportSelect');
 
     if (savedTransportOption) {
         const selectElement = document.getElementById('transport-select');
         if (selectElement) {
-            selectElement.value = savedTransportOption; // Set the saved value to the select dropdown
-            applyTransport(savedTransportOption); // Apply the saved option
+            selectElement.value = savedTransportOption;
+            applyTransport(savedTransportOption);
         }
     } else {
-        // If no saved option, fallback to 'libcurl'
         const selectElement = document.getElementById('transport-select');
         if (selectElement) {
-            selectElement.value = 'libcurl'; // Set default to libcurl
-            applyTransport('libcurl'); // Apply the default value
+            selectElement.value = 'libcurl';
+            applyTransport('libcurl');
         }
     }
 }
 
-// Load saved values function
 function loadSavedValues() {
-    // Load transport setting
     const savedTransport = localStorage.getItem('transportSelect');
     if (savedTransport) {
         const transportSelect = document.getElementById('transport-select');
@@ -122,7 +108,6 @@ function loadSavedValues() {
         }
     }
     
-    // Load cloak setting
     const savedCloak = localStorage.getItem('tabCloak');
     if (savedCloak) {
         const cloakSelect = document.getElementById('cloak-select');
@@ -132,7 +117,6 @@ function loadSavedValues() {
         }
     }
     
-    // Load search engine setting
     const savedSearchEngine = localStorage.getItem('searchEngineSelect');
     if (savedSearchEngine) {
         const searchEngineSelect = document.getElementById('searchengine-select');
@@ -142,14 +126,12 @@ function loadSavedValues() {
         }
     }
     
-    // Load theme setting
     const savedTheme = localStorage.getItem('siteTheme') || 'moss';
     const themeSelect = document.getElementById('theme-select');
     if (themeSelect) {
         themeSelect.value = savedTheme;
     }
 
-    // Load proxy backend setting
     const savedProxyBackend = localStorage.getItem('proxyBackendSelect');
     if (savedProxyBackend) {
         const proxyBackendSelect = document.getElementById('proxy-backend-select');
@@ -161,26 +143,21 @@ function loadSavedValues() {
 }
 
 function autoab() {
-    // Check if 'autoab' is active in localStorage
     let isActive = localStorage.getItem('autoab') === 'true';
 
-    // Toggle the state and save it to localStorage
     if (isActive) {
         localStorage.setItem('autoab', 'false');
     } else {
         localStorage.setItem('autoab', 'true');
     }
 
-    // Update button state text and color
     updateButtonState();
     
-    // Show notification
     showNotification('Changes saved');
 }
 
-// Helper function to update the specific button's text and color based on the state
 function updateButtonState() {
-    let button = document.getElementById('autoabbutton'); // Get the specific button by ID
+    let button = document.getElementById('autoabbutton');
     let isActive = localStorage.getItem('autoab') === 'true';
     
     if (button) {
@@ -192,9 +169,7 @@ function updateButtonState() {
     }
 }
 
-// On page load, check authentication and update button state
 window.addEventListener('load', function() {
-    // Check authentication and name
     const isLoggedIn = localStorage.getItem('isLoggedIn');
     if (!isLoggedIn || isLoggedIn !== 'true') {
         if (window.location.pathname !== '/login.html') {
@@ -203,7 +178,6 @@ window.addEventListener('load', function() {
         return;
     }
     
-    // Check if user has a name set
     const userName = localStorage.getItem('userName');
     if (!userName) {
         window.location.href = '/index.html';
@@ -214,68 +188,56 @@ window.addEventListener('load', function() {
 });
 
 function signOut() {
-    // Remove the 'isLoggedIn' item from localStorage
     localStorage.removeItem('isLoggedIn');
 
-    // Optionally, you can also clear other user-related data here
-
-    // Redirect to login page after signing out
-    window.location.href = '/login.html';  // Redirect to login page
+    window.location.href = '/login.html';
 }
 
-// Function to change the search engine based on the selected option
-
-
-// Function to apply the selected search engine
 function applySearchEngine(option) {
     if (option === 'google') {
-        localStorage.setItem('searchEngineSelect', 'google');  // Save the selected option to localStorage
+        localStorage.setItem('searchEngineSelect', 'google');
         localStorage.setItem('searchEngineSelectUrl', 'https://www.google.com/search?q=%s');
     } else if (option === 'duckduckgo') {
-        localStorage.setItem('searchEngineSelect', 'duckduckgo');  // Save the selected option to localStorage
+        localStorage.setItem('searchEngineSelect', 'duckduckgo');
         localStorage.setItem('searchEngineSelectUrl', 'https://www.duckduckgo.com/?q=%s');
     } else if (option === 'bing') {
-        localStorage.setItem('searchEngineSelect', 'bing');  // Save the selected option to localStorage
+        localStorage.setItem('searchEngineSelect', 'bing');
         localStorage.setItem('searchEngineSelectUrl', 'https://www.bing.com/search?q=%s');
     } else if (option === 'brave') {
-        localStorage.setItem('searchEngineSelect', 'brave');  // Save the selected option to localStorage
+        localStorage.setItem('searchEngineSelect', 'brave');
         localStorage.setItem('searchEngineSelectUrl', 'https://search.brave.com/search?q=%s');
     } else if (option === 'startpage') {
-        localStorage.setItem('searchEngineSelect', 'startpage');  // Save the selected option to localStorage
+        localStorage.setItem('searchEngineSelect', 'startpage');
         localStorage.setItem('searchEngineSelectUrl', 'https://www.startpage.com/sp/search?query=%s');
     } else if (option === 'ecosia') {
-        localStorage.setItem('searchEngineSelect', 'ecosia');  // Save the selected option to localStorage
+        localStorage.setItem('searchEngineSelect', 'ecosia');
         localStorage.setItem('searchEngineSelectUrl', 'https://www.ecosia.org/search?q=%s');
     } else if (option === 'yahoo') {
-        localStorage.setItem('searchEngineSelect', 'yahoo');  // Save the selected option to localStorage
+        localStorage.setItem('searchEngineSelect', 'yahoo');
         localStorage.setItem('searchEngineSelectUrl', 'https://www.search.yahoo.com/search?p=%s');
     }
 }
 
-// Function to load the saved setting from localStorage on page load
 function loadSearchEngineSetting() {
     const savedSearchEngineOption = localStorage.getItem('searchEngineSelect');
 
     if (savedSearchEngineOption) {
         const selectElement = document.getElementById('searchengine-select');
         if (selectElement) {
-            selectElement.value = savedSearchEngineOption; // Set the saved value to the select dropdown
-            applySearchEngine(savedSearchEngineOption); // Apply the saved option
+            selectElement.value = savedSearchEngineOption;
+            applySearchEngine(savedSearchEngineOption);
         }
     } else {
-        // If no saved option, fallback to 'duckduckgo' by default
         const selectElement = document.getElementById('searchengine-select');
         if (selectElement) {
-            selectElement.value = 'duckduckgo'; // Set default to DuckDuckGo
-            applySearchEngine('duckduckgo'); // Apply the default value
+            selectElement.value = 'duckduckgo';
+            applySearchEngine('duckduckgo');
         }
     }
 }
 
-// Load the setting on page load
 window.addEventListener('load', loadSearchEngineSetting);
 
-// Function to load the current theme setting on page load
 function loadThemeSetting() {
     const savedTheme = localStorage.getItem('siteTheme') || 'moss';
     const selectElement = document.getElementById('theme-select');
@@ -283,25 +245,20 @@ function loadThemeSetting() {
         selectElement.value = savedTheme;
     }
     
-    // Actually apply the saved theme to the page
     applyTheme(savedTheme);
 }
 
-// Load the theme setting immediately and on page load
-loadThemeSetting(); // Load immediately
-window.addEventListener('load', loadThemeSetting); // Also load on full page load as backup
+loadThemeSetting();
+window.addEventListener('load', loadThemeSetting);
 
 function leaveconfirmation() {
     let button = document.getElementById('leaveconfirmbutton');
 
-    // Toggle the setting in localStorage
     let isLeaveConfirmationEnabled = localStorage.getItem('leaveConfirmation') === 'true';
     localStorage.setItem('leaveConfirmation', !isLeaveConfirmationEnabled);
 
-    // Update button appearance
     updateLeaveConfirmButton();
     
-    // Show notification
     showNotification('Changes saved');
 }
 
@@ -318,14 +275,12 @@ function updateLeaveConfirmButton() {
     }
 }
 
-// Ensure the button has the correct color when the settings page loads
-updateLeaveConfirmButton(); // Load immediately
-window.addEventListener('load', updateLeaveConfirmButton); // Also load on full page load as backup
+updateLeaveConfirmButton();
+window.addEventListener('load', updateLeaveConfirmButton);
 
 let notifications = [];
 
 function showNotification(message) {
-    // Play notification sound
     let audio = new Audio("/audio/notification.mp3");
     audio.play().catch(error => console.warn("Audio play failed:", error));
 
@@ -333,26 +288,24 @@ function showNotification(message) {
     const theme = localStorage.getItem('siteTheme') || 'moss';
     notification.className = "notification theme-" + theme;
     notification.innerText = message;
-    // Set background, text, and border color directly for each theme
     if (theme === 'moss') {
-        notification.style.background = '#384438'; // old outline color
+        notification.style.background = '#384438';
         notification.style.color = '#b2c2a8';
         notification.style.border = '1.5px solid #232b23';
     } else if (theme === 'midnight') {
-        notification.style.background = '#2a3442'; // old outline color
+        notification.style.background = '#2a3442';
         notification.style.color = '#b8c7e0';
         notification.style.border = '1.5px solid #181c24';
     } else if (theme === 'rose') {
-        notification.style.background = '#6e3844'; // old outline color
+        notification.style.background = '#6e3844';
         notification.style.color = '#e0b8c7';
         notification.style.border = '1.5px solid #2a1a1f';
     } else if (theme === 'noir') {
-        notification.style.background = '#444'; // old outline color
+        notification.style.background = '#444';
         notification.style.color = '#e0e0e0';
         notification.style.border = '1.5px solid #181818';
     }
 
-    // Style the notification
     Object.assign(notification.style, {
         position: "fixed",
         bottom: "20px",
@@ -369,12 +322,10 @@ function showNotification(message) {
     document.body.appendChild(notification);
     notifications.push(notification);
 
-    // Adjust position of all notifications
     notifications.forEach((notif, index) => {
         notif.style.bottom = `${20 + (notifications.length - 1 - index) * 50}px`;
     });
 
-    // If more than 3 notifications, remove the top (oldest) one
     if (notifications.length > 3) {
         let oldest = notifications.shift();
         oldest.style.opacity = "0";
@@ -382,7 +333,6 @@ function showNotification(message) {
         setTimeout(() => oldest.remove(), 500);
     }
 
-    // Remove this notification after 3 seconds
     setTimeout(() => {
         if (notifications.includes(notification)) {
             notifications = notifications.filter(n => n !== notification);
@@ -393,12 +343,9 @@ function showNotification(message) {
     }, 3000);
 }
 
-// Simple dropdown setup
 document.addEventListener('DOMContentLoaded', function() {
-    // Load theme immediately when DOM is ready
     loadThemeSetting();
     
-    // Basic dropdown event listeners
     document.getElementById("transport-select")?.addEventListener("change", function() {
         const value = this.value;
         localStorage.setItem('transportSelect', value);
@@ -435,13 +382,11 @@ document.addEventListener('DOMContentLoaded', function() {
         showNotification('Changes saved');
     });
     
-    // Listen for theme changes from other pages
     window.addEventListener('message', function(event) {
         if (event.data.type === 'theme-change') {
             const theme = event.data.theme;
             applyTheme(theme);
             
-            // Update theme selector to match
             const themeSelect = document.getElementById('theme-select');
             if (themeSelect) {
                 themeSelect.value = theme;
@@ -449,13 +394,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Listen for storage changes (when theme is changed in another tab/window)
     window.addEventListener('storage', function(event) {
         if (event.key === 'siteTheme') {
             const theme = event.newValue || 'moss';
             applyTheme(theme);
             
-            // Update theme selector to match
             const themeSelect = document.getElementById('theme-select');
             if (themeSelect) {
                 themeSelect.value = theme;
@@ -463,20 +406,17 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Load saved values
     loadSavedValues();
     
-    // Update leave confirmation button
     updateLeaveConfirmButton();
     
-    // Update automatic about:blank button
     updateButtonState();
 });
 
 let selectedKey = localStorage.getItem("redirectKey");
 let customURL = localStorage.getItem("redirectUrl") || "https://www.google.com";
-let tempKey = selectedKey; // Temporary storage for unsaved key
-let tempURL = customURL; // Temporary storage for unsaved URL
+let tempKey = selectedKey;
+let tempURL = customURL;
 
 function openKeybindModal() {
     const modal = document.getElementById("keybind-modal");
@@ -485,7 +425,6 @@ function openKeybindModal() {
         return;
     }
     
-    // Apply current theme to modal
     const currentTheme = localStorage.getItem('siteTheme') || 'moss';
     modal.className = 'keybind-modal theme-' + currentTheme;
     
@@ -502,12 +441,10 @@ function openKeybindModal() {
         keybindUrl.value = tempURL;
     }
     
-    // Initialize particles for keybind modal
     initializeKeybindParticles(currentTheme);
 }
 
 function closeKeybindModal() {
-    // Reset to last saved values when closing without applying
     tempKey = localStorage.getItem("redirectKey");
     tempURL = localStorage.getItem("redirectUrl") || "https://www.google.com";
     const modal = document.getElementById("keybind-modal");
@@ -515,12 +452,10 @@ function closeKeybindModal() {
         modal.classList.remove("show");
         modal.style.display = "none";
         
-        // Clean up keybind modal particles
         cleanupKeybindParticles();
     }
 }
 
-// Add event listener for keybind display when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
     const keybindDisplay = document.getElementById("keybind-display");
     if (keybindDisplay) {
@@ -542,18 +477,15 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error('Keybind display not found!');
     }
     
-    // Add URL completion for keybind URL input
     const keybindUrl = document.getElementById("keybind-url");
     if (keybindUrl) {
         keybindUrl.addEventListener("blur", function() {
             let urlValue = this.value.trim();
             if (urlValue && !/^https?:\/\//i.test(urlValue)) {
-                // Auto-complete the URL
                 this.value = "https://" + urlValue;
             }
         });
         
-        // Also complete on Enter key
         keybindUrl.addEventListener("keydown", function(e) {
             if (e.key === "Enter") {
                 let urlValue = this.value.trim();
@@ -566,7 +498,6 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error('Keybind URL input not found!');
     }
     
-    // Test if the button exists
     const openButton = document.querySelector('button[onclick="openKeybindModal()"]');
     if (!openButton) {
         console.error('Open keybind button not found!');
@@ -602,28 +533,23 @@ function applyKeybind() {
 }
 
 function resetKeybind() {
-    // Reset to default values
     tempKey = null;
     tempURL = "https://www.google.com";
     
-    // Clear from localStorage
     localStorage.removeItem("redirectKey");
     localStorage.setItem("redirectUrl", "https://www.google.com");
     
-    // Update global variables
     selectedKey = null;
     customURL = "https://www.google.com";
     
     showNotification('Changes saved!');
     
-    // Close the modal
     closeKeybindModal();
 }
 
 function openCredentialsModal() {
     const modal = document.getElementById('credentials-modal');
     
-    // Apply current theme to modal
     const currentTheme = localStorage.getItem('siteTheme') || 'moss';
     modal.className = 'credentials-modal theme-' + currentTheme;
     
@@ -631,128 +557,11 @@ function openCredentialsModal() {
     document.getElementById('new-username').value = tempUsername;
     document.getElementById('new-password').value = tempPassword;
     
-    // Get current theme for particles (reuse the variable)
-    // const currentTheme = localStorage.getItem('siteTheme') || 'moss';
-    
-    // Theme-specific particle configurations
-    const particleConfigs = {
-        moss: {
-            particles: {
-                number: { value: 40, density: { enable: true, value_area: 800 } },
-                color: { value: ['#b2c2a8', '#94e2d5', '#a6e3a1', '#89dceb'] },
-                shape: { type: 'circle' },
-                opacity: { value: 0.3, random: true, anim: { enable: false, speed: 1, opacity_min: 0.1, sync: false } },
-                size: { value: 2, random: true, anim: { enable: false, speed: 2, size_min: 1, sync: false } },
-                line_linked: { enable: true, distance: 200, color: '#b2c2a8', opacity: 0.2, width: 0.5 },
-                move: { enable: true, speed: 1.5, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
-            },
-            interactivity: {
-                detect_on: 'canvas',
-                events: {
-                    onhover: { enable: false, mode: 'repulse' },
-                    onclick: { enable: false, mode: 'push' },
-                    resize: true
-                },
-                modes: {
-                    grab: { distance: 140, line_linked: { opacity: 1 } },
-                    bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
-                    repulse: { distance: 150, duration: 0.4 },
-                    push: { particles_nb: 4 },
-                    remove: { particles_nb: 2 }
-                }
-            },
-            retina_detect: true
-        },
-        midnight: {
-            particles: {
-                number: { value: 50, density: { enable: true, value_area: 800 } },
-                color: { value: ['#b8c7e0', '#81a1c1', '#5e81ac', '#88c0d0'] },
-                shape: { type: 'circle' },
-                opacity: { value: 0.4, random: true, anim: { enable: false, speed: 1.5, opacity_min: 0.2, sync: false } },
-                size: { value: 2.5, random: true, anim: { enable: false, speed: 4, size_min: 1, sync: false } },
-                line_linked: { enable: true, distance: 180, color: '#b8c7e0', opacity: 0.25, width: 0.5 },
-                move: { enable: true, speed: 2, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
-            },
-            interactivity: {
-                detect_on: 'canvas',
-                events: {
-                    onhover: { enable: false, mode: 'grab' },
-                    onclick: { enable: false, mode: 'push' },
-                    resize: true
-                },
-                modes: {
-                    grab: { distance: 140, line_linked: { opacity: 1 } },
-                    bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
-                    repulse: { distance: 200, duration: 0.4 },
-                    push: { particles_nb: 4 },
-                    remove: { particles_nb: 2 }
-                }
-            },
-            retina_detect: true
-        },
-        rose: {
-            particles: {
-                number: { value: 35, density: { enable: true, value_area: 800 } },
-                color: { value: ['#e0b8c7', '#f38ba8', '#eba0ac', '#f5c2e7'] },
-                shape: { type: 'circle' },
-                opacity: { value: 0.35, random: true, anim: { enable: false, speed: 1.2, opacity_min: 0.2, sync: false } },
-                size: { value: 2.2, random: true, anim: { enable: false, speed: 2.5, size_min: 1, sync: false } },
-                line_linked: { enable: true, distance: 220, color: '#e0b8c7', opacity: 0.2, width: 0.5 },
-                move: { enable: true, speed: 1.8, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
-            },
-            interactivity: {
-                detect_on: 'canvas',
-                events: {
-                    onhover: { enable: false, mode: 'bubble' },
-                    onclick: { enable: false, mode: 'push' },
-                    resize: true
-                },
-                modes: {
-                    grab: { distance: 140, line_linked: { opacity: 1 } },
-                    bubble: { distance: 200, size: 40, duration: 2, opacity: 8, speed: 3 },
-                    repulse: { distance: 200, duration: 0.4 },
-                    push: { particles_nb: 4 },
-                    remove: { particles_nb: 2 }
-                }
-            },
-            retina_detect: true
-        },
-        noir: {
-            particles: {
-                number: { value: 30, density: { enable: true, value_area: 800 } },
-                color: { value: ['#e0e0e0', '#c0c0c0', '#a0a0a0', '#808080'] },
-                shape: { type: 'circle' },
-                opacity: { value: 0.25, random: true, anim: { enable: false, speed: 1, opacity_min: 0.1, sync: false } },
-                size: { value: 1.8, random: true, anim: { enable: false, speed: 3, size_min: 1, sync: false } },
-                line_linked: { enable: true, distance: 250, color: '#e0e0e0', opacity: 0.15, width: 0.5 },
-                move: { enable: true, speed: 1.2, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
-            },
-            interactivity: {
-                detect_on: 'canvas',
-                events: {
-                    onhover: { enable: false, mode: 'repulse' },
-                    onclick: { enable: false, mode: 'push' },
-                    resize: true
-                },
-                modes: {
-                    grab: { distance: 140, line_linked: { opacity: 1 } },
-                    bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
-                    repulse: { distance: 180, duration: 0.4 },
-                    push: { particles_nb: 4 },
-                    remove: { particles_nb: 2 }
-                }
-            },
-            retina_detect: true
-        }
-    };
-    
-    // Initialize particles.js with a small delay to ensure DOM is ready
     setTimeout(() => {
         if (typeof particlesJS !== 'undefined') {
             const config = particleConfigs[currentTheme] || particleConfigs.moss;
             particlesJS('credentials-particles-js', config);
         } else {
-            // Try to create a simple particle effect manually
             createSimpleParticles();
         }
     }, 100);
@@ -761,7 +570,6 @@ function openCredentialsModal() {
 function createSimpleParticles() {
     const container = document.getElementById('credentials-particles-js');
     if (container) {
-        // Get current theme for particle colors
         const currentTheme = localStorage.getItem('siteTheme') || 'moss';
         const themeColors = {
             moss: ['#b2c2a8', '#94e2d5', '#a6e3a1', '#89dceb'],
@@ -789,7 +597,6 @@ function createSimpleParticles() {
 }
 
 function initializeKeybindParticles(theme) {
-    // Theme-specific particle configurations for keybind modal
     const keybindParticleConfigs = {
         moss: {
             particles: {
@@ -901,13 +708,11 @@ function initializeKeybindParticles(theme) {
         }
     };
     
-    // Initialize particles.js with a small delay to ensure DOM is ready
     setTimeout(() => {
         if (typeof particlesJS !== 'undefined') {
             const config = keybindParticleConfigs[theme] || keybindParticleConfigs.moss;
             particlesJS('keybind-particles-js', config);
         } else {
-            // Try to create a simple particle effect manually
             createSimpleKeybindParticles(theme);
         }
     }, 100);
@@ -916,7 +721,6 @@ function initializeKeybindParticles(theme) {
 function createSimpleKeybindParticles(theme) {
     const container = document.getElementById('keybind-particles-js');
     if (container) {
-        // Get current theme for particle colors
         const themeColors = {
             moss: ['#b2c2a8', '#94e2d5', '#a6e3a1', '#89dceb'],
             midnight: ['#b8c7e0', '#81a1c1', '#5e81ac', '#88c0d0'],
@@ -943,9 +747,7 @@ function createSimpleKeybindParticles(theme) {
 }
 
 function cleanupKeybindParticles() {
-    // Clean up particles.js particles
     if (typeof pJSDom !== 'undefined' && pJSDom.length > 0) {
-        // Find and destroy only the keybind modal particles
         for (let i = pJSDom.length - 1; i >= 0; i--) {
             if (pJSDom[i].pJS && pJSDom[i].pJS.canvas && pJSDom[i].pJS.canvas.el && 
                 pJSDom[i].pJS.canvas.el.id === 'keybind-particles-js') {
@@ -956,7 +758,6 @@ function cleanupKeybindParticles() {
         }
     }
     
-    // Clean up simple particles
     const container = document.getElementById('keybind-particles-js');
     if (container) {
         container.innerHTML = '';
@@ -970,9 +771,7 @@ function closeCredentialsModal() {
         modal.classList.remove('show');
         modal.style.opacity = '';
         
-        // Clean up only the credentials modal particles
         if (typeof pJSDom !== 'undefined' && pJSDom.length > 0) {
-            // Find and destroy only the credentials modal particles
             for (let i = pJSDom.length - 1; i >= 0; i--) {
                 if (pJSDom[i].pJS && pJSDom[i].pJS.canvas && pJSDom[i].pJS.canvas.el && 
                     pJSDom[i].pJS.canvas.el.id === 'credentials-particles-js') {
@@ -983,7 +782,6 @@ function closeCredentialsModal() {
             }
         }
         
-        // Clean up simple particles only in credentials modal
         const container = document.getElementById('credentials-particles-js');
         if (container) {
             container.innerHTML = '';
@@ -995,7 +793,6 @@ function applyCredentials() {
     let newUsername = document.getElementById('new-username').value.trim();
     let newPassword = document.getElementById('new-password').value.trim();
 
-    // Fallbacks
     if (!newUsername) newUsername = DEFAULT_USERNAME;
     if (!newPassword) newPassword = DEFAULT_PASSWORD;
 
@@ -1023,24 +820,18 @@ function resetCredentials() {
     showNotification('Changes saved!');
 }
 
-// Persist breathing background animation state
 (function() {
   const body = document.body;
   const ANIMATION_NAME = 'breathing-bg';
-  const ANIMATION_DURATION = 14; // seconds
-  // On load, set animation delay to match saved progress
+  const ANIMATION_DURATION = 14;
   let progress = parseFloat(localStorage.getItem('breathingBgProgress') || '0');
   if (!isNaN(progress)) {
     body.style.animationDelay = `-${progress}s`;
   }
-  // Update progress every 100ms
   setInterval(() => {
-    // Get computed animation time
     const start = performance.timing.navigationStart;
     const now = Date.now();
-    // Estimate progress based on elapsed time and animation duration
     let elapsed = ((now - start) / 1000 + progress) % ANIMATION_DURATION;
-    // If the animation is paused or not running, skip
     if (getComputedStyle(body).animationName !== ANIMATION_NAME) return;
     localStorage.setItem('breathingBgProgress', elapsed.toFixed(2));
   }, 100);
@@ -1050,7 +841,6 @@ function changeTheme() {
     try {
         const selectedTheme = document.getElementById('theme-select').value;
         
-        // Apply the selected theme
         applyTheme(selectedTheme);
     } catch (error) {
         console.error('Error changing theme:', error);
@@ -1060,11 +850,9 @@ function changeTheme() {
 
 function updateThemeModals() {
     const theme = localStorage.getItem('siteTheme') || 'moss';
-    // Notification popup - update both classes and inline styles
     const notifications = document.querySelectorAll('.notification');
     notifications.forEach(n => {
         n.className = 'notification theme-' + theme;
-        // Update inline styles to match new theme
         if (theme === 'moss') {
             n.style.background = '#384438';
             n.style.color = '#b2c2a8';
@@ -1083,11 +871,9 @@ function updateThemeModals() {
             n.style.border = '1.5px solid #181818';
         }
     });
-    // Panic key modal and all children
     const keybindModal = document.getElementById('keybind-modal');
     if (keybindModal) {
         keybindModal.className = 'keybind-modal theme-' + theme;
-        // All children
         const keybindContent = keybindModal.querySelector('.keybind-content');
         if (keybindContent) keybindContent.className = 'keybind-content theme-' + theme;
         const keybindBox = keybindModal.querySelector('.keybind-box');
@@ -1099,7 +885,6 @@ function updateThemeModals() {
             btn.className = 'theme-' + theme;
         });
     }
-    // Credentials modal and all children
     const credentialsModal = document.getElementById('credentials-modal');
     if (credentialsModal) {
         credentialsModal.className = 'credentials-modal theme-' + theme;
@@ -1113,19 +898,16 @@ function updateThemeModals() {
         credentialsButtons.forEach(btn => {
             btn.className = 'theme-' + theme;
         });
-        // Always add 'reset-btn' to the reset button
         const resetBtn = credentialsModal.querySelector('#resetcredentialsbutton');
         if (resetBtn) resetBtn.classList.add('reset-btn');
     }
 }
 
-// Function to apply the theme
 function applyTheme(theme) {
     try {
         document.body.classList.remove('theme-moss', 'theme-midnight', 'theme-rose', 'theme-noir');
         document.body.classList.add('theme-' + theme);
         localStorage.setItem('siteTheme', theme);
-        // Update theme classes for modals/popups
         updateThemeModals();
     } catch (error) {
         console.error('Error applying theme:', error);
@@ -1133,7 +915,6 @@ function applyTheme(theme) {
     }
 }
 
-// Change Name Modal Logic
 function openChangeNameModal() {
     const modal = document.getElementById('change-name-modal');
     const input = document.getElementById('change-name-input');
@@ -1143,7 +924,6 @@ function openChangeNameModal() {
     input.focus();
     input.select();
 
-    // Apply theme colors immediately
     setTimeout(() => {
         const currentTheme = localStorage.getItem('siteTheme') || 'moss';
         const themeBackgrounds = {
@@ -1203,12 +983,10 @@ function openChangeNameModal() {
             }
         };
         
-        // Apply theme background
         modal.style.background = themeBackgrounds[currentTheme] || themeBackgrounds.moss;
         modal.style.backgroundSize = '400% 400%';
         modal.style.animation = 'gradient-move 45s ease-in-out infinite alternate';
         
-        // Apply theme colors to modal content
         const content = modal.querySelector('.change-name-modal-content');
         if (content) {
             const c = themeColors[currentTheme] || themeColors.moss;
@@ -1216,20 +994,17 @@ function openChangeNameModal() {
             content.style.borderColor = c.border;
             content.style.color = c.text;
             
-            // Update text colors
             const h2 = content.querySelector('h2');
             const p = content.querySelector('p');
             if (h2) h2.style.color = c.text;
             if (p) p.style.color = c.text;
             
-            // Update input styling
             if (input) {
                 input.style.backgroundColor = c.inputBg;
                 input.style.borderColor = c.accent;
                 input.style.color = c.text;
             }
             
-            // Update button styling
             const buttons = content.querySelectorAll('button');
             if (buttons.length > 0) {
                 buttons[0].style.backgroundColor = c.accent;
@@ -1244,7 +1019,6 @@ function openChangeNameModal() {
         }
     }, 10);
 
-    // PARTICLES
     setTimeout(() => {
         const currentTheme = localStorage.getItem('siteTheme') || 'moss';
         const particleConfigs = {
@@ -1357,7 +1131,6 @@ function openChangeNameModal() {
                 retina_detect: true
             }
         };
-        // Clean up any previous particles
         if (typeof pJSDom !== 'undefined' && pJSDom.length > 0) {
             for (let i = pJSDom.length - 1; i >= 0; i--) {
                 if (pJSDom[i].pJS && pJSDom[i].pJS.canvas && pJSDom[i].pJS.canvas.el && 
@@ -1368,7 +1141,6 @@ function openChangeNameModal() {
                 }
             }
         }
-        // Initialize particles
         if (typeof particlesJS !== 'undefined') {
             particlesJS('change-name-particles-js', particleConfigs[currentTheme]);
         }
@@ -1378,7 +1150,6 @@ function openChangeNameModal() {
 function closeChangeNameModal() {
     const modal = document.getElementById('change-name-modal');
     if (modal) modal.classList.remove('show');
-    // Clean up particles
     if (typeof pJSDom !== 'undefined' && pJSDom.length > 0) {
         for (let i = pJSDom.length - 1; i >= 0; i--) {
             if (pJSDom[i].pJS && pJSDom[i].pJS.canvas && pJSDom[i].pJS.canvas.el && 
@@ -1398,10 +1169,8 @@ function applyChangeName() {
     if (name && name.length <= 20) {
         localStorage.setItem('userName', name);
         closeChangeNameModal();
-        // Try to update greeting on main page if present
         if (window.updateTimeDisplay) updateTimeDisplay();
         
-        // Show notification using the same system as other settings
         showNotification('Changes saved');
     } else {
         input.style.borderColor = '#ff4444';
@@ -1415,22 +1184,18 @@ document.addEventListener('DOMContentLoaded', function() {
     const modal = document.getElementById('change-name-modal');
     const input = document.getElementById('change-name-input');
     if (!modal || !input) return;
-    // Close on Escape
     document.addEventListener('keydown', function(e) {
         if (modal.classList.contains('show') && e.key === 'Escape') closeChangeNameModal();
     });
-    // Enter to apply
     input.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') applyChangeName();
     });
 });
 
-// Function to apply the selected proxy backend
 function applyProxyBackend(option) {
     localStorage.setItem('proxyBackendSelect', option);
 }
 
-// Function to load the saved proxy backend setting from localStorage on page load
 function loadProxyBackendSetting() {
     const savedProxyBackendOption = localStorage.getItem('proxyBackendSelect');
 
@@ -1441,7 +1206,6 @@ function loadProxyBackendSetting() {
             applyProxyBackend(savedProxyBackendOption);
         }
     } else {
-        // If no saved option, fallback to 'uv'
         const selectElement = document.getElementById('proxy-backend-select');
         if (selectElement) {
             selectElement.value = 'uv';
@@ -1450,5 +1214,4 @@ function loadProxyBackendSetting() {
     }
 }
 
-// Load the setting on page load
 window.addEventListener('load', loadProxyBackendSetting);

@@ -1,8 +1,5 @@
-/* Importing the Montserrat font */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('themes.css');
-
-/* Apply Montserrat font globally */
 body {
     font-family: 'Montserrat', sans-serif;
     background-color: transparent;
@@ -15,7 +12,6 @@ body {
     position: relative;
 }
 
-/* Particles container */
 #particles-js {
     position: fixed;
     top: 0;
@@ -26,7 +22,6 @@ body {
     pointer-events: none;
 }
 
-/* Modal particle containers - ensure they fill the entire modal background */
 #keybind-particles-js,
 #credentials-particles-js,
 #change-name-particles-js {
@@ -39,7 +34,6 @@ body {
     pointer-events: none !important;
 }
 
-/* Ensure modal content is above particles */
 .keybind-content,
 .credentials-modal-content,
 .change-name-modal-content {
@@ -47,7 +41,6 @@ body {
     z-index: 2 !important;
 }
 
-/* Ensure main content stays above particles */
 body {
     position: relative;
     z-index: 0;
@@ -107,7 +100,6 @@ body.theme-noir .tab-item.active {
     border-left-color: var(--btn-primary);
 }
 
-/* Theme-specific tab item colors */
 body.theme-moss .tab-item {
     color: var(--text-primary);
 }
@@ -144,7 +136,6 @@ body.theme-noir .tab-item:hover {
     color: var(--text-accent);
 }
 
-/* Theme-specific sidebar footer styles */
 body.theme-moss .sidebar-footer {
     border-top: 1px solid var(--border-primary);
 }
@@ -161,7 +152,6 @@ body.theme-noir .sidebar-footer {
     border-top: 1px solid var(--border-primary);
 }
 
-/* Theme-specific setting card backgrounds */
 body.theme-moss .setting-card {
     background: var(--bg-primary);
     border: 1px solid var(--border-primary);

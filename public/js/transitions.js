@@ -1,4 +1,3 @@
-// Modern Page Transition Manager
 class PageTransitionManager {
     constructor() {
         this.isTransitioning = false;
@@ -6,21 +5,16 @@ class PageTransitionManager {
     }
 
     init() {
-        // Add transition class to body
         document.body.classList.add('page-transition');
         
-        // Set up staggered animations for cards
         this.setupStaggeredAnimations();
         
-        // Intercept navigation links
         this.interceptNavigation();
         
-        // Trigger page load animation after a short delay
         setTimeout(() => {
             document.body.classList.add('loaded');
         }, 100);
         
-        // Prevent focus interference with form elements
         document.addEventListener('focusin', (e) => {
             if (e.target.tagName === 'SELECT' || 
                 e.target.tagName === 'INPUT' || 
@@ -32,19 +26,16 @@ class PageTransitionManager {
     }
 
     setupStaggeredAnimations() {
-        // Set animation order for app cards
         const appCards = document.querySelectorAll('.app-card');
         appCards.forEach((card, index) => {
             card.style.setProperty('--animation-order', index);
         });
 
-        // Set animation order for game cards
         const gameCards = document.querySelectorAll('.game-card');
         gameCards.forEach((card, index) => {
             card.style.setProperty('--animation-order', index);
         });
 
-        // Set animation order for setting cards
         const settingCards = document.querySelectorAll('.setting-card');
         settingCards.forEach((card, index) => {
             card.style.setProperty('--animation-order', index);
@@ -52,9 +43,7 @@ class PageTransitionManager {
     }
 
     interceptNavigation() {
-        // Intercept all navigation links
         document.addEventListener('click', (e) => {
-            // Don't intercept clicks on form elements or their containers
             if (e.target.tagName === 'SELECT' || 
                 e.target.tagName === 'OPTION' || 
                 e.target.tagName === 'INPUT' || 
@@ -75,7 +64,6 @@ class PageTransitionManager {
             }
         });
         
-        // Intercept search input
         const searchInput = document.getElementById('search');
         if (searchInput) {
             searchInput.addEventListener('keypress', (e) => {
@@ -95,7 +83,6 @@ class PageTransitionManager {
         const isAnchor = href.includes('#');
         const isSpecial = href.includes('javascript:') || href.includes('mailto:') || href.includes('tel:');
         
-        // Don't intercept proxy or login pages
         const isProxyPage = window.location.pathname.includes('proxy.html');
         const isLoginPage = window.location.pathname.includes('login.html');
         
@@ -112,13 +99,10 @@ class PageTransitionManager {
         this.isTransitioning = true;
         
         try {
-            // Start fade out animation
             document.body.classList.add('page-leaving');
             
-            // Wait for transition to complete
             await this.waitForTransition();
             
-            // Navigate
             window.location.href = url;
             
         } catch (error) {
@@ -129,17 +113,13 @@ class PageTransitionManager {
 
     async handleSearch(input) {
         try {
-            // Start fade out animation
             document.body.classList.add('page-leaving');
             
-            // Wait for transition to complete
             await this.waitForTransition();
             
-            // Get the latest search engine URL and proxy backend from localStorage
             const searchEngineUrl = localStorage.getItem('searchEngineSelectUrl') || "https://www.duckduckgo.com/?q=%s";
             const proxyBackend = localStorage.getItem('proxyBackendSelect') || "uv";
             
-            // Encode URL
             const encodedUrl = await chemical.encode(input, {
                 service: proxyBackend,
                 autoHttps: true,
@@ -157,7 +137,6 @@ class PageTransitionManager {
 
     waitForTransition() {
         return new Promise((resolve) => {
-            // Listen for transition end
             const handleTransitionEnd = () => {
                 document.body.removeEventListener('transitionend', handleTransitionEnd);
                 resolve();
@@ -165,13 +144,11 @@ class PageTransitionManager {
             
             document.body.addEventListener('transitionend', handleTransitionEnd);
             
-            // Fallback timeout
             setTimeout(resolve, 500);
         });
     }
 }
 
-// Initialize when DOM is ready
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
         window.pageTransitionManager = new PageTransitionManager();

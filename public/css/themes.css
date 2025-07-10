@@ -1,8 +1,4 @@
-/* CSS Variables for Malachite Themes */
-
-/* ===== MOSS THEME ===== */
 body.theme-moss {
-    /* Background Colors */
     --bg-primary: #232b23;
     --bg-secondary: #1a1f1a;
     --bg-tertiary: #2e362e;
@@ -11,66 +7,54 @@ body.theme-moss {
     --bg-overlay: rgba(35, 43, 35, 0.95);
     --bg-loading: linear-gradient(135deg, #1a1f1a 0%, #232b23 50%, #2e362e 100%);
     
-    /* Text Colors */
     --text-primary: #b2c2a8;
     --text-secondary: #a3bfa3;
     --text-muted: #94a394;
     --text-accent: #d4e4d4;
     
-    /* Border Colors */
     --border-primary: rgba(56, 68, 56, 0.3);
     --border-secondary: #384438;
     --border-accent: #516953;
     
-    /* Button Colors */
     --btn-primary: #516953;
     --btn-primary-hover: #5a7a5a;
     --btn-secondary: transparent;
     --btn-secondary-hover: rgba(56, 68, 56, 0.3);
     
-    /* Input Colors */
     --input-bg: #384438;
     --input-border: #516953;
     --input-text: #b2c2a8;
     --input-placeholder: #94a394;
     --input-focus: #5a7a5a;
     
-    /* Search Colors */
     --search-bg: #384438;
     --search-border: #516953;
     --search-text: #b2c2a8;
     --search-placeholder: #94a394;
     --search-hover: #4a5a4a;
     
-    /* Card Colors */
     --card-bg: #232b23;
     --card-border: rgba(56, 68, 56, 0.3);
     --card-hover: rgba(81, 105, 83, 0.2);
     
-    /* Modal Colors */
     --modal-bg: #2e362e;
     --modal-border: #384438;
     --modal-overlay: rgba(0, 0, 0, 0.7);
     
-    /* Notification Colors */
     --notification-bg: #384438;
     --notification-border: #232b23;
     --notification-text: #b2c2a8;
     
-    /* Loading Colors */
     --loading-text: #b2c2a8;
     --loading-wheel-border: rgba(56, 68, 56, 0.3);
     --loading-wheel-spinner: #b2c2a8;
     
-    /* Scrollbar Colors */
     --scrollbar-track: #1a1f1a;
     --scrollbar-thumb: #384438;
     --scrollbar-thumb-hover: #4a5a4a;
     
-    /* Logo Colors */
     --logo-color: #516953;
     
-    /* Tab Colors */
     --tab-bg: #384438;
     --tab-border: #516953;
     --tab-text: #b2c2a8;
@@ -79,7 +63,6 @@ body.theme-moss {
     --tab-close: #94a394;
     --tab-close-hover: #b2c2a8;
     
-    /* Sidebar Colors */
     --sidebar-bg: transparent;
     --sidebar-border: rgba(56, 68, 56, 0.3);
     --sidebar-item: #b2c2a8;
@@ -88,9 +71,7 @@ body.theme-moss {
     --sidebar-item-active-border: #516953;
 }
 
-/* ===== MIDNIGHT THEME ===== */
 body.theme-midnight {
-    /* Background Colors */
     --bg-primary: #181c24;
     --bg-secondary: #151a22;
     --bg-tertiary: #232a36;
@@ -99,66 +80,54 @@ body.theme-midnight {
     --bg-overlay: rgba(24, 28, 36, 0.95);
     --bg-loading: linear-gradient(135deg, #151a22 0%, #181c24 50%, #232a36 100%);
     
-    /* Text Colors */
     --text-primary: #b8c7e0;
     --text-secondary: #a8b7d0;
     --text-muted: #8899b0;
     --text-accent: #d8e8f8;
     
-    /* Border Colors */
     --border-primary: rgba(42, 52, 66, 0.3);
     --border-secondary: #2a3442;
     --border-accent: #5b7c8a;
     
-    /* Button Colors */
     --btn-primary: #5b7c8a;
     --btn-primary-hover: #6a8c9a;
     --btn-secondary: transparent;
     --btn-secondary-hover: rgba(42, 52, 66, 0.3);
     
-    /* Input Colors */
     --input-bg: #2a3442;
     --input-border: #5b7c8a;
     --input-text: #b8c7e0;
     --input-placeholder: #8899b0;
     --input-focus: #6a8c9a;
     
-    /* Search Colors */
     --search-bg: #2a3442;
     --search-border: #5b7c8a;
     --search-text: #b8c7e0;
     --search-placeholder: #8899b0;
     --search-hover: #3a4452;
     
-    /* Card Colors */
     --card-bg: #181c24;
     --card-border: rgba(42, 52, 66, 0.3);
     --card-hover: rgba(91, 124, 138, 0.2);
     
-    /* Modal Colors */
     --modal-bg: #2a3442;
     --modal-border: #3b4252;
     --modal-overlay: rgba(0, 0, 0, 0.7);
     
-    /* Notification Colors */
     --notification-bg: #2a3442;
     --notification-border: #181c24;
     --notification-text: #b8c7e0;
     
-    /* Loading Colors */
     --loading-text: #b8c7e0;
     --loading-wheel-border: rgba(42, 52, 66, 0.3);
     --loading-wheel-spinner: #b8c7e0;
     
-    /* Scrollbar Colors */
     --scrollbar-track: #151a22;
     --scrollbar-thumb: #2a3442;
     --scrollbar-thumb-hover: #3a4452;
     
-    /* Logo Colors */
     --logo-color: #5b7c8a;
     
-    /* Tab Colors */
     --tab-bg: #2a3442;
     --tab-border: #5b7c8a;
     --tab-text: #b8c7e0;
@@ -167,7 +136,6 @@ body.theme-midnight {
     --tab-close: #8899b0;
     --tab-close-hover: #b8c7e0;
     
-    /* Sidebar Colors */
     --sidebar-bg: transparent;
     --sidebar-border: rgba(42, 52, 66, 0.3);
     --sidebar-item: #b8c7e0;
@@ -176,9 +144,7 @@ body.theme-midnight {
     --sidebar-item-active-border: #5b7c8a;
 }
 
-/* ===== ROSE THEME ===== */
 body.theme-rose {
-    /* Background Colors */
     --bg-primary: #2a1a1f;
     --bg-secondary: #1a1114;
     --bg-tertiary: #3d1f1f;
@@ -187,66 +153,54 @@ body.theme-rose {
     --bg-overlay: rgba(42, 26, 31, 0.95);
     --bg-loading: linear-gradient(135deg, #1a1114 0%, #2a1a1f 50%, #3d1f1f 100%);
     
-    /* Text Colors */
     --text-primary: #e0b8c7;
     --text-secondary: #d0a8b7;
     --text-muted: #b098a7;
     --text-accent: #f0c8d7;
     
-    /* Border Colors */
     --border-primary: rgba(110, 56, 68, 0.3);
     --border-secondary: #6e3844;
     --border-accent: #c2185b;
     
-    /* Button Colors */
     --btn-primary: #c2185b;
     --btn-primary-hover: #d1286b;
     --btn-secondary: transparent;
     --btn-secondary-hover: rgba(110, 56, 68, 0.3);
     
-    /* Input Colors */
     --input-bg: #6e3844;
     --input-border: #c2185b;
     --input-text: #e0b8c7;
     --input-placeholder: #b098a7;
     --input-focus: #d1286b;
     
-    /* Search Colors */
     --search-bg: #6e3844;
     --search-border: #c2185b;
     --search-text: #e0b8c7;
     --search-placeholder: #b098a7;
     --search-hover: #8e4854;
     
-    /* Card Colors */
     --card-bg: #2a1a1f;
     --card-border: rgba(110, 56, 68, 0.3);
     --card-hover: rgba(194, 24, 91, 0.2);
     
-    /* Modal Colors */
     --modal-bg: #6e3844;
     --modal-border: #8b4d5a;
     --modal-overlay: rgba(0, 0, 0, 0.7);
     
-    /* Notification Colors */
     --notification-bg: #6e3844;
     --notification-border: #2a1a1f;
     --notification-text: #e0b8c7;
     
-    /* Loading Colors */
     --loading-text: #e0b8c7;
     --loading-wheel-border: rgba(110, 56, 68, 0.3);
     --loading-wheel-spinner: #e0b8c7;
     
-    /* Scrollbar Colors */
     --scrollbar-track: #1a1114;
     --scrollbar-thumb: #6e3844;
     --scrollbar-thumb-hover: #8e4854;
     
-    /* Logo Colors */
     --logo-color: #c2185b;
     
-    /* Tab Colors */
     --tab-bg: #6e3844;
     --tab-border: #c2185b;
     --tab-text: #e0b8c7;
@@ -255,7 +209,6 @@ body.theme-rose {
     --tab-close: #b098a7;
     --tab-close-hover: #e0b8c7;
     
-    /* Sidebar Colors */
     --sidebar-bg: transparent;
     --sidebar-border: rgba(110, 56, 68, 0.3);
     --sidebar-item: #e0b8c7;
@@ -264,9 +217,7 @@ body.theme-rose {
     --sidebar-item-active-border: #c2185b;
 }
 
-/* ===== NOIR THEME ===== */
 body.theme-noir {
-    /* Background Colors */
     --bg-primary: #181818;
     --bg-secondary: #1a1a1a;
     --bg-tertiary: #222222;
@@ -275,66 +226,54 @@ body.theme-noir {
     --bg-overlay: rgba(24, 24, 24, 0.95);
     --bg-loading: linear-gradient(135deg, #1a1a1a 0%, #181818 50%, #222222 100%);
     
-    /* Text Colors */
     --text-primary: #e0e0e0;
     --text-secondary: #d0d0d0;
     --text-muted: #a0a0a0;
     --text-accent: #f0f0f0;
     
-    /* Border Colors */
     --border-primary: rgba(68, 68, 68, 0.3);
     --border-secondary: #444;
     --border-accent: #ffffff;
     
-    /* Button Colors */
     --btn-primary: #ffffff;
     --btn-primary-hover: #f0f0f0;
     --btn-secondary: transparent;
     --btn-secondary-hover: rgba(68, 68, 68, 0.3);
     
-    /* Input Colors */
     --input-bg: #444;
     --input-border: #ffffff;
     --input-text: #e0e0e0;
     --input-placeholder: #a0a0a0;
     --input-focus: #f0f0f0;
     
-    /* Search Colors */
     --search-bg: #444;
     --search-border: #ffffff;
     --search-text: #e0e0e0;
     --search-placeholder: #a0a0a0;
     --search-hover: #555;
     
-    /* Card Colors */
     --card-bg: #181818;
     --card-border: rgba(68, 68, 68, 0.3);
     --card-hover: rgba(255, 255, 255, 0.1);
     
-    /* Modal Colors */
     --modal-bg: #444;
     --modal-border: #555;
     --modal-overlay: rgba(0, 0, 0, 0.7);
     
-    /* Notification Colors */
     --notification-bg: #444;
     --notification-border: #181818;
     --notification-text: #e0e0e0;
     
-    /* Loading Colors */
     --loading-text: #e0e0e0;
     --loading-wheel-border: rgba(68, 68, 68, 0.3);
     --loading-wheel-spinner: #e0e0e0;
     
-    /* Scrollbar Colors */
     --scrollbar-track: #1a1f1a;
     --scrollbar-thumb: #384438;
     --scrollbar-thumb-hover: #4a5a4a;
     
-    /* Logo Colors */
     --logo-color: #ffffff;
     
-    /* Tab Colors */
     --tab-bg: #444;
     --tab-border: #ffffff;
     --tab-text: #e0e0e0;
@@ -343,7 +282,6 @@ body.theme-noir {
     --tab-close: #a0a0a0;
     --tab-close-hover: #e0e0e0;
     
-    /* Sidebar Colors */
     --sidebar-bg: transparent;
     --sidebar-border: rgba(68, 68, 68, 0.3);
     --sidebar-item: #e0e0e0;
@@ -352,9 +290,7 @@ body.theme-noir {
     --sidebar-item-active-border: #ffffff;
 }
 
-/* ===== DEFAULT FALLBACK ===== */
 :root {
-    /* Default to moss theme if no theme is set */
     --bg-primary: #232b23;
     --bg-secondary: #1a1f1a;
     --bg-tertiary: #2e362e;
