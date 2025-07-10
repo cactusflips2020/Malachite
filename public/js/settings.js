@@ -42,16 +42,13 @@ function applyCloak(option) {
 
 // Function to load the saved tab cloaking setting from localStorage on page load
 function loadCloakSetting() {
-    console.log("Loading cloak setting...");  // Debugging line to see if it's being triggered
     const savedCloakOption = localStorage.getItem('tabCloak');
-    console.log(`Loaded cloak option: ${savedCloakOption}`);  // Debugging line to see the loaded value
 
     if (savedCloakOption) {
         const selectElement = document.getElementById('cloak-select');
         if (selectElement) {
             selectElement.value = savedCloakOption; // Set the saved value to the select dropdown
             applyCloak(savedCloakOption); // Apply the saved option
-            console.log(`Dropdown set to: ${savedCloakOption}`);  // Debugging line to check dropdown value
         }
     } else {
         // If no saved option, fallback to 'Default'
@@ -59,7 +56,6 @@ function loadCloakSetting() {
         if (selectElement) {
             selectElement.value = 'Default'; // Default fallback
             applyCloak('Default'); // Apply the default value
-            console.log('Dropdown set to default');  // Debugging line for default
         }
     }
 }
@@ -85,7 +81,6 @@ function launchab() {
 
 // Function to apply the transport based on the selected option
 function applyTransport(option) {
-    console.log(`Applying transport: ${option}`);  // Debugging line to check which transport is being applied
     // Only set transport to valid options (either 'epoxy' or 'libcurl')
     if (option === 'epoxy') {
         chemical.setTransport("epoxy");
@@ -97,16 +92,13 @@ function applyTransport(option) {
 
 // Function to load the saved setting from localStorage on page load
 function loadTransportSetting() {
-    console.log("Loading transport setting...");  // Debugging line to see if it's being triggered
     const savedTransportOption = localStorage.getItem('transportSelect');
-    console.log(`Loaded transport option: ${savedTransportOption}`);  // Debugging line to check what is loaded from localStorage
 
     if (savedTransportOption) {
         const selectElement = document.getElementById('transport-select');
         if (selectElement) {
             selectElement.value = savedTransportOption; // Set the saved value to the select dropdown
             applyTransport(savedTransportOption); // Apply the saved option
-            console.log(`Dropdown set to: ${savedTransportOption}`);  // Debugging line to confirm dropdown update
         }
     } else {
         // If no saved option, fallback to 'libcurl'
@@ -114,7 +106,6 @@ function loadTransportSetting() {
         if (selectElement) {
             selectElement.value = 'libcurl'; // Set default to libcurl
             applyTransport('libcurl'); // Apply the default value
-            console.log('Dropdown set to default (libcurl)');  // Debugging line for default
         }
     }
 }
@@ -233,40 +224,29 @@ function signOut() {
 }
 
 // Function to change the search engine based on the selected option
-function changeSearchEngine() {
-    const selectedSearchEngine = document.getElementById('searchengine-select').value;
-    applySearchEngine(selectedSearchEngine);  // Apply the selected search engine
-    showNotification('Changes saved');
-}
+
 
 // Function to apply the selected search engine
 function applySearchEngine(option) {
     if (option === 'google') {
-        console.log("Using Google search");
         localStorage.setItem('searchEngineSelect', 'google');  // Save the selected option to localStorage
         localStorage.setItem('searchEngineSelectUrl', 'https://www.google.com/search?q=%s');
     } else if (option === 'duckduckgo') {
-        console.log("Using DuckDuckGo search");
         localStorage.setItem('searchEngineSelect', 'duckduckgo');  // Save the selected option to localStorage
         localStorage.setItem('searchEngineSelectUrl', 'https://www.duckduckgo.com/?q=%s');
     } else if (option === 'bing') {
-        console.log("Using Bing search");
         localStorage.setItem('searchEngineSelect', 'bing');  // Save the selected option to localStorage
         localStorage.setItem('searchEngineSelectUrl', 'https://www.bing.com/search?q=%s');
     } else if (option === 'brave') {
-        console.log("Using Brave Search");
         localStorage.setItem('searchEngineSelect', 'brave');  // Save the selected option to localStorage
         localStorage.setItem('searchEngineSelectUrl', 'https://search.brave.com/search?q=%s');
     } else if (option === 'startpage') {
-        console.log("Using Startpage search");
         localStorage.setItem('searchEngineSelect', 'startpage');  // Save the selected option to localStorage
         localStorage.setItem('searchEngineSelectUrl', 'https://www.startpage.com/sp/search?query=%s');
     } else if (option === 'ecosia') {
-        console.log("Using Ecosia search");
         localStorage.setItem('searchEngineSelect', 'ecosia');  // Save the selected option to localStorage
         localStorage.setItem('searchEngineSelectUrl', 'https://www.ecosia.org/search?q=%s');
     } else if (option === 'yahoo') {
-        console.log("Using Yahoo search");
         localStorage.setItem('searchEngineSelect', 'yahoo');  // Save the selected option to localStorage
         localStorage.setItem('searchEngineSelectUrl', 'https://www.search.yahoo.com/search?p=%s');
     }
@@ -301,12 +281,10 @@ function loadThemeSetting() {
     const selectElement = document.getElementById('theme-select');
     if (selectElement) {
         selectElement.value = savedTheme;
-        console.log(`Theme dropdown set to: ${savedTheme}`);
     }
     
     // Actually apply the saved theme to the page
     applyTheme(savedTheme);
-    console.log(`Loaded and applied theme: ${savedTheme}`);
 }
 
 // Load the theme setting immediately and on page load
@@ -417,8 +395,6 @@ function showNotification(message) {
 
 // Simple dropdown setup
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Setting up basic dropdowns');
-    
     // Load theme immediately when DOM is ready
     loadThemeSetting();
     
@@ -463,7 +439,6 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('message', function(event) {
         if (event.data.type === 'theme-change') {
             const theme = event.data.theme;
-            console.log('Settings.js: Received theme change message:', theme);
             applyTheme(theme);
             
             // Update theme selector to match
@@ -478,7 +453,6 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('storage', function(event) {
         if (event.key === 'siteTheme') {
             const theme = event.newValue || 'moss';
-            console.log('Settings.js: Theme changed in storage:', theme);
             applyTheme(theme);
             
             // Update theme selector to match
@@ -505,8 +479,6 @@ let tempKey = selectedKey; // Temporary storage for unsaved key
 let tempURL = customURL; // Temporary storage for unsaved URL
 
 function openKeybindModal() {
-    console.log('Opening keybind modal...');
-    
     const modal = document.getElementById("keybind-modal");
     if (!modal) {
         console.error('Keybind modal not found!');
@@ -532,12 +504,9 @@ function openKeybindModal() {
     
     // Initialize particles for keybind modal
     initializeKeybindParticles(currentTheme);
-    
-    console.log('Keybind modal opened successfully');
 }
 
 function closeKeybindModal() {
-    console.log('Closing keybind modal...');
     // Reset to last saved values when closing without applying
     tempKey = localStorage.getItem("redirectKey");
     tempURL = localStorage.getItem("redirectUrl") || "https://www.google.com";
@@ -548,23 +517,16 @@ function closeKeybindModal() {
         
         // Clean up keybind modal particles
         cleanupKeybindParticles();
-        
-        console.log('Keybind modal closed successfully');
     }
 }
 
 // Add event listener for keybind display when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM loaded, setting up keybind listeners...');
-    
     const keybindDisplay = document.getElementById("keybind-display");
     if (keybindDisplay) {
-        console.log('Keybind display found, adding click listener');
         keybindDisplay.addEventListener("click", () => {
-            console.log('Keybind display clicked');
             keybindDisplay.textContent = "Listening...";
             const listener = (e) => {
-                console.log('Key pressed:', e.key);
                 if (e.key === "Escape") {
                     tempKey = null;
                     keybindDisplay.textContent = "No key bound";
@@ -583,13 +545,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add URL completion for keybind URL input
     const keybindUrl = document.getElementById("keybind-url");
     if (keybindUrl) {
-        console.log('Keybind URL input found, adding completion listener');
         keybindUrl.addEventListener("blur", function() {
             let urlValue = this.value.trim();
             if (urlValue && !/^https?:\/\//i.test(urlValue)) {
                 // Auto-complete the URL
                 this.value = "https://" + urlValue;
-                console.log('URL auto-completed to:', this.value);
             }
         });
         
@@ -599,7 +559,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 let urlValue = this.value.trim();
                 if (urlValue && !/^https?:\/\//i.test(urlValue)) {
                     this.value = "https://" + urlValue;
-                    console.log('URL auto-completed on Enter to:', this.value);
                 }
             }
         });
@@ -609,15 +568,12 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Test if the button exists
     const openButton = document.querySelector('button[onclick="openKeybindModal()"]');
-    if (openButton) {
-        console.log('Open keybind button found');
-    } else {
+    if (!openButton) {
         console.error('Open keybind button not found!');
     }
 });
 
 function applyKeybind() {
-    console.log('Applying keybind settings...');
     const urlInput = document.getElementById("keybind-url");
     if (!urlInput) {
         console.error('Keybind URL input not found!');
@@ -636,11 +592,9 @@ function applyKeybind() {
     if (tempKey) {
         selectedKey = tempKey;
         localStorage.setItem("redirectKey", selectedKey);
-        console.log('Keybind saved:', selectedKey, '->', customURL);
     } else {
         selectedKey = null;
         localStorage.removeItem("redirectKey");
-        console.log('Keybind removed');
     }
 
     closeKeybindModal();
@@ -648,8 +602,6 @@ function applyKeybind() {
 }
 
 function resetKeybind() {
-    console.log('Resetting keybind settings...');
-    
     // Reset to default values
     tempKey = null;
     tempURL = "https://www.google.com";
@@ -662,7 +614,6 @@ function resetKeybind() {
     selectedKey = null;
     customURL = "https://www.google.com";
     
-    console.log('Keybind settings reset to defaults');
     showNotification('Changes saved!');
     
     // Close the modal
@@ -670,7 +621,6 @@ function resetKeybind() {
 }
 
 function openCredentialsModal() {
-    console.log('Opening credentials modal...');
     const modal = document.getElementById('credentials-modal');
     
     // Apply current theme to modal
@@ -798,14 +748,10 @@ function openCredentialsModal() {
     
     // Initialize particles.js with a small delay to ensure DOM is ready
     setTimeout(() => {
-        console.log('Checking particlesJS:', typeof particlesJS !== 'undefined');
         if (typeof particlesJS !== 'undefined') {
-            console.log('Initializing particles for theme:', currentTheme);
             const config = particleConfigs[currentTheme] || particleConfigs.moss;
             particlesJS('credentials-particles-js', config);
-            console.log('Particles initialized successfully');
         } else {
-            console.log('ParticlesJS not available, trying alternative approach...');
             // Try to create a simple particle effect manually
             createSimpleParticles();
         }
@@ -813,7 +759,6 @@ function openCredentialsModal() {
 }
 
 function createSimpleParticles() {
-    console.log('Creating simple particles manually...');
     const container = document.getElementById('credentials-particles-js');
     if (container) {
         // Get current theme for particle colors
@@ -840,13 +785,10 @@ function createSimpleParticles() {
             particle.style.zIndex = '1';
             container.appendChild(particle);
         }
-        console.log('Simple particles created for theme:', currentTheme);
     }
 }
 
 function initializeKeybindParticles(theme) {
-    console.log('Initializing keybind particles for theme:', theme);
-    
     // Theme-specific particle configurations for keybind modal
     const keybindParticleConfigs = {
         moss: {
@@ -961,14 +903,10 @@ function initializeKeybindParticles(theme) {
     
     // Initialize particles.js with a small delay to ensure DOM is ready
     setTimeout(() => {
-        console.log('Checking particlesJS for keybind modal:', typeof particlesJS !== 'undefined');
         if (typeof particlesJS !== 'undefined') {
-            console.log('Initializing keybind particles for theme:', theme);
             const config = keybindParticleConfigs[theme] || keybindParticleConfigs.moss;
             particlesJS('keybind-particles-js', config);
-            console.log('Keybind particles initialized successfully');
         } else {
-            console.log('ParticlesJS not available for keybind modal, trying alternative approach...');
             // Try to create a simple particle effect manually
             createSimpleKeybindParticles(theme);
         }
@@ -976,7 +914,6 @@ function initializeKeybindParticles(theme) {
 }
 
 function createSimpleKeybindParticles(theme) {
-    console.log('Creating simple keybind particles manually...');
     const container = document.getElementById('keybind-particles-js');
     if (container) {
         // Get current theme for particle colors
@@ -1002,13 +939,10 @@ function createSimpleKeybindParticles(theme) {
             particle.style.zIndex = '1';
             container.appendChild(particle);
         }
-        console.log('Simple keybind particles created for theme:', theme);
     }
 }
 
 function cleanupKeybindParticles() {
-    console.log('Cleaning up keybind particles...');
-    
     // Clean up particles.js particles
     if (typeof pJSDom !== 'undefined' && pJSDom.length > 0) {
         // Find and destroy only the keybind modal particles
@@ -1027,8 +961,6 @@ function cleanupKeybindParticles() {
     if (container) {
         container.innerHTML = '';
     }
-    
-    console.log('Keybind particles cleaned up');
 }
 
 function closeCredentialsModal() {
@@ -1117,19 +1049,9 @@ function resetCredentials() {
 function changeTheme() {
     try {
         const selectedTheme = document.getElementById('theme-select').value;
-        console.log(`Theme changed to: ${selectedTheme}`);
         
         // Apply the selected theme
         applyTheme(selectedTheme);
-        
-        // Debug: Check dropdowns after theme change
-        setTimeout(() => {
-            console.log('Dropdowns after theme change:');
-            console.log('Transport select:', document.getElementById('transport-select'));
-            console.log('Cloak select:', document.getElementById('cloak-select'));
-            console.log('Search engine select:', document.getElementById('searchengine-select'));
-            console.log('Theme select:', document.getElementById('theme-select'));
-        }, 100);
     } catch (error) {
         console.error('Error changing theme:', error);
         showNotification('Error changing theme');
@@ -1200,13 +1122,11 @@ function updateThemeModals() {
 // Function to apply the theme
 function applyTheme(theme) {
     try {
-        console.log(`Settings.js: Applying theme: ${theme}`);  // Debugging line to check which theme is being applied
         document.body.classList.remove('theme-moss', 'theme-midnight', 'theme-rose', 'theme-noir');
         document.body.classList.add('theme-' + theme);
         localStorage.setItem('siteTheme', theme);
         // Update theme classes for modals/popups
         updateThemeModals();
-        console.log(`Theme ${theme} applied successfully`);
     } catch (error) {
         console.error('Error applying theme:', error);
         throw error;
@@ -1507,7 +1427,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Function to apply the selected proxy backend
 function applyProxyBackend(option) {
-    console.log(`Applying proxy backend: ${option}`);
     localStorage.setItem('proxyBackendSelect', option);
 }
 

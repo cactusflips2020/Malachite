@@ -13,32 +13,20 @@ document.addEventListener('DOMContentLoaded', function() {
             event.preventDefault();
             event.stopPropagation();
             
-            console.log('Form submitted'); // Debug log
-            
             let username = document.getElementById('edit-mail').value;
             let password = document.getElementById('edit-pass').value;
-            
-            console.log('Username:', username); // Debug log
-            console.log('Password:', password); // Debug log
 
             let storedUsername = localStorage.getItem('username') || 'malachite';
             let storedPassword = localStorage.getItem('password') || 'malachiteontop';
             
-            console.log('Stored username:', storedUsername); // Debug log
-            console.log('Stored password:', storedPassword); // Debug log
-            
             if (username === storedUsername && password === storedPassword) {
-                console.log('Login successful'); // Debug log
                 localStorage.setItem('isLoggedIn', 'true');
                 window.location.href = 'index.html';
             }
             else {
-                console.log('Login failed'); // Debug log
-                
                 // Check if we're in SSO mode (school field is visible)
                 const schoolWrapper = document.getElementById('edit-school-wrapper');
                 if (schoolWrapper && schoolWrapper.style.display === 'block') {
-                    console.log('SSO login mode - not showing error popup');
                     return false;
                 }
                 

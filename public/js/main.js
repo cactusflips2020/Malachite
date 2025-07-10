@@ -106,7 +106,9 @@ window.addEventListener("keydown", (e) => {
 
 // Add spin animation to logo on hover
 document.addEventListener('DOMContentLoaded', function() {
-    let logo = document.querySelector('.logo-container img');
+    let logo = document.querySelector('.logo-container svg');
+    let proxyLogo = document.querySelector('#logo.svg-logo');
+    
     if (logo) {
         logo.addEventListener('mouseenter', function() {
             logo.classList.add('logo-spin');
@@ -115,6 +117,17 @@ document.addEventListener('DOMContentLoaded', function() {
         logo.addEventListener('mouseleave', function() {
             logo.classList.remove('logo-spin');
             logo.classList.add('logo-reverse');
+        });
+    }
+    
+    if (proxyLogo) {
+        proxyLogo.addEventListener('mouseenter', function() {
+            proxyLogo.classList.add('logo-spin');
+            proxyLogo.classList.remove('logo-reverse');
+        });
+        proxyLogo.addEventListener('mouseleave', function() {
+            proxyLogo.classList.remove('logo-spin');
+            proxyLogo.classList.add('logo-reverse');
         });
     }
 });
@@ -127,7 +140,6 @@ function syncThemeSelector() {
     const themeSelector = document.getElementById('theme-select');
     if (themeSelector) {
         themeSelector.value = savedTheme;
-        console.log('Main.js: Theme selector synced to:', savedTheme);
     }
 }
 
@@ -148,35 +160,26 @@ document.addEventListener('DOMContentLoaded', syncThemeSelector);
 
 // Update logo and favicon based on current theme
 function updateLogoAndFavicon(theme) {
-    // Logo mapping for each theme
-    const logoMap = {
-        moss: 'img/mosslogo.png',
-        midnight: 'img/midnightlogo.png',
-        rose: 'img/roselogo.png',
-        noir: 'img/noirlogo.png'
-    };
+    // Use single logo for all themes
+    const logoPath = 'img/logo.svg';
     
-    // Favicon mapping for each theme
-    const faviconMap = {
-        moss: 'img/mossfavicon.ico',
-        midnight: 'img/midnightfavicon.ico',
-        rose: 'img/rosefavicon.ico',
-        noir: 'img/noirfavicon.ico'
-    };
+    // Use single favicon for all themes
+    const faviconPath = 'img/favicon.svg';
     
-    // Update all logo images on the page
+    // Update all logo images on the page to use single logo
     const logoImgs = Array.from(document.querySelectorAll('.logo-container img, .logo-container a img, .logo-above-title img, #logo-container img, #logo'));
-    if (logoImgs.length > 0 && logoMap[theme]) {
-        logoImgs.forEach(img => { img.src = logoMap[theme]; });
+    if (logoImgs.length > 0) {
+        logoImgs.forEach(img => { 
+            img.src = logoPath;
+            img.classList.add('svg-logo');
+        });
     }
     
     // Update favicon and title if using default tab cloak
     let tabCloak = localStorage.getItem('tabCloak') || 'Default';
     if (typeof chemical !== 'undefined' && chemical.setStore) {
         if (tabCloak === 'Default' || !tabCloak) {
-            if (faviconMap[theme]) {
-                chemical.setStore('icon', faviconMap[theme]);
-            }
+            chemical.setStore('icon', faviconPath);
             chemical.setStore('title', 'Malachite');
         }
     }
@@ -191,18 +194,11 @@ function getCurrentTheme() {
 function initializeFavicon() {
     let tabCloak = localStorage.getItem('tabCloak') || 'Default';
     let theme = getCurrentTheme();
-    const faviconMap = {
-        moss: 'img/mossfavicon.ico',
-        midnight: 'img/midnightfavicon.ico',
-        rose: 'img/rosefavicon.ico',
-        noir: 'img/noirfavicon.ico'
-    };
+    const faviconPath = 'img/favicon.svg';
     
     if (typeof chemical !== 'undefined' && chemical.setStore) {
         if (tabCloak === 'Default' || !tabCloak) {
-            if (faviconMap[theme]) {
-                chemical.setStore('icon', faviconMap[theme]);
-            }
+            chemical.setStore('icon', faviconPath);
         }
         // Only set title if tab cloak is Default to avoid conflicts
         if (tabCloak === 'Default' || !tabCloak) {

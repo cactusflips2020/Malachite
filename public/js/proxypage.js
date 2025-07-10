@@ -2,16 +2,19 @@
 
 // ===== LOADING SCREEN MANAGEMENT =====
 
+
+
 // Hide loading screen when page loads
 window.addEventListener('load', function() {
     setTimeout(function() {
         const loadingScreen = document.querySelector('.loading-screen');
+        
         loadingScreen.style.opacity = '0'; // Fade out loading screen
         
         setTimeout(function() {
             loadingScreen.style.visibility = 'hidden'; // Hide completely after fade
         }, 500); // Wait for fade animation to complete
-    }, 0); // Start immediately
+    }, 1500); // Show loading screen for a bit longer for better UX
 });
 
 // ===== IFRAME URL SYNC =====
@@ -27,8 +30,6 @@ async function onIframeLoad() {
         
         // Don't update search input for 404 pages, settings pages, or homepage
         if (iframeUrl.includes('404-proxy.html') || iframeUrl.includes('settings-proxy.html') || iframeUrl.includes('home-proxy.html')) {
-            console.log('Special page detected (404, settings, or homepage), not updating search input');
-            
             // For settings page, ensure the search bar shows malachite://settings
             if (iframeUrl.includes('settings-proxy.html')) {
                 const searchInput = document.getElementById('proxySearch');
@@ -59,9 +60,7 @@ async function onIframeLoad() {
                     decodedUrl = await chemical.decode(iframeUrl, {
                         service: "rh"
                     });
-                    console.log('Rammerhead decode successful:', decodedUrl);
                 } catch (decodeError) {
-                    console.log('Rammerhead decode failed, using original URL:', decodeError);
                     decodedUrl = iframeUrl;
                 }
             } else if (typeof chemical !== 'undefined' && chemical.decode) {
@@ -98,7 +97,6 @@ if (iframe) {
             // Show devtools after a short delay to ensure everything is ready
             setTimeout(function() {
                 window.showDevTools();
-                console.log('Devtools shown after proxy iframe loaded');
             }, 1000);
         }
     };
@@ -137,28 +135,23 @@ if (iframe) {
 // Function to apply theme-specific scrollbar colors
 function applyThemeScrollbarColors(theme) {
     const root = document.documentElement;
-    console.log('Applying scrollbar colors for theme:', theme);
     
     if (theme === 'moss') {
         root.style.setProperty('--scrollbar-track', '#1a1f1a');
         root.style.setProperty('--scrollbar-thumb', '#384438');
         root.style.setProperty('--scrollbar-thumb-hover', '#4a5a4a');
-        console.log('Applied moss theme scrollbar colors');
     } else if (theme === 'midnight') {
         root.style.setProperty('--scrollbar-track', '#151a22');
         root.style.setProperty('--scrollbar-thumb', '#2a3442');
         root.style.setProperty('--scrollbar-thumb-hover', '#3a4452');
-        console.log('Applied midnight theme scrollbar colors');
     } else if (theme === 'rose') {
         root.style.setProperty('--scrollbar-track', '#1a1114');
         root.style.setProperty('--scrollbar-thumb', '#6e3844');
         root.style.setProperty('--scrollbar-thumb-hover', '#8e4854');
-        console.log('Applied rose theme scrollbar colors');
     } else if (theme === 'noir') {
         root.style.setProperty('--scrollbar-track', '#1a1f1a');
         root.style.setProperty('--scrollbar-thumb', '#384438');
         root.style.setProperty('--scrollbar-thumb-hover', '#4a5a4a');
-        console.log('Applied noir theme scrollbar colors');
     }
     
     // Force a repaint to ensure the scrollbar updates
@@ -207,17 +200,9 @@ window.addEventListener('storage', function(event) {
 
 // Manual theme testing function (can be called from browser console)
 window.testScrollbarTheme = function(theme) {
-    console.log('Manually testing scrollbar theme:', theme);
     document.body.classList.remove('theme-moss', 'theme-midnight', 'theme-solarized', 'theme-rose', 'theme-noir');
     document.body.classList.add('theme-' + theme);
     applyThemeScrollbarColors(theme);
-    
-    // Log current CSS variable values
-    const root = document.documentElement;
-    console.log('Current CSS variables:');
-    console.log('--scrollbar-track:', getComputedStyle(root).getPropertyValue('--scrollbar-track'));
-    console.log('--scrollbar-thumb:', getComputedStyle(root).getPropertyValue('--scrollbar-thumb'));
-    console.log('--scrollbar-thumb-hover:', getComputedStyle(root).getPropertyValue('--scrollbar-thumb-hover'));
 };
 
 // ===== CUSTOM BUTTONS FUNCTIONALITY =====

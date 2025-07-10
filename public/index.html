@@ -4,7 +4,7 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title is="chemical-title" data-title-store>Malachite</title>
-		<link rel="icon" is="chemical-icon" data-icon-store href="img/favicon.ico">
+		<link rel="icon" is="chemical-icon" data-icon-store href="img/favicon.svg">
 		<link rel="stylesheet" href="css/index.css">
 		<link rel="stylesheet" href="css/transitions.css">
 		<script src="/chemical.js"></script>
@@ -17,7 +17,11 @@
 		<div class="navbar">
 			<div class="logo-container">
 				<a href="index.html">
-					<img src="/img/logo.png" alt="Logo">
+				<svg class="svg-logo" xmlns="http://www.w3.org/2000/svg" width="100" height="85" viewBox="0 0 300 255" preserveAspectRatio="xMidYMid meet">
+					<g transform="translate(0,255) scale(0.1,-0.1)" fill="currentColor" stroke="none">
+						<path d="M391 1923 c-200 -344 -365 -633 -367 -642 -2 -9 161 -299 364 -646 l367 -630 747 -3 746 -2 363 622 c199 343 366 630 372 638 6 11 -85 177 -361 650 l-370 635 -749 2 -748 2 -364 -626z m2008 -130 c162 -278 294 -511 294 -517 0 -6 -132 -240 -294 -518 l-294 -507 -601 -1 -600 0 -297 509 c-163 281 -297 513 -297 517 0 3 133 235 296 515 l297 509 601 0 601 0 294 -507z"/>
+					</g>
+				</svg>
 				</a>
 				<a href="index.html">Malachite</a>
 			</div>
@@ -33,6 +37,7 @@
 				</a>
 			</div>
 		</div>						
+		<div class="main-content-container">
 			<div class="logo-above-title slide-in-element" style="opacity: 0; transform: translateY(-30px);">
 				<div style="text-align: center; margin-bottom: 2px;">
 	<span id="main-time" style="font-size: 5.5em; font-weight: bold; line-height: 1;"></span>
@@ -60,6 +65,7 @@
 				Ping: <span id="latency-value">Fetching Ping...</span> | 
 				FPS: <span id="fps-value">0</span>
 			</div>
+		</div>
 		<div class="open-area" id="openArea"></div>
 		
 		<!-- Welcome Back Overlay -->

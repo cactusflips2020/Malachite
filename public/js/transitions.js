@@ -26,7 +26,6 @@ class PageTransitionManager {
                 e.target.tagName === 'INPUT' || 
                 e.target.tagName === 'BUTTON' ||
                 e.target.tagName === 'TEXTAREA') {
-                console.log('Form element focused, preventing transition interference');
                 e.stopPropagation();
             }
         });

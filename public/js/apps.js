@@ -161,7 +161,6 @@ window.addEventListener("load", function() {
 window.addEventListener('message', function(event) {
     if (event.data.type === 'theme-change') {
         const theme = event.data.theme;
-        console.log('Apps.js: Received theme change message:', theme);
         document.body.classList.remove('theme-moss', 'theme-midnight', 'theme-solarized', 'theme-rose', 'theme-noir');
         document.body.classList.add('theme-' + theme);
         
@@ -174,7 +173,6 @@ window.addEventListener('message', function(event) {
 window.addEventListener('storage', function(event) {
     if (event.key === 'siteTheme') {
         const theme = event.newValue || 'moss';
-        console.log('Apps.js: Theme changed in storage:', theme);
         document.body.classList.remove('theme-moss', 'theme-midnight', 'theme-solarized', 'theme-rose', 'theme-noir');
         document.body.classList.add('theme-' + theme);
         

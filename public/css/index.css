@@ -142,18 +142,18 @@
     backdrop-filter: blur(15px) !important;
     -webkit-backdrop-filter: blur(15px) !important; /* Safari support */
     position: fixed !important; /* Fix position at the top */
-    top: 15px !important; /* Reduced spacing from the top */
+    top: 0 !important; /* Cover the full top of the screen */
     z-index: 1000 !important; /* Ensure it's above other content */
     left: 0 !important; /* Align navbar to the left */
     right: 0 !important; /* Align navbar to the right */
-    min-height: 60px !important; /* Minimum height, can grow if wrapped */
-    border-radius: 10px !important; /* Round the corners */
-    margin-left: 15px !important; /* Margin from the left side */
-    margin-right: 15px !important; /* Margin from the right side */
-    width: calc(100% - 30px) !important; /* Adjust the width to account for both left and right margins */
+    min-height: 70px !important; /* Set to exactly 70px height */
+    border-radius: 0 !important; /* No rounded corners for full-width bar */
+    margin: 0 !important; /* No margins for full width */
+    width: 100% !important; /* Full width */
     box-sizing: border-box;
-    border: 1px solid rgba(56, 68, 56, 0.3) !important; /* Semi-transparent border */
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important; /* Subtle shadow for depth */
+    border: none !important; /* Remove border for clean bar look */
+    border-bottom: 1px solid rgba(56, 68, 56, 0.3) !important; /* Only bottom border */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important; /* Subtle shadow for depth */
     flex-wrap: wrap !important; /* Allow wrapping on small screens */
     gap: 10px !important; /* Space between wrapped items */
 }
@@ -171,17 +171,51 @@
 .logo-container img {
     height: 40px !important;
     max-height: 100% !important;
+    width: auto !important;
     transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
 }
 
-.logo-container img.logo-spin {
-    transform: rotate(360deg);
-    transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+/* SVG Logo specific styling */
+.logo-container .svg-logo {
+    height: 40px !important;
+    width: 40px !important;
+    max-width: none !important;
+    max-height: none !important;
+    object-fit: contain !important;
+    border-radius: 0 !important;
 }
 
-.logo-container img.logo-reverse {
-    transform: rotate(0deg);
-    transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+/* SVG Logo theming - Simple color changes */
+.svg-logo {
+    transition: all 0.3s ease;
+}
+
+/* Moss Theme */
+body.theme-moss .svg-logo {
+    color: #516953;
+    padding: 4px;
+    border-radius: 0;
+}
+
+/* Midnight Theme */
+body.theme-midnight .svg-logo {
+    color: #5b7c8a;
+    padding: 4px;
+    border-radius: 0;
+}
+
+/* Rose Theme */
+body.theme-rose .svg-logo {
+    color: #c2185b;
+    padding: 4px;
+    border-radius: 0;
+}
+
+/* Noir Theme */
+body.theme-noir .svg-logo {
+    color: #ffffff;
+    padding: 4px;
+    border-radius: 0;
 }
 
 /* Logo link styling */
@@ -201,9 +235,10 @@
 }
 
 /* Hover effect for the logo image */
-.logo-container img:hover {
-    transform: rotate(360deg); /* Apply the rotation effect */
-    transition: transform 0.5s ease, filter 0.3s ease !important; /* Smooth transition for rotation and brightness */
+.logo-container svg:hover {
+    transform: rotate(180deg); /* Apply the rotation effect */
+    filter: brightness(1.1); /* Increase brightness on hover */
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), filter 0.3s ease !important; /* Smooth transition for rotation and brightness */
 }
 
 
@@ -267,6 +302,7 @@
 
 
 
+
 /* Apply better styling to separator */
 #latency-fps-widget .separator {
     color: #a3bfa3;
@@ -294,10 +330,59 @@ body {
     font-family: 'Montserrat';
     position: relative;
     overflow-x: hidden;
-    padding-top: 0px; /* Increased padding to move content up */
+    padding-top: 0; /* Remove top padding to center content absolutely */
     min-height: 100vh;
     min-width: 100vw;
     box-sizing: border-box;
+}
+
+/* Main content container to center all content properly */
+.main-content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 10;
+    margin-top: -35px; /* Adjust for navbar height to center absolutely */
+}
+
+/* Move games and apps content up from bottom */
+#search-input {
+    margin-top: 0;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 10;
+}
+
+.games-container,
+.apps-container {
+    margin-top: 20px;
+    position: relative;
+    z-index: 10;
+}
+
+/* Center games and apps content vertically */
+body:has(#search-input) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 0;
+}
+
+/* Alternative approach for browsers that don't support :has() */
+body.games-page,
+body.apps-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 0;
 }
 
 /* Gradient background with frosted glass effect */
@@ -344,8 +429,9 @@ body.theme-moss #navbar {
     background: transparent !important;
     backdrop-filter: blur(15px) !important;
     -webkit-backdrop-filter: blur(15px) !important;
-    border: 1px solid rgba(56, 68, 56, 0.3) !important;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
+    border: none !important;
+    border-bottom: 1px solid rgba(56, 68, 56, 0.3) !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
 }
 body.theme-moss #latency-fps-widget,
 body.theme-moss #clock-widget {
@@ -547,8 +633,9 @@ body.theme-midnight #navbar {
     background: transparent !important;
     backdrop-filter: blur(15px) !important;
     -webkit-backdrop-filter: blur(15px) !important;
-    border: 1px solid rgba(42, 52, 66, 0.3) !important;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
+    border: none !important;
+    border-bottom: 1px solid rgba(42, 52, 66, 0.3) !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
 }
 body.theme-midnight #latency-fps-widget,
 body.theme-midnight #clock-widget {
@@ -734,8 +821,9 @@ body.theme-rose #navbar {
     background: transparent !important;
     backdrop-filter: blur(15px) !important;
     -webkit-backdrop-filter: blur(15px) !important;
-    border: 1px solid rgba(110, 56, 68, 0.3) !important;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
+    border: none !important;
+    border-bottom: 1px solid rgba(110, 56, 68, 0.3) !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
 }
 body.theme-rose #latency-fps-widget,
 body.theme-rose #clock-widget {
@@ -933,8 +1021,9 @@ body.theme-noir #navbar {
     background: transparent !important;
     backdrop-filter: blur(15px) !important;
     -webkit-backdrop-filter: blur(15px) !important;
-    border: 1px solid rgba(68, 68, 68, 0.3) !important;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
+    border: none !important;
+    border-bottom: 1px solid rgba(68, 68, 68, 0.3) !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
 }
 body.theme-noir #latency-fps-widget,
 body.theme-noir #clock-widget {
@@ -1339,6 +1428,13 @@ a {
 .logo-above-title img {
     max-width: 150px;    /* Control the size of the logo */
     margin-bottom: 10px; /* Add space between the logo and the title */
+}
+
+/* SVG Logo in logo-above-title */
+.logo-above-title .svg-logo {
+    width: 150px !important;
+    height: 150px !important;
+    object-fit: contain !important;
 }
 
 #clock-widget {

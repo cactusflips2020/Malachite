@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Settings</title>
+    <title is="chemical-title" data-title-store>Malachite</title>
     <link rel="icon" href="/img/favicon.ico">
     <link rel="stylesheet" href="/css/index.css">
     <link rel="stylesheet" href="/css/transitions.css">
     <link rel="stylesheet" href="/css/settings.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="/js/particles.min.js"></script>
     <style>
         /* ===== MODAL THEME STYLING ===== */
         
@@ -198,6 +199,16 @@
             transition: all 0.2s;
         }
 
+        /* Fix sidebar positioning to go to top of page */
+        .settings-sidebar {
+            top: 0 !important;
+            margin-top: 0 !important;
+        }
+
+        .settings-layout {
+            margin-top: 0 !important;
+        }
+
         .keybind-buttons button:nth-child(2):hover {
             background-color: #b91c3a !important;
             transform: translateY(-1px);
@@ -235,71 +246,210 @@
         body.theme-noir .keybind-buttons button:nth-child(2):hover {
             background-color: #b91c3a !important;
         }
+
+        /* Collapsible group styles */
+        .collapsible-group {
+            width: 100%;
+        }
+        .collapsible {
+            background-color: var(--collapsible-bg, #232b23);
+            color: var(--collapsible-text, #b2c2a8);
+            cursor: pointer;
+            padding: 14px 18px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 1.1em;
+            transition: background 0.2s;
+            border-radius: 8px 8px 0 0;
+            margin-top: 10px;
+        }
+        .collapsible.active, .collapsible:hover {
+            background-color: var(--collapsible-active-bg, #384438);
+        }
+        .collapsible-content {
+            padding: 0 18px 10px 18px;
+            display: none;
+            overflow: hidden;
+            background-color: var(--collapsible-content-bg, #232b23);
+            border-radius: 0 0 8px 8px;
+        }
+        .collapsible-content .setting-card {
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
     <div id="particles-js"></div>
-    </div>
-    <div class="settings-container">
-        <div class="setting-card">
-            <div class="setting-title">Select Transport</div>
-            <div class="setting-description">Select the transport you want the proxy to use.</div>
-            <select id="transport-select" onchange="changeTransport()">
-                <option value="libcurl">Libcurl (Default)</option>
-                <option value="epoxy">Epoxy</option>
-            </select>
+    <div class="settings-layout">
+        <!-- Left Sidebar -->
+        <div class="settings-sidebar">
+            <div class="sidebar-tabs">
+                <div class="tab-item active" data-tab="proxy">
+                    <i class="fa-solid fa-network-wired"></i>
+                    <span>Proxy</span>
+                </div>
+                <div class="tab-item" data-tab="security">
+                    <i class="fa-solid fa-lock"></i>
+                    <span>Security</span>
+                </div>
+                <div class="tab-item" data-tab="appearance">
+                    <i class="fa-solid fa-palette"></i>
+                    <span>Appearance</span>
+                </div>
+                <div class="tab-item" data-tab="misc">
+                    <i class="fa-solid fa-cog"></i>
+                    <span>Misc</span>
+                </div>
+            </div>
         </div>
 
-        <div class="setting-card">
-            <div class="setting-title">Proxy Backend</div>
-            <div class="setting-description">Choose which proxy backend to use.</div>
-            <select id="proxy-backend-select" onchange="changeProxyBackend()">
-                <option value="uv">Ultraviolet (Default)</option>
-                <option value="rh">Rammerhead</option>
-            </select>
-        </div>
+        <!-- Main Content Area -->
+        <div class="settings-content">
+            <!-- Proxy Settings Tab -->
+            <div class="tab-content active" id="proxy">
+                <div class="settings-container">
+                    <div class="setting-card">
+                        <div class="setting-title">Select Transport</div>
+                        <div class="setting-description">Select the transport you want the proxy to use.</div>
+                        <select id="transport-select" onchange="changeTransport()">
+                            <option value="libcurl">Libcurl (Default)</option>
+                            <option value="epoxy">Epoxy</option>
+                        </select>
+                    </div>
+                    <div class="setting-card">
+                        <div class="setting-title">Proxy Backend</div>
+                        <div class="setting-description">Choose which proxy backend to use.</div>
+                        <select id="proxy-backend-select" onchange="changeProxyBackend()">
+                            <option value="uv">Ultraviolet (Default)</option>
+                            <option value="rh">Rammerhead</option>
+                        </select>
+                    </div>
+                    <div class="setting-card">
+                        <div class="setting-title">Select Search Engine</div>
+                        <div class="setting-description">Choose which search engine to use.</div>
+                        <select id="searchengine-select" onchange="changeSearchEngine()">
+                            <option value="duckduckgo">DuckDuckGo (Default)</option>
+                            <option value="google">Google</option>
+                            <option value="bing">Bing</option>
+                            <option value="brave">Brave Search</option>
+                            <option value="startpage">Startpage</option>
+                            <option value="ecosia">Ecosia</option>
+                            <option value="yahoo">Yahoo</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
 
-        <div class="setting-card">
-            <div class="setting-title">Select Search Engine</div>
-            <div class="setting-description">Choose which search engine to use.</div>
-            <select id="searchengine-select" onchange="changeSearchEngine()">
-                <option value="duckduckgo">DuckDuckGo (Default)</option>
-                <option value="google">Google</option>
-                <option value="bing">Bing</option>
-                <option value="brave">Brave Search</option>
-                <option value="startpage">Startpage</option>
-                <option value="ecosia">Ecosia</option>
-                <option value="yahoo">Yahoo</option>
-            </select>
-        </div>
+            <!-- Security Tab -->
+            <div class="tab-content" id="security">
+                <div class="settings-container">
+                    <div class="setting-card">
+                        <div class="setting-title">Leave Confirmation</div>
+                        <div class="setting-description">Shows a popup when you or another software attempt to close the page.</div>
+                        <button class="setting-button" id="leaveconfirmbutton" onclick="leaveconfirmation()">Toggle Leave Confirmation</button>
+                    </div>
+                    <div class="setting-card">
+                        <div class="setting-title">Panic Key</div>
+                        <div class="setting-description">Choose a key that redirects you to a website when pressed.</div>
+                        <button class="setting-button" onclick="openKeybindModal()">Open Panic Key Settings</button>
+                    </div>
+                </div>
+            </div>
 
-        <div class="setting-card">
-            <div class="setting-title">Leave Confirmation</div> 
-            <div class="setting-description">Shows a popup when you or another software attempt to close the page.</div> 
-            <button class="setting-button" id="leaveconfirmbutton" onclick="leaveconfirmation()">Toggle Leave Confirmation</button>  
-        </div>
+            <!-- Appearance Tab -->
+            <div class="tab-content" id="appearance">
+                <div class="settings-container">
+                    <div class="setting-card">
+                        <div class="setting-title">Theme</div>
+                        <div class="setting-description">Choose your preferred site theme.</div>
+                        <select id="theme-select" onchange="changeTheme()">
+                            <option value="moss">Moss (Default)</option>
+                            <option value="midnight">Midnight</option>
+                            <option value="rose">Rose</option>
+                            <option value="noir">Noir</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
 
-        <div class="setting-card">
-            <div class="setting-title">Panic Key</div>
-            <div class="setting-description">Choose a key that redirects you to a website when pressed.</div>
-            <button class="setting-button" onclick="openKeybindModal()">Open Panic Key Settings</button>
-        </div>         
+            <!-- Misc Tab -->
+            <div class="tab-content" id="misc">
+                <div class="settings-container">
+                    <div class="setting-card">
+                        <div class="setting-title">Change Display Name</div>
+                        <div class="setting-description">Change the name displayed in your greeting.</div>
+                        <button class="setting-button" onclick="openChangeNameModal()">Change Display Name</button>
+                    </div>
+                </div>
+            </div>
 
-        <div class="setting-card">
-            <div class="setting-title">Change Display Name</div>
-            <div class="setting-description">Change the name displayed in your greeting.</div>
-            <button class="setting-button" onclick="openChangeNameModal()">Change Display Name</button>
-        </div>
-
-        <div class="setting-card">
-            <div class="setting-title">Theme</div>
-            <div class="setting-description">Choose your preferred site theme.</div>
-            <select id="theme-select" onchange="changeTheme()">
-                <option value="moss">Moss (Default)</option>
-                <option value="midnight">Midnight</option>
-                <option value="rose">Rose</option>
-                <option value="noir">Noir</option>
-            </select>
+            <!-- Credits Tab -->
+            <div class="tab-content" id="credits">
+                <div class="settings-container">
+                    <div class="setting-card">
+                        <div class="setting-title">About Malachite</div>
+                        <div class="setting-title" style="font-weight: normal; font-size: medium;">Malachite is a modern web proxy designed for secure and fast browsing. Built with performance and user experience in mind.</div>
+                        <div class="setting-title" style="font-weight: normal; font-size: medium;">Current Version: 1.1.0</div>
+                        <div class="setting-title" style="font-weight: normal; font-size: medium;">This project is licensed under the AGPL-3.0 License.</div>
+                    </div>
+                    <div class="setting-card">
+                        <div class="setting-title">Developers</div>
+                        <div class="setting-description">Main Developer</div>
+                        <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; justify-content: center;">
+                            <a href="https://github.com/cactusflips2020" target="_blank" class="tool-card">
+                                <div class="tool-logo">
+                                    <img src="img/assets/cactusflips2020.jpg" alt="cactusflips2020" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                                    <span style="display: none;">👨‍💻</span>
+                                </div>
+                                <div class="tool-name">cactusflips2020</div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="setting-card">
+                        <div class="setting-title">Tools and Projects</div>
+                        <div class="setting-description">Without these Malachite wouldn't of been possible to make.</div>
+                        <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; justify-content: center;">
+                            <a href="https://github.com/titaniumnetwork-dev/ultraviolet" target="_blank" class="tool-card">
+                                <div class="tool-logo">
+                                    <img src="img/assets/ultraviolet.webp" alt="Ultraviolet" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                                    <span style="display: none;">🔮</span>
+                                </div>
+                                <div class="tool-name">Ultraviolet</div>
+                            </a>
+                            <a href="https://github.com/binary-person/rammerhead" target="_blank" class="tool-card">
+                                <div class="tool-logo">
+                                    <img src="img/assets/rammerhead.png" alt="Rammerhead" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                                    <span style="display: none;">🚀</span>
+                                </div>
+                                <div class="tool-name">Rammerhead</div>
+                            </a>
+                            <a href="https://github.com/chemicaljs/chemical" target="_blank" class="tool-card">
+                                <div class="tool-logo">
+                                    <img src="img/assets/chemical.png" alt="ChemicalJS" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                                    <span style="display: none;">🧪</span>
+                                </div>
+                                <div class="tool-name">ChemicalJS</div>
+                            </a>
+                            <a href="https://github.com/mercuryworkshop/epoxy-tls" target="_blank" class="tool-card">
+                                <div class="tool-logo">
+                                    <img src="img/assets/epoxy.webp" alt="Epoxy TLS" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                                    <span style="display: none;">🔗</span>
+                                </div>
+                                <div class="tool-name">Epoxy TLS</div>
+                            </a>
+                            <a href="https://github.com/ading2210/libcurl.js" target="_blank" class="tool-card">
+                                <div class="tool-logo">
+                                    <img src="img/assets/libcurl.webp" alt="libcurl.js" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                                    <span style="display: none;">🌐</span>
+                                </div>
+                                <div class="tool-name">Libcurl.js</div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -350,6 +500,27 @@
     <script src="/chemical.cloaking.js"></script>
     <script src="/js/particles.min.js"></script>
     <script src="/js/settings.js"></script>
+    <script>
+    // Collapsible group logic: only one open at a time
+    document.addEventListener('DOMContentLoaded', function() {
+      var collapsibles = document.querySelectorAll('.collapsible-group .collapsible');
+      collapsibles.forEach(function(btn, idx) {
+        btn.addEventListener('click', function() {
+          collapsibles.forEach(function(otherBtn, otherIdx) {
+            var content = otherBtn.nextElementSibling;
+            if (otherBtn === btn) {
+              var isActive = btn.classList.contains('active');
+              btn.classList.toggle('active');
+              content.style.display = isActive ? 'none' : 'block';
+            } else {
+              otherBtn.classList.remove('active');
+              if (content) content.style.display = 'none';
+            }
+          });
+        });
+      });
+    });
+    </script>
     <script>
         // Global function to ensure it's available for onchange events
         window.changeTheme = function() {
@@ -927,6 +1098,11 @@
             loadThemeSetting();
             initParticles();
             
+            // Initialize main background particles
+            if (typeof initMainBackgroundParticles === 'function') {
+                initMainBackgroundParticles();
+            }
+            
             // Update leave confirmation button
             updateLeaveConfirmButton();
         });
@@ -1043,7 +1219,7 @@
                             color: { value: ['#b8c7e0', '#81a1c1', '#5e81ac', '#88c0d0'] },
                             shape: { type: 'circle' },
                             opacity: { value: 0.4, random: true, anim: { enable: false, speed: 1.5, opacity_min: 0.2, sync: false } },
-                            size: { value: 2.5, random: true, anim: { enable: false, speed: 3, size_min: 1, sync: false } },
+                            size: { value: 2.5, random: true, anim: { enable: false, speed: 4, size_min: 1, sync: false } },
                             line_linked: { enable: true, distance: 140, color: '#b8c7e0', opacity: 0.25, width: 0.5 },
                             move: { enable: true, speed: 2, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
                         },
@@ -1398,6 +1574,194 @@
             // Theme is already loaded in DOMContentLoaded
         });
 
+
+
+    </script>
+    <script>
+    // Sidebar tab switching logic
+    document.addEventListener('DOMContentLoaded', function() {
+      const tabItems = document.querySelectorAll('.tab-item');
+      const tabContents = document.querySelectorAll('.tab-content');
+      tabItems.forEach(tab => {
+        tab.addEventListener('click', function() {
+          const targetTab = this.getAttribute('data-tab');
+          // Remove active class from all tabs and contents
+          tabItems.forEach(item => item.classList.remove('active'));
+          tabContents.forEach(content => {
+            content.classList.remove('active');
+            content.style.display = 'none';
+          });
+          // Add active class to clicked tab and corresponding content
+          this.classList.add('active');
+          const targetContent = document.getElementById(targetTab);
+          if (targetContent) {
+            targetContent.style.display = 'block';
+            targetContent.classList.add('active');
+          }
+        });
+      });
+      // Show the first tab by default
+      const firstTab = document.querySelector('.tab-item');
+      const firstContent = document.querySelector('.tab-content');
+      if (firstTab && firstContent) {
+        firstTab.classList.add('active');
+        firstContent.style.display = 'block';
+        firstContent.classList.add('active');
+      }
+    });
+    </script>
+    
+    <!-- Particles initialization script -->
+    <script>
+        // Theme-based particle configurations
+        const mainParticleConfigs = {
+            moss: {
+                particles: {
+                    number: { value: 40, density: { enable: true, value_area: 800 } },
+                    color: { value: ['#b2c2a8', '#94e2d5', '#a6e3a1', '#89dceb'] },
+                    shape: { type: 'circle' },
+                    opacity: { value: 0.3, random: true, anim: { enable: false, speed: 1, opacity_min: 0.1, sync: false } },
+                    size: { value: 2, random: true, anim: { enable: false, speed: 2, size_min: 1, sync: false } },
+                    line_linked: { enable: true, distance: 200, color: '#b2c2a8', opacity: 0.2, width: 0.5 },
+                    move: { enable: true, speed: 1.5, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
+                },
+                interactivity: {
+                    detect_on: 'canvas',
+                    events: {
+                        onhover: { enable: false, mode: 'repulse' },
+                        onclick: { enable: false, mode: 'push' },
+                        resize: true
+                    },
+                    modes: {
+                        grab: { distance: 140, line_linked: { opacity: 1 } },
+                        bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
+                        repulse: { distance: 150, duration: 0.4 },
+                        push: { particles_nb: 4 },
+                        remove: { particles_nb: 2 }
+                    }
+                },
+                retina_detect: true
+            },
+            midnight: {
+                particles: {
+                    number: { value: 50, density: { enable: true, value_area: 800 } },
+                    color: { value: ['#b8c7e0', '#81a1c1', '#5e81ac', '#88c0d0'] },
+                    shape: { type: 'circle' },
+                    opacity: { value: 0.4, random: true, anim: { enable: false, speed: 1.5, opacity_min: 0.2, sync: false } },
+                    size: { value: 2.5, random: true, anim: { enable: false, speed: 4, size_min: 1, sync: false } },
+                    line_linked: { enable: true, distance: 180, color: '#b8c7e0', opacity: 0.25, width: 0.5 },
+                    move: { enable: true, speed: 2, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
+                },
+                interactivity: {
+                    detect_on: 'canvas',
+                    events: {
+                        onhover: { enable: false, mode: 'grab' },
+                        onclick: { enable: false, mode: 'push' },
+                        resize: true
+                    },
+                    modes: {
+                        grab: { distance: 140, line_linked: { opacity: 1 } },
+                        bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
+                        repulse: { distance: 200, duration: 0.4 },
+                        push: { particles_nb: 4 },
+                        remove: { particles_nb: 2 }
+                    }
+                },
+                retina_detect: true
+            },
+            rose: {
+                particles: {
+                    number: { value: 35, density: { enable: true, value_area: 800 } },
+                    color: { value: ['#e0b8c7', '#f38ba8', '#eba0ac', '#f5c2e7'] },
+                    shape: { type: 'circle' },
+                    opacity: { value: 0.35, random: true, anim: { enable: false, speed: 1.2, opacity_min: 0.2, sync: false } },
+                    size: { value: 2.2, random: true, anim: { enable: false, speed: 2.5, size_min: 1, sync: false } },
+                    line_linked: { enable: true, distance: 220, color: '#e0b8c7', opacity: 0.2, width: 0.5 },
+                    move: { enable: true, speed: 1.8, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
+                },
+                interactivity: {
+                    detect_on: 'canvas',
+                    events: {
+                        onhover: { enable: false, mode: 'bubble' },
+                        onclick: { enable: false, mode: 'push' },
+                        resize: true
+                    },
+                    modes: {
+                        grab: { distance: 140, line_linked: { opacity: 1 } },
+                        bubble: { distance: 200, size: 40, duration: 2, opacity: 8, speed: 3 },
+                        repulse: { distance: 200, duration: 0.4 },
+                        push: { particles_nb: 4 },
+                        remove: { particles_nb: 2 }
+                    }
+                },
+                retina_detect: true
+            },
+            noir: {
+                particles: {
+                    number: { value: 30, density: { enable: true, value_area: 800 } },
+                    color: { value: ['#e0e0e0', '#c0c0c0', '#a0a0a0', '#808080'] },
+                    shape: { type: 'circle' },
+                    opacity: { value: 0.25, random: true, anim: { enable: false, speed: 1, opacity_min: 0.1, sync: false } },
+                    size: { value: 1.8, random: true, anim: { enable: false, speed: 3, size_min: 1, sync: false } },
+                    line_linked: { enable: true, distance: 250, color: '#e0e0e0', opacity: 0.15, width: 0.5 },
+                    move: { enable: true, speed: 1.2, direction: 'none', random: true, straight: false, out_mode: 'bounce', bounce: true, attract: { enable: false, rotateX: 600, rotateY: 1200 } }
+                },
+                interactivity: {
+                    detect_on: 'canvas',
+                    events: {
+                        onhover: { enable: false, mode: 'repulse' },
+                        onclick: { enable: false, mode: 'push' },
+                        resize: true
+                    },
+                    modes: {
+                        grab: { distance: 140, line_linked: { opacity: 1 } },
+                        bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
+                        repulse: { distance: 180, duration: 0.4 },
+                        push: { particles_nb: 4 },
+                        remove: { particles_nb: 2 }
+                    }
+                },
+                retina_detect: true
+            }
+        };
+
+        // Initialize main background particles
+        function initMainBackgroundParticles() {
+            const theme = localStorage.getItem('siteTheme') || 'moss';
+            const config = mainParticleConfigs[theme] || mainParticleConfigs.moss;
+            
+            // Check if particles are already initialized
+            if (typeof pJSDom !== 'undefined' && pJSDom.length > 0) {
+                for (let i = 0; i < pJSDom.length; i++) {
+                    if (pJSDom[i].pJS && pJSDom[i].pJS.canvas && pJSDom[i].pJS.canvas.el && 
+                        pJSDom[i].pJS.canvas.el.id === 'particles-js') {
+                        pJSDom[i].pJS.fn.vendors.destroypJS();
+                        pJSDom.splice(i, 1);
+                        break;
+                    }
+                }
+            }
+            
+            if (typeof particlesJS !== 'undefined') {
+                try {
+                    particlesJS('particles-js', config);
+                } catch (error) {
+                    console.error('Error initializing particles:', error);
+                }
+            }
+        }
+
+        // Initialize particles when page loads
+        window.addEventListener('load', function() {
+            initMainBackgroundParticles();
+        });
+
+        // Reinitialize particles when theme changes
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'siteTheme') {
+                setTimeout(initMainBackgroundParticles, 100);
+            }
+        });
     </script>
 </body>
 </html> 
