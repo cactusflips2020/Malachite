@@ -1,3 +1,5 @@
+@import url('themes.css');
+
 /* Apply border-box globally */
 *,
 *::before,
@@ -36,9 +38,9 @@ body, .navbar, .games-container, #search-input {
     overflow-y: auto;
     box-sizing: border-box;
     align-content: flex-start;
-    background-color: #232b23;
+    background-color: var(--bg-primary);
     border-radius: 12px;
-    border: 2px solid #384438;
+    border: 2px solid var(--input-bg);
 }
 
 /* Ensure game cards are properly positioned */
@@ -52,9 +54,9 @@ body, .navbar, .games-container, #search-input {
     overflow: hidden;
     cursor: pointer;
     transition: all 0.3s ease;
-    background-color: #2e362e;
-    border: 1px solid #384438;
-    box-shadow: 0 2px 8px #232b2340;
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--input-bg);
+    box-shadow: 0 2px 8px var(--bg-primary)40;
 }
 
 /* Ensures images fit properly */
@@ -81,8 +83,8 @@ body, .navbar, .games-container, #search-input {
 
 /* Hover effect for the game card */
 .game-card:hover {
-    border: 1px solid #b2c2a8;
-    background-color: #384438;
+    border: 1px solid var(--text-primary);
+    background-color: var(--input-bg);
     transform: scale(1.05);
     transform-origin: center center;
 }
@@ -98,7 +100,7 @@ body, .navbar, .games-container, #search-input {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: #b2c2a8;
+    color: var(--text-primary);
     font-size: 12px;
     font-weight: bold;
     opacity: 0;
@@ -119,7 +121,7 @@ body, .navbar, .games-container, #search-input {
 /* Show the game name text on hover */
 .game-card:hover .game-name {
     opacity: 1;
-    color: #b2c2a8;
+    color: var(--text-primary);
 }
 
 /* Ensure hidden cards don't affect layout */
@@ -135,11 +137,11 @@ body, .navbar, .games-container, #search-input {
 }
 
 #search-input {
-    background: #384438;
-    color: #b2c2a8;
+    background: var(--input-bg);
+    color: var(--text-primary);
     font-size: inherit;
     font-family: inherit;
-    border: 1px solid #232b23;
+    border: 1px solid var(--bg-primary);
     outline: none;
     padding: 1rem;
     border-radius: 5px;
@@ -154,7 +156,7 @@ body, .navbar, .games-container, #search-input {
 }
 
 #search-input::placeholder {
-    color: #7e8e7e;
+    color: var(--text-muted);
 }
 
 /* Custom scrollbar styling for games container */
@@ -164,22 +166,22 @@ body, .navbar, .games-container, #search-input {
 
 /* Theme-specific scrollbar colors for games container */
 body.theme-moss .games-container::-webkit-scrollbar-thumb {
-    background-color: #384438;
+    background-color: var(--input-bg);
     border-radius: 10px;
 }
 
 body.theme-midnight .games-container::-webkit-scrollbar-thumb {
-    background-color: #2a3442;
+    background-color: var(--input-bg);
     border-radius: 10px;
 }
 
 body.theme-rose .games-container::-webkit-scrollbar-thumb {
-    background-color: #6e3844;
+    background-color: var(--input-bg);
     border-radius: 10px;
 }
 
 body.theme-noir .games-container::-webkit-scrollbar-thumb {
-    background-color: #384438;
+    background-color: var(--input-bg);
     border-radius: 10px;
 }
 
@@ -223,7 +225,7 @@ body.theme-desert .games-container::-webkit-scrollbar-thumb {
 
 /* Default fallback */
 .games-container::-webkit-scrollbar-thumb {
-    background-color: #384438;
+    background-color: var(--input-bg);
     border-radius: 10px;
 }
 
@@ -232,8 +234,8 @@ body.theme-desert .games-container::-webkit-scrollbar-thumb {
 }
 
 body {
-    background-color: #232b23;
-    color: #b2c2a8;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
     position: relative;
     overflow-x: hidden;
 }
@@ -245,18 +247,18 @@ body {
     padding: 10px;
     border-radius: 8px;
     font-size: 15px;
-    background: #232b23;
-    color: #b2c2a8;
-    border: 1.5px solid #384438;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    border: 1.5px solid var(--input-bg);
     margin-top: 8px;
     margin-bottom: 8px;
     transition: border 0.2s, box-shadow 0.2s;
     outline: none;
-    box-shadow: 0 1px 4px #232b2340;
+    box-shadow: 0 1px 4px var(--bg-primary)40;
 }
 .theme-select:focus, .theme-select:hover {
-    border: 1.5px solid #b2c2a8;
-    box-shadow: 0 2px 8px #232b2360;
+    border: 1.5px solid var(--text-primary);
+    box-shadow: 0 2px 8px var(--bg-primary)60;
     background: #202620;
 }
 
@@ -267,7 +269,7 @@ body {
 
 /* Add Custom Game Card Styling */
 .add-card {
-    background: linear-gradient(135deg, #384438 0%, #2e362e 100%);
+    background: linear-gradient(135deg, var(--input-bg) 0%, var(--bg-tertiary) 100%);
     border: 2px solid #a3be8c;
     display: flex;
     flex-direction: column;
@@ -292,8 +294,8 @@ body {
 }
 
 .add-card:hover {
-    border: 1px solid #b2c2a8;
-    background-color: #384438;
+    border: 1px solid var(--text-primary);
+    background-color: var(--input-bg);
     transform: scale(1.05);
     transform-origin: center center;
 }
@@ -319,7 +321,7 @@ body {
 
 .add-card .game-name {
     opacity: 0;
-    color: #b2c2a8;
+    color: var(--text-primary);
     font-size: 11px;
     font-weight: 600;
     transition: opacity 0.3s ease-in-out;
@@ -327,7 +329,7 @@ body {
 
 .add-card:hover .game-name {
     opacity: 1;
-    color: #b2c2a8;
+    color: var(--text-primary);
 }
 
 /* Delete button styling */
@@ -376,8 +378,8 @@ body {
 }
 
 .add-modal-content {
-    background: #384438;
-    border: 2px solid #232b23;
+    background: var(--input-bg);
+    border: 2px solid var(--bg-primary);
     border-radius: 15px;
     padding: 0;
     width: 90%;
@@ -404,11 +406,11 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 20px 25px 15px 25px;
-    border-bottom: 1px solid #232b23;
+    border-bottom: 1px solid var(--bg-primary);
 }
 
 .add-modal-header h2 {
-    color: #b2c2a8;
+    color: var(--text-primary);
     margin: 0;
     font-size: 1.5rem;
     font-weight: 600;
@@ -465,7 +467,7 @@ body.theme-noir .close-modal:active {
 
 .form-group label {
     display: block;
-    color: #b2c2a8;
+    color: var(--text-primary);
     margin-bottom: 8px;
     font-weight: 500;
     font-size: 0.95rem;
@@ -474,10 +476,10 @@ body.theme-noir .close-modal:active {
 .form-group input {
     width: 100%;
     padding: 12px 15px;
-    border: 1px solid #232b23;
+    border: 1px solid var(--bg-primary);
     border-radius: 8px;
-    background: #2e362e;
-    color: #b2c2a8;
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
     font-size: 0.9rem;
     transition: all 0.3s ease;
     box-sizing: border-box;
@@ -485,13 +487,13 @@ body.theme-noir .close-modal:active {
 
 .form-group input:focus {
     outline: none;
-    border-color: #b2c2a8;
-    background: #232b23;
+    border-color: var(--text-primary);
+    background: var(--bg-primary);
     box-shadow: 0 0 0 2px rgba(178, 194, 168, 0.2);
 }
 
 .form-group input::placeholder {
-    color: #7e8e7e;
+    color: var(--text-muted);
 }
 
 .form-actions {
@@ -519,8 +521,8 @@ body.theme-noir .close-modal:active {
 }
 
 .add-btn {
-    background: #b2c2a8;
-    color: #232b23;
+    background: var(--text-primary);
+    color: var(--bg-primary);
 }
 
 .add-btn:hover,
@@ -530,9 +532,9 @@ body.theme-noir .close-modal:active {
 }
 
 .cancel-btn {
-    background: #384438;
-    color: #b2c2a8;
-    border: 1px solid #232b23;
+    background: var(--input-bg);
+    color: var(--text-primary);
+    border: 1px solid var(--bg-primary);
 }
 
 .cancel-btn:hover,
@@ -543,76 +545,76 @@ body.theme-noir .close-modal:active {
 
 /* Moss theme cancel button styling */
 body.theme-moss .cancel-btn {
-    background: #232b23;
-    color: #b2c2a8;
-    border: 1px solid #384438;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    border: 1px solid var(--input-bg);
 }
 
 body.theme-moss .cancel-btn:hover,
 body.theme-moss .cancel-btn:focus,
 body.theme-moss .cancel-btn:active {
-    background: #384438;
+    background: var(--input-bg);
     color: #fff;
 }
 
 /* Theme-specific card colors */
 body.theme-midnight .game-card {
     background-color: #1e262e;
-    border: 1px solid #181c24;
-    box-shadow: 0 2px 8px #181c2440;
+    border: 1px solid var(--bg-primary);
+    box-shadow: 0 2px 8px var(--bg-primary)40;
 }
 
 body.theme-midnight .game-card:hover {
     border: 1px solid #81a1c1;
-    background-color: #181c24;
+    background-color: var(--bg-primary);
 }
 
 body.theme-midnight .games-container {
-    background-color: #181c24;
-    border: 2px solid #2a3442;
+    background-color: var(--bg-primary);
+    border: 2px solid var(--input-bg);
 }
 
 body.theme-rose .game-card {
     background-color: #5a2f38;
-    border: 1px solid #2a1a1f;
-    box-shadow: 0 2px 8px #2a1a1f40;
+    border: 1px solid var(--bg-primary);
+    box-shadow: 0 2px 8px var(--bg-primary)40;
 }
 
 body.theme-rose .game-card:hover {
     border: 1px solid #f38ba8;
-    background-color: #2a1a1f;
+    background-color: var(--bg-primary);
 }
 
 body.theme-rose .games-container {
-    background-color: #2a1a1f;
-    border: 2px solid #6e3844;
+    background-color: var(--bg-primary);
+    border: 2px solid var(--input-bg);
 }
 
 body.theme-noir .game-card {
     background-color: #333;
-    border: 1px solid #181818;
-    box-shadow: 0 2px 8px #18181840;
+    border: 1px solid var(--bg-primary);
+    box-shadow: 0 2px 8px var(--bg-primary)40;
 }
 
 body.theme-noir .game-card:hover {
     border: 1px solid #c0c0c0;
-    background-color: #181818;
+    background-color: var(--bg-primary);
 }
 
 body.theme-noir .games-container {
-    background-color: #181818;
-    border: 2px solid #444;
+    background-color: var(--bg-primary);
+    border: 2px solid var(--input-bg);
 }
 
 /* Theme-specific add card styling */
 body.theme-midnight .add-card {
-    background: linear-gradient(135deg, #1e262e 0%, #181c24 100%);
+    background: linear-gradient(135deg, #1e262e 0%, var(--bg-primary) 100%);
     border: 2px solid #81a1c1;
 }
 
 body.theme-midnight .add-card:hover {
-    border: 1px solid #b8c7e0;
-    background-color: #2a3442;
+    border: 1px solid var(--text-primary);
+    background-color: var(--input-bg);
 }
 
 body.theme-midnight .add-icon {
@@ -624,21 +626,21 @@ body.theme-midnight .add-card:hover .add-icon {
 }
 
 body.theme-midnight .add-card .game-name {
-    color: #b8c7e0;
+    color: var(--text-primary);
 }
 
 body.theme-midnight .add-card:hover .game-name {
-    color: #b8c7e0;
+    color: var(--text-primary);
 }
 
 body.theme-rose .add-card {
-    background: linear-gradient(135deg, #5a2f38 0%, #2a1a1f 100%);
+    background: linear-gradient(135deg, #5a2f38 0%, var(--bg-primary) 100%);
     border: 2px solid #f38ba8;
 }
 
 body.theme-rose .add-card:hover {
-    border: 1px solid #e0b8c7;
-    background-color: #6e3844;
+    border: 1px solid var(--text-primary);
+    background-color: var(--input-bg);
 }
 
 body.theme-rose .add-icon {
@@ -658,13 +660,13 @@ body.theme-rose .add-card:hover .game-name {
 }
 
 body.theme-noir .add-card {
-    background: linear-gradient(135deg, #333 0%, #181818 100%);
+    background: linear-gradient(135deg, #333 0%, var(--bg-primary) 100%);
     border: 2px solid #c0c0c0;
 }
 
 body.theme-noir .add-card:hover {
-    border: 1px solid #e0e0e0;
-    background-color: #444;
+    border: 1px solid var(--text-primary);
+    background-color: var(--input-bg);
 }
 
 body.theme-noir .add-icon {
@@ -672,7 +674,7 @@ body.theme-noir .add-icon {
 }
 
 body.theme-noir .add-card:hover .add-icon {
-    color: #e0e0e0;
+    color: var(--text-primary);
 }
 
 body.theme-noir .add-card .game-name {
@@ -680,21 +682,21 @@ body.theme-noir .add-card .game-name {
 }
 
 body.theme-noir .add-card:hover .game-name {
-    color: #e0e0e0;
+    color: var(--text-primary);
 }
 
 /* Theme-specific modal styling */
 body.theme-midnight .add-modal-content {
-    background: #2a3442;
-    border-color: #181c24;
+    background: var(--input-bg);
+    border-color: var(--bg-primary);
 }
 
 body.theme-midnight .add-modal-header {
-    border-bottom-color: #181c24;
+    border-bottom-color: var(--bg-primary);
 }
 
 body.theme-midnight .add-modal-header h2 {
-    color: #b8c7e0;
+    color: var(--text-primary);
 }
 
 body.theme-midnight .close-modal {
@@ -702,18 +704,18 @@ body.theme-midnight .close-modal {
 }
 
 body.theme-midnight .form-group label {
-    color: #b8c7e0;
+    color: var(--text-primary);
 }
 
 body.theme-midnight .form-group input {
     background: #1e262e;
-    border-color: #181c24;
-    color: #b8c7e0;
+    border-color: var(--bg-primary);
+    color: var(--text-primary);
 }
 
 body.theme-midnight .form-group input:focus {
-    border-color: #b8c7e0;
-    background: #181c24;
+    border-color: var(--text-primary);
+    background: var(--bg-primary);
 }
 
 body.theme-midnight .form-group input::placeholder {
@@ -732,9 +734,9 @@ body.theme-midnight .add-btn:active {
 }
 
 body.theme-midnight .cancel-btn {
-    background: #181c24;
-    color: #b8c7e0;
-    border-color: #181c24;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    border-color: var(--bg-primary);
 }
 
 body.theme-midnight .cancel-btn:hover,
@@ -744,16 +746,16 @@ body.theme-midnight .cancel-btn:active {
 }
 
 body.theme-rose .add-modal-content {
-    background: #6e3844;
-    border-color: #2a1a1f;
+    background: var(--input-bg);
+    border-color: var(--bg-primary);
 }
 
 body.theme-rose .add-modal-header {
-    border-bottom-color: #2a1a1f;
+    border-bottom-color: var(--bg-primary);
 }
 
 body.theme-rose .add-modal-header h2 {
-    color: #e0b8c7;
+    color: var(--text-primary);
 }
 
 body.theme-rose .close-modal {
@@ -761,18 +763,18 @@ body.theme-rose .close-modal {
 }
 
 body.theme-rose .form-group label {
-    color: #e0b8c7;
+    color: var(--text-primary);
 }
 
 body.theme-rose .form-group input {
     background: #5a2f38;
-    border-color: #2a1a1f;
-    color: #e0b8c7;
+    border-color: var(--bg-primary);
+    color: var(--text-primary);
 }
 
 body.theme-rose .form-group input:focus {
-    border-color: #e0b8c7;
-    background: #2a1a1f;
+    border-color: var(--text-primary);
+    background: var(--bg-primary);
 }
 
 body.theme-rose .form-group input::placeholder {
@@ -781,7 +783,7 @@ body.theme-rose .form-group input::placeholder {
 
 body.theme-rose .add-btn {
     background: #f38ba8;
-    color: #2a1a1f;
+    color: var(--bg-primary);
 }
 
 body.theme-rose .add-btn:hover,
@@ -791,9 +793,9 @@ body.theme-rose .add-btn:active {
 }
 
 body.theme-rose .cancel-btn {
-    background: #2a1a1f;
+    background: var(--bg-primary);
     color: #f5c2e7;
-    border-color: #2a1a1f;
+    border-color: var(--bg-primary);
 }
 
 body.theme-rose .cancel-btn:hover,
@@ -803,16 +805,16 @@ body.theme-rose .cancel-btn:active {
 }
 
 body.theme-noir .add-modal-content {
-    background: #444;
-    border-color: #181818;
+    background: var(--input-bg);
+    border-color: var(--bg-primary);
 }
 
 body.theme-noir .add-modal-header {
-    border-bottom-color: #181818;
+    border-bottom-color: var(--bg-primary);
 }
 
 body.theme-noir .add-modal-header h2 {
-    color: #e0e0e0;
+    color: var(--text-primary);
 }
 
 body.theme-noir .close-modal {
@@ -820,18 +822,18 @@ body.theme-noir .close-modal {
 }
 
 body.theme-noir .form-group label {
-    color: #e0e0e0;
+    color: var(--text-primary);
 }
 
 body.theme-noir .form-group input {
     background: #333;
-    border-color: #181818;
-    color: #e0e0e0;
+    border-color: var(--bg-primary);
+    color: var(--text-primary);
 }
 
 body.theme-noir .form-group input:focus {
-    border-color: #e0e0e0;
-    background: #181818;
+    border-color: var(--text-primary);
+    background: var(--bg-primary);
 }
 
 body.theme-noir .form-group input::placeholder {
@@ -840,7 +842,7 @@ body.theme-noir .form-group input::placeholder {
 
 body.theme-noir .add-btn {
     background: #c0c0c0;
-    color: #181818;
+    color: var(--bg-primary);
 }
 
 body.theme-noir .add-btn:hover,
@@ -850,9 +852,9 @@ body.theme-noir .add-btn:active {
 }
 
 body.theme-noir .cancel-btn {
-    background: #181818;
-    color: #e0e0e0;
-    border-color: #181818;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    border-color: var(--bg-primary);
 }
 
 body.theme-noir .cancel-btn:hover,

@@ -1,11 +1,12 @@
 /* Importing the Montserrat font */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('themes.css');
 
 /* Apply Montserrat font globally */
 body {
     font-family: 'Montserrat', sans-serif;
     background-color: transparent;
-    color: #b2c2a8;
+    color: var(--text-primary);
     margin: 0;
     padding: 0;
     min-height: 100vh;
@@ -62,123 +63,123 @@ body.theme-moss .settings-sidebar {
     background: transparent;
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
-    border-right: 1px solid rgba(56, 68, 56, 0.3);
+    border-right: 1px solid var(--border-primary);
 }
 
 body.theme-moss .tab-item.active {
     background: rgba(81, 105, 83, 0.2);
-    border-left-color: #516953;
+    border-left-color: var(--btn-primary);
 }
 
 body.theme-midnight .settings-sidebar {
     background: transparent;
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
-    border-right: 1px solid rgba(42, 52, 66, 0.3);
+    border-right: 1px solid var(--border-primary);
 }
 
 body.theme-midnight .tab-item.active {
     background: rgba(91, 124, 138, 0.2);
-    border-left-color: #5b7c8a;
+    border-left-color: var(--btn-primary);
 }
 
 body.theme-rose .settings-sidebar {
     background: transparent;
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
-    border-right: 1px solid rgba(110, 56, 68, 0.3);
+    border-right: 1px solid var(--border-primary);
 }
 
 body.theme-rose .tab-item.active {
     background: rgba(194, 24, 91, 0.2);
-    border-left-color: #c2185b;
+    border-left-color: var(--btn-primary);
 }
 
 body.theme-noir .settings-sidebar {
     background: transparent;
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
-    border-right: 1px solid rgba(68, 68, 68, 0.3);
+    border-right: 1px solid var(--border-primary);
 }
 
 body.theme-noir .tab-item.active {
     background: rgba(255, 255, 255, 0.1);
-    border-left-color: #ffffff;
+    border-left-color: var(--btn-primary);
 }
 
 /* Theme-specific tab item colors */
 body.theme-moss .tab-item {
-    color: #b2c2a8;
+    color: var(--text-primary);
 }
 
 body.theme-moss .tab-item:hover {
-    background: rgba(56, 68, 56, 0.3);
-    color: #d4e4d4;
+    background: var(--border-primary);
+    color: var(--text-accent);
 }
 
 body.theme-midnight .tab-item {
-    color: #b8c7e0;
+    color: var(--text-primary);
 }
 
 body.theme-midnight .tab-item:hover {
-    background: rgba(42, 52, 66, 0.3);
-    color: #d8e8f8;
+    background: var(--border-primary);
+    color: var(--text-accent);
 }
 
 body.theme-rose .tab-item {
-    color: #e0b8c7;
+    color: var(--text-primary);
 }
 
 body.theme-rose .tab-item:hover {
-    background: rgba(110, 56, 68, 0.3);
-    color: #f0c8d7;
+    background: var(--border-primary);
+    color: var(--text-accent);
 }
 
 body.theme-noir .tab-item {
-    color: #e0e0e0;
+    color: var(--text-primary);
 }
 
 body.theme-noir .tab-item:hover {
-    background: rgba(68, 68, 68, 0.3);
-    color: #f0f0f0;
+    background: var(--border-primary);
+    color: var(--text-accent);
 }
 
 /* Theme-specific sidebar footer styles */
 body.theme-moss .sidebar-footer {
-    border-top: 1px solid rgba(56, 68, 56, 0.3);
+    border-top: 1px solid var(--border-primary);
 }
 
 body.theme-midnight .sidebar-footer {
-    border-top: 1px solid rgba(42, 52, 66, 0.3);
+    border-top: 1px solid var(--border-primary);
 }
 
 body.theme-rose .sidebar-footer {
-    border-top: 1px solid rgba(110, 56, 68, 0.3);
+    border-top: 1px solid var(--border-primary);
 }
 
 body.theme-noir .sidebar-footer {
-    border-top: 1px solid rgba(68, 68, 68, 0.3);
+    border-top: 1px solid var(--border-primary);
 }
 
 /* Theme-specific setting card backgrounds */
 body.theme-moss .setting-card {
-    background: #232b23;
-    border: 1px solid rgba(56, 68, 56, 0.3);
+    background: var(--bg-primary);
+    border: 1px solid var(--border-primary);
 }
 
 body.theme-midnight .setting-card {
-    background: #181c24;
-    border: 1px solid rgba(42, 52, 66, 0.3);
+    background: var(--bg-primary);
+    border: 1px solid var(--border-primary);
 }
 
 body.theme-rose .setting-card {
-    background: #2a1a1f;
-    border: 1px solid rgba(110, 56, 68, 0.3);
+    background: var(--bg-primary);
+    border: 1px solid var(--border-primary);
 }
 
 body.theme-noir .setting-card {
-    background: #181818;
-    border: 1px solid rgba(68, 68, 68, 0.3);
+    background: var(--bg-primary);
+    border: 1px solid var(--border-primary);
 }
 
 
@@ -204,7 +205,7 @@ html {
     background: transparent;
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
-    border-right: 1px solid rgba(56, 68, 56, 0.3);
+    border-right: 1px solid var(--border-primary);
     display: flex;
     flex-direction: column;
     position: fixed;
@@ -235,8 +236,8 @@ html {
 
 .tab-item.active {
     background: rgba(81, 105, 83, 0.2);
-    color: #b2c2a8;
-    border-left-color: #516953;
+    color: var(--text-primary);
+    border-left-color: var(--btn-primary);
 }
 
 .tab-item i {
@@ -253,7 +254,7 @@ html {
 .sidebar-footer {
     margin-top: auto;
     padding: 20px;
-    border-top: 1px solid rgba(56, 68, 56, 0.3);
+    border-top: 1px solid var(--border-primary);
 }
 
 .sidebar-logout-btn {
@@ -323,7 +324,7 @@ html {
 }
 
 .setting-card {
-    background: #232b23;
+    background: var(--bg-primary);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 12px;
     backdrop-filter: blur(10px);
@@ -350,7 +351,7 @@ html {
     font-size: 18px; /* Increased font size */
     font-weight: bold;
     margin-bottom: 8px; /* Reduced margin for fixed height */
-    color: #b2c2a8;
+    color: var(--text-primary);
     flex-shrink: 0;
 }
 
@@ -358,7 +359,7 @@ html {
     font-size: 14px; /* Increased font size */
     opacity: 0.8;
     margin-bottom: 8px; /* Reduced margin for fixed height */
-    color: #b2c2a8;
+    color: var(--text-primary);
     flex: 1;
     display: flex;
     align-items: center;
@@ -376,8 +377,8 @@ select {
     font-size: 14px; /* Increased font size */
     cursor: pointer;
     font-family: 'montserrat';
-    background: #384438;
-    color: #b2c2a8;
+    background: var(--input-bg);
+    color: var(--text-primary);
     margin-bottom: 0; /* Removed margin for fixed height */
     transition: transform 0.2s ease, filter 0.3s ease;
     flex-shrink: 0;
@@ -390,13 +391,13 @@ select:hover {
 
 select:focus {
     outline: none;
-    border: 2px solid #b2c2a8;
+    border: 2px solid var(--text-primary);
     box-shadow: 0 0 10px rgba(178, 194, 168, 0.3);
 }
 
 select option {
-    background: #384438;
-    color: #b2c2a8;
+    background: var(--input-bg);
+    color: var(--text-primary);
     padding: 8px;
     font-family: 'montserrat';
 }
@@ -410,8 +411,8 @@ select option {
     font-size: 14px; /* Increased font size */
     cursor: pointer;
     font-family: 'montserrat';
-    background: #384438;
-    color: #b2c2a8;
+    background: var(--input-bg);
+    color: var(--text-primary);
     margin-bottom: 0; /* Removed margin for fixed height */
     flex-shrink: 0;
 }
@@ -462,8 +463,8 @@ select option {
 
 /* Ensure dropdown options are properly styled */
 select option {
-    background: #384438;
-    color: #b2c2a8;
+    background: var(--input-bg);
+    color: var(--text-primary);
     padding: 8px;
     font-family: 'montserrat';
 }
@@ -471,7 +472,7 @@ select option {
 /* Focus states for dropdowns */
 select:focus, .setting-button:focus {
     outline: none;
-    border: 2px solid #b2c2a8;
+    border: 2px solid var(--text-primary);
     box-shadow: 0 0 10px rgba(178, 194, 168, 0.3);
 }
 
@@ -509,13 +510,13 @@ select:focus, .setting-button:focus {
 }
 
 .keybind-content {
-    background-color: #2e362e;
+    background-color: var(--bg-tertiary);
     padding: 30px;
     border-radius: 10px;
-    color: #b2c2a8;
+    color: var(--text-primary);
     width: 300px;
     box-shadow: 0 0 20px #000;
-    border: 1px solid #384438;
+    border: 1px solid var(--input-bg);
     animation: modalSlideIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1);
     opacity: 0;
     animation-fill-mode: forwards;
@@ -527,18 +528,18 @@ select:focus, .setting-button:focus {
     font-size: 1.3em;
     margin-bottom: 15px;
     text-align: center;
-    color: #b2c2a8;
+    color: var(--text-primary);
     font-weight: bold;
 }
 
 /* Updated keybind-box for perfect centering */
 .keybind-box {
-    background-color: #384438;
+    background-color: var(--input-bg);
     padding: 12px;
     border-radius: 6px;
     margin: 15px 0;
     cursor: pointer;
-    border: 1px solid #232b23;
+    border: 1px solid var(--bg-primary);
     display: flex;                  /* NEW: Enable flexbox */
     justify-content: center;        /* NEW: Horizontal center */
     align-items: center;            /* NEW: Vertical center */
@@ -556,17 +557,17 @@ select:focus, .setting-button:focus {
     width: 100%;
     padding: 10px;
     margin-top: 8px;
-    border: 1px solid #232b23;
+    border: 1px solid var(--bg-primary);
     border-radius: 5px;
-    background-color: #384438;
-    color: #b2c2a8;
+    background-color: var(--input-bg);
+    color: var(--text-primary);
     font-family: inherit;
     outline: none !important;
 }
 
 .keybind-url:focus {
     outline: none !important;
-    border-color: #232b23;
+    border-color: var(--bg-primary);
     box-shadow: none !important;
 }
 
@@ -580,11 +581,11 @@ select:focus, .setting-button:focus {
 .keybind-buttons button {
     flex: 1;
     padding: 8px;
-    background-color: #b2c2a8;
-    border: 1px solid #384438;
+    background-color: var(--text-primary);
+    border: 1px solid var(--input-bg);
     border-radius: 5px;
     cursor: pointer;
-    color: #232b23;
+    color: var(--bg-primary);
     transition: background-color 0.3s ease;
     font-weight: 500;
 }
@@ -678,13 +679,13 @@ select:focus, .setting-button:focus {
 }
 
 .credentials-modal-content {
-    background-color: #2e362e;
+    background-color: var(--bg-tertiary);
     padding: 30px;
     border-radius: 10px;
-    color: #b2c2a8;
+    color: var(--text-primary);
     width: 300px;
     box-shadow: 0 0 20px #000;
-    border: 1px solid #384438;
+    border: 1px solid var(--input-bg);
     animation: modalSlideIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1);
     opacity: 0;
     animation-fill-mode: forwards;
@@ -702,10 +703,10 @@ select:focus, .setting-button:focus {
     width: 100%;
     margin-bottom: 10px;
     padding: 10px;
-    border: 1px solid #232b23;
+    border: 1px solid var(--bg-primary);
     border-radius: 5px;
-    background-color: #384438;
-    color: #b2c2a8;
+    background-color: var(--input-bg);
+    color: var(--text-primary);
     font-family: inherit;
 }
 
@@ -719,13 +720,13 @@ select:focus, .setting-button:focus {
 .credentials-buttons button {
     flex: 1;
     padding: 8px;
-    border: 1px solid #384438;
+    border: 1px solid var(--input-bg);
     border-radius: 5px;
     cursor: pointer;
     font-weight: 500;
     transition: all 0.2s;
-    background-color: #b2c2a8;
-    color: #232b23;
+    background-color: var(--text-primary);
+    color: var(--bg-primary);
 }
 
 .credentials-buttons button:nth-child(2) {
@@ -753,102 +754,102 @@ select:focus, .setting-button:focus {
 
 /* Default background (moss theme) */
 .credentials-modal, .keybind-modal, .change-name-modal {
-    background: #232b23 !important;
+    background: var(--bg-primary) !important;
 }
 
 /* Theme-specific solid backgrounds */
 body.theme-moss .credentials-modal,
 body.theme-moss .keybind-modal,
 body.theme-moss .change-name-modal {
-    background: #232b23 !important;
+    background: var(--bg-primary) !important;
 }
 
 body.theme-midnight .credentials-modal,
 body.theme-midnight .keybind-modal,
 body.theme-midnight .change-name-modal {
-    background: #181c24 !important;
+    background: var(--bg-primary) !important;
 }
 
 body.theme-rose .credentials-modal,
 body.theme-rose .keybind-modal,
 body.theme-rose .change-name-modal {
-    background: #2a1a1f !important;
+    background: var(--bg-primary) !important;
 }
 
 body.theme-noir .credentials-modal,
 body.theme-noir .keybind-modal,
 body.theme-noir .change-name-modal {
-    background: #181818 !important;
+    background: var(--bg-primary) !important;
 }
 
 /* ===== THEME-SPECIFIC DROPDOWN STYLING ===== */
 
 /* Moss theme dropdowns */
 body.theme-moss select {
-    background: #384438;
-    color: #b2c2a8;
-    border: 1px solid #232b23;
+    background: var(--input-bg);
+    color: var(--text-primary);
+    border: 1px solid var(--bg-primary);
 }
 
 body.theme-moss select:focus {
-    border: 2px solid #b2c2a8;
+    border: 2px solid var(--text-primary);
     box-shadow: 0 0 10px rgba(178, 194, 168, 0.3);
 }
 
 body.theme-moss select option {
-    background: #384438;
-    color: #b2c2a8;
+    background: var(--input-bg);
+    color: var(--text-primary);
 }
 
 /* Midnight theme dropdowns */
 body.theme-midnight select {
-    background: #2a3442;
-    color: #b8c7e0;
-    border: 1px solid #181c24;
+    background: var(--input-bg);
+    color: var(--text-primary);
+    border: 1px solid var(--bg-primary);
 }
 
 body.theme-midnight select:focus {
-    border: 2px solid #b8c7e0;
+    border: 2px solid var(--text-primary);
     box-shadow: 0 0 10px rgba(184, 199, 224, 0.3);
 }
 
 body.theme-midnight select option {
-    background: #2a3442;
-    color: #b8c7e0;
+    background: var(--input-bg);
+    color: var(--text-primary);
 }
 
 /* Rose theme dropdowns */
 body.theme-rose select {
-    background: #6e3844;
-    color: #e0b8c7;
-    border: 1px solid #2a1a1f;
+    background: var(--input-bg);
+    color: var(--text-primary);
+    border: 1px solid var(--bg-primary);
 }
 
 body.theme-rose select:focus {
-    border: 2px solid #e0b8c7;
+    border: 2px solid var(--text-primary);
     box-shadow: 0 0 10px rgba(224, 184, 199, 0.3);
 }
 
 body.theme-rose select option {
-    background: #6e3844;
-    color: #e0b8c7;
+    background: var(--input-bg);
+    color: var(--text-primary);
 }
 
 /* Noir theme dropdowns */
 body.theme-noir select {
-    background: #444;
-    color: #e0e0e0;
-    border: 1px solid #181818;
+    background: var(--input-bg);
+    color: var(--text-primary);
+    border: 1px solid var(--bg-primary);
 }
 
 body.theme-noir select:focus {
-    border: 2px solid #e0e0e0;
+    border: 2px solid var(--text-primary);
     box-shadow: 0 0 10px rgba(224, 224, 224, 0.3);
 }
 
 body.theme-noir select option {
-    background: #444;
-    color: #e0e0e0;
+    background: var(--input-bg);
+    color: var(--text-primary);
 }
 
 .change-name-modal {
@@ -884,13 +885,13 @@ body.theme-noir select option {
 }
 
 .change-name-modal-content {
-    background-color: #2e362e;
+    background-color: var(--bg-tertiary);
     padding: 30px;
     border-radius: 10px;
-    color: #b2c2a8;
+    color: var(--text-primary);
     width: 300px;
     box-shadow: 0 0 20px #000;
-    border: 1px solid #384438;
+    border: 1px solid var(--input-bg);
     animation: modalSlideIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1);
     opacity: 0;
     animation-fill-mode: forwards;
@@ -902,14 +903,14 @@ body.theme-noir select option {
     font-size: 1.3em;
     margin: 0 auto 10px auto;
     text-align: center;
-    color: var(--text-color, #b2c2a8);
+    color: var(--text-color, var(--text-primary));
     font-weight: bold;
     display: block;
     width: 100%;
 }
 .change-name-modal-content p {
     margin: 0 0 12px 0;
-    color: var(--text-color, #b2c2a8);
+    color: var(--text-color, var(--text-primary));
     font-size: 13px;
     opacity: 0.8;
     text-align: center;
@@ -918,10 +919,10 @@ body.theme-noir select option {
     width: 100%;
     margin-bottom: 8px;
     padding: 8px 10px;
-    border: 1px solid var(--accent-color, #b2c2a8);
+    border: 1px solid var(--accent-color, var(--text-primary));
     border-radius: 4px;
-    background-color: var(--bg-color, #384438);
-    color: var(--text-color, #b2c2a8);
+    background-color: var(--bg-color, var(--input-bg));
+    color: var(--text-color, var(--text-primary));
     font-family: inherit;
     font-size: 14px;
     box-sizing: border-box;
@@ -935,18 +936,18 @@ body.theme-noir select option {
 .change-name-buttons button {
     flex: 0 0 auto;
     padding: 7px 18px;
-    border: 1px solid var(--accent-color, #b2c2a8);
+    border: 1px solid var(--accent-color, var(--text-primary));
     border-radius: 4px;
     cursor: pointer;
     font-weight: 500;
     font-size: 14px;
     transition: all 0.2s;
-    background-color: var(--accent-color, #b2c2a8);
-    color: var(--bg-color, #232b23);
+    background-color: var(--accent-color, var(--text-primary));
+    color: var(--bg-color, var(--bg-primary));
 }
 .change-name-buttons button:last-child {
     background-color: transparent;
-    color: var(--text-color, #b2c2a8);
+    color: var(--text-color, var(--text-primary));
 }
 .change-name-buttons button:hover {
     filter: brightness(1.1);
@@ -956,8 +957,8 @@ body.theme-noir select option {
     position: fixed;
     top: 20px;
     right: 20px;
-    background: var(--accent-color, #b2c2a8);
-    color: var(--bg-color, #232b23);
+    background: var(--accent-color, var(--text-primary));
+    color: var(--bg-color, var(--bg-primary));
     padding: 12px 20px;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);

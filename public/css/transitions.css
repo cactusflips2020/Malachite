@@ -1,3 +1,5 @@
+@import url('themes.css');
+
 /* Modern Page Transitions */
 @keyframes fadeInUp {
     from {
@@ -294,7 +296,7 @@ input[placeholder*="Search"]:focus {
 
 /* Remove gradient effect from proxy navbar */
 #navbar {
-    background: #1a1f1a !important;
+    background: var(--bg-secondary) !important;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
 }
