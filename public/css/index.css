@@ -399,10 +399,9 @@ body.apps-page {
     color: var(--search-placeholder);
 }
 #search:focus, #search:hover {
-    border: 1px solid var(--search-hover-border);
-    border-right: 1px solid var(--search-separator);
+    border: 1px solid var(--search-border);
     outline: none;
-    background: var(--search-hover-bg);
+    filter: brightness(1.05);
 }
 #search:focus::placeholder,
 #search:hover::placeholder {
@@ -425,21 +424,6 @@ body.apps-page {
     justify-content: center;
     min-width: 50px;
     height: 100%;
-    position: relative;
-    top: 0;
-    transform: none;
-}
-
-/* Default (Moss) */
-#search:hover, #search:focus {
-    background: var(--search-hover-bg);
-    border-color: var(--search-hover-border);
-}
-#search-button:hover, #search-button:focus {
-    outline: none;
-    background: var(--search-hover-bg);
-    border-color: var(--search-hover-border);
-    color: var(--search-hover-text);
     position: relative;
     top: 0;
     transform: none;

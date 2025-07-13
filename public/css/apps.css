@@ -1,13 +1,13 @@
 @import url('themes.css');
 
-/* Apply border-box globally */
+
 *,
 *::before,
 *::after {
     box-sizing: border-box;
 }
 
-/* Particles container */
+
 #particles-js {
     position: fixed;
     top: 0;
@@ -18,13 +18,13 @@
     pointer-events: none;
 }
 
-/* Ensure main content stays above particles */
+
 body, .navbar, .apps-container, #search-input {
     position: relative;
     z-index: 1;
 }
 
-/* Apps container styling */
+
 .apps-container {
     display: flex;
     flex-wrap: wrap;
@@ -44,7 +44,7 @@ body, .navbar, .apps-container, #search-input {
     border: 2px solid var(--input-bg);
 }
 
-/* App card styling */
+
 .app-card {
     position: relative;
     flex: 0 1 125px;
@@ -128,7 +128,7 @@ body, .navbar, .apps-container, #search-input {
     height: 0;
 }
 
-/* Search input styling */
+
 #search-input {
     background: var(--input-bg);
     color: var(--text-primary);
@@ -152,7 +152,7 @@ body, .navbar, .apps-container, #search-input {
     color: var(--text-muted);
 }
 
-/* Scrollbar styling */
+
 .apps-container::-webkit-scrollbar {
     width: 8px;
 }
@@ -170,7 +170,7 @@ body, .navbar, .apps-container, #search-input {
     background-color: var(--scrollbar-track);
 }
 
-/* Body styling */
+
 body {
     margin: 0;
     padding: 0;
@@ -180,7 +180,7 @@ body {
     min-height: 100vh;
 }
 
-/* Theme select styling */
+
 .theme-select {
     background: var(--input-bg);
     color: var(--text-primary);
@@ -198,7 +198,7 @@ body {
     outline: none;
 }
 
-/* Add card styling */
+
 .add-card {
     position: relative;
     flex: 0 1 125px;
@@ -273,7 +273,7 @@ body {
     color: var(--text-primary);
 }
 
-/* Delete button styling */
+
 .delete-app-btn {
     position: absolute;
     top: 5px;
@@ -303,7 +303,7 @@ body {
     opacity: 1;
 }
 
-/* Manage card styling */
+
 .manage-card {
     position: relative;
     flex: 0 1 125px;
@@ -358,229 +358,9 @@ body {
     color: var(--text-primary);
 }
 
-/* Modal styling */
-.add-modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: var(--modal-overlay);
-    backdrop-filter: blur(5px);
-    align-items: center;
-    justify-content: center;
-}
 
-.add-modal.show {
-    display: flex;
-    animation: modalFadeIn 0.3s ease-out;
-}
 
-.add-modal-content {
-    background: var(--modal-bg);
-    border: 2px solid var(--modal-border);
-    border-radius: 12px;
-    padding: 0;
-    width: 90%;
-    max-width: 400px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-}
 
-@keyframes modalFadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes modalFadeOut {
-    from {
-        opacity: 1;
-    }
-    to {
-        opacity: 0;
-    }
-}
-
-.add-modal-header {
-    background: var(--bg-secondary);
-    padding: 20px;
-    border-bottom: 1px solid var(--border-primary);
-    border-radius: 10px 10px 0 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.add-modal-header h2 {
-    margin: 0;
-    color: var(--text-primary);
-    font-size: 1.5rem;
-    font-weight: 600;
-}
-
-.close-modal {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: var(--text-muted);
-    transition: color 0.3s ease;
-    padding: 0;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-}
-
-.close-modal:hover,
-.close-modal:focus {
-    color: var(--text-primary);
-    background: var(--btn-secondary-hover);
-}
-
-.add-modal-body {
-    padding: 20px;
-}
-
-.form-group {
-    margin-bottom: 20px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    color: var(--text-primary);
-    font-weight: 500;
-}
-
-.form-group input {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid var(--input-border);
-    border-radius: 6px;
-    background: var(--input-bg);
-    color: var(--input-text);
-    font-size: 14px;
-    transition: all 0.3s ease;
-    box-sizing: border-box;
-}
-
-.form-group input:focus {
-    outline: none;
-    border-color: var(--input-focus);
-    background: var(--input-bg);
-}
-
-.form-group input::placeholder {
-    color: var(--input-placeholder);
-}
-
-.form-actions {
-    display: flex;
-    gap: 10px;
-    justify-content: flex-end;
-    margin-top: 20px;
-}
-
-.add-btn, .cancel-btn {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    min-width: 80px;
-}
-
-.add-btn {
-    background: var(--btn-primary);
-    color: var(--text-primary);
-}
-
-.add-btn:hover,
-.add-btn:focus,
-.add-btn:active {
-    background: var(--btn-primary-hover);
-    transform: translateY(-1px);
-}
-
-.cancel-btn {
-    background: var(--btn-secondary);
-    color: var(--text-primary);
-    border: 1px solid var(--border-primary);
-}
-
-.cancel-btn:hover,
-.cancel-btn:focus,
-.cancel-btn:active {
-    background: var(--btn-secondary-hover);
-    transform: translateY(-1px);
-}
-
-/* Manage modal styling */
-.manage-modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: var(--modal-overlay);
-    backdrop-filter: blur(5px);
-    align-items: center;
-    justify-content: center;
-}
-
-.manage-modal.show {
-    display: flex;
-    animation: modalFadeIn 0.3s ease-out;
-}
-
-.manage-modal-content {
-    background: var(--modal-bg);
-    border: 2px solid var(--modal-border);
-    border-radius: 12px;
-    padding: 0;
-    width: 90%;
-    max-width: 600px;
-    max-height: 80vh;
-    overflow-y: auto;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-}
-
-.manage-modal-header {
-    background: var(--bg-secondary);
-    padding: 20px;
-    border-bottom: 1px solid var(--border-primary);
-    border-radius: 10px 10px 0 0;
-}
-
-.manage-modal-header h2 {
-    margin: 0;
-    color: var(--text-primary);
-    font-size: 1.5rem;
-    font-weight: 600;
-}
-
-.manage-modal-body {
-    padding: 20px;
-}
-
-.manage-modal-footer {
-    padding: 20px;
-    border-top: 1px solid var(--border-primary);
-    display: flex;
-    justify-content: flex-end;
-}
 
 .custom-apps-list {
     max-height: 400px;

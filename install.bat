@@ -12,22 +12,6 @@ if not exist "%FOLDER_NAME%" (
 
 cd %FOLDER_NAME%
 
-REM Check for dependencies
-set "missing="
-where git >nul 2>&1
-if %errorlevel% neq 0 set missing=%missing% Git
-where node >nul 2>&1
-if %errorlevel% neq 0 set missing=%missing% Node.js
-where npm >nul 2>&1
-if %errorlevel% neq 0 set missing=%missing% npm
-
-if defined missing (
-    echo Missing dependencies:%missing%
-    echo Please install the missing dependencies and try again.
-    pause
-    exit /b 1
-)
-
 REM Install dependencies if node_modules does not exist
 if not exist node_modules (
     echo Installing dependencies...

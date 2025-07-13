@@ -8,6 +8,7 @@
 		<link rel="stylesheet" href="css/index.css">
 		<link rel="stylesheet" href="css/transitions.css">
         <link rel="stylesheet" href="css/settings.css">
+        <link rel="stylesheet" href="css/modals.css">
 		        <script src="/chemical.js"></script>
 		<script src="/chemical.components.js"></script>
         <script src="/chemical.cloaking.js"></script>
@@ -193,11 +194,6 @@
                                 <option value="solar">Solar</option>
                             </select>
                         </div>
-                        <div class="setting-card">
-                            <div class="setting-title">Custom Theme</div>
-                            <div class="setting-description">Create and preview your own custom theme.</div>
-                            <button id="open-theme-creator" class="setting-button">Create Custom Theme</button>
-                        </div>
                     </div>
                 </div>
 
@@ -212,6 +208,21 @@
                             <div class="setting-title">Change Display Name</div>
                             <div class="setting-description">Change the name displayed in your greeting.</div>
                             <button class="setting-button" onclick="openChangeNameModal()">Change Display Name</button>
+                        </div>
+                        <div class="setting-card">
+                            <div class="setting-title">Export Settings</div>
+                            <div class="setting-description">Export all your settings as base64 and copy to clipboard.</div>
+                            <button class="setting-button" onclick="exportSettings()">Export Settings</button>
+                        </div>
+                        <div class="setting-card">
+                            <div class="setting-title">Import Settings</div>
+                            <div class="setting-description">Import settings from clipboard (base64 format).</div>
+                            <button class="setting-button" onclick="importSettings()">Import Settings</button>
+                        </div>
+                        <div class="setting-card">
+                            <div class="setting-title">Reset Instance</div>
+                            <div class="setting-description">Reset all settings to default.</div>
+                            <button class="setting-button reset-btn" onclick="resetInstance()">Reset Instance</button>
                         </div>
                     </div>
                 </div>
@@ -282,50 +293,74 @@
         </div>
             </div>
         </div>
-        <div id="keybind-modal" class="keybind-modal" style="display:none;">
+        <div id="keybind-modal" class="keybind-modal">
             <div id="keybind-particles-js"></div>
             <div class="keybind-content">
-                <div class="keybind-title">Select Panic Key</div>
-                <div class="keybind-description">Click the box and press a key. Press Escape to unbind.</div>
-                <br>
-                
-                <div id="keybind-display" class="keybind-box">No key bound</div>
-        
-                <div class="keybind-description" style="margin-top: 10px;">Custom Panic URL</div>
-                <input id="keybind-url" class="keybind-url" placeholder="https://www.google.com" />
-        
-                <div class="keybind-buttons">
-                    <button id="applykeybindbutton" onclick="applyKeybind()">Apply</button>
-                    <button id="resetkeybindbutton" onclick="resetKeybind()">Reset</button>
-                    <button onclick="closeKeybindModal()">Cancel</button>
+                <div class="add-modal-header">
+                    <h2>Select Panic Key</h2>
+                    <button class="close-modal" onclick="closeKeybindModal()">&times;</button>
+                </div>
+                <div class="add-modal-body">
+                    <div class="form-group">
+                        <label>Click the box and press a key. Press Escape to unbind.</label>
+                        <div id="keybind-display" class="keybind-box">No key bound</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="keybind-url">Custom Panic URL</label>
+                        <input id="keybind-url" class="keybind-url" placeholder="https://www.google.com" />
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button id="applykeybindbutton" onclick="applyKeybind()" class="add-btn">Apply</button>
+                        <button id="resetkeybindbutton" onclick="resetKeybind()" class="reset-btn">Reset</button>
+                        <button onclick="closeKeybindModal()" class="cancel-btn">Cancel</button>
+                    </div>
                 </div>
             </div>
         </div>   
         <div class="credentials-modal" id="credentials-modal">
             <div id="credentials-particles-js"></div>
             <div class="credentials-modal-content">
-              <h2>Change Credentials</h2>
-              <input type="text" id="new-username" placeholder="Username" />
-              <input type="password" id="new-password" placeholder="Password" />
-              <div class="credentials-buttons">
-                <button id="applycredentialsbutton" onclick="applyCredentials()">Apply</button>
-                <button id="resetcredentialsbutton" onclick="resetCredentials()">Reset</button>
-                <button onclick="closeCredentialsModal()">Close</button>
-              </div>
+                <div class="add-modal-header">
+                    <h2>Change Credentials</h2>
+                    <button class="close-modal" onclick="closeCredentialsModal()">&times;</button>
+                </div>
+                <div class="add-modal-body">
+                    <div class="form-group">
+                        <label for="new-username">Username</label>
+                        <input type="text" id="new-username" placeholder="Username" />
+                    </div>
+                    <div class="form-group">
+                        <label for="new-password">Password</label>
+                        <input type="password" id="new-password" placeholder="Password" />
+                    </div>
+                    <div class="form-actions">
+                        <button id="applycredentialsbutton" onclick="applyCredentials()" class="add-btn">Apply</button>
+                        <button id="resetcredentialsbutton" onclick="resetCredentials()" class="reset-btn">Reset</button>
+                        <button onclick="closeCredentialsModal()" class="cancel-btn">Cancel</button>
+                    </div>
+                </div>
             </div>
-          </div>
+        </div>
         <div class="change-name-modal" id="change-name-modal">
-            <div id="change-name-particles-js"></div>
             <div class="change-name-modal-content">
-              <h2>Change Display Name</h2>
-              <p>Enter your new display name (max 20 characters):</p>
-              <input type="text" id="change-name-input" placeholder="Enter your new name" maxlength="20" />
-              <div class="change-name-buttons">
-                <button id="applychangenamebutton" onclick="applyChangeName()">Apply</button>
-                <button onclick="closeChangeNameModal()">Cancel</button>
-              </div>
+                <div class="add-modal-header">
+                    <h2>Change Display Name</h2>
+                    <button class="close-modal" onclick="closeChangeNameModal()">&times;</button>
+                </div>
+                <div class="add-modal-body">
+                    <div class="form-group">
+                        <label for="change-name-input">Enter your new display name (max 20 characters):</label>
+                        <input type="text" id="change-name-input" placeholder="Enter your new name" maxlength="20" />
+                    </div>
+                    <div class="form-actions">
+                        <button id="applychangenamebutton" onclick="applyChangeName()" class="add-btn">Apply</button>
+                        <button onclick="closeChangeNameModal()" class="cancel-btn">Cancel</button>
+                    </div>
+                </div>
             </div>
-          </div>
+        </div>
         <div id="change-name-notification" class="change-name-notification">
             <span>Changes saved!</span>
         </div>
@@ -344,6 +379,22 @@
         <script src="js/particles.min.js"></script>
         <script src="js/particle-configs.js"></script>
         <script>
+            // Ensure all modals are hidden by default
+            document.addEventListener('DOMContentLoaded', function() {
+                const modals = document.querySelectorAll('.keybind-modal, .credentials-modal, .change-name-modal');
+                modals.forEach(modal => {
+                    modal.classList.remove('show');
+                });
+                
+                // Add click outside to close functionality
+                modals.forEach(modal => {
+                    modal.addEventListener('click', function(e) {
+                        if (e.target === modal) {
+                            modal.classList.remove('show');
+                        }
+                    });
+                });
+            });
             function initializeParticles() {
                 const config = getParticleConfig();
                 if (typeof particlesJS !== 'undefined' && config) {

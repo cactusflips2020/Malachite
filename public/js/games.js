@@ -166,8 +166,17 @@ window.addEventListener("load", function() {
 
 function openAddGameModal() {
     const modal = document.getElementById('add-game-modal');
+    const currentTheme = localStorage.getItem('siteTheme') || 'moss';
+    modal.className = 'add-modal theme-' + currentTheme;
+    
     modal.style.display = 'flex';
     modal.classList.add('show');
+    
+    setTimeout(() => {
+        if (typeof particlesJS !== 'undefined') {
+            particlesJS('add-game-particles-js', getParticleConfig());
+        }
+    }, 100);
 }
 
 function closeAddGameModal() {
@@ -181,6 +190,18 @@ function closeAddGameModal() {
     document.getElementById('game-name').value = '';
     document.getElementById('game-link').value = '';
     document.getElementById('game-image').value = '';
+    
+    // Clean up particles
+    if (typeof pJSDom !== 'undefined' && pJSDom.length > 0) {
+        for (let i = pJSDom.length - 1; i >= 0; i--) {
+            if (pJSDom[i].pJS && pJSDom[i].pJS.canvas && pJSDom[i].pJS.canvas.el && 
+                pJSDom[i].pJS.canvas.el.id === 'add-game-particles-js') {
+                pJSDom[i].pJS.fn.vendors.destroypJS();
+                pJSDom.splice(i, 1);
+                break;
+            }
+        }
+    }
 }
 
 function addCustomGame() {

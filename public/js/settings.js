@@ -153,7 +153,7 @@ function autoab() {
 
     updateButtonState();
     
-    showNotification('Changes saved');
+    showNotification('Changes saved!');
 }
 
 function updateButtonState() {
@@ -185,6 +185,12 @@ window.addEventListener('load', function() {
     }
     
     updateButtonState();
+    
+    // Ensure all modals are hidden on page load
+    const modals = document.querySelectorAll('.keybind-modal, .credentials-modal, .change-name-modal');
+    modals.forEach(modal => {
+        modal.classList.remove('show');
+    });
 });
 
 function signOut() {
@@ -259,7 +265,7 @@ function leaveconfirmation() {
 
     updateLeaveConfirmButton();
     
-    showNotification('Changes saved');
+    showNotification('Changes saved!');
 }
 
 function updateLeaveConfirmButton() {
@@ -340,32 +346,32 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             chemical.setTransport("libcurl");
         }
-        showNotification('Changes saved');
+        showNotification('Changes saved!');
     });
     
     document.getElementById("cloak-select")?.addEventListener("change", function() {
         const value = this.value;
         localStorage.setItem('tabCloak', value);
         applyCloak(value);
-        showNotification('Changes saved');
+        showNotification('Changes saved!');
     });
     
     document.getElementById("searchengine-select")?.addEventListener("change", function() {
         const value = this.value;
         applySearchEngine(value);
-        showNotification('Changes saved');
+        showNotification('Changes saved!');
     });
     
     document.getElementById("proxy-backend-select")?.addEventListener("change", function() {
         const value = this.value;
         applyProxyBackend(value);
-        showNotification('Changes saved');
+        showNotification('Changes saved!');
     });
     
     document.getElementById("theme-select")?.addEventListener("change", function() {
         const value = this.value;
         applyTheme(value);
-        showNotification('Changes saved');
+        showNotification('Changes saved!');
     });
     
     window.addEventListener('message', function(event) {
@@ -415,7 +421,6 @@ function openKeybindModal() {
     modal.className = 'keybind-modal theme-' + currentTheme;
     
     modal.classList.add("show");
-    modal.style.display = "flex";
     
     const keybindDisplay = document.getElementById("keybind-display");
     const keybindUrl = document.getElementById("keybind-url");
@@ -436,9 +441,9 @@ function closeKeybindModal() {
     const modal = document.getElementById("keybind-modal");
     if (modal) {
         modal.classList.remove("show");
-        modal.style.display = "none";
-        
         cleanupKeybindParticles();
+    } else {
+        console.error('Keybind modal not found for closing');
     }
 }
 
@@ -694,27 +699,28 @@ function cleanupKeybindParticles() {
 
 function closeCredentialsModal() {
     const modal = document.getElementById('credentials-modal');
-    modal.style.opacity = '0';
-    setTimeout(() => {
+    if (modal) {
         modal.classList.remove('show');
-        modal.style.opacity = '';
-        
-        if (typeof pJSDom !== 'undefined' && pJSDom.length > 0) {
-            for (let i = pJSDom.length - 1; i >= 0; i--) {
-                if (pJSDom[i].pJS && pJSDom[i].pJS.canvas && pJSDom[i].pJS.canvas.el && 
-                    pJSDom[i].pJS.canvas.el.id === 'credentials-particles-js') {
-                    pJSDom[i].pJS.fn.vendors.destroypJS();
-                    pJSDom.splice(i, 1);
-                    break;
-                }
+    } else {
+        console.error('Credentials modal not found for closing');
+    }
+    
+    // Clean up particles
+    if (typeof pJSDom !== 'undefined' && pJSDom.length > 0) {
+        for (let i = pJSDom.length - 1; i >= 0; i--) {
+            if (pJSDom[i].pJS && pJSDom[i].pJS.canvas && pJSDom[i].pJS.canvas.el && 
+                pJSDom[i].pJS.canvas.el.id === 'credentials-particles-js') {
+                pJSDom[i].pJS.fn.vendors.destroypJS();
+                pJSDom.splice(i, 1);
+                break;
             }
         }
-        
-        const container = document.getElementById('credentials-particles-js');
-        if (container) {
-            container.innerHTML = '';
-        }
-    }, 250);
+    }
+    
+    const container = document.getElementById('credentials-particles-js');
+    if (container) {
+        container.innerHTML = '';
+    }
 }
 
 function applyCredentials() {
@@ -785,36 +791,6 @@ function updateThemeModals() {
         n.style.color = 'var(--text-primary)';
         n.style.border = '1.5px solid var(--border-primary)';
     });
-    const keybindModal = document.getElementById('keybind-modal');
-    if (keybindModal) {
-        keybindModal.className = 'keybind-modal theme-' + theme;
-        const keybindContent = keybindModal.querySelector('.keybind-content');
-        if (keybindContent) keybindContent.className = 'keybind-content theme-' + theme;
-        const keybindBox = keybindModal.querySelector('.keybind-box');
-        if (keybindBox) keybindBox.className = 'keybind-box theme-' + theme;
-        const keybindInput = keybindModal.querySelector('.keybind-url');
-        if (keybindInput) keybindInput.className = 'keybind-url theme-' + theme;
-        const keybindButtons = keybindModal.querySelectorAll('.keybind-buttons button');
-        keybindButtons.forEach(btn => {
-            btn.className = 'theme-' + theme;
-        });
-    }
-    const credentialsModal = document.getElementById('credentials-modal');
-    if (credentialsModal) {
-        credentialsModal.className = 'credentials-modal theme-' + theme;
-        const credentialsContent = credentialsModal.querySelector('.credentials-modal-content');
-        if (credentialsContent) credentialsContent.className = 'credentials-modal-content theme-' + theme;
-        const credentialsInputs = credentialsModal.querySelectorAll('input');
-        credentialsInputs.forEach(input => {
-            input.className = 'theme-' + theme;
-        });
-        const credentialsButtons = credentialsModal.querySelectorAll('.credentials-buttons button');
-        credentialsButtons.forEach(btn => {
-            btn.className = 'theme-' + theme;
-        });
-        const resetBtn = credentialsModal.querySelector('#resetcredentialsbutton');
-        if (resetBtn) resetBtn.classList.add('reset-btn');
-    }
 }
 
 // Apply custom theme if selected on load
@@ -841,79 +817,14 @@ function openChangeNameModal() {
     modal.classList.add('show');
     input.focus();
     input.select();
-
-    setTimeout(() => {
-        const currentTheme = localStorage.getItem('siteTheme') || 'moss';
-        modal.style.background = 'var(--modal-overlay)';
-        const getComputedStyle = (property) => {
-            return getComputedStyle(document.documentElement).getPropertyValue(property).trim();
-        };
-        
-        modal.style.background = themeBackgrounds[currentTheme] || themeBackgrounds.moss;
-        modal.style.backgroundSize = '400% 400%';
-        modal.style.animation = 'gradient-move 45s ease-in-out infinite alternate';
-        
-        const content = modal.querySelector('.change-name-modal-content');
-        if (content) {
-            content.style.backgroundColor = 'var(--modal-bg)';
-            content.style.borderColor = 'var(--modal-border)';
-            content.style.color = 'var(--text-primary)';
-            
-            const h2 = content.querySelector('h2');
-            const p = content.querySelector('p');
-            if (h2) h2.style.color = 'var(--text-primary)';
-            if (p) p.style.color = 'var(--text-primary)';
-            
-            if (input) {
-                input.style.backgroundColor = 'var(--input-bg)';
-                input.style.borderColor = 'var(--input-border)';
-                input.style.color = 'var(--input-text)';
-            }
-            
-            const buttons = content.querySelectorAll('button');
-            if (buttons.length > 0) {
-                buttons[0].style.backgroundColor = 'var(--btn-primary)';
-                buttons[0].style.borderColor = 'var(--btn-primary)';
-                buttons[0].style.color = 'var(--btn-text)';
-                if (buttons[1]) {
-                    buttons[1].style.backgroundColor = 'transparent';
-                    buttons[1].style.borderColor = 'var(--btn-secondary)';
-                    buttons[1].style.color = 'var(--text-primary)';
-                }
-            }
-        }
-    }, 10);
-
-    setTimeout(() => {
-        const currentTheme = localStorage.getItem('siteTheme') || 'moss';
-        if (typeof particlesJS !== 'undefined' && pJSDom.length > 0) {
-            for (let i = pJSDom.length - 1; i >= 0; i--) {
-                if (pJSDom[i].pJS && pJSDom[i].pJS.canvas && pJSDom[i].pJS.canvas.el && 
-                    pJSDom[i].pJS.canvas.el.id === 'change-name-particles-js') {
-                    pJSDom[i].pJS.fn.vendors.destroypJS();
-                    pJSDom.splice(i, 1);
-                    break;
-                }
-            }
-        }
-        if (typeof particlesJS !== 'undefined') {
-            particlesJS('change-name-particles-js', getParticleConfig());
-        }
-    }, 50);
 }
 
 function closeChangeNameModal() {
     const modal = document.getElementById('change-name-modal');
-    if (modal) modal.classList.remove('show');
-    if (typeof pJSDom !== 'undefined' && pJSDom.length > 0) {
-        for (let i = pJSDom.length - 1; i >= 0; i--) {
-            if (pJSDom[i].pJS && pJSDom[i].pJS.canvas && pJSDom[i].pJS.canvas.el && 
-                pJSDom[i].pJS.canvas.el.id === 'change-name-particles-js') {
-                pJSDom[i].pJS.fn.vendors.destroypJS();
-                pJSDom.splice(i, 1);
-                break;
-            }
-        }
+    if (modal) {
+        modal.classList.remove('show');
+    } else {
+        console.error('Change name modal not found for closing');
     }
 }
 
@@ -926,7 +837,7 @@ function applyChangeName() {
         closeChangeNameModal();
         if (window.updateTimeDisplay) updateTimeDisplay();
         
-        showNotification('Changes saved');
+        showNotification('Changes saved!');
     } else {
         input.style.borderColor = 'var(--error-color, #ff4444)';
         setTimeout(() => {
@@ -970,3 +881,186 @@ function loadProxyBackendSetting() {
 }
 
 window.addEventListener('load', loadProxyBackendSetting);
+
+// Settings Export/Import Functions
+function exportSettings() {
+    try {
+        // Collect all settings from localStorage
+        const settings = {
+            // Theme settings
+            siteTheme: localStorage.getItem('siteTheme'),
+            
+            // Proxy settings
+            transportSelect: localStorage.getItem('transportSelect'),
+            proxyBackendSelect: localStorage.getItem('proxyBackendSelect'),
+            searchEngineSelect: localStorage.getItem('searchEngineSelect'),
+            searchEngineSelectUrl: localStorage.getItem('searchEngineSelectUrl'),
+            
+            // Cloaking settings
+            tabCloak: localStorage.getItem('tabCloak'),
+            autoab: localStorage.getItem('autoab'),
+            
+            // Security settings
+            redirectKey: localStorage.getItem('redirectKey'),
+            redirectUrl: localStorage.getItem('redirectUrl'),
+            leaveConfirmation: localStorage.getItem('leaveConfirmation'),
+            
+            // User settings
+            username: localStorage.getItem('username'),
+            password: localStorage.getItem('password'),
+            userName: localStorage.getItem('userName'),
+            
+            // Export timestamp
+            exportedAt: new Date().toISOString()
+        };
+        
+        // Convert to JSON and then to base64
+        const settingsJson = JSON.stringify(settings, null, 2);
+        const settingsBase64 = btoa(unescape(encodeURIComponent(settingsJson)));
+        
+        // Copy to clipboard
+        navigator.clipboard.writeText(settingsBase64).then(() => {
+            showNotification('Changes saved!');
+        }).catch(err => {
+            console.error('Failed to copy to clipboard:', err);
+            showNotification('Changes saved!');
+        });
+        
+    } catch (error) {
+        console.error('Error exporting settings:', error);
+        showNotification('Error exporting settings');
+    }
+}
+
+function importSettings() {
+    try {
+        // Get settings from clipboard
+        navigator.clipboard.readText().then(clipboardText => {
+            try {
+                // Decode base64
+                const settingsJson = decodeURIComponent(escape(atob(clipboardText)));
+                const settings = JSON.parse(settingsJson);
+                
+                // Validate that this looks like our settings format
+                if (!settings.exportedAt) {
+                    showNotification('Invalid settings format');
+                    return;
+                }
+                
+                // Apply settings to localStorage
+                let appliedCount = 0;
+                
+                if (settings.siteTheme) {
+                    localStorage.setItem('siteTheme', settings.siteTheme);
+                    appliedCount++;
+                }
+                
+                if (settings.transportSelect) {
+                    localStorage.setItem('transportSelect', settings.transportSelect);
+                    appliedCount++;
+                }
+                
+                if (settings.proxyBackendSelect) {
+                    localStorage.setItem('proxyBackendSelect', settings.proxyBackendSelect);
+                    appliedCount++;
+                }
+                
+                if (settings.searchEngineSelect) {
+                    localStorage.setItem('searchEngineSelect', settings.searchEngineSelect);
+                    appliedCount++;
+                }
+                
+                if (settings.searchEngineSelectUrl) {
+                    localStorage.setItem('searchEngineSelectUrl', settings.searchEngineSelectUrl);
+                    appliedCount++;
+                }
+                
+                if (settings.tabCloak) {
+                    localStorage.setItem('tabCloak', settings.tabCloak);
+                    appliedCount++;
+                }
+                
+                if (settings.autoab) {
+                    localStorage.setItem('autoab', settings.autoab);
+                    appliedCount++;
+                }
+                
+                if (settings.redirectKey) {
+                    localStorage.setItem('redirectKey', settings.redirectKey);
+                    appliedCount++;
+                }
+                
+                if (settings.redirectUrl) {
+                    localStorage.setItem('redirectUrl', settings.redirectUrl);
+                    appliedCount++;
+                }
+                
+                if (settings.leaveConfirmation) {
+                    localStorage.setItem('leaveConfirmation', settings.leaveConfirmation);
+                    appliedCount++;
+                }
+                
+                if (settings.username) {
+                    localStorage.setItem('username', settings.username);
+                    appliedCount++;
+                }
+                
+                if (settings.password) {
+                    localStorage.setItem('password', settings.password);
+                    appliedCount++;
+                }
+                
+                if (settings.userName) {
+                    localStorage.setItem('userName', settings.userName);
+                    appliedCount++;
+                }
+                
+                loadSavedValues();
+                loadThemeSetting();
+                loadCloakSetting();
+                loadSearchEngineSetting();
+                loadProxyBackendSetting();
+                updateButtonState();
+                updateLeaveConfirmButton();
+                
+                showNotification(`Settings imported successfully! (${appliedCount} settings applied)`);
+                
+            } catch (parseError) {
+                console.error('Error parsing settings:', parseError);
+                showNotification('Invalid settings format in clipboard');
+            }
+        }).catch(err => {
+            console.error('Failed to read clipboard:', err);
+            showNotification('Failed to read clipboard');
+        });
+        
+    } catch (error) {
+        console.error('Error importing settings:', error);
+        showNotification('Error importing settings');
+    }
+}
+
+function resetInstance() {
+    // List of all keys to remove (add more if needed)
+    const keysToRemove = [
+        'siteTheme',
+        'transportSelect',
+        'proxyBackendSelect',
+        'searchEngineSelect',
+        'searchEngineSelectUrl',
+        'tabCloak',
+        'autoab',
+        'redirectKey',
+        'redirectUrl',
+        'leaveConfirmation',
+        'username',
+        'password',
+        'userName',
+        // Add any other keys you want to reset
+    ];
+    keysToRemove.forEach(key => localStorage.removeItem(key));
+    showNotification('Changes saved!');
+    setTimeout(() => {
+        location.reload();
+    }, 600);
+}

@@ -36,12 +36,7 @@ body {
     pointer-events: none !important;
 }
 
-.keybind-content,
-.credentials-modal-content,
-.change-name-modal-content {
-    position: relative !important;
-    z-index: 2 !important;
-}
+
 
 body {
     position: relative;
@@ -60,17 +55,17 @@ html {
     overflow-y: auto;
 }
 
-/* New Settings Layout */
+
 .settings-layout {
     display: flex;
-    height: calc(100vh - 70px); /* Full height minus navbar */
-    margin-top: 70px; /* Account for navbar height */
+    height: calc(100vh - 70px); 
+    margin-top: 70px; 
     position: relative;
     z-index: 1;
     background-color: transparent;
 }
 
-/* Left Sidebar */
+
 .settings-sidebar {
     width: 280px;
     background: transparent;
@@ -121,7 +116,7 @@ html {
     flex: 1;
 }
 
-/* Sidebar Footer */
+
 .sidebar-footer {
     margin-top: auto;
     padding: 20px;
@@ -161,16 +156,16 @@ html {
     flex: 1;
 }
 
-/* Main Content Area */
+
 .settings-content {
     flex: 1;
-    margin-left: 280px; /* Account for sidebar width */
+    margin-left: 280px; 
     overflow-y: auto;
     padding: 20px;
     position: relative;
 }
 
-/* Tab Content */
+
 .tab-content {
     display: none;
     animation: fadeIn 0.07s ease;
@@ -187,9 +182,9 @@ html {
     align-content: flex-start;
     gap: 20px;
     padding: 20px;
-    min-height: calc(100vh - 130px); /* Account for navbar and padding */
+    min-height: calc(100vh - 130px); 
     box-sizing: border-box;
-    padding-bottom: 100px; /* Extra padding at bottom for scrolling */
+    padding-bottom: 100px; 
     width: 100%;
     position: relative;
 }
@@ -213,23 +208,23 @@ html {
 }
 
 .setting-card:hover {
-    transform: translateY(-5px); /* Slight lift effect */
+    transform: translateY(-5px); 
     box-shadow: 0 6px 16px var(--shadow-color);
 }
 
-/* Title and description styling for settings */
+
 .setting-title {
-    font-size: 18px; /* Increased font size */
+    font-size: 18px; 
     font-weight: bold;
-    margin-bottom: 8px; /* Reduced margin for fixed height */
+    margin-bottom: 8px; 
     color: var(--text-primary);
     flex-shrink: 0;
 }
 
 .setting-description {
-    font-size: 14px; /* Increased font size */
+    font-size: 14px; 
     opacity: 0.8;
-    margin-bottom: 8px; /* Reduced margin for fixed height */
+    margin-bottom: 8px; 
     color: var(--text-primary);
     flex: 1;
     display: flex;
@@ -239,18 +234,18 @@ html {
     margin-right: 0;
 }
 
-/* Basic dropdown styling */
+
 select {
     width: 100%;
-    padding: 10px; /* Increased padding */
+    padding: 10px; 
     border: none;
-    border-radius: 8px; /* Increased border radius */
-    font-size: 14px; /* Increased font size */
+    border-radius: 8px; 
+    font-size: 14px; 
     cursor: pointer;
     font-family: 'montserrat';
     background: var(--input-bg);
     color: var(--text-primary);
-    margin-bottom: 0; /* Removed margin for fixed height */
+    margin-bottom: 0; 
     transition: transform 0.2s ease, filter 0.3s ease;
     flex-shrink: 0;
 }
@@ -273,18 +268,18 @@ select option {
     font-family: 'montserrat';
 }
 
-/* Button styling */
+
 .setting-button {
     width: 100%;
-    padding: 10px; /* Increased padding */
+    padding: 10px; 
     border: none;
-    border-radius: 8px; /* Increased border radius */
-    font-size: 14px; /* Increased font size */
+    border-radius: 8px; 
+    font-size: 14px; 
     cursor: pointer;
     font-family: 'montserrat';
     background: var(--input-bg);
     color: var(--text-primary);
-    margin-bottom: 0; /* Removed margin for fixed height */
+    margin-bottom: 0; 
     flex-shrink: 0;
 }
 .setting-button:hover, select:hover {
@@ -292,7 +287,7 @@ select option {
     transform: scale(1.01);
 }
 
-/* Special styling for credits cards */
+
 #credits .setting-card {
     flex-direction: column;
     justify-content: flex-start;
@@ -313,7 +308,7 @@ select option {
     justify-content: center;
 }
 
-/* Style for the tool cards container in credits */
+
 #credits .setting-card > div:last-child {
     flex: 1;
     display: flex;
@@ -324,7 +319,7 @@ select option {
     padding: 5px;
 }
 
-/* Style for text elements in credits cards */
+
 #credits .setting-card .setting-title[style*="font-weight: normal"] {
     font-size: 13px !important;
     line-height: 1.3;
@@ -332,7 +327,7 @@ select option {
     flex: none;
 }
 
-/* Ensure dropdown options are properly styled */
+
 select option {
     background: var(--input-bg);
     color: var(--text-primary);
@@ -340,149 +335,16 @@ select option {
     font-family: 'montserrat';
 }
 
-/* Focus states for dropdowns */
+
 select:focus, .setting-button:focus {
     outline: none;
     border: 2px solid var(--text-primary);
     box-shadow: 0 0 10px rgba(178, 194, 168, 0.3);
 }
 
-/* Keybind Modal - Matched to Password Modal Style */
-.keybind-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    backdrop-filter: blur(10px);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-    background: rgba(30, 46, 30, 0.6);
-    opacity: 0;
-    transition: opacity 0.25s ease;
-}
 
-.keybind-modal::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.1);
-    z-index: -1;
-}
 
-.keybind-modal.show {
-    display: flex;
-    opacity: 1;
-}
 
-.keybind-content {
-    background-color: var(--bg-tertiary);
-    padding: 30px;
-    border-radius: 10px;
-    color: var(--text-primary);
-    width: 300px;
-    box-shadow: 0 0 20px var(--shadow-color);
-    border: 1px solid var(--input-bg);
-    animation: modalSlideIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1);
-    opacity: 0;
-    animation-fill-mode: forwards;
-    position: relative;
-    z-index: 10000;
-}
-
-.keybind-title {
-    font-size: 1.3em;
-    margin-bottom: 15px;
-    text-align: center;
-    color: var(--text-primary);
-    font-weight: bold;
-}
-
-/* Updated keybind-box for perfect centering */
-.keybind-box {
-    background-color: var(--input-bg);
-    padding: 12px;
-    border-radius: 6px;
-    margin: 15px 0;
-    cursor: pointer;
-    border: 1px solid var(--bg-primary);
-    display: flex;                  /* NEW: Enable flexbox */
-    justify-content: center;        /* NEW: Horizontal center */
-    align-items: center;            /* NEW: Vertical center */
-    min-height: 40px;              /* NEW: Consistent height */
-}
-
-/* NEW: Ensure text stays centered in all states */
-#keybind-display {
-    width: 100%;
-    text-align: center;
-    margin: 0;
-}
-
-.keybind-url {
-    width: 100%;
-    padding: 10px;
-    margin-top: 8px;
-    border: 1px solid var(--bg-primary);
-    border-radius: 5px;
-    background-color: var(--input-bg);
-    color: var(--text-primary);
-    font-family: inherit;
-    outline: none !important;
-}
-
-.keybind-url:focus {
-    outline: none !important;
-    border-color: var(--bg-primary);
-    box-shadow: none !important;
-}
-
-.keybind-buttons {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    margin-top: 15px;
-}
-
-.keybind-buttons button {
-    flex: 1;
-    padding: 8px;
-    background-color: var(--text-primary);
-    border: 1px solid var(--input-bg);
-    border-radius: 5px;
-    cursor: pointer;
-    color: var(--bg-primary);
-    transition: background-color 0.3s ease;
-    font-weight: 500;
-}
-
-.keybind-buttons button:hover {
-    background-color: var(--btn-primary-hover);
-    transform: translateY(-1px);
-}
-
-.keybind-buttons button:active {
-    opacity: 1 !important;
-    transform: none !important;
-    filter: none !important;
-}
-
-.keybind-buttons button:nth-child(2) {
-    background-color: #d20f39 !important;
-    transition: all 0.2s;
-}
-
-.keybind-buttons button:nth-child(2):hover {
-    background-color: #b91c3a !important;
-    transform: translateY(-1px);
-}
-
-/* Animations */
 @keyframes gradient-shift {
     0%, 100% { 
         background-position: 0% 50%;
@@ -506,251 +368,9 @@ select:focus, .setting-button:focus {
     to { opacity: 1; }
 }
 
-@keyframes modalSlideIn {
-    from {
-        transform: translateY(15px);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
 
-.credentials-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    backdrop-filter: blur(10px);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-    background: rgba(30, 46, 30, 0.6);
-    opacity: 0;
-    transition: opacity 0.25s ease;
-}
 
-.credentials-modal::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.1);
-    z-index: -1;
-}
 
-.credentials-modal.show {
-    display: flex;
-    opacity: 1;
-}
-
-.credentials-modal-content {
-    background-color: var(--bg-tertiary);
-    padding: 30px;
-    border-radius: 10px;
-    color: var(--text-primary);
-    width: 300px;
-    box-shadow: 0 0 20px var(--shadow-color);
-    border: 1px solid var(--input-bg);
-    animation: modalSlideIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1);
-    opacity: 0;
-    animation-fill-mode: forwards;
-    position: relative;
-    z-index: 10000;
-}
-
-.credentials-modal-content h2 {
-    font-size: 1.3em;
-    margin-bottom: 15px;
-    text-align: center;
-}
-
-.credentials-modal-content input {
-    width: 100%;
-    margin-bottom: 10px;
-    padding: 10px;
-    border: 1px solid var(--bg-primary);
-    border-radius: 5px;
-    background-color: var(--input-bg);
-    color: var(--text-primary);
-    font-family: inherit;
-}
-
-.credentials-buttons {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    margin-top: 15px;
-}
-
-.credentials-buttons button {
-    flex: 1;
-    padding: 8px;
-    border: 1px solid var(--input-bg);
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: all 0.2s;
-    background-color: var(--text-primary);
-    color: var(--bg-primary);
-}
-
-.credentials-buttons button:nth-child(2) {
-    background-color: #d20f39 !important;
-    transition: all 0.2s;
-}
-
-.credentials-buttons button:nth-child(2):hover {
-    background-color: #b91c3a !important;
-    transform: translateY(-1px);
-}
-
-.credentials-buttons button:hover {
-    opacity: 0.9;
-    transform: translateY(-1px);
-}
-
-.credentials-buttons button:active {
-    opacity: 1 !important;
-    transform: none !important;
-    filter: none !important;
-}
-
-.change-name-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    backdrop-filter: blur(10px);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-    background: rgba(30, 46, 30, 0.6);
-    opacity: 0;
-    transition: opacity 0.25s ease;
-}
-
-.change-name-modal::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.1);
-    z-index: -1;
-}
-
-.change-name-modal.show {
-    display: flex;
-    opacity: 1;
-}
-
-.change-name-modal-content {
-    background-color: var(--bg-tertiary);
-    padding: 30px;
-    border-radius: 10px;
-    color: var(--text-primary);
-    width: 300px;
-    box-shadow: 0 0 20px var(--shadow-color);
-    border: 1px solid var(--input-bg);
-    animation: modalSlideIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1);
-    opacity: 0;
-    animation-fill-mode: forwards;
-    position: relative;
-    z-index: 10000;
-}
-
-.change-name-modal-content h2 {
-    font-size: 1.3em;
-    margin: 0 auto 10px auto;
-    text-align: center;
-    color: var(--text-color, var(--text-primary));
-    font-weight: bold;
-    display: block;
-    width: 100%;
-}
-.change-name-modal-content p {
-    margin: 0 0 12px 0;
-    color: var(--text-color, var(--text-primary));
-    font-size: 13px;
-    opacity: 0.8;
-    text-align: center;
-}
-.change-name-modal-content input[type="text"] {
-    width: 100%;
-    margin-bottom: 8px;
-    padding: 8px 10px;
-    border: 1px solid var(--accent-color, var(--text-primary));
-    border-radius: 4px;
-    background-color: var(--bg-color, var(--input-bg));
-    color: var(--text-color, var(--text-primary));
-    font-family: inherit;
-    font-size: 14px;
-    box-sizing: border-box;
-}
-.change-name-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 10px;
-}
-.change-name-buttons button {
-    flex: 0 0 auto;
-    padding: 7px 18px;
-    border: 1px solid var(--accent-color, var(--text-primary));
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: 500;
-    font-size: 14px;
-    transition: all 0.2s;
-    background-color: var(--accent-color, var(--text-primary));
-    color: var(--bg-color, var(--bg-primary));
-}
-.change-name-buttons button:last-child {
-    background-color: transparent;
-    color: var(--text-color, var(--text-primary));
-}
-.change-name-buttons button:hover {
-    filter: brightness(1.1);
-}
-
-.change-name-notification {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: var(--accent-color, var(--text-primary));
-    color: var(--bg-color, var(--bg-primary));
-    padding: 12px 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    font-weight: 500;
-    font-size: 14px;
-    z-index: 3000;
-    opacity: 0;
-    transform: translateX(100%);
-    transition: all 0.3s ease;
-    pointer-events: none;
-}
-
-.change-name-notification.show {
-    opacity: 1;
-    transform: translateX(0);
-}
-
-.change-name-notification.hide {
-    opacity: 0;
-    transform: translateX(100%);
-}
-
-/* Tool Cards */
 .tool-card {
     display: flex;
     flex-direction: column;
@@ -800,7 +420,7 @@ select:focus, .setting-button:focus {
     line-height: 1.1;
 }
 
-/* Dark theme adjustments */
+
 [data-theme="dark"] .tool-card {
     background: rgba(0, 0, 0, 0.3);
     border-color: rgba(255, 255, 255, 0.1);

@@ -179,8 +179,17 @@ function updateNotificationThemes(theme) {
 
 function openAddAppModal() {
     const modal = document.getElementById('add-app-modal');
+    const currentTheme = localStorage.getItem('siteTheme') || 'moss';
+    modal.className = 'add-modal theme-' + currentTheme;
+    
     modal.style.display = 'flex';
     modal.classList.add('show');
+    
+    setTimeout(() => {
+        if (typeof particlesJS !== 'undefined') {
+            particlesJS('add-app-particles-js', getParticleConfig());
+        }
+    }, 100);
 }
 
 function closeAddAppModal() {
@@ -194,6 +203,18 @@ function closeAddAppModal() {
     document.getElementById('app-name').value = '';
     document.getElementById('app-link').value = '';
     document.getElementById('app-image').value = '';
+    
+    // Clean up particles
+    if (typeof pJSDom !== 'undefined' && pJSDom.length > 0) {
+        for (let i = pJSDom.length - 1; i >= 0; i--) {
+            if (pJSDom[i].pJS && pJSDom[i].pJS.canvas && pJSDom[i].pJS.canvas.el && 
+                pJSDom[i].pJS.canvas.el.id === 'add-app-particles-js') {
+                pJSDom[i].pJS.fn.vendors.destroypJS();
+                pJSDom.splice(i, 1);
+                break;
+            }
+        }
+    }
 }
 
 function addCustomApp() {
@@ -252,9 +273,18 @@ function deleteCustomApp(appToDelete) {
 
 function openManageAppsModal() {
     const modal = document.getElementById('manage-apps-modal');
+    const currentTheme = localStorage.getItem('siteTheme') || 'moss';
+    modal.className = 'manage-modal theme-' + currentTheme;
+    
     modal.style.display = 'flex';
     modal.classList.add('show');
     loadCustomAppsList();
+    
+    setTimeout(() => {
+        if (typeof particlesJS !== 'undefined') {
+            particlesJS('manage-apps-particles-js', getParticleConfig());
+        }
+    }, 100);
 }
 
 function closeManageAppsModal() {
@@ -265,6 +295,18 @@ function closeManageAppsModal() {
         modal.style.display = 'none';
         modal.style.animation = '';
     }, 300);
+    
+    // Clean up particles
+    if (typeof pJSDom !== 'undefined' && pJSDom.length > 0) {
+        for (let i = pJSDom.length - 1; i >= 0; i--) {
+            if (pJSDom[i].pJS && pJSDom[i].pJS.canvas && pJSDom[i].pJS.canvas.el && 
+                pJSDom[i].pJS.canvas.el.id === 'manage-apps-particles-js') {
+                pJSDom[i].pJS.fn.vendors.destroypJS();
+                pJSDom.splice(i, 1);
+                break;
+            }
+        }
+    }
 }
 
 function loadCustomAppsList() {

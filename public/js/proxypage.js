@@ -188,16 +188,73 @@ function renderCustomButtons() {
 window.renderCustomButtons = renderCustomButtons;
 
 function openAddButtonModal() {
-    document.getElementById('add-button-modal').style.display = 'flex';
+    const modal = document.getElementById('add-button-modal');
+    const currentTheme = localStorage.getItem('siteTheme') || 'moss';
+    modal.className = 'add-button-modal theme-' + currentTheme;
+    
+    modal.style.display = 'flex';
+    
+    setTimeout(() => {
+        if (typeof particlesJS !== 'undefined') {
+            particlesJS('add-button-particles-js', getParticleConfig());
+        }
+    }, 100);
 }
 function closeAddButtonModal() {
-    document.getElementById('add-button-modal').style.display = 'none';
+    const modal = document.getElementById('add-button-modal');
+    modal.style.display = 'none';
     document.getElementById('button-name').value = '';
     document.getElementById('button-link').value = '';
     document.getElementById('button-icon').value = '';
+    
+    // Clean up particles
+    if (typeof pJSDom !== 'undefined' && pJSDom.length > 0) {
+        for (let i = pJSDom.length - 1; i >= 0; i--) {
+            if (pJSDom[i].pJS && pJSDom[i].pJS.canvas && pJSDom[i].pJS.canvas.el && 
+                pJSDom[i].pJS.canvas.el.id === 'add-button-particles-js') {
+                pJSDom[i].pJS.fn.vendors.destroypJS();
+                pJSDom.splice(i, 1);
+                break;
+            }
+        }
+    }
 }
 window.openAddButtonModal = openAddButtonModal;
 window.closeAddButtonModal = closeAddButtonModal;
+
+function openManageButtonsModal() {
+    const modal = document.getElementById('manage-buttons-modal');
+    const currentTheme = localStorage.getItem('siteTheme') || 'moss';
+    modal.className = 'manage-buttons-modal theme-' + currentTheme;
+    
+    modal.style.display = 'flex';
+    
+    setTimeout(() => {
+        if (typeof particlesJS !== 'undefined') {
+            particlesJS('manage-buttons-particles-js', getParticleConfig());
+        }
+    }, 100);
+}
+
+function closeManageButtonsModal() {
+    const modal = document.getElementById('manage-buttons-modal');
+    modal.style.display = 'none';
+    
+    // Clean up particles
+    if (typeof pJSDom !== 'undefined' && pJSDom.length > 0) {
+        for (let i = pJSDom.length - 1; i >= 0; i--) {
+            if (pJSDom[i].pJS && pJSDom[i].pJS.canvas && pJSDom[i].pJS.canvas.el && 
+                pJSDom[i].pJS.canvas.el.id === 'manage-buttons-particles-js') {
+                pJSDom[i].pJS.fn.vendors.destroypJS();
+                pJSDom.splice(i, 1);
+                break;
+            }
+        }
+    }
+}
+
+window.openManageButtonsModal = openManageButtonsModal;
+window.closeManageButtonsModal = closeManageButtonsModal;
 
 function addCustomButton() {
     const name = document.getElementById('button-name').value.trim();

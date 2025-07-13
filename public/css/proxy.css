@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('themes.css');
 
-/* Particles container */
+
 #particles-js {
     position: fixed;
     top: 0;
@@ -14,13 +14,13 @@
     overflow: hidden;
 }
 
-/* Ensure main content stays above particles */
+
 body, #navbar, #proxyIframe, .loading-screen {
     position: relative;
     z-index: 1;
 }
 
-/* Fullscreen loading screen */
+
 .loading-screen {
     position: fixed;
     top: 0;
@@ -31,14 +31,14 @@ body, #navbar, #proxyIframe, .loading-screen {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: 2147483647; /* Maximum z-index value */
+    z-index: 2147483647; 
     visibility: visible;
     opacity: 1;
     transition: opacity 0.5s ease-in-out;
     background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 50%, var(--bg-tertiary) 100%);
 }
 
-/* Loading particles container */
+
 #loading-particles-js {
     position: absolute;
     top: 0;
@@ -51,7 +51,7 @@ body, #navbar, #proxyIframe, .loading-screen {
 
 
 
-/* Logo in loading screen */
+
 .loading-logo {
     width: 80px;
     height: 80px;
@@ -61,7 +61,7 @@ body, #navbar, #proxyIframe, .loading-screen {
     z-index: 10;
 }
 
-/* Logo pulse animation */
+
 @keyframes logoPulse {
     0%, 100% { 
         transform: scale(1);
@@ -73,7 +73,7 @@ body, #navbar, #proxyIframe, .loading-screen {
     }
 }
 
-/* Loading text styling */
+
 .loading-text {
     font-size: 24px;
     color: var(--text-primary);
@@ -86,10 +86,10 @@ body, #navbar, #proxyIframe, .loading-screen {
     z-index: 10;
 }
 
-/* Loading progress bar */
 
 
-/* Loading wheel (backup) */
+
+
 .loading-wheel {
     border: 4px solid var(--border-primary);
     border-top: 4px solid var(--text-primary);
@@ -102,27 +102,27 @@ body, #navbar, #proxyIframe, .loading-screen {
     z-index: 10;
 }
 
-/* Keyframes for the spinning animation */
+
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
 
-/* Ensure body and html take up the full height */
+
 html, body {
     margin: 0;
     padding: 0;
     height: 100%;
-    overflow: hidden;  /* Prevent scrolling */
+    overflow: hidden;  
     font-family: 'montserrat';
-    background-color: var(--bg-primary); /* Default moss theme */
+    background-color: var(--bg-primary); 
     color: var(--text-primary);
     position: relative;
 }
 
 
 
-/* Style for the navbar */
+
 #navbar {
     position: relative;
     top: 0;
@@ -130,51 +130,51 @@ html, body {
     width: 100%;
     background: var(--bg-secondary) !important;
     color: var(--text-primary);
-    padding: 10px 20px;  /* Add padding for spacing */
+    padding: 10px 20px;  
     z-index: 1100;
     display: flex;
-    justify-content: space-between;  /* Distribute space between left, center, and right */
-    align-items: center;      /* Vertically center all items */
-    box-sizing: border-box; /* Include padding in width calculation */
-    flex-wrap: wrap;  /* Allow wrapping on small screens */
+    justify-content: space-between;  
+    align-items: center;      
+    box-sizing: border-box; 
+    flex-wrap: wrap;  
     border-bottom: 1px solid var(--input-bg);
-    min-height: 60px; /* Minimum height, can grow if wrapped */
-    gap: 10px; /* Space between wrapped items */
+    min-height: 60px; 
+    gap: 10px; 
 }
 
-/* Logo and text container */
+
 #logo-container {
     display: flex;
-    align-items: center; /* Align logo and text vertically */
-    text-decoration: none; /* Remove link underline */
+    align-items: center; 
+    text-decoration: none; 
     color: var(--text-primary);
-    transition: filter 0.3s ease; /* Smooth brightness transition */
+    transition: filter 0.3s ease; 
 }
 
-/* Brightness effect on hover */
+
 #logo-text:hover {
     filter: brightness(1.1);
 }
 
 #logo:hover {
     filter: brightness(1.1);
-    transform: rotate(360deg); /* Apply the rotation effect */
+    transform: rotate(360deg); 
     transition: transform 0.5s ease;
 }
 
 #logo-container:active {
-    opacity: 0.8; /* Slightly darker when clicked */
+    opacity: 0.8; 
 }
 
-/* Style for logo */
+
 #logo {
-    width: 45px; /* Larger logo */
+    width: 45px; 
     height: auto;
-    margin-right: 10px; /* Increased margin */
-    flex-shrink: 0; /* Prevent logo from shrinking */
+    margin-right: 10px; 
+    flex-shrink: 0; 
 }
 
-/* SVG Logo specific styling for proxy */
+
 #logo.svg-logo {
     width: 35px !important;
     height: 35px !important;
@@ -182,7 +182,7 @@ html, body {
     border-radius: 0 !important;
 }
 
-/* Logo spin animation for proxy */
+
 #logo.svg-logo.logo-spin {
     transform: rotate(180deg);
     transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
@@ -193,46 +193,46 @@ html, body {
     transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Hover effect for the proxy logo */
+
 #logo.svg-logo:hover {
     transform: rotate(180deg);
     transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), filter 0.3s ease !important;
 }
 
-/* SVG Logo theming for proxy page - Simple color changes */
+
 .svg-logo {
     transition: all 0.3s ease;
 }
 
-/* Style for text next to logo */
+
 #logo-text {
-    font-size: 20px; /* Match index.html navbar text size */
+    font-size: 20px; 
     color: var(--text-primary);
-    transition: filter 0.3s ease; /* Smooth brightness transition */
-    white-space: nowrap; /* Prevent text wrapping */
-    flex-shrink: 0; /* Prevent text from shrinking */
-    font-weight: 500; /* Slightly bolder for better visibility */
+    transition: filter 0.3s ease; 
+    white-space: nowrap; 
+    flex-shrink: 0; 
+    font-weight: 500; 
 }
 
-/* Brightness effect on hover */
+
 #logo-container:hover #logo-text {
     filter: brightness(1.1);
 }
 
-/* Style for input inside the navbar */
+
 #proxySearch {
-    flex: 1;  /* Take up available space */
-    min-width: 200px; /* Minimum width */
-    max-width: 600px; /* Maximum width */
-    margin: 0 10px; /* Space between the input and the logo */
+    flex: 1;  
+    min-width: 200px; 
+    max-width: 600px; 
+    margin: 0 10px; 
     padding: 8px;
     font-size: 16px;
     border: 1px solid var(--input-bg);
-    box-sizing: border-box;  /* Include padding in width calculation */
+    box-sizing: border-box;  
     background-color: var(--bg-tertiary);
     color: var(--text-primary);
     outline: 2px solid var(--bg-primary);
-    border-radius: 5px; /* 50px border radius */
+    border-radius: 5px; 
     font-family: 'montserrat';
     transition: filter 0.3s;
 }
@@ -247,34 +247,34 @@ html, body {
     font-family: 'montserrat';
 }
 
-/* Style for the controls section */
+
 #controls {
     display: flex;
-    align-items: center; /* Vertically align buttons */
-    gap: 5px; /* Reduced gap for smaller screens */
-    flex-shrink: 0;  /* Prevent buttons from shrinking */
-    flex-wrap: wrap; /* Allow buttons to wrap */
+    align-items: center; 
+    gap: 5px; 
+    flex-shrink: 0;  
+    flex-wrap: wrap; 
 }
 
-/* Style for buttons inside the navbar */
+
 #controls button {
-    padding: 8px 16px; /* Increased padding for better touch targets */
-    font-size: 16px; /* Larger font size for better visibility */
+    padding: 8px 16px; 
+    font-size: 16px; 
     background-color: var(--input-bg);
     color: var(--text-primary);
     border: 1px solid var(--bg-primary);
     cursor: pointer;
-    flex-shrink: 0;  /* Prevent buttons from shrinking */
-    border-radius: 8px; /* Rounded corners for modern look */
-    transition: all 0.3s ease; /* Smooth transitions for all properties */
-    min-width: 44px; /* Increased minimum button width */
-    white-space: nowrap; /* Prevent text wrapping in buttons */
+    flex-shrink: 0;  
+    border-radius: 8px; 
+    transition: all 0.3s ease; 
+    min-width: 44px; 
+    white-space: nowrap; 
     position: relative;
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Enhanced hover effects */
+
 #controls button:hover {
     background: var(--navbar-btn-hover-bg);
     border-color: var(--navbar-btn-hover-border);
@@ -283,7 +283,7 @@ html, body {
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* Active state for buttons */
+
 #controls button.active {
     background-color: var(--text-primary);
     color: var(--bg-secondary);
@@ -291,7 +291,7 @@ html, body {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Remove hold/active effects but keep buttons visible */
+
 #controls button:active {
     transform: translateY(0px) !important;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
@@ -301,13 +301,13 @@ html, body {
     display: block !important;
 }
 
-/* Proxy iframe styling */
+
 #proxyIframe {
     position: fixed;
-    top: 60px; /* Position below navbar only */
+    top: 60px; 
     left: 0;
     width: 100%;
-    height: calc(100vh - 110px); /* Full height minus navbar (60px) + tab bar (50px) */
+    height: calc(100vh - 110px); 
     border: none;
     background: var(--bg-primary);
     z-index: 1;
@@ -318,7 +318,7 @@ html, body {
     opacity: 1;
 }
 
-/* Tab Bar Styles */
+
 #tab-bar {
     position: fixed;
     bottom: 0;
@@ -446,7 +446,7 @@ html, body {
     height: 6px;
 }
 
-/* Default moss theme scrollbar */
+
 #tabs-container::-webkit-scrollbar-track {
     background: var(--bg-secondary);
 }
@@ -460,7 +460,7 @@ html, body {
     background: var(--search-hover);
 }
 
-/* Slide-in animations */
+
 .slide-in-element {
     opacity: 0;
     transform: translateY(-30px);
@@ -472,7 +472,7 @@ html, body {
     transform: translateY(0);
 }
 
-/* Clock and greeting styles */
+
 #proxy-main-time {
     color: var(--text-primary);
     font-weight: bold;
@@ -492,7 +492,7 @@ html, body {
     margin-bottom: 30px;
 }
 
-/* Search input styles */
+
 #homepage-search {
     width: 100%;
     max-width: 600px;
@@ -518,7 +518,7 @@ html, body {
     font-family: 'montserrat';
 }
 
-/* Widget styles */
+
 .widget-container {
     color: var(--text-muted);
     font-size: 14px;
@@ -531,7 +531,7 @@ html, body {
     font-weight: 500;
 }
 
-/* Homepage Overlay - Match Main Homepage */
+
 .homepage-overlay {
     position: fixed;
     top: 60px;
@@ -548,7 +548,7 @@ html, body {
     box-sizing: border-box;
 }
 
-/* Logo and Title Section */
+
 .logo-above-title {
     text-align: center;
     margin-bottom: 30px;
@@ -574,7 +574,7 @@ html, body {
     margin-bottom: 20px;
 }
 
-/* Search Input */
+
 #homepage-search {
     width: 100%;
     max-width: 600px;
@@ -600,7 +600,7 @@ html, body {
     font-family: 'montserrat';
 }
 
-/* Widget Container */
+
 .widget-container {
     color: var(--text-muted);
     font-size: 14px;
@@ -613,7 +613,7 @@ html, body {
     font-weight: 500;
 }
 
-/* Slide-in animations */
+
 .slide-in-element {
     opacity: 0;
     transform: translateY(-30px);
@@ -660,7 +660,7 @@ html, body {
     justify-content: flex-end;
     margin-top: 25px;
 }
-/* Modal Animation */
+
 @keyframes modalSlideIn {
     from {
         opacity: 0;
@@ -672,7 +672,7 @@ html, body {
     }
 }
 
-/* Hide the specific Eruda entry button */
+
 .eruda-entry-tool {
     display: none !important;
 }

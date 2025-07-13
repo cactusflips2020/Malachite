@@ -1,0 +1,654 @@
+/* ===== MODAL SYSTEM ===== */
+/* Centralized modal styles for all modals across the application */
+
+/* Base Modal Overlay */
+.modal-overlay,
+.keybind-modal,
+.credentials-modal,
+.change-name-modal {
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(12px);
+    align-items: center;
+    justify-content: center;
+    display: none;
+}
+
+.modal-overlay.show,
+.keybind-modal.show,
+.credentials-modal.show,
+.change-name-modal.show {
+    display: flex;
+    animation: modalFadeIn 0.3s ease-out;
+}
+
+/* Base Modal Content */
+.modal-content {
+    background: var(--bg-card);
+    border: 1px solid var(--border-primary);
+    border-radius: 12px;
+    box-shadow: 
+        0 10px 40px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.05);
+    animation: modalSlideIn 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    opacity: 0;
+    animation-fill-mode: forwards;
+    position: relative;
+    z-index: 10000;
+    max-height: 85vh;
+    overflow-y: auto;
+}
+
+/* Modal Header */
+.modal-header {
+    background: var(--bg-card);
+    padding: 20px 24px 16px 24px;
+    border-bottom: 1px solid var(--border-primary);
+    border-radius: 12px 12px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h2 {
+    margin: 0;
+    color: var(--text-primary);
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+}
+
+/* Close Button */
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: var(--text-muted);
+    transition: color 0.2s ease;
+    padding: 6px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.modal-close:hover,
+.modal-close:focus {
+    color: var(--text-primary);
+    background: var(--bg-tertiary);
+}
+
+/* Modal Body */
+.modal-body {
+    padding: 24px;
+}
+
+/* Form Groups */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--text-primary);
+    font-weight: 500;
+    font-size: 13px;
+    letter-spacing: 0.01em;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid var(--border-primary);
+    border-radius: 8px;
+    background: var(--input-bg);
+    color: var(--text-primary);
+    font-size: 14px;
+    font-family: inherit;
+    transition: border-color 0.2s ease;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.form-group input:hover,
+.form-group textarea:hover,
+.form-group select:hover {
+    border-color: var(--border-accent);
+    background: var(--bg-tertiary);
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: var(--border-accent);
+    background: var(--bg-tertiary);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: var(--text-muted);
+    opacity: 0.7;
+}
+
+/* Modal Actions */
+.modal-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-primary);
+}
+
+.modal-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: inherit;
+    transition: background-color 0.2s ease;
+    min-width: 80px;
+}
+
+.modal-btn-primary {
+    background: var(--btn-primary);
+    color: var(--text-primary);
+}
+
+.modal-btn-primary:hover {
+    background: var(--btn-primary-hover);
+}
+
+.modal-btn-secondary {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-primary);
+}
+
+.modal-btn-secondary:hover {
+    background: var(--bg-tertiary);
+    border-color: var(--border-accent);
+}
+
+.modal-btn-danger {
+    background: #dc2626;
+    color: white;
+}
+
+.modal-btn-danger:hover {
+    background: #b91c1c;
+}
+
+/* Modal Sizes */
+.modal-small {
+    width: 90%;
+    max-width: 350px;
+}
+
+.modal-medium {
+    width: 90%;
+    max-width: 450px;
+}
+
+.modal-large {
+    width: 90%;
+    max-width: 600px;
+}
+
+.modal-full {
+    width: 95%;
+    max-width: 800px;
+}
+
+/* Special Modal Types */
+
+/* Settings Modals - Using base overlay styles */
+
+.keybind-content,
+.credentials-modal-content,
+.change-name-modal-content {
+    background: var(--bg-card);
+    border: 1px solid var(--border-primary);
+    border-radius: 12px;
+    padding: 0;
+    width: 90%;
+    max-width: 450px;
+    box-shadow: 
+        0 10px 40px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+/* Keybind Box Style */
+.keybind-box {
+    background: var(--input-bg);
+    padding: 16px;
+    border-radius: 8px;
+    margin: 10px 0;
+    cursor: pointer;
+    border: 1px solid var(--border-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 48px;
+    transition: border-color 0.2s ease;
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--text-primary);
+}
+
+.keybind-box:hover {
+    border-color: var(--border-accent);
+    background: var(--bg-tertiary);
+}
+
+.keybind-url {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid var(--border-primary);
+    border-radius: 8px;
+    background: var(--input-bg);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s ease;
+    box-sizing: border-box;
+}
+
+.keybind-url:hover {
+    outline: none;
+    border-color: var(--border-accent);
+    background: var(--bg-tertiary);
+}
+
+.keybind-url:focus {
+    outline: none;
+    border-color: var(--border-accent);
+    background: var(--bg-tertiary);
+}
+
+
+
+/* Apps/Games Modals */
+.add-modal,
+.manage-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(12px);
+    align-items: center;
+    justify-content: center;
+}
+
+.add-modal.show,
+.manage-modal.show {
+    display: flex;
+    animation: modalFadeIn 0.3s ease-out;
+}
+
+.add-modal-content,
+.manage-modal-content {
+    background: var(--bg-card);
+    border: 1px solid var(--border-primary);
+    border-radius: 12px;
+    padding: 0;
+    width: 90%;
+    max-width: 450px;
+    box-shadow: 
+        0 10px 40px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.manage-modal-content {
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+/* Modal Header for Apps/Games */
+.add-modal-header,
+.manage-modal-header {
+    background: var(--bg-card);
+    padding: 20px 24px 16px 24px;
+    border-bottom: 1px solid var(--border-primary);
+    border-radius: 12px 12px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.add-modal-header h2,
+.manage-modal-header h2 {
+    margin: 0;
+    color: var(--text-primary);
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+}
+
+/* Close Button for Apps/Games */
+.close-modal {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: var(--text-muted);
+    transition: all 0.3s ease;
+    padding: 6px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.close-modal:hover,
+.close-modal:focus {
+    color: var(--text-primary);
+    background: var(--bg-tertiary);
+    filter: brightness(1.1);
+}
+
+/* Modal Body for Apps/Games */
+.add-modal-body,
+.manage-modal-body {
+    padding: 24px;
+}
+
+.manage-modal-footer {
+    padding: 20px 24px;
+    border-top: 1px solid var(--border-primary);
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Form Actions for Apps/Games */
+.form-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+    margin-top: 24px;
+}
+
+.add-btn, .cancel-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: inherit;
+    transition: all 0.3s ease;
+    min-width: 80px;
+}
+
+.add-btn {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-primary);
+}
+
+.add-btn:hover,
+.add-btn:focus,
+.add-btn:active {
+    background: var(--bg-secondary);
+    border-color: var(--border-accent);
+    filter: brightness(1.05);
+}
+
+.cancel-btn {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-primary);
+}
+
+.cancel-btn:hover,
+.cancel-btn:focus,
+.cancel-btn:active {
+    background: var(--bg-tertiary);
+    border-color: var(--border-accent);
+    filter: brightness(1.1);
+}
+
+/* Reset button styling - red like logout button */
+.reset-btn {
+    background: #d20f39 !important;
+    color: white !important;
+    border: none !important;
+    padding: 10px 20px !important;
+    border-radius: 8px !important;
+    cursor: pointer !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    font-family: inherit !important;
+    transition: all 0.3s ease !important;
+    min-width: 80px !important;
+}
+
+.reset-btn:hover,
+.reset-btn:focus,
+.reset-btn:active {
+    background: #b91c3a !important;
+    filter: brightness(1.1);
+}
+
+/* Notification Modal */
+.change-name-notification {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    background: var(--btn-primary);
+    color: var(--text-primary);
+    padding: 16px 24px;
+    border-radius: 14px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    font-weight: 500;
+    font-size: 14px;
+    z-index: 3000;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border: 1px solid var(--border-primary);
+}
+
+.change-name-notification.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.change-name-notification.hide {
+    opacity: 0;
+    transform: translateX(100%);
+}
+
+/* Welcome Back Overlay */
+.welcome-back-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9998;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.welcome-back-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.welcome-back-content {
+    background: var(--bg-card);
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 
+        0 25px 80px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-primary);
+    animation: modalSlideIn 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    max-width: 400px;
+    width: 90%;
+}
+
+.welcome-back-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color: var(--text-accent);
+    animation: wave 2s ease-in-out infinite;
+}
+
+.welcome-back-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+    letter-spacing: -0.02em;
+}
+
+.welcome-back-message {
+    color: var(--text-secondary);
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* Animations */
+@keyframes modalSlideIn {
+    from {
+        transform: translateY(30px) scale(0.95);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes wave {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(20deg);
+    }
+    75% {
+        transform: rotate(-15deg);
+    }
+}
+
+/* Scrollbar for modal content */
+.modal-content::-webkit-scrollbar,
+.manage-modal-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-content::-webkit-scrollbar-track,
+.manage-modal-content::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+    border-radius: 4px;
+}
+
+.modal-content::-webkit-scrollbar-thumb,
+.manage-modal-content::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 4px;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover,
+.manage-modal-content::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .modal-content,
+    .keybind-content,
+    .credentials-modal-content,
+    .change-name-modal-content,
+    .welcome-back-content {
+        width: 95%;
+        margin: 20px;
+        padding: 24px;
+    }
+    
+    .modal-header {
+        padding: 20px 24px 16px 24px;
+    }
+    
+    .modal-body {
+        padding: 24px;
+    }
+    
+    .modal-actions {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .modal-btn {
+        width: 100%;
+        min-width: auto;
+    }
+    
+    .keybind-buttons,
+    .credentials-buttons,
+    .change-name-buttons {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .keybind-buttons button,
+    .credentials-buttons button,
+    .change-name-buttons button {
+        width: 100%;
+    }
+}
+
+/* Dark mode enhancements */
+@media (prefers-color-scheme: dark) {
+    .modal-content,
+    .keybind-content,
+    .credentials-modal-content,
+    .change-name-modal-content,
+    .welcome-back-content {
+        box-shadow: 
+            0 25px 80px rgba(0, 0, 0, 0.6),
+            0 0 0 1px rgba(255, 255, 255, 0.08);
+    }
+} 

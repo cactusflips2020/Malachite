@@ -8,69 +8,11 @@
     <link rel="stylesheet" href="/css/index.css">
     <link rel="stylesheet" href="/css/transitions.css">
     <link rel="stylesheet" href="/css/settings.css">
+    <link rel="stylesheet" href="/css/modals.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <script src="/js/particles.min.js"></script>
     <script src="/js/particle-configs.js"></script>
     <style>
-        /* ===== MODAL THEME STYLING ===== */
-        /* Modal styling using theme variables */
-        .keybind-modal,
-        .change-name-modal {
-            background: var(--bg-overlay) !important;
-        }
-        .keybind-content,
-        .change-name-modal-content {
-            background-color: var(--modal-bg) !important;
-            color: var(--text-primary) !important;
-            border: 1px solid var(--modal-border) !important;
-        }
-        .keybind-url,
-        .change-name-modal-content input {
-            background: var(--input-bg) !important;
-            color: var(--input-text) !important;
-            border: 1px solid var(--input-border) !important;
-        }
-        .keybind-url:focus,
-        .change-name-modal-content input:focus {
-            border: 2px solid var(--input-focus) !important;
-            box-shadow: 0 0 10px rgba(var(--input-focus), 0.3) !important;
-        }
-        .keybind-buttons button,
-        .change-name-buttons button {
-            background: var(--btn-primary) !important;
-            color: var(--text-primary) !important;
-            border: 1px solid var(--border-primary) !important;
-        }
-        .keybind-buttons button:hover,
-        .change-name-buttons button:hover {
-            background: var(--btn-primary-hover) !important;
-            transform: translateY(-1px) !important;
-        }
-        .keybind-box {
-            margin: 15px 0;
-            padding: 12px;
-        }
-        /* Ensure particle containers fill entire modal background */
-        #keybind-particles-js,
-        #change-name-particles-js {
-            position: absolute !important;
-            top: 0 !important;
-            left: 0 !important;
-            width: 100% !important;
-            height: 100% !important;
-            z-index: 1 !important;
-        }
-        /* Ensure modal content is above particles */
-        .keybind-content,
-        .change-name-modal-content {
-            position: relative !important;
-            z-index: 2 !important;
-        }
-        /* Fix reset button colors to match main settings */
-        .keybind-buttons button:nth-child(2) {
-            background-color: var(--btn-danger) !important;
-            transition: all 0.2s;
-        }
         /* Fix sidebar positioning to go to top of page */
         .settings-sidebar {
             top: 0 !important;
@@ -78,17 +20,6 @@
         }
         .settings-layout {
             margin-top: 0 !important;
-        }
-        .keybind-buttons button:nth-child(2):hover {
-            background-color: var(--btn-danger-hover) !important;
-            transform: translateY(-1px);
-        }
-        /* Reset button styling */
-        .keybind-buttons button:nth-child(2) {
-            background-color: var(--btn-danger) !important;
-        }
-        .keybind-buttons button:nth-child(2):hover {
-            background-color: var(--btn-danger-hover) !important;
         }
         /* Collapsible group styles */
         .collapsible-group {
@@ -299,22 +230,29 @@
     </div>
 
     <!-- Keybind Modal -->
-    <div id="keybind-modal" class="keybind-modal" style="display:none;">
+    <div id="keybind-modal" class="keybind-modal">
         <div id="keybind-particles-js"></div>
         <div class="keybind-content">
-            <div class="keybind-title">Select Panic Key</div>
-            <div class="keybind-description">Click the box and press a key. Press Escape to unbind.</div>
-            <br>
-            
-            <div id="keybind-display" class="keybind-box">No key bound</div>
-    
-            <div class="keybind-description" style="margin-top: 10px;">Custom Panic URL</div>
-            <input id="keybind-url" class="keybind-url" placeholder="https://www.google.com" />
-    
-            <div class="keybind-buttons">
-                <button id="applykeybindbutton" onclick="applyKeybind()">Apply</button>
-                <button id="resetkeybindbutton" onclick="resetKeybind()">Reset</button>
-                <button onclick="closeKeybindModal()">Cancel</button>
+            <div class="add-modal-header">
+                <h2>Select Panic Key</h2>
+                <button class="close-modal" onclick="closeKeybindModal()">&times;</button>
+            </div>
+            <div class="add-modal-body">
+                <div class="form-group">
+                    <label>Click the box and press a key. Press Escape to unbind.</label>
+                    <div id="keybind-display" class="keybind-box">No key bound</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="keybind-url">Custom Panic URL</label>
+                    <input id="keybind-url" class="keybind-url" placeholder="https://www.google.com" />
+                </div>
+                
+                <div class="form-actions">
+                    <button id="applykeybindbutton" onclick="applyKeybind()" class="add-btn">Apply</button>
+                    <button id="resetkeybindbutton" onclick="resetKeybind()" class="reset-btn">Reset</button>
+                    <button onclick="closeKeybindModal()" class="cancel-btn">Cancel</button>
+                </div>
             </div>
         </div>
     </div>   
@@ -323,15 +261,21 @@
 
     <!-- Change Name Modal -->
     <div class="change-name-modal" id="change-name-modal">
-        <div id="change-name-particles-js"></div>
         <div class="change-name-modal-content">
-          <h2>Change Display Name</h2>
-          <p>Enter your new display name (max 20 characters):</p>
-          <input type="text" id="change-name-input" placeholder="Enter your new name" maxlength="20" />
-          <div class="change-name-buttons">
-            <button id="applychangenamebutton" onclick="applyChangeName()">Apply</button>
-            <button onclick="closeChangeNameModal()">Cancel</button>
-          </div>
+            <div class="add-modal-header">
+                <h2>Change Display Name</h2>
+                <button class="close-modal" onclick="closeChangeNameModal()">&times;</button>
+            </div>
+            <div class="add-modal-body">
+                <div class="form-group">
+                    <label for="change-name-input">Enter your new display name (max 20 characters):</label>
+                    <input type="text" id="change-name-input" placeholder="Enter your new name" maxlength="20" />
+                </div>
+                <div class="form-actions">
+                    <button id="applychangenamebutton" onclick="applyChangeName()" class="add-btn">Apply</button>
+                    <button onclick="closeChangeNameModal()" class="cancel-btn">Cancel</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -362,6 +306,21 @@
               if (content) content.style.display = 'none';
             }
           });
+        });
+      });
+      
+      // Ensure all modals are hidden by default
+      const modals = document.querySelectorAll('.keybind-modal, .change-name-modal');
+      modals.forEach(modal => {
+        modal.classList.remove('show');
+      });
+      
+      // Add click outside to close functionality
+      modals.forEach(modal => {
+        modal.addEventListener('click', function(e) {
+          if (e.target === modal) {
+            modal.classList.remove('show');
+          }
         });
       });
     });
@@ -405,7 +364,6 @@
                 root.style.setProperty('--scrollbar-thumb-hover', '#4a5a4a');
             }
             
-            // Set the theme select dropdown value
             const themeSelect = document.getElementById('theme-select');
             if (themeSelect) {
                 themeSelect.value = theme;
@@ -416,7 +374,6 @@
 
 
 
-        // Load theme setting
         function loadThemeSetting() {
             const savedTheme = localStorage.getItem('siteTheme') || 'moss';
             const themeSelect = document.getElementById('theme-select');
@@ -427,9 +384,6 @@
             console.log('Theme dropdown set to:', savedTheme);
         }
 
-
-
-        // Tab cloaking functions
         function changeCloak() {
             const selectedCloakOption = document.getElementById('cloak-select').value;
             localStorage.setItem('tabCloak', selectedCloakOption);
@@ -441,7 +395,6 @@
         function applyCloak(option) {
             console.log('Applying cloak:', option);
             
-            // Try to apply cloak using chemical library
             if (typeof chemical !== 'undefined' && chemical.setStore) {
                 console.log('Chemical library found, applying cloak...');
                 if (option === 'Google') {
@@ -469,7 +422,6 @@
                 console.log('Cloak applied via chemical library');
             } else {
                 console.log('Chemical library not available, trying direct DOM manipulation...');
-                // Fallback: direct DOM manipulation
                 try {
                     if (option === 'Google') {
                         document.title = 'Google';
@@ -527,7 +479,6 @@
                 }
             }
             
-            // Send message to parent to apply cloak to proxy page
             if (window.parent && window.parent !== window) {
                 window.parent.postMessage({
                     type: 'apply-cloak',
@@ -553,7 +504,6 @@
             }
         }
 
-        // Theme change function
         window.changeTheme = function() {
             try {
                 const themeSelect = document.getElementById('theme-select');
@@ -565,12 +515,10 @@
                 const selectedTheme = themeSelect.value;
                 console.log(`Theme changed to: ${selectedTheme}`);
                 
-                // Apply the theme
                 document.body.classList.remove('theme-moss', 'theme-midnight', 'theme-rose', 'theme-noir');
                 document.body.classList.add('theme-' + selectedTheme);
                 localStorage.setItem('siteTheme', selectedTheme);
                 
-                // Apply theme-specific scrollbar colors
                 const root = document.documentElement;
                 if (selectedTheme === 'moss') {
                     root.style.setProperty('--scrollbar-track', '#1a1f1a');
@@ -590,12 +538,10 @@
                     root.style.setProperty('--scrollbar-thumb-hover', '#4a5a4a');
                 }
                 
-                // Update existing notifications to match new theme
                 if (typeof updateNotificationThemes === 'function') {
                     updateNotificationThemes(selectedTheme);
                 }
                 
-                // Send message to parent to update theme
                 if (window.parent && window.parent !== window) {
                     window.parent.postMessage({
                         type: 'theme-change',
@@ -615,9 +561,7 @@
             }
         }
 
-        // Load saved values function
         function loadSavedValues() {
-            // Load transport setting
             const savedTransport = localStorage.getItem('transportSelect');
             if (savedTransport) {
                 const transportSelect = document.getElementById('transport-select');
@@ -627,10 +571,8 @@
                 }
             }
             
-            // Load cloak setting
             loadCloakSetting();
             
-            // Load search engine setting
             const savedSearchEngine = localStorage.getItem('searchEngineSelect');
             if (savedSearchEngine) {
                 const searchEngineSelect = document.getElementById('searchengine-select');
@@ -639,8 +581,7 @@
                     applySearchEngine(savedSearchEngine);
                 }
             }
-            
-            // Load proxy backend setting
+
             const savedProxyBackend = localStorage.getItem('proxyBackendSelect');
             if (savedProxyBackend) {
                 const proxyBackendSelect = document.getElementById('proxy-backend-select');
@@ -650,7 +591,6 @@
                 }
             }
             
-            // Load theme setting
             const savedTheme = localStorage.getItem('siteTheme');
             if (savedTheme) {
                 const themeSelect = document.getElementById('theme-select');
@@ -659,7 +599,6 @@
                 }
             }
             
-            // Load leave confirmation setting
             const leaveConfirmation = localStorage.getItem('leaveConfirmation');
             if (leaveConfirmation === 'true') {
                 const leaveConfirmButton = document.getElementById('leaveconfirmbutton');
@@ -669,14 +608,12 @@
             }
         }
 
-        // Transport change function
         function changeTransport() {
             const selectedTransport = document.getElementById('transport-select').value;
             console.log(`Transport changed to: ${selectedTransport}`);
             localStorage.setItem('transportSelect', selectedTransport);
             applyTransport(selectedTransport);
             
-            // Send message to parent
             if (window.parent && window.parent !== window) {
                 window.parent.postMessage({
                     type: 'transport-change',
@@ -688,18 +625,15 @@
         }
 
         function applyTransport(transport) {
-            // Apply transport setting logic here
             console.log('Applying transport:', transport);
         }
 
-        // Proxy backend change function
         function changeProxyBackend() {
             const selectedBackend = document.getElementById('proxy-backend-select').value;
             console.log(`Proxy backend changed to: ${selectedBackend}`);
             localStorage.setItem('proxyBackendSelect', selectedBackend);
             applyProxyBackend(selectedBackend);
             
-            // Send message to parent
             if (window.parent && window.parent !== window) {
                 window.parent.postMessage({
                     type: 'proxy-backend-change',
@@ -711,18 +645,15 @@
         }
 
         function applyProxyBackend(backend) {
-            // Apply proxy backend setting logic here
             console.log('Applying proxy backend:', backend);
         }
 
-        // Search engine change function
         function changeSearchEngine() {
             const selectedEngine = document.getElementById('searchengine-select').value;
             console.log(`Search engine changed to: ${selectedEngine}`);
             localStorage.setItem('searchEngineSelect', selectedEngine);
             applySearchEngine(selectedEngine);
             
-            // Send message to parent
             if (window.parent && window.parent !== window) {
                 window.parent.postMessage({
                     type: 'search-engine-change',
@@ -733,12 +664,10 @@
             showNotification('Changes saved');
         }
 
-        function applySearchEngine(engine) {
-            // Apply search engine setting logic here
+        function applySearchEngine(engine) {    
             console.log('Applying search engine:', engine);
         }
 
-        // Leave confirmation function
         function leaveconfirmation() {
             const button = document.getElementById('leaveconfirmbutton');
             const currentState = localStorage.getItem('leaveConfirmation') === 'true';
@@ -746,7 +675,6 @@
             
             localStorage.setItem('leaveConfirmation', newState.toString());
             
-            // Update button appearance
             updateLeaveConfirmButton();
             
             showNotification('Changes saved');
@@ -839,16 +767,10 @@
                 if (typeof particlesJS !== 'undefined') {
                     // Check if containers exist before initializing
                     const keybindContainer = document.getElementById('keybind-particles-js');
-                    const changeNameContainer = document.getElementById('change-name-particles-js');
                     
                     // Initialize particles for keybind modal only if container exists
                     if (keybindContainer) {
                         particlesJS('keybind-particles-js', getParticleConfig());
-                    }
-
-                    // Initialize particles for change name modal only if container exists
-                    if (changeNameContainer) {
-                        particlesJS('change-name-particles-js', getParticleConfig());
                     }
                 }
             } catch (error) {
@@ -1015,18 +937,6 @@
             modal.classList.add('show');
             const currentName = localStorage.getItem('userName') || '';
             document.getElementById('change-name-input').value = currentName;
-            
-            // Initialize particles for change name modal with full background coverage
-            const currentTheme = getCurrentTheme();
-            setTimeout(() => {
-                // Use centralized config with theme CSS variables
-                if (typeof particlesJS !== 'undefined') {
-                    const changeNameContainer = document.getElementById('change-name-particles-js');
-                    if (changeNameContainer) {
-                        particlesJS('change-name-particles-js', getParticleConfig());
-                    }
-                }
-            }, 50);
         }
         
         function closeChangeNameModal() {
@@ -1034,18 +944,6 @@
             modal.classList.remove('show');
             modal.style.display = 'none';
             document.getElementById('change-name-input').value = '';
-            
-            // Clean up particles
-            if (typeof pJSDom !== 'undefined' && pJSDom.length > 0) {
-                for (let i = pJSDom.length - 1; i >= 0; i--) {
-                    if (pJSDom[i].pJS && pJSDom[i].pJS.canvas && pJSDom[i].pJS.canvas.el && 
-                        pJSDom[i].pJS.canvas.el.id === 'change-name-particles-js') {
-                        pJSDom[i].pJS.fn.vendors.destroypJS();
-                        pJSDom.splice(i, 1);
-                        break;
-                    }
-                }
-            }
         }
         
         function applyChangeName() {

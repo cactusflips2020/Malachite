@@ -1,13 +1,13 @@
 @import url('themes.css');
 
-/* Apply border-box globally */
+
 *,
 *::before,
 *::after {
     box-sizing: border-box;
 }
 
-/* Particles container */
+
 #particles-js {
     position: fixed;
     top: 0;
@@ -18,7 +18,7 @@
     pointer-events: none;
 }
 
-/* Ensure main content stays above particles */
+
 body, .navbar, .games-container, #search-input {
     position: relative;
     z-index: 1;
@@ -43,7 +43,7 @@ body, .navbar, .games-container, #search-input {
     border: 2px solid var(--input-bg);
 }
 
-/* Game card styling */
+
 .game-card {
     position: relative;
     flex: 0 1 125px;
@@ -127,7 +127,7 @@ body, .navbar, .games-container, #search-input {
     height: 0;
 }
 
-/* Search input styling */
+
 #search-input {
     background: var(--input-bg);
     color: var(--text-primary);
@@ -151,7 +151,7 @@ body, .navbar, .games-container, #search-input {
     color: var(--text-muted);
 }
 
-/* Scrollbar styling */
+
 .games-container::-webkit-scrollbar {
     width: 8px;
 }
@@ -169,7 +169,7 @@ body, .navbar, .games-container, #search-input {
     background-color: var(--scrollbar-track);
 }
 
-/* Body styling */
+
 body {
     margin: 0;
     padding: 0;
@@ -179,7 +179,7 @@ body {
     min-height: 100vh;
 }
 
-/* Theme select styling */
+
 .theme-select {
     background: var(--input-bg);
     color: var(--text-primary);
@@ -197,7 +197,7 @@ body {
     outline: none;
 }
 
-/* Add card styling */
+
 .add-card {
     position: relative;
     flex: 0 1 125px;
@@ -272,7 +272,7 @@ body {
     color: var(--text-primary);
 }
 
-/* Delete button styling */
+
 .delete-game-btn {
     position: absolute;
     top: 5px;
@@ -302,96 +302,9 @@ body {
     opacity: 1;
 }
 
-/* Modal styling */
-.add-modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: var(--modal-overlay);
-    backdrop-filter: blur(5px);
-    align-items: center;
-    justify-content: center;
-}
 
-.add-modal.show {
-    display: flex;
-    animation: modalFadeIn 0.3s ease-out;
-}
 
-.add-modal-content {
-    background: var(--modal-bg);
-    border: 2px solid var(--modal-border);
-    border-radius: 12px;
-    padding: 0;
-    width: 90%;
-    max-width: 400px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-}
 
-@keyframes modalFadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes modalFadeOut {
-    from {
-        opacity: 1;
-    }
-    to {
-        opacity: 0;
-    }
-}
-
-.add-modal-header {
-    background: var(--bg-secondary);
-    padding: 20px;
-    border-bottom: 1px solid var(--border-primary);
-    border-radius: 10px 10px 0 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.add-modal-header h2 {
-    margin: 0;
-    color: var(--text-primary);
-    font-size: 1.5rem;
-    font-weight: 600;
-}
-
-.close-modal {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: var(--text-muted);
-    transition: color 0.3s ease;
-    padding: 0;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-}
-
-.close-modal:hover,
-.close-modal:focus {
-    color: var(--text-primary);
-    background: var(--btn-secondary-hover);
-}
-
-.add-modal-body {
-    padding: 20px;
-}
 
 .form-group {
     margin-bottom: 20px;

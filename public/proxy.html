@@ -217,6 +217,7 @@ l367 -630 747 -3 746 -2 363 622 c199 343 366 630 372 638 6 11 -85 177 -361
     </div>
     
     <div id="add-button-modal" class="add-button-modal">
+        <div id="add-button-particles-js"></div>
         <div class="add-button-modal-content">
             <div class="add-button-modal-header">
                 <h2>Add Custom Button</h2>
@@ -244,6 +245,7 @@ l367 -630 747 -3 746 -2 363 622 c199 343 366 630 372 638 6 11 -85 177 -361
     </div>
     
     <div id="manage-buttons-modal" class="manage-buttons-modal">
+        <div id="manage-buttons-particles-js"></div>
         <div class="manage-buttons-modal-content">
             <div class="manage-buttons-modal-header">
                 <h2>Manage Custom Buttons</h2>
@@ -1212,18 +1214,11 @@ l367 -630 747 -3 746 -2 363 622 c199 343 366 630 372 638 6 11 -85 177 -361
 		<script src="js/proxypage.js"></script>
 		<script src="js/transitions.js" defer></script>
     <script>
-        console.log('Particles.js loaded:', typeof particlesJS !== 'undefined');
-        console.log('Particles container exists:', !!document.getElementById('particles-js'));
-    </script>	
-	<script>
+
 
 		function initializeParticles() {
 			const currentTheme = localStorage.getItem('siteTheme') || 'moss';
 			const config = particleConfigs[currentTheme];
-			
-			console.log('Initializing particles for theme:', currentTheme);
-			console.log('ParticlesJS available:', typeof particlesJS !== 'undefined');
-			console.log('Config available:', !!config);
 			
 			if (typeof pJSDom === 'undefined' || pJSDom === null) {
 				window.pJSDom = [];
@@ -1246,11 +1241,9 @@ l367 -630 747 -3 746 -2 363 622 c199 343 366 630 372 638 6 11 -85 177 -361
 		function createSimpleParticles() {
 			const container = document.getElementById('particles-js');
 			if (!container) {
-				console.log('Particles container not found');
 				return;
 			}
 			
-			console.log('Creating simple particles as fallback');
 			container.innerHTML = '';
 			
 			for (let i = 0; i < 20; i++) {
